@@ -1,0 +1,7 @@
+= Geolocalización de usuarios en medios sociales mediante análisis de contenidos
+:author: Sergio Álvarez Suárez
+:email: UO204823@uniovi.es
+:numbered:
+:toc:
+
+include::state-art.adoc[]
