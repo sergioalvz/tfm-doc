@@ -1,4 +1,4 @@
-== Estado del Arte
+=== Estado del Arte
 
 El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.
 
@@ -6,26 +6,25 @@ Como consecuencia de todo ello, durante los últimos años han ido apareciendo d
 
 El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que _tan sólo_ agrupa un pequeño número de estudios téoricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.
 
-=== Papers
+==== Papers
 
 A continuación, se detallan alguno de los papers más importantes y que han tenido una mayor transcendencia a la hora de desarrollar este proyecto.
 
-=== Aplicaciones web
+==== Aplicaciones web
 
 A continuación, se recopilan algunas aplicaciones con características similares a las del presente proyecto, y otras que, sin centrarse en el estudio de la geolocalización del contenido de manera específica, utilizan *Twitter* como fuente de información y realizan un estudio a gran escala sobre las publicaciones realizadas.
 
-==== Trendsmap
+===== Trendsmap
 *Trendsmap* (http://trendsmap.com/) es una aplicación web que muestra en tiempo real las tendencias en Twitter para cada localización a escala mundial. Según datos ofrecidos por la propia web en su página de _FAQ_, gestionan un volumen de tuits del orden de *80 millones al día*.
 
 Su objetivo principal consiste, por tanto, en localizar las tendencias específicas de cada localización, sin ofrecer ninguna información acerca de las posibilidades de que uno u otro tuit que contengan dicha tendencia puedan pertenecer a una locazalición en concreto.
 
 No se ha podido encontrar ninguna información acerca del tipo de algoritmo que utiliza Trendsmap para determinar la localización de un tuit (en pos de poder determinar la tendencia para un alto número de los mismos).
 
-==== What the Trend
+===== What the Trend
 *What the Trend* (http://whatthetrend.com/faq) se centra en ofrecer al usuario una explicación acerca de los propios _Trending Topics_ identificados por Twitter para cada localidad.
 
 En este caso, la aplicación no incluye ningún tipo de algoritmo para adivinar la localidad de un volumen de tuits, si no que únicamente recoge las tendencias previamente analizadas y localizadas por Twitter.
 
-==== Klout
+===== Klout
 *Klout* (http://klout.com/home) se describe como un servicio capaz de obtener la influencia de un usuario en la red a través de sus publicaciones y relaciones en redes sociales. Durante sus primeros años fue objetivo de varias inversiones millonarias que sacaron a la luz la gran importancia que tiene a nivel empresaria el análisis de los grandes volúmenes de información que se generan a diario en las redes sociales por parte de los propios usuarios.
-
