@@ -1,0 +1,3 @@
+=== Alcance
+
+Aquí el alcance del proyecto.

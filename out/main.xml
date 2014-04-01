@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<book xmlns="http://docbook.org/ns/docbook" lang="es">
+<bookinfo>
+<title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
+<date>2014-03-31</date>
+<author>
+<firstname>Sergio</firstname>
+<othername>Álvarez</othername>
+<surname>Suárez</surname>
+<email>UO204823@uniovi.es</email>
+</author>
+
+<authorinitials>SÁS</authorinitials>
+
+
+
+</bookinfo>
+<chapter id="_introducci_n">
+<title>Introducción</title>
+<section id="_motivaci_n_del_proyecto">
+<title>Motivación del proyecto</title>
+<simpara>Aquí la motivación del proyecto</simpara>
+</section>
+<section id="_alcance">
+<title>Alcance</title>
+<simpara>Aquí el alcance del proyecto.</simpara>
+</section>
+<section id="_estado_del_arte">
+<title>Estado del arte</title>
+<simpara>El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.</simpara>
+<simpara>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</simpara>
+<simpara>El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.</simpara>
+<simpara>Por ello, en este capítulo se recopilan algunos <emphasis>papers</emphasis> que han servido como punto de arranque para este proyecto, así como algunas aplicaciones que comparten características similares.</simpara>
+<section id="_papers">
+<title>Papers</title>
+<simpara>Estos son los <emphasis>papers</emphasis> más importantes y que han tenido una mayor transcendencia a la hora de desarrollar el proyecto.</simpara>
+<section id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">
+<title>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</title>
+<simpara><emphasis>Por Brent Hecht et al. Northwestern University y Palo Alto Research Center</emphasis></simpara>
+<simpara>El estudio liderado por Brent Hecht demuestra como aproximadamente el 66% de los usuarios no utiliza el campo de <emphasis>Localización</emphasis> en sus perfiles para informar acerca de su localización real. Por tanto, propone como estrategia el conteo de los términos que forman cada tuit con el objetivo de poder realizar cálculos estadísticos que permitan identificar aquellas palabras más indicativas para cada localización.</simpara>
+<simpara>Esta estrategia será parcialmente utilizada en la implementación del presente proyecto.</simpara>
+</section>
+<section id="_where_is_this_tweet_from_inferring_home_locations_of_twitter_users">
+<title>Where Is This Tweet From? Inferring Home Locations of Twitter Users</title>
+<simpara><emphasis>Por Jalal Mahmud et al. IBM Research</emphasis></simpara>
+<simpara>Con el objetivo de poder identificar un tuit a nivel de ciudad, este estudio plantea la posibilidad de analizar tres tipos de términos diferentes para localizar una publicación en Twitter:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Palabras</simpara>
+</listitem>
+<listitem>
+<simpara>Hashtags</simpara>
+</listitem>
+<listitem>
+<simpara>Nombres de lugares (utilizando un <emphasis>gazetteer</emphasis> <footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> geográfico)</simpara>
+</listitem>
+</orderedlist>
+
+<simpara>Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.</simpara>
+<simpara>También en este estudio se hace mención a la utilización de un <emphasis role="strong">software de aprendizaje automático</emphasis>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue <emphasis>Naïve Bayes Multimonial</emphasis>.</simpara>
+</section>
+<section id="_tweolocator_a_non_intrusive_geographical_locator_system_for_twitter">
+<title>TweoLocator: A Non-Intrusive Geographical Locator System for Twitter</title>
+<simpara><emphasis>Por Yi-Shin Chen et al. National Tsing Hua University</emphasis></simpara>
+<simpara>En este estudio, Yi-Shin Chen propone un sistema denominado <emphasis role="strong">TweoLocator</emphasis> que funciona como un <emphasis>framework</emphasis> que, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.</simpara>
+<simpara>Este paper ofrece el interesante concepto de n-gramas, que será utilizado en el presente proyecto como una de las estrategias para la detección de términos con posibilidad de ofrecer contenido geolocalizable.</simpara>
+</section>
+<section id="_a_multi_indicator_approach_for_geolocalization_of_tweets">
+<title>A Multi-Indicator Approach for Geolocalization of Tweets</title>
+<simpara><emphasis>Por Axel Schulz et al. SAP Research</emphasis></simpara>
+<simpara>Presenta un sistema muy interesante mediante la utilización de formas poligonales en 3D para decidir la localización de un tuit y usuario. Cada polígono tiene dos valores de calidad en base al indicador que los define. Los polígonos se superponen, y la intersección de mayor altura es el área con más probabilidades de contener el tuit analizado.</simpara>
+<simpara>Para obtener la información de cada tuit, utiliza varios sistemas como la <emphasis role="strong">DBPedia</emphasis> (<ulink url="http://dbpedia.org/">http://dbpedia.org/</ulink>) o <emphasis role="strong">Foursquare</emphasis> (<ulink url="https://es.foursquare.com/">https://es.foursquare.com/</ulink>) para reconocer entidades y topónimos. Su dependencia de sistemas externos impide que sea capaz de deducir una localización a través del contexto si esta no contiene ninguna referencia a una entidad localizable.</simpara>
+</section>
+<section id="_inferring_the_origin_locations_of_tweets_with_quantitative_confidence">
+<title>Inferring the Origin Locations of Tweets with Quantitative Confidence</title>
+<simpara><emphasis>Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University</emphasis></simpara>
+<simpara>Este nuevo estudio presenta otra estrategia para encontrar términos fuertemente localizados en base al uso de <emphasis>n-gramas</emphasis>. Para ello, los investigadores se centraron en extraer bigramas de los siguientes campos:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Campo de Localización</simpara>
+</listitem>
+<listitem>
+<simpara>Contenido del tuit</simpara>
+</listitem>
+<listitem>
+<simpara>Zona horaria</simpara>
+</listitem>
+<listitem>
+<simpara>Idioma seleccionado en el perfil del usuario</simpara>
+</listitem>
+</itemizedlist>
+
+<simpara>A su vez, desarrollaron un modelo estadístico propio, basado en un clasificador Gaussiano, el cual aplicaban sobre aquellos bigramas que superaban un número mínimo de apariciones.</simpara>
+</section>
+<section id="_home_location_identification_of_twitter_users">
+<title>Home Location Identification of Twitter Users</title>
+<simpara><emphasis>Por Jalal Mahmud et al. IBM Research</emphasis></simpara>
+</section>
+<section id="_otros_emphasis_papers_emphasis_de_inter_s">
+<title>Otros <emphasis>papers</emphasis> de interés</title>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users</emphasis> <emphasis>por Zhiyuan Cheng et al. Texas A&amp;M University</emphasis></simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Location Type Classification Using Tweet Content</emphasis> <emphasis>por Haibin Liu et al. The Pennsylvania State University</emphasis></simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">TweetLocalize: Inferring Author Location in Social Media</emphasis> <emphasis>por Evan Sparks et al. University of California-Berkeley</emphasis></simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Inferring the Location of Twitter Messages Based on User Relationships</emphasis> <emphasis>por Clodoveu A. Davis Jr. et al. Universidade Federal de Minas Gerais</emphasis></simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Geolocation Prediction in Social Media Data by Finding Location Indicative Words</emphasis> <emphasis>por HAN Bo et al. University of Melbourne</emphasis></simpara>
+</listitem>
+</itemizedlist>
+
+</section>
+</section>
+<section id="_aplicaciones_web">
+<title>Aplicaciones web</title>
+<simpara>A continuación, se recopilan algunas aplicaciones con características similares a las del presente proyecto, y otras que, sin centrarse en el estudio de la geolocalización del contenido de manera específica, utilizan <emphasis role="strong">Twitter</emphasis> como fuente de información y realizan un estudio a gran escala sobre las publicaciones realizadas.</simpara>
+<section id="_trendsmap">
+<title>Trendsmap</title>
+<simpara><emphasis role="strong">Trendsmap</emphasis> (<ulink url="http://trendsmap.com/">http://trendsmap.com/</ulink>) es una aplicación web que muestra en tiempo real las tendencias en Twitter para cada localización a escala mundial. Según datos ofrecidos por la propia web en su página de <emphasis>FAQ</emphasis>, gestionan un volumen de tuits del orden de <emphasis role="strong">80 millones al día</emphasis>.</simpara>
+<simpara>Su objetivo principal consiste, por tanto, en localizar las tendencias específicas de cada localización, sin ofrecer ninguna información acerca de las posibilidades de que uno u otro tuit que contengan dicha tendencia puedan pertenecer a una localización en concreto.</simpara>
+<simpara>No se ha podido encontrar ninguna información acerca del tipo de algoritmo que utiliza Trendsmap para determinar la localización de un tuit (en pos de poder determinar la tendencia para un alto número de los mismos).</simpara>
+</section>
+<section id="_what_the_trend">
+<title>What the Trend</title>
+<simpara><emphasis role="strong">What the Trend</emphasis> (<ulink url="http://whatthetrend.com/faq">http://whatthetrend.com/faq</ulink>) se centra en ofrecer al usuario una explicación acerca de los propios <emphasis>Trending Topics</emphasis> identificados por Twitter para cada localidad.</simpara>
+<simpara>En este caso, la aplicación no incluye ningún tipo de algoritmo para adivinar la localidad de un volumen de tuits, si no que únicamente recoge las tendencias previamente analizadas y localizadas por Twitter.</simpara>
+</section>
+<section id="_klout">
+<title>Klout</title>
+<simpara><emphasis role="strong">Klout</emphasis> (<ulink url="http://klout.com/home">http://klout.com/home</ulink>) se describe como un servicio capaz de obtener la influencia de un usuario en la red a través de sus publicaciones y relaciones en redes sociales. Durante sus primeros años fue objetivo de varias inversiones millonarias que sacaron a la luz la gran importancia que tiene a nivel empresaria el análisis de los grandes volúmenes de información que se generan a diario en las redes sociales por parte de los propios usuarios.</simpara>
+</section>
+</section>
+</section>
+<section id="_aspectos_te_ricos">
+<title>Aspectos teóricos</title>
+<simpara>Aquí los aspectos teóricos.</simpara>
+</section>
+</chapter>
+<chapter id="_planificaci_n_y_gesti_n_del_proyecto">
+<title>Planificación y gestión del proyecto</title>
+
+</chapter>
+<chapter id="_an_lisis_del_sistema">
+<title>Análisis del sistema</title>
+
+</chapter>
+</book>

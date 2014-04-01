@@ -4,5 +4,10 @@
 :toc:
 :toc-title: Tabla de Contenidos
 :lang: es
+:numbered:
 
 include::01introduction/index.adoc[]
+
+include::02project_management/index.adoc[]
+
+include::03analysis/index.adoc[]

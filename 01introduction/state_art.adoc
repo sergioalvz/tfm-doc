@@ -1,0 +1,90 @@
+=== Estado del arte
+
+El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.
+
+Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.
+
+El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que _tan sólo_ agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.
+
+Por ello, en este capítulo se recopilan algunos _papers_ que han servido como punto de arranque para este proyecto, así como algunas aplicaciones que comparten características similares.
+
+==== Papers
+
+Estos son los _papers_ más importantes y que han tenido una mayor transcendencia a la hora de desarrollar el proyecto.
+
+===== Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles
+_Por Brent Hecht et al. Northwestern University y Palo Alto Research Center_
+
+El estudio liderado por Brent Hecht demuestra como aproximadamente el 66% de los usuarios no utiliza el campo de _Localización_ en sus perfiles para informar acerca de su localización real. Por tanto, propone como estrategia el conteo de los términos que forman cada tuit con el objetivo de poder realizar cálculos estadísticos que permitan identificar aquellas palabras más indicativas para cada localización.
+
+Esta estrategia será parcialmente utilizada en la implementación del presente proyecto.
+
+===== Where Is This Tweet From? Inferring Home Locations of Twitter Users
+_Por Jalal Mahmud et al. IBM Research_
+
+Con el objetivo de poder identificar un tuit a nivel de ciudad, este estudio plantea la posibilidad de analizar tres tipos de términos diferentes para localizar una publicación en Twitter:
+
+. Palabras
+. Hashtags
+. Nombres de lugares (utilizando un _gazetteer_ footnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] geográfico)
+
+Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.
+
+También en este estudio se hace mención a la utilización de un *software de aprendizaje automático*, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue _Naïve Bayes Multimonial_.
+
+===== TweoLocator: A Non-Intrusive Geographical Locator System for Twitter
+_Por Yi-Shin Chen et al. National Tsing Hua University_
+
+En este estudio, Yi-Shin Chen propone un sistema denominado *TweoLocator* que funciona como un _framework_ que, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.
+
+Este paper ofrece el interesante concepto de n-gramas, que será utilizado en el presente proyecto como una de las estrategias para la detección de términos con posibilidad de ofrecer contenido geolocalizable.
+
+===== A Multi-Indicator Approach for Geolocalization of Tweets
+_Por Axel Schulz et al. SAP Research_
+
+Presenta un sistema muy interesante mediante la utilización de formas poligonales en 3D para decidir la localización de un tuit y usuario. Cada polígono tiene dos valores de calidad en base al indicador que los define. Los polígonos se superponen, y la intersección de mayor altura es el área con más probabilidades de contener el tuit analizado.
+
+Para obtener la información de cada tuit, utiliza varios sistemas como la *DBPedia* (http://dbpedia.org/) o *Foursquare* (https://es.foursquare.com/) para reconocer entidades y topónimos. Su dependencia de sistemas externos impide que sea capaz de deducir una localización a través del contexto si esta no contiene ninguna referencia a una entidad localizable.
+
+===== Inferring the Origin Locations of Tweets with Quantitative Confidence
+_Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University_
+
+Este nuevo estudio presenta otra estrategia para encontrar términos fuertemente localizados en base al uso de _n-gramas_. Para ello, los investigadores se centraron en extraer bigramas de los siguientes campos:
+
+* Campo de Localización
+* Contenido del tuit
+* Zona horaria
+* Idioma seleccionado en el perfil del usuario
+
+A su vez, desarrollaron un modelo estadístico propio, basado en un clasificador Gaussiano, el cual aplicaban sobre aquellos bigramas que superaban un número mínimo de apariciones.
+
+
+===== Home Location Identification of Twitter Users
+_Por Jalal Mahmud et al. IBM Research_
+
+===== Otros _papers_ de interés
+
+* *You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users* _por Zhiyuan Cheng et al. Texas A&M University_
+* *Location Type Classification Using Tweet Content* _por Haibin Liu et al. The Pennsylvania State University_
+* *TweetLocalize: Inferring Author Location in Social Media* _por Evan Sparks et al. University of California-Berkeley_
+* *Inferring the Location of Twitter Messages Based on User Relationships* _por Clodoveu A. Davis Jr. et al. Universidade Federal de Minas Gerais_
+* *Geolocation Prediction in Social Media Data by Finding Location Indicative Words* _por HAN Bo et al. University of Melbourne_
+
+==== Aplicaciones web
+
+A continuación, se recopilan algunas aplicaciones con características similares a las del presente proyecto, y otras que, sin centrarse en el estudio de la geolocalización del contenido de manera específica, utilizan *Twitter* como fuente de información y realizan un estudio a gran escala sobre las publicaciones realizadas.
+
+===== Trendsmap
+*Trendsmap* (http://trendsmap.com/) es una aplicación web que muestra en tiempo real las tendencias en Twitter para cada localización a escala mundial. Según datos ofrecidos por la propia web en su página de _FAQ_, gestionan un volumen de tuits del orden de *80 millones al día*.
+
+Su objetivo principal consiste, por tanto, en localizar las tendencias específicas de cada localización, sin ofrecer ninguna información acerca de las posibilidades de que uno u otro tuit que contengan dicha tendencia puedan pertenecer a una localización en concreto.
+
+No se ha podido encontrar ninguna información acerca del tipo de algoritmo que utiliza Trendsmap para determinar la localización de un tuit (en pos de poder determinar la tendencia para un alto número de los mismos).
+
+===== What the Trend
+*What the Trend* (http://whatthetrend.com/faq) se centra en ofrecer al usuario una explicación acerca de los propios _Trending Topics_ identificados por Twitter para cada localidad.
+
+En este caso, la aplicación no incluye ningún tipo de algoritmo para adivinar la localidad de un volumen de tuits, si no que únicamente recoge las tendencias previamente analizadas y localizadas por Twitter.
+
+===== Klout
+*Klout* (http://klout.com/home) se describe como un servicio capaz de obtener la influencia de un usuario en la red a través de sus publicaciones y relaciones en redes sociales. Durante sus primeros años fue objetivo de varias inversiones millonarias que sacaron a la luz la gran importancia que tiene a nivel empresaria el análisis de los grandes volúmenes de información que se generan a diario en las redes sociales por parte de los propios usuarios.
