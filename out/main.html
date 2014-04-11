@@ -379,6 +379,14 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </li>
 <li><a href="#_planificaci_n_y_gesti_n_del_proyecto">2. Planificación y gestión del proyecto</a></li>
 <li><a href="#_an_lisis_del_sistema">3. Análisis del sistema</a></li>
+<li><a href="#_desarrollo_e_implementaci_n_del_sistema">4. Desarrollo e implementación del sistema</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_obtenci_n_de_datos">4.1. Obtención de datos</a></li>
+<li><a href="#_an_lisis_de_datos">4.2. Análisis de datos</a></li>
+<li><a href="#_entrenamiento_del_modelo_de_an_lisis_de_datos">4.3. Entrenamiento del modelo de análisis de datos</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -463,7 +471,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><em>Por Yi-Shin Chen et al. National Tsing Hua University</em></p>
 </div>
 <div class="paragraph">
-<p>En este estudio, Yi-Shin Chen propone un sistema denominado <strong>TweoLocator</strong> que funciona como un <em>framework</em> que, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.</p>
+<p>En este estudio, Yi-Shin Chen propone un sistema denominado <strong>TweoLocator</strong> que funciona como un <em>framework</em> el cual, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.</p>
 </div>
 <div class="paragraph">
 <p>Este paper ofrece el interesante concepto de n-gramas, que será utilizado en el presente proyecto como una de las estrategias para la detección de términos con posibilidad de ofrecer contenido geolocalizable.</p>
@@ -592,6 +600,216 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 
 </div>
 </div>
+<div class="sect1">
+<h2 id="_desarrollo_e_implementaci_n_del_sistema">4. Desarrollo e implementación del sistema</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_obtenci_n_de_datos">4.1. Obtención de datos</h3>
+<div class="paragraph">
+<p>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</p>
+</div>
+<div class="paragraph">
+<p>Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener. En base a estos requisitos, se utilizó la <strong>API Streaming de Twitter</strong> (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>), la cual aporta dos características principales:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Capacidad de obtener datos en tiempo real de Twitter de manera ininterrumpida</p>
+</li>
+<li>
+<p>Capacidad de establecer filtros sobre el flujo de entrada:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Filtro por idioma del tuit</p>
+</li>
+<li>
+<p>Filtro por localización del tuit (mediante el uso de <em>bounding boxes</em>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca <strong>Twitter4j</strong> (<a href="http://twitter4j.org/en/index.html">http://twitter4j.org/en/index.html</a>), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Autenticación OAuth2 simplificada mediante clases propias de la biblioteca</p>
+</li>
+<li>
+<p>La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/05development/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
+</div>
+<div class="title">Figure 1. Modelo de comunicación entre un cliente y la API Streaming de Twitter (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>)</div>
+</div>
+<div class="sect3">
+<h4 id="_almacenamiento_de_datos">4.1.1. Almacenamiento de datos</h4>
+<div class="paragraph">
+<p>Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.</p>
+</div>
+<div class="paragraph">
+<p>En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones <code>grep</code>. Esta decisión fue cancelada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - <a href="http://opencsv.sourceforge.net/">http://opencsv.sourceforge.net/</a> ) combinados con caracteres extraños como Emoji (<a href="http://www.unicode.org/faq/emoji_dingbats.html">http://www.unicode.org/faq/emoji_dingbats.html</a>).</p>
+</div>
+<div class="paragraph">
+<p>Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de marcado que mejor podría serializar y estructurar los datos obtenidos a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML mediante la utilización de literales:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="scala language-scala">class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String,
+            longitude: String, text: String) {
+  def toXML =
+    &lt;tweet&gt;
+      &lt;id&gt;
+        {id}
+      &lt;/id&gt;
+      &lt;username&gt;
+        {username}
+      &lt;/username&gt;
+      &lt;name&gt;
+        {name}
+      &lt;/name&gt;
+      &lt;location&gt;
+        {location}
+      &lt;/location&gt;
+      &lt;timezone&gt;
+        {timezone}
+      &lt;/timezone&gt;
+      &lt;createdAt&gt;
+        {createdAt}
+      &lt;/createdAt&gt;
+      &lt;latitude&gt;
+        {latitude}
+      &lt;/latitude&gt;
+      &lt;longitude&gt;
+        {longitude}
+      &lt;/longitude&gt;
+      &lt;text&gt;
+        {text}
+      &lt;/text&gt;
+    &lt;/tweet&gt;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_par_metros_del_sistema">4.1.2. Parámetros del sistema</h4>
+<div class="paragraph">
+<p>Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero <code>properties</code> que se ha utilizado para indicar al sistema algunos parámetros:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>time_in</code> y <code>time_to_collect</code>: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.</p>
+</li>
+<li>
+<p><code>file_name</code>: nombre del fichero de salida.</p>
+</li>
+<li>
+<p><code>coordiantes_mandatory</code>: <code>boolean</code> que indica si los tuits recolectados deben contener o no información geográfica adjunta.</p>
+</li>
+<li>
+<p><code>filter_language</code>: idioma en el que se desean obtener los tuits.</p>
+</li>
+<li>
+<p><code>stop_words_file</code>: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de <em>stop words</em> del idioma por el que se esté filtrando.</p>
+</li>
+<li>
+<p><code>filter_bounding_boxes_file</code>: fichero <code>XML</code> que contiene los <em>bounding boxes</em> sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>El siguiente fragmento de código muestra un fichero donde se aplican a la vez todas las propiedades. En un caso real, sólo se aplicarían aquellas que tuvieran sentido para el resultado que se quisiera obtener. Por tanto, no tendría sentido que estuvieran habilitadas a la vez las propiedades <code>filter_language</code> y <code>filter_bounding_boxes_file</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Valid values for time_in property:
+#
+# DAYS
+# HOURS
+# MICROSECONDS
+# MILLISECONDS
+# MINUTES
+# NANOSECONDS
+# SECONDS
+time_in=DAYS
+time_to_collect=1
+
+# File to save the results
+file_name=ES-Spain.xml
+
+coordinates_mandatory=true
+filter_language=es
+stop_words_file=spanish-stop-words.txt
+filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo_de_resultados">4.1.3. Ejemplo de resultados</h4>
+<div class="paragraph">
+<p>Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="xml language-xml">&lt;tweets&gt;
+  &lt;tweet&gt;
+    &lt;username&gt;
+      gaabriforner
+    &lt;/username&gt;
+    &lt;location&gt;
+      Málaga
+    &lt;/location&gt;
+    &lt;timezone&gt;
+      Athens
+    &lt;/timezone&gt;
+    &lt;createdAt&gt;
+      2014-03-04 21:53
+    &lt;/createdAt&gt;
+    &lt;latitude&gt;
+      -4.437747
+    &lt;/latitude&gt;
+    &lt;longitude&gt;
+      36.7055494
+    &lt;/longitude&gt;
+    &lt;text&gt;
+      y ante todo a echarle fuerza d voluntad y ganas para conseguir lo que quiero!!
+    &lt;/text&gt;
+  &lt;/tweet&gt;
+&lt;/tweets&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_an_lisis_de_datos">4.2. Análisis de datos</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">4.3. Entrenamiento del modelo de análisis de datos</h3>
+
+</div>
+</div>
+</div>
 </div>
 <div id="footnotes">
 <hr>
@@ -601,7 +819,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-03-31 23:57:41 CEST
+Last updated 2014-04-01 22:31:42 CEST
 </div>
 </div>
 </body>

@@ -35,7 +35,7 @@ También en este estudio se hace mención a la utilización de un *software de a
 ===== TweoLocator: A Non-Intrusive Geographical Locator System for Twitter
 _Por Yi-Shin Chen et al. National Tsing Hua University_
 
-En este estudio, Yi-Shin Chen propone un sistema denominado *TweoLocator* que funciona como un _framework_ que, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.
+En este estudio, Yi-Shin Chen propone un sistema denominado *TweoLocator* que funciona como un _framework_ el cual, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.
 
 Este paper ofrece el interesante concepto de n-gramas, que será utilizado en el presente proyecto como una de las estrategias para la detección de términos con posibilidad de ofrecer contenido geolocalizable.
 
