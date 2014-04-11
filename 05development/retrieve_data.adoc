@@ -1,0 +1,135 @@
+:imagesdir: ../assets
+=== Obtención de datos
+
+El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.
+
+Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener. En base a estos requisitos, se utilizó la *API Streaming de Twitter* (https://dev.twitter.com/docs/api/streaming), la cual aporta dos características principales:
+
+* Capacidad de obtener datos en tiempo real de Twitter de manera ininterrumpida
+* Capacidad de establecer filtros sobre el flujo de entrada:
+** Filtro por idioma del tuit
+** Filtro por localización del tuit (mediante el uso de _bounding boxes_)
+
+Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca *Twitter4j* (http://twitter4j.org/en/index.html), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:
+
+* Autenticación OAuth2 simplificada mediante clases propias de la biblioteca
+* La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.
+
+.Modelo de comunicación entre un cliente y la API Streaming de Twitter (https://dev.twitter.com/docs/api/streaming)
+image::05development/twitter-streaming-api.png[Modelo de comunicación entre un cliente y la API Streaming de Twitter, align="center"]
+
+==== Almacenamiento de datos
+
+Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.
+
+En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones `grep`. Esta decisión fue cancelada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - http://opencsv.sourceforge.net/ ) combinados con caracteres extraños como Emoji (http://www.unicode.org/faq/emoji_dingbats.html).
+
+Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de marcado que mejor podría serializar y estructurar los datos obtenidos a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML mediante la utilización de literales:
+
+[source, scala]
+----
+class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String,
+            longitude: String, text: String) {
+  def toXML =
+    <tweet>
+      <id>
+        {id}
+      </id>
+      <username>
+        {username}
+      </username>
+      <name>
+        {name}
+      </name>
+      <location>
+        {location}
+      </location>
+      <timezone>
+        {timezone}
+      </timezone>
+      <createdAt>
+        {createdAt}
+      </createdAt>
+      <latitude>
+        {latitude}
+      </latitude>
+      <longitude>
+        {longitude}
+      </longitude>
+      <text>
+        {text}
+      </text>
+    </tweet>
+}
+----
+
+==== Parámetros del sistema
+
+Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero `properties` que se ha utilizado para indicar al sistema algunos parámetros:
+
+* `time_in` y `time_to_collect`: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.
+* `file_name`: nombre del fichero de salida.
+* `coordiantes_mandatory`: `boolean` que indica si los tuits recolectados deben contener o no información geográfica adjunta.
+* `filter_language`: idioma en el que se desean obtener los tuits.
+* `stop_words_file`: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de _stop words_ del idioma por el que se esté filtrando.
+* `filter_bounding_boxes_file`: fichero `XML` que contiene los _bounding boxes_ sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.
+
+[NOTE]
+====
+El siguiente fragmento de código muestra un fichero donde se aplican a la vez todas las propiedades. En un caso real, sólo se aplicarían aquellas que tuvieran sentido para el resultado que se quisiera obtener. Por tanto, no tendría sentido que estuvieran habilitadas a la vez las propiedades `filter_language` y `filter_bounding_boxes_file`
+====
+
+----
+# Valid values for time_in property:
+#
+# DAYS
+# HOURS
+# MICROSECONDS
+# MILLISECONDS
+# MINUTES
+# NANOSECONDS
+# SECONDS
+time_in=DAYS
+time_to_collect=1
+
+# File to save the results
+file_name=ES-Spain.xml
+
+coordinates_mandatory=true
+filter_language=es
+stop_words_file=spanish-stop-words.txt
+filter_bounding_boxes_file=es_bounding_boxes.xml
+----
+
+==== Ejemplo de resultados
+
+Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:
+
+[source, xml]
+----
+<tweets>
+  <tweet>
+    <username>
+      gaabriforner
+    </username>
+    <location>
+      Málaga
+    </location>
+    <timezone>
+      Athens
+    </timezone>
+    <createdAt>
+      2014-03-04 21:53
+    </createdAt>
+    <latitude>
+      -4.437747
+    </latitude>
+    <longitude>
+      36.7055494
+    </longitude>
+    <text>
+      y ante todo a echarle fuerza d voluntad y ganas para conseguir lo que quiero!!
+    </text>
+  </tweet>
+</tweets>
+----
