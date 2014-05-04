@@ -58,10 +58,6 @@ Este nuevo estudio presenta otra estrategia para encontrar términos fuertemente
 
 A su vez, desarrollaron un modelo estadístico propio, basado en un clasificador Gaussiano, el cual aplicaban sobre aquellos bigramas que superaban un número mínimo de apariciones.
 
-
-===== Home Location Identification of Twitter Users
-_Por Jalal Mahmud et al. IBM Research_
-
 ===== Otros _papers_ de interés
 
 * *You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users* _por Zhiyuan Cheng et al. Texas A&M University_
@@ -69,6 +65,8 @@ _Por Jalal Mahmud et al. IBM Research_
 * *TweetLocalize: Inferring Author Location in Social Media* _por Evan Sparks et al. University of California-Berkeley_
 * *Inferring the Location of Twitter Messages Based on User Relationships* _por Clodoveu A. Davis Jr. et al. Universidade Federal de Minas Gerais_
 * *Geolocation Prediction in Social Media Data by Finding Location Indicative Words* _por HAN Bo et al. University of Melbourne_
+* *Home Location Identification of Twitter Users* _por Jalal Mahmud et al. IBM Research_
+* *Geotagging One Hundred Million Twitter Accounts with Total Variation Minimization* _por Ryan Compton et al. HRL Laboratories (Malibu)_
 
 ==== Aplicaciones web
 

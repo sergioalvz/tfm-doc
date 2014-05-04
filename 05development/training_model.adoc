@@ -1,1 +1,5 @@
 === Entrenamiento del modelo de análisis de datos
+
+Una parte muy importante del proyecto es la habilidad de automatizar el sistema de inferencia de localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como *software de aprendizaje automático*.
+
+*Vowpal Wabbit* footnote:[http://hunch.net/~vw/] es un proyecto creado por _Yahoo! Research_ que fue posteriormente continuado por _Microsoft Research_ que consiste en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos.

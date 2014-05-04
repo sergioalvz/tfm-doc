@@ -518,12 +518,6 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="sect4">
-<h5 id="_home_location_identification_of_twitter_users">Home Location Identification of Twitter Users</h5>
-<div class="paragraph">
-<p><em>Por Jalal Mahmud et al. IBM Research</em></p>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_otros_em_papers_em_de_inter_s">Otros <em>papers</em> de interés</h5>
 <div class="ulist">
 <ul>
@@ -541,6 +535,12 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </li>
 <li>
 <p><strong>Geolocation Prediction in Social Media Data by Finding Location Indicative Words</strong> <em>por HAN Bo et al. University of Melbourne</em></p>
+</li>
+<li>
+<p><strong>Home Location Identification of Twitter Users</strong> <em>por Jalal Mahmud et al. IBM Research</em></p>
+</li>
+<li>
+<p><strong>Geotagging One Hundred Million Twitter Accounts with Total Variation Minimization</strong> <em>por Ryan Compton et al. HRL Laboratories (Malibu)</em></p>
 </li>
 </ul>
 </div>
@@ -806,7 +806,12 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 </div>
 <div class="sect2">
 <h3 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">4.3. Entrenamiento del modelo de análisis de datos</h3>
-
+<div class="paragraph">
+<p>Una parte muy importante del proyecto es la habilidad de automatizar el sistema de inferencia de localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Vowpal Wabbit</strong> <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span> es un proyecto creado por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em> que consiste en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos.</p>
+</div>
 </div>
 </div>
 </div>
@@ -815,6 +820,9 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 <hr>
 <div class="footnote" id="_footnote_1">
 <a href="#_footnoteref_1">1</a>. Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
 </div>
 </div>
 <div id="footer">
