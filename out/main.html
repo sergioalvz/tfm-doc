@@ -648,7 +648,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="content">
 <img src="../assets/05development/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 1. Modelo de comunicación entre un cliente y la API Streaming de Twitter (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>)</div>
+<div class="title">Figure 1. Comunicación entre un cliente y la API Streaming de Twitter (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>)</div>
 </div>
 <div class="sect3">
 <h4 id="_almacenamiento_de_datos">4.1.1. Almacenamiento de datos</h4>
@@ -807,10 +807,32 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 <div class="sect2">
 <h3 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">4.3. Entrenamiento del modelo de análisis de datos</h3>
 <div class="paragraph">
-<p>Una parte muy importante del proyecto es la habilidad de automatizar el sistema de inferencia de localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
+<p>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit</strong> <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span> es un proyecto creado por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em> que consiste en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos.</p>
+<p><strong>Vowpal Wabbit</strong> <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+</div>
+<div class="paragraph">
+<p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
+</div>
+<div class="sect3">
+<h4 id="_normalizaci_n_de_datos">4.3.1. Normalización de datos</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">4.3.2. División de datos en conjuntos de entrenamiento y test</h4>
+<div class="paragraph">
+<p>Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.</p>
+</div>
+<div class="paragraph">
+<p>Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios fue destinado al grupo de entrenamiento, mientras que el 20% restante fue a parar al conjunto de test.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/05development/dataset-divisor.png" alt="División del conjunto original de datos en test (20%) y entrenamiento (80%)">
+</div>
+<div class="title">Figure 2. División del conjunto original de datos en test (20%) y entrenamiento (80%)</div>
+</div>
 </div>
 </div>
 </div>

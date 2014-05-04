@@ -15,7 +15,7 @@ Para realizar la conexión entre el sistema desarrollado y la API de Twitter se 
 * Autenticación OAuth2 simplificada mediante clases propias de la biblioteca
 * La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.
 
-.Modelo de comunicación entre un cliente y la API Streaming de Twitter (https://dev.twitter.com/docs/api/streaming)
+.Comunicación entre un cliente y la API Streaming de Twitter (https://dev.twitter.com/docs/api/streaming)
 image::05development/twitter-streaming-api.png[Modelo de comunicación entre un cliente y la API Streaming de Twitter, align="center"]
 
 ==== Almacenamiento de datos

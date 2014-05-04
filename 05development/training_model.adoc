@@ -1,5 +1,21 @@
+:imagesdir: ../assets
 === Entrenamiento del modelo de análisis de datos
 
-Una parte muy importante del proyecto es la habilidad de automatizar el sistema de inferencia de localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como *software de aprendizaje automático*.
+Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como *software de aprendizaje automático*.
 
-*Vowpal Wabbit* footnote:[http://hunch.net/~vw/] es un proyecto creado por _Yahoo! Research_ que fue posteriormente continuado por _Microsoft Research_ que consiste en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos.
+*Vowpal Wabbit* footnote:[http://hunch.net/~vw/] es un proyecto creado originalmente por _Yahoo! Research_ que fue posteriormente continuado por _Microsoft Research_, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.
+
+Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo _en caliente_ a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.
+
+==== Normalización de datos
+
+==== División de datos en conjuntos de entrenamiento y test
+
+Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.
+
+Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios fue destinado al grupo de entrenamiento, mientras que el 20% restante fue a parar al conjunto de test.
+
+.División del conjunto original de datos en test (20%) y entrenamiento (80%)
+image::05development/dataset-divisor.png[División del conjunto original de datos en test (20%) y entrenamiento (80%), align="center"]
+
+
