@@ -1,0 +1,2 @@
+[appendix]
+== b2pick, aplicación web para obtener _bounding boxes_

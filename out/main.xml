@@ -161,8 +161,8 @@
 <title>Desarrollo e implementación del sistema</title>
 
 </chapter>
-<appendix xml:id="_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">
-<title>Sistema para coleccionar datos de la API Streaming de Twitter</title>
+<appendix xml:id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">
+<title>Falcon, sistema para coleccionar datos de la API Streaming de Twitter</title>
 <simpara>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</simpara>
 <simpara>Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener. En base a estos requisitos, se utilizó la <emphasis role="strong">API Streaming de Twitter</emphasis> (<link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link>), la cual aporta dos características principales:</simpara>
 <itemizedlist>
@@ -330,8 +330,56 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</screen>
 
 </section>
 </appendix>
-<appendix xml:id="_an_lisis_de_datos">
-<title>Análisis de datos</title>
+<appendix xml:id="_b2pick_aplicaci_n_web_para_obtener_emphasis_bounding_boxes_emphasis">
+<title>b2pick, aplicación web para obtener <emphasis>bounding boxes</emphasis></title>
+
+</appendix>
+<appendix xml:id="_puma_sistema_de_an_lisis_de_datos">
+<title>Puma, sistema de análisis de datos</title>
+<simpara>Para el análisis de los datos recogidos mediante el recolector, fue necesario desarrollar un nuevo sistema preparado para trabajar con grandes volúmenes de datos y capaz de aplicar los algoritmos planteados en estudios anteriores para obtener vocabulario discriminativo. Este sistema fue bautizado con el nombre de <emphasis role="strong">Puma</emphasis>, como una manera rápida de poder referirse a él.</simpara>
+<section xml:id="__qu_datos_se_deben_estudiar">
+<title>¿Qué datos se deben estudiar?</title>
+<simpara>Con el objetivo de poder encontrar vocabulario discriminativo, se comenzaron a descargar datos, durante 4 semanas, con las siguientes características:</simpara>
+<variablelist>
+<varlistentry>
+<term>Semana 1</term>
+<listitem>
+<simpara>Tuits en español para todo el mundo</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Semana 2</term>
+<listitem>
+<simpara>Tuits en español localizados en España</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Semana 3</term>
+<listitem>
+<simpara>Tuits en inglés para todo el mundo</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Semana 4</term>
+<listitem>
+<simpara>Tuits en inglés localizados en UK</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<simpara>La idea será comparar datasets con el mismo idioma para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</simpara>
+</section>
+<section xml:id="_sistema_de_filtros">
+<title>Sistema de filtros</title>
+
+</section>
+<section xml:id="_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">
+<title>Likelihood-ratio test y Likelihood-ratio test normalizado</title>
+
+</section>
+</appendix>
+<appendix xml:id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">
+<title>TweetHeat, mapa de calor sobre ficheros TSV de puntuación</title>
 
 </appendix>
 <appendix xml:id="_entrenamiento_del_modelo_de_an_lisis_de_datos">

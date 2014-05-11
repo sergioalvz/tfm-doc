@@ -2,6 +2,10 @@
 
 include::retrieve_data.adoc[]
 
+include::b2pick.adoc[]
+
 include::analyze_data.adoc[]
+
+include::tweetheat.adoc[]
 
 include::training_model.adoc[]

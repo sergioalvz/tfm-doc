@@ -1,0 +1,2 @@
+[appendix]
+== TweetHeat, mapa de calor sobre ficheros TSV de puntuación

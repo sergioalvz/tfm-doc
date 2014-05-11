@@ -1,6 +1,7 @@
 :imagesdir: ../assets
+
 [appendix]
-== Sistema para coleccionar datos de la API Streaming de Twitter
+== Falcon, sistema para coleccionar datos de la API Streaming de Twitter
 
 El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.
 

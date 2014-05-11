@@ -380,7 +380,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_planificaci_n_y_gesti_n_del_proyecto">2. Planificación y gestión del proyecto</a></li>
 <li><a href="#_an_lisis_del_sistema">3. Análisis del sistema</a></li>
 <li><a href="#_desarrollo_e_implementaci_n_del_sistema">4. Desarrollo e implementación del sistema</a></li>
-<li><a href="#_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Sistema para coleccionar datos de la API Streaming de Twitter</a></li>
+<li><a href="#_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</a></li>
 <li>
 <ul class="sectlevel2">
 <li><a href="#_almacenamiento_de_datos">Almacenamiento de datos</a></li>
@@ -388,8 +388,17 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_ejemplo_de_resultados">Ejemplo de resultados</a></li>
 </ul>
 </li>
-<li><a href="#_an_lisis_de_datos">Appendix B: Análisis de datos</a></li>
-<li><a href="#_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix C: Entrenamiento del modelo de análisis de datos.</a></li>
+<li><a href="#_b2pick_aplicaci_n_web_para_obtener_em_bounding_boxes_em">Appendix B: b2pick, aplicación web para obtener <em>bounding boxes</em></a></li>
+<li><a href="#_puma_sistema_de_an_lisis_de_datos">Appendix C: Puma, sistema de análisis de datos</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#__qu_datos_se_deben_estudiar">¿Qué datos se deben estudiar?</a></li>
+<li><a href="#_sistema_de_filtros">Sistema de filtros</a></li>
+<li><a href="#_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">Likelihood-ratio test y Likelihood-ratio test normalizado</a></li>
+</ul>
+</li>
+<li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix D: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
+<li><a href="#_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix E: Entrenamiento del modelo de análisis de datos.</a></li>
 <li>
 <ul class="sectlevel2">
 <li><a href="#_normalizaci_n_de_datos">Normalización de datos</a></li>
@@ -617,7 +626,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Sistema para coleccionar datos de la API Streaming de Twitter</h2>
+<h2 id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</p>
@@ -837,13 +846,64 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_an_lisis_de_datos">Appendix B: Análisis de datos</h2>
+<h2 id="_b2pick_aplicaci_n_web_para_obtener_em_bounding_boxes_em">Appendix B: b2pick, aplicación web para obtener <em>bounding boxes</em></h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix C: Entrenamiento del modelo de análisis de datos.</h2>
+<h2 id="_puma_sistema_de_an_lisis_de_datos">Appendix C: Puma, sistema de análisis de datos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para el análisis de los datos recogidos mediante el recolector, fue necesario desarrollar un nuevo sistema preparado para trabajar con grandes volúmenes de datos y capaz de aplicar los algoritmos planteados en estudios anteriores para obtener vocabulario discriminativo. Este sistema fue bautizado con el nombre de <strong>Puma</strong>, como una manera rápida de poder referirse a él.</p>
+</div>
+<div class="sect2">
+<h3 id="__qu_datos_se_deben_estudiar">¿Qué datos se deben estudiar?</h3>
+<div class="paragraph">
+<p>Con el objetivo de poder encontrar vocabulario discriminativo, se comenzaron a descargar datos, durante 4 semanas, con las siguientes características:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Semana 1</dt>
+<dd>
+<p>Tuits en español para todo el mundo</p>
+</dd>
+<dt class="hdlist1">Semana 2</dt>
+<dd>
+<p>Tuits en español localizados en España</p>
+</dd>
+<dt class="hdlist1">Semana 3</dt>
+<dd>
+<p>Tuits en inglés para todo el mundo</p>
+</dd>
+<dt class="hdlist1">Semana 4</dt>
+<dd>
+<p>Tuits en inglés localizados en UK</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>La idea será comparar datasets con el mismo idioma para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sistema_de_filtros">Sistema de filtros</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">Likelihood-ratio test y Likelihood-ratio test normalizado</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix D: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix E: Entrenamiento del modelo de análisis de datos.</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>

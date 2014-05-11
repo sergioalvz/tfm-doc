@@ -1,3 +1,19 @@
 [appendix]
-== Análisis de datos
+== Puma, sistema de análisis de datos
 
+Para el análisis de los datos recogidos mediante el recolector, fue necesario desarrollar un nuevo sistema preparado para trabajar con grandes volúmenes de datos y capaz de aplicar los algoritmos planteados en estudios anteriores para obtener vocabulario discriminativo. Este sistema fue bautizado con el nombre de *Puma*, como una manera rápida de poder referirse a él.
+
+=== ¿Qué datos se deben estudiar?
+
+Con el objetivo de poder encontrar vocabulario discriminativo, se comenzaron a descargar datos, durante 4 semanas, con las siguientes características:
+
+Semana 1:: Tuits en español para todo el mundo
+Semana 2:: Tuits en español localizados en España
+Semana 3:: Tuits en inglés para todo el mundo
+Semana 4:: Tuits en inglés localizados en UK
+
+La idea será comparar datasets con el mismo idioma para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.
+
+=== Sistema de filtros
+
+=== Likelihood-ratio test y Likelihood-ratio test normalizado
