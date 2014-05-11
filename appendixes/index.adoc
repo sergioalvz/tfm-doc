@@ -1,0 +1,7 @@
+:numbered!:
+
+include::retrieve_data.adoc[]
+
+include::analyze_data.adoc[]
+
+include::training_model.adoc[]

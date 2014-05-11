@@ -1,5 +1,6 @@
 :imagesdir: ../assets
-=== Obtención de datos
+[appendix]
+== Sistema para coleccionar datos de la API Streaming de Twitter
 
 El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.
 
@@ -12,13 +13,13 @@ Este sistema debía ser parametrizable, con el objetivo de poder configurar en c
 
 Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca *Twitter4j* (http://twitter4j.org/en/index.html), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:
 
-* Autenticación OAuth2 simplificada mediante clases propias de la biblioteca
-* La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.
+1. Autenticación OAuth2 simplificada mediante clases propias de la biblioteca
+2. La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.
 
 .Comunicación entre un cliente y la API Streaming de Twitter (https://dev.twitter.com/docs/api/streaming)
 image::05development/twitter-streaming-api.png[Modelo de comunicación entre un cliente y la API Streaming de Twitter, align="center"]
 
-==== Almacenamiento de datos
+=== Almacenamiento de datos
 
 Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.
 
@@ -63,7 +64,7 @@ class Tweet(id:String, username: String, name:String, location: String, timezone
 }
 ----
 
-==== Parámetros del sistema
+=== Parámetros del sistema
 
 Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero `properties` que se ha utilizado para indicar al sistema algunos parámetros:
 
@@ -101,7 +102,7 @@ stop_words_file=spanish-stop-words.txt
 filter_bounding_boxes_file=es_bounding_boxes.xml
 ----
 
-==== Ejemplo de resultados
+=== Ejemplo de resultados
 
 Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:
 
@@ -133,3 +134,13 @@ Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:
   </tweet>
 </tweets>
 ----
+
+[IMPORTANT]
+.Bug en Twitter4j
+====
+En fases posteriores del desarrollo del proyecto salió a la luz un bug por parte de la biblioteca Twitter4j que produce que la latitud y longitud de cada tuit se devuelvan de manera inversa. Por tanto, aquellos valores que se estaban considerando como latitud eran realmente la longitud y viceversa.
+
+Este error no tuvo un gran impacto, puesto que fue fácilmente detectable y, una vez sabido, se tomaron las medidas adecuadas para tratar los datos correctamente.
+
+A continuación se muestra el enlace donde se hace alusión al bug: https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE el cual está presente tanto para la versión `3.0.4-SNAPSHOT` como en anteriores versiones.
+====

@@ -1,0 +1,54 @@
+:imagesdir: ../assets
+[appendix]
+== Entrenamiento del modelo de análisis de datos.
+
+Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como *software de aprendizaje automático*.
+
+*Vowpal Wabbit* footnote:[http://hunch.net/~vw/] es un proyecto creado originalmente por _Yahoo! Research_ que fue posteriormente continuado por _Microsoft Research_, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.
+
+Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo _en caliente_ a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.
+
+=== Normalización de datos
+
+Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, el primer paso es crear ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:
+
+----
+[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features # <1>
+----
+<1> https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format
+
+En el presente proyecto, esta estructura generaría datos de la siguiente manera:
+
+----
+1 |Tweet @adrianzenb scl rainer wirth óscar amigos radio quillota
+2 |Tweet @thomasuribe medellín colombia celebra día hombre
+3 |Tweet @fvminajx @cursiperono mujer ruega punto
+----
+
+Debido al dominio específico del problema de este proyecto, el sistema que debe realizar la traducción entre los ficheros de puntuación generados por el sistema Puma y los datos que espera recibir Vowpal Wabbit, debía de ser parametrizable para poder cubrir los siguientes dos casos:
+
+1. Entrenar un modelo de clasificación binario donde sólo se indicara si un tuit pertenece o no a un conjunto de coordenadas (útil para modelos que se quieran utilizar para saber si un tuit en español pertenece o no a España).
+2. Entrenar un modelo de clasificación multiclase donde se agruparan las clases en torno a un número de decimales para la latitud y longitud. Esto permite que se pueden considerar de la misma clase todos los tuits cuyas coordenadas con 3 decimales sean las mismas, permitiendo obtener predicciones con un grado de precisión de 10 kilómetros (en caso de agrupar por 2 decimales, la precisión sería de 100 y con 1, de 1000 kilómetros).
+
+Para ello, se creo un sistema que mediante una interfaz de línea de comandos pudiese ser parametrizable mediante los siguientes argumentos:
+
+----
+vw-input-translator 1.0
+Usage: vw-input-translator [options] <file>
+
+  --inout <value>
+        Creates an input file for binary classification
+  -d <value> | --decimals <value>
+        Creates an input file for multi-class classification. Each sample will have the selected number of decimals on latitude and longitude coordinates
+  <file>
+        Source file
+----
+
+=== División de datos en conjuntos de entrenamiento y test
+
+Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.
+
+Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios fue destinado al grupo de entrenamiento, mientras que el 20% restante fue a parar al conjunto de test.
+
+=== Estudio de los primeros resultados y cambio de estrategia
+
