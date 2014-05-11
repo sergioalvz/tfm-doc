@@ -4,14 +4,14 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-04-01</date>
+<date>2014-05-11</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
 <othername>Álvarez</othername>
 <surname>Suárez</surname>
 </personname>
-<email>UO204823@uniovi.es</email>
+<email>sergioalvarezsuarez@gmail.com</email>
 </author>
 
 <authorinitials>SÁS</authorinitials>
@@ -159,8 +159,10 @@
 </chapter>
 <chapter xml:id="_desarrollo_e_implementaci_n_del_sistema">
 <title>Desarrollo e implementación del sistema</title>
-<section xml:id="_obtenci_n_de_datos">
-<title>Obtención de datos</title>
+
+</chapter>
+<appendix xml:id="_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">
+<title>Sistema para coleccionar datos de la API Streaming de Twitter</title>
 <simpara>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</simpara>
 <simpara>Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener. En base a estos requisitos, se utilizó la <emphasis role="strong">API Streaming de Twitter</emphasis> (<link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link>), la cual aporta dos características principales:</simpara>
 <itemizedlist>
@@ -182,14 +184,14 @@
 </itemizedlist>
 
 <simpara>Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca <emphasis role="strong">Twitter4j</emphasis> (<link xlink:href="http://twitter4j.org/en/index.html">http://twitter4j.org/en/index.html</link>), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:</simpara>
-<itemizedlist>
+<orderedlist numeration="arabic">
 <listitem>
 <simpara>Autenticación OAuth2 simplificada mediante clases propias de la biblioteca</simpara>
 </listitem>
 <listitem>
 <simpara>La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.</simpara>
 </listitem>
-</itemizedlist>
+</orderedlist>
 
 <figure>
 <title>Comunicación entre un cliente y la API Streaming de Twitter (<link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link>)</title>
@@ -319,36 +321,73 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</screen>
   &lt;/tweet&gt;
 &lt;/tweets&gt;</programlisting>
 
-</section>
-</section>
-<section xml:id="_an_lisis_de_datos">
-<title>Análisis de datos</title>
+<important>
+<title>Bug en Twitter4j</title>
+<simpara>En fases posteriores del desarrollo del proyecto salió a la luz un bug por parte de la biblioteca Twitter4j que produce que la latitud y longitud de cada tuit se devuelvan de manera inversa. Por tanto, aquellos valores que se estaban considerando como latitud eran realmente la longitud y viceversa.</simpara>
+<simpara>Este error no tuvo un gran impacto, puesto que fue fácilmente detectable y, una vez sabido, se tomaron las medidas adecuadas para tratar los datos correctamente.</simpara>
+<simpara>A continuación se muestra el enlace donde se hace alusión al bug: <link xlink:href="https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE">https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE</link> el cual está presente tanto para la versión <literal>3.0.4-SNAPSHOT</literal> como en anteriores versiones.</simpara>
+</important>
 
 </section>
-<section xml:id="_entrenamiento_del_modelo_de_an_lisis_de_datos">
-<title>Entrenamiento del modelo de análisis de datos</title>
+</appendix>
+<appendix xml:id="_an_lisis_de_datos">
+<title>Análisis de datos</title>
+
+</appendix>
+<appendix xml:id="_entrenamiento_del_modelo_de_an_lisis_de_datos">
+<title>Entrenamiento del modelo de análisis de datos.</title>
 <simpara>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <emphasis role="strong">software de aprendizaje automático</emphasis>.</simpara>
 <simpara><emphasis role="strong">Vowpal Wabbit</emphasis> <footnote><simpara><link xlink:href="http://hunch.net/~vw/">http://hunch.net/~vw/</link></simpara></footnote> es un proyecto creado originalmente por <emphasis>Yahoo! Research</emphasis> que fue posteriormente continuado por <emphasis>Microsoft Research</emphasis>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</simpara>
 <simpara>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <emphasis>en caliente</emphasis> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</simpara>
 <section xml:id="_normalizaci_n_de_datos">
 <title>Normalización de datos</title>
+<simpara>Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, el primer paso es crear ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:</simpara>
+<screen>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <co xml:id="CO1-1"/></screen>
+
+<calloutlist>
+  
+  <callout arearefs="CO1-1">
+    <para><link xlink:href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</link></para>
+    
+  </callout>
+  
+</calloutlist>
+
+<simpara>En el presente proyecto, esta estructura generaría datos de la siguiente manera:</simpara>
+<screen>1 |Tweet @adrianzenb scl rainer wirth óscar amigos radio quillota
+2 |Tweet @thomasuribe medellín colombia celebra día hombre
+3 |Tweet @fvminajx @cursiperono mujer ruega punto</screen>
+
+<simpara>Debido al dominio específico del problema de este proyecto, el sistema que debe realizar la traducción entre los ficheros de puntuación generados por el sistema Puma y los datos que espera recibir Vowpal Wabbit, debía de ser parametrizable para poder cubrir los siguientes dos casos:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Entrenar un modelo de clasificación binario donde sólo se indicara si un tuit pertenece o no a un conjunto de coordenadas (útil para modelos que se quieran utilizar para saber si un tuit en español pertenece o no a España).</simpara>
+</listitem>
+<listitem>
+<simpara>Entrenar un modelo de clasificación multiclase donde se agruparan las clases en torno a un número de decimales para la latitud y longitud. Esto permite que se pueden considerar de la misma clase todos los tuits cuyas coordenadas con 3 decimales sean las mismas, permitiendo obtener predicciones con un grado de precisión de 10 kilómetros (en caso de agrupar por 2 decimales, la precisión sería de 100 y con 1, de 1000 kilómetros).</simpara>
+</listitem>
+</orderedlist>
+
+<simpara>Para ello, se creo un sistema que mediante una interfaz de línea de comandos pudiese ser parametrizable mediante los siguientes argumentos:</simpara>
+<screen>vw-input-translator 1.0
+Usage: vw-input-translator [options] &lt;file&gt;
+
+  --inout &lt;value&gt;
+        Creates an input file for binary classification
+  -d &lt;value&gt; | --decimals &lt;value&gt;
+        Creates an input file for multi-class classification. Each sample will have the selected number of decimals on latitude and longitude coordinates
+  &lt;file&gt;
+        Source file</screen>
 
 </section>
 <section xml:id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">
 <title>División de datos en conjuntos de entrenamiento y test</title>
 <simpara>Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.</simpara>
 <simpara>Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios fue destinado al grupo de entrenamiento, mientras que el 20% restante fue a parar al conjunto de test.</simpara>
-<figure>
-<title>División del conjunto original de datos en test (20%) y entrenamiento (80%)</title>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../assets/05development/dataset-divisor.png"/>
-    </imageobject>
-    <textobject><phrase>División del conjunto original de datos en test (20%) y entrenamiento (80%)</phrase></textobject>
-  </mediaobject>
-</figure>
+</section>
+<section xml:id="_estudio_de_los_primeros_resultados_y_cambio_de_estrategia">
+<title>Estudio de los primeros resultados y cambio de estrategia</title>
 
 </section>
-</section>
-</chapter>
+</appendix>
 </book>

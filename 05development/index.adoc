@@ -1,7 +1,1 @@
 == Desarrollo e implementación del sistema
-
-include::retrieve_data.adoc[]
-
-include::analyze_data.adoc[]
-
-include::training_model.adoc[]

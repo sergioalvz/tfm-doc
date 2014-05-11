@@ -364,7 +364,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div id="header">
 <h1>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</h1>
 <span id="author" class="author">Sergio Álvarez Suárez</span><br>
-<span id="email" class="email"><a href="mailto:UO204823@uniovi.es">UO204823@uniovi.es</a></span><br>
+<span id="email" class="email"><a href="mailto:sergioalvarezsuarez@gmail.com">sergioalvarezsuarez@gmail.com</a></span><br>
 <div id="toc" class="toc">
 <div id="toctitle">Tabla de Contenidos</div>
 <ul class="sectlevel1">
@@ -380,11 +380,21 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_planificaci_n_y_gesti_n_del_proyecto">2. Planificación y gestión del proyecto</a></li>
 <li><a href="#_an_lisis_del_sistema">3. Análisis del sistema</a></li>
 <li><a href="#_desarrollo_e_implementaci_n_del_sistema">4. Desarrollo e implementación del sistema</a></li>
+<li><a href="#_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Sistema para coleccionar datos de la API Streaming de Twitter</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#_obtenci_n_de_datos">4.1. Obtención de datos</a></li>
-<li><a href="#_an_lisis_de_datos">4.2. Análisis de datos</a></li>
-<li><a href="#_entrenamiento_del_modelo_de_an_lisis_de_datos">4.3. Entrenamiento del modelo de análisis de datos</a></li>
+<li><a href="#_almacenamiento_de_datos">Almacenamiento de datos</a></li>
+<li><a href="#_par_metros_del_sistema">Parámetros del sistema</a></li>
+<li><a href="#_ejemplo_de_resultados">Ejemplo de resultados</a></li>
+</ul>
+</li>
+<li><a href="#_an_lisis_de_datos">Appendix B: Análisis de datos</a></li>
+<li><a href="#_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix C: Entrenamiento del modelo de análisis de datos.</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_normalizaci_n_de_datos">Normalización de datos</a></li>
+<li><a href="#_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a></li>
+<li><a href="#_estudio_de_los_primeros_resultados_y_cambio_de_estrategia">Estudio de los primeros resultados y cambio de estrategia</a></li>
 </ul>
 </li>
 </ul>
@@ -603,8 +613,12 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="sect1">
 <h2 id="_desarrollo_e_implementaci_n_del_sistema">4. Desarrollo e implementación del sistema</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_obtenci_n_de_datos">4.1. Obtención de datos</h3>
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Sistema para coleccionar datos de la API Streaming de Twitter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</p>
 </div>
@@ -634,15 +648,15 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="paragraph">
 <p>Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca <strong>Twitter4j</strong> (<a href="http://twitter4j.org/en/index.html">http://twitter4j.org/en/index.html</a>), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Autenticación OAuth2 simplificada mediante clases propias de la biblioteca</p>
 </li>
 <li>
 <p>La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.</p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -650,8 +664,8 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 <div class="title">Figure 1. Comunicación entre un cliente y la API Streaming de Twitter (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>)</div>
 </div>
-<div class="sect3">
-<h4 id="_almacenamiento_de_datos">4.1.1. Almacenamiento de datos</h4>
+<div class="sect2">
+<h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
 <div class="paragraph">
 <p>Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.</p>
 </div>
@@ -699,8 +713,8 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_par_metros_del_sistema">4.1.2. Parámetros del sistema</h4>
+<div class="sect2">
+<h3 id="_par_metros_del_sistema">Parámetros del sistema</h3>
 <div class="paragraph">
 <p>Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero <code>properties</code> que se ha utilizado para indicar al sistema algunos parámetros:</p>
 </div>
@@ -764,8 +778,8 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_ejemplo_de_resultados">4.1.3. Ejemplo de resultados</h4>
+<div class="sect2">
+<h3 id="_ejemplo_de_resultados">Ejemplo de resultados</h3>
 <div class="paragraph">
 <p>Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:</p>
 </div>
@@ -798,14 +812,39 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 &lt;/tweets&gt;</code></pre>
 </div>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="title">Bug en Twitter4j</div>
+<div class="paragraph">
+<p>En fases posteriores del desarrollo del proyecto salió a la luz un bug por parte de la biblioteca Twitter4j que produce que la latitud y longitud de cada tuit se devuelvan de manera inversa. Por tanto, aquellos valores que se estaban considerando como latitud eran realmente la longitud y viceversa.</p>
+</div>
+<div class="paragraph">
+<p>Este error no tuvo un gran impacto, puesto que fue fácilmente detectable y, una vez sabido, se tomaron las medidas adecuadas para tratar los datos correctamente.</p>
+</div>
+<div class="paragraph">
+<p>A continuación se muestra el enlace donde se hace alusión al bug: <a href="https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE">https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE</a> el cual está presente tanto para la versión <code>3.0.4-SNAPSHOT</code> como en anteriores versiones.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_an_lisis_de_datos">4.2. Análisis de datos</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_an_lisis_de_datos">Appendix B: Análisis de datos</h2>
+<div class="sectionbody">
 
 </div>
-<div class="sect2">
-<h3 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">4.3. Entrenamiento del modelo de análisis de datos</h3>
+</div>
+<div class="sect1">
+<h2 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix C: Entrenamiento del modelo de análisis de datos.</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
 </div>
@@ -815,25 +854,75 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
 </div>
-<div class="sect3">
-<h4 id="_normalizaci_n_de_datos">4.3.1. Normalización de datos</h4>
-
+<div class="sect2">
+<h3 id="_normalizaci_n_de_datos">Normalización de datos</h3>
+<div class="paragraph">
+<p>Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, el primer paso es crear ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:</p>
 </div>
-<div class="sect3">
-<h4 id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">4.3.2. División de datos en conjuntos de entrenamiento y test</h4>
+<div class="listingblock">
+<div class="content">
+<pre>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><a href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>En el presente proyecto, esta estructura generaría datos de la siguiente manera:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>1 |Tweet @adrianzenb scl rainer wirth óscar amigos radio quillota
+2 |Tweet @thomasuribe medellín colombia celebra día hombre
+3 |Tweet @fvminajx @cursiperono mujer ruega punto</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Debido al dominio específico del problema de este proyecto, el sistema que debe realizar la traducción entre los ficheros de puntuación generados por el sistema Puma y los datos que espera recibir Vowpal Wabbit, debía de ser parametrizable para poder cubrir los siguientes dos casos:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Entrenar un modelo de clasificación binario donde sólo se indicara si un tuit pertenece o no a un conjunto de coordenadas (útil para modelos que se quieran utilizar para saber si un tuit en español pertenece o no a España).</p>
+</li>
+<li>
+<p>Entrenar un modelo de clasificación multiclase donde se agruparan las clases en torno a un número de decimales para la latitud y longitud. Esto permite que se pueden considerar de la misma clase todos los tuits cuyas coordenadas con 3 decimales sean las mismas, permitiendo obtener predicciones con un grado de precisión de 10 kilómetros (en caso de agrupar por 2 decimales, la precisión sería de 100 y con 1, de 1000 kilómetros).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Para ello, se creo un sistema que mediante una interfaz de línea de comandos pudiese ser parametrizable mediante los siguientes argumentos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>vw-input-translator 1.0
+Usage: vw-input-translator [options] &lt;file&gt;
+
+  --inout &lt;value&gt;
+        Creates an input file for binary classification
+  -d &lt;value&gt; | --decimals &lt;value&gt;
+        Creates an input file for multi-class classification. Each sample will have the selected number of decimals on latitude and longitude coordinates
+  &lt;file&gt;
+        Source file</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</h3>
 <div class="paragraph">
 <p>Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.</p>
 </div>
 <div class="paragraph">
 <p>Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios fue destinado al grupo de entrenamiento, mientras que el 20% restante fue a parar al conjunto de test.</p>
 </div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="../assets/05development/dataset-divisor.png" alt="División del conjunto original de datos en test (20%) y entrenamiento (80%)">
 </div>
-<div class="title">Figure 2. División del conjunto original de datos en test (20%) y entrenamiento (80%)</div>
-</div>
-</div>
+<div class="sect2">
+<h3 id="_estudio_de_los_primeros_resultados_y_cambio_de_estrategia">Estudio de los primeros resultados y cambio de estrategia</h3>
+
 </div>
 </div>
 </div>
@@ -849,7 +938,7 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-04-01 22:31:42 CEST
+Last updated 2014-05-11 17:46:20 CEST
 </div>
 </div>
 </body>
