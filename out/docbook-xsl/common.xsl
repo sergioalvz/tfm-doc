@@ -24,7 +24,7 @@
   <xsl:param name="title.color">#222222</xsl:param>
   <xsl:param name="chapter.title.color" select="$title.color"/>
   <xsl:param name="section.title.color" select="$title.color"/>
-  <xsl:param name="caption.color">#000000</xsl:param>
+  <xsl:param name="caption.color">#222222</xsl:param>
   <xsl:param name="code.color">#7F0A0C</xsl:param>
   <xsl:param name="code.font-weight">bold</xsl:param>
   <xsl:param name="code.background-color">transparent</xsl:param>

@@ -84,7 +84,7 @@
 </xsl:param>
 
 <xsl:param name="title.font.family">
-  <xsl:call-template name="pickfont-serif"/>
+  <xsl:call-template name="pickfont-sans"/>
 </xsl:param>
 
   <!--
@@ -95,7 +95,7 @@
   <xsl:param name="alignment">left</xsl:param>
   <xsl:param name="line-height">1.5</xsl:param>
   <xsl:param name="alignment">justify</xsl:param>
-  <xsl:param name="body.font.master">10</xsl:param>
+  <xsl:param name="body.font.master">11</xsl:param>
   <xsl:param name="body.font.size">
     <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
   </xsl:param>
@@ -203,7 +203,7 @@
     <fo:block text-align-last="justify" end-indent="{$toc.indent.width}pt"
       last-line-end-indent="-{$toc.indent.width}pt">
       <fo:inline keep-with-next.within-line="always">
-        <fo:basic-link internal-destination="{$id}" color="#005498">
+        <fo:basic-link internal-destination="{$id}" color="#222222">
           <!-- Chapter titles should be bold. -->
           <xsl:choose>
             <xsl:when test="local-name(.) = 'chapter'">
@@ -226,7 +226,7 @@
         <xsl:text> </xsl:text>
         <fo:leader leader-pattern="dots" leader-pattern-width="3pt" leader-alignment="reference-area" keep-with-next.within-line="always"/>
         <xsl:text> </xsl:text>
-        <fo:basic-link internal-destination="{$id}" color="#005498">
+        <fo:basic-link internal-destination="{$id}" color="#222222">
           <fo:page-number-citation ref-id="{$id}"/>
         </fo:basic-link>
       </fo:inline>
@@ -561,17 +561,23 @@
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.5"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
+    <xsl:attribute name="font-weight">
+      <xsl:text>100</xsl:text>
+    </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level2.properties">
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.4"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
+    <xsl:attribute name="font-weight">
+      <xsl:text>100</xsl:text>
+    </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level3.properties">
     <xsl:attribute name="font-size">
-      <xsl:value-of select="$body.font.master * 1.3"/><xsl:text>pt</xsl:text>
+      <xsl:value-of select="$body.font.master * 1.2"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
@@ -614,18 +620,22 @@
       <xsl:value-of select="concat($body.font.master, 'pt')"/>
     </xsl:attribute>
     <xsl:attribute name="hyphenate">false</xsl:attribute>
-    <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
+    <!-- <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute> -->
+    <xsl:attribute name="font-weight"><xsl:value-of select="100"/></xsl:attribute>
     <!-- color support on fo:block, to which this gets applied, added in DocBook XSL 1.78.1 -->
     <xsl:attribute name="color"><xsl:value-of select="$title.color"/></xsl:attribute>
     <xsl:attribute name="text-align">
       <xsl:choose>
-        <xsl:when test="((parent::db:article | parent::db:articleinfo) and not(ancestor::db:book) and not(self::db:bibliography)) or (parent::db:slides | parent::db:slidesinfo)">center</xsl:when>
+        <xsl:when test="((parent::db:article | parent::db:articleinfo) and not(ancestor::db:book) and not(self::db:bibliography)) or (parent::db:slides | parent::db:slidesinfo)">
+          center
+        </xsl:when>
         <xsl:otherwise>left</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
     <xsl:attribute name="start-indent">
       <xsl:value-of select="$title.margin.left"/>
     </xsl:attribute>
+    <xsl:attribute name="font-size">24pt</xsl:attribute>
   </xsl:attribute-set>
 
   <!-- override to set color -->
@@ -804,7 +814,6 @@
   <!--
     Footnotes
   -->
-
   <xsl:param name="footnote.number.format">1</xsl:param>
   <xsl:param name="footnote.number.symbols"/>
 
@@ -835,4 +844,19 @@
     <xsl:attribute name="leader-length">2in</xsl:attribute>
     <xsl:attribute name="rule-thickness">0.5pt</xsl:attribute>
   </xsl:attribute-set>
+
+  <!--
+    Header
+  -->
+  <xsl:attribute-set name="header.content.properties">
+    <xsl:attribute name="font-size">9pt</xsl:attribute>
+  </xsl:attribute-set>
+
+  <xsl:attribute-set name="header.table.properties">
+    <xsl:attribute name="padding-left">0</xsl:attribute>
+    <xsl:attribute name="padding-right">0</xsl:attribute>
+  </xsl:attribute-set>
+
+  <xsl:param name="header.column.widths">0 4 0</xsl:param>
+
 </xsl:stylesheet>
