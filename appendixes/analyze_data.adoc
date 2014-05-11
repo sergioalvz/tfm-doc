@@ -1,3 +1,5 @@
+:imagesdir: ../assets
+
 [appendix]
 == Puma, sistema de análisis de datos
 
@@ -12,8 +14,29 @@ Semana 2:: Tuits en español localizados en España
 Semana 3:: Tuits en inglés para todo el mundo
 Semana 4:: Tuits en inglés localizados en UK
 
-La idea será comparar datasets con el mismo idioma para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.
+La idea será comparar datasets con el mismo idioma pero de distintas localizaciones para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.
 
 === Sistema de filtros
 
+Para poder comenzar a trabajar con los datos recopilados por el sistema Falcon, fue necesario definir qué tipo de información se quería extraer de cada tuit con el objetivo de realizar las operaciones necesarias sobre ella. Se definieron los siguientes términos como los más interesantes para encontrar vocabulario discriminativo:
+
+* Menciones
+* Hashtags
+* Bigramas
+* Keywords
+* Keywords en el campo de localización del usuario
+
+Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decoratorfootnote:[http://en.wikipedia.org/wiki/Decorator_pattern].
+
+Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.
+
+.Representación del patrón Decorator que ilustra el sistema de filtros
+image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, 700, 200, align="center"]
+
+=== Algoritmo de poda y control del uso de memoria
+
 === Likelihood-ratio test y Likelihood-ratio test normalizado
+
+=== Generación de puntuaciones
+
+=== Configuración del sistema

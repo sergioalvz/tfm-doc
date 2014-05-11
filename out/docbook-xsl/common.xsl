@@ -2,23 +2,8 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-  <!-- Asciidoctor theme -->
-<!--   <xsl:param name="text.color">#222222</xsl:param>
-  <xsl:param name="link.color">#005498</xsl:param>
-  <xsl:param name="border.color">#DDDDDD</xsl:param>
-  <xsl:param name="header.font-weight">normal</xsl:param>
-  <xsl:param name="title.color">#BA3925</xsl:param>
-  <xsl:param name="chapter.title.color" select="$title.color"/>
-  <xsl:param name="section.title.color" select="$title.color"/>
-  <xsl:param name="caption.color">#7A2518</xsl:param>
-  <xsl:param name="code.color" select="$text.color"/>
-  <xsl:param name="code.font-weight">normal</xsl:param>
-  <xsl:param name="code.background-color">#EEEEEE</xsl:param> -->
-
-  <!-- Foundation theme -->
-
   <xsl:param name="text.color">#222222</xsl:param>
-  <xsl:param name="link.color">#2BA6CB</xsl:param>
+  <xsl:param name="link.color">#1E0FBE</xsl:param>
   <xsl:param name="border.color">#DDDDDD</xsl:param>
   <xsl:param name="header.font-weight">bold</xsl:param>
   <xsl:param name="title.color">#222222</xsl:param>
@@ -28,22 +13,6 @@
   <xsl:param name="code.color">#7F0A0C</xsl:param>
   <xsl:param name="code.font-weight">bold</xsl:param>
   <xsl:param name="code.background-color">transparent</xsl:param>
-
-
-  <!-- Colony theme -->
-
-  <!-- <xsl:param name="text.color">#222222</xsl:param>
-  <xsl:param name="link.color">#00579E</xsl:param>
-  <xsl:param name="border.color">#DDDDDD</xsl:param>
-  <xsl:param name="header.font-weight">normal</xsl:param>
-  <xsl:param name="title.color">#7B2D00</xsl:param>
-  <xsl:param name="chapter.title.color" select="$title.color"/>
-  <xsl:param name="section.title.color" select="$title.color"/>
-  <xsl:param name="caption.color">#003B6B</xsl:param>
-  <xsl:param name="code.color">#003426</xsl:param>
-  <xsl:param name="code.font-weight">bold</xsl:param>
-  <xsl:param name="code.background-color">transparent</xsl:param> -->
-
 
   <!-- disable messages that cause some processors to exit prematurely -->
   <xsl:template name="root.messages"/>

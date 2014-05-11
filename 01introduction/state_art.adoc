@@ -26,7 +26,7 @@ Con el objetivo de poder identificar un tuit a nivel de ciudad, este estudio pla
 
 . Palabras
 . Hashtags
-. Nombres de lugares (utilizando un _gazetteer_ footnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] geográfico)
+. Nombres de lugares (utilizando un gazetteerfootnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] geográfico)
 
 Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.
 

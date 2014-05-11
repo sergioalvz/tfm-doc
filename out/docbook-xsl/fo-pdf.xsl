@@ -649,16 +649,13 @@
       </xsl:if>
     </xsl:variable>
 
-    <fo:inline font-weight="bold"
-     color="{$caption.color}"
-     keep-with-next.within-line="always">
-     <xsl:copy-of select="$titleStr"/>
-     <xsl:if test="$lastChar != ''
-      and not(contains($runinhead.title.end.punct, $lastChar))">
-      <xsl:value-of select="$runinhead.default.title.end.punct"/>
-    </xsl:if>
-  </fo:inline>
-</xsl:template>
+    <fo:inline font-weight="bold" color="{$caption.color}" keep-with-next.within-line="always">
+      <xsl:copy-of select="$titleStr"/>
+      <xsl:if test="$lastChar != '' and not(contains($runinhead.title.end.punct, $lastChar))">
+        <xsl:value-of select="$runinhead.default.title.end.punct"/>
+      </xsl:if>
+    </fo:inline>
+  </xsl:template>
 
   <!--
     Anchors & Links
@@ -851,12 +848,6 @@
   <xsl:attribute-set name="header.content.properties">
     <xsl:attribute name="font-size">9pt</xsl:attribute>
   </xsl:attribute-set>
-
-  <xsl:attribute-set name="header.table.properties">
-    <xsl:attribute name="padding-left">0</xsl:attribute>
-    <xsl:attribute name="padding-right">0</xsl:attribute>
-  </xsl:attribute-set>
-
   <xsl:param name="header.column.widths">0 4 0</xsl:param>
 
 </xsl:stylesheet>

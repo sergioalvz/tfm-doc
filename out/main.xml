@@ -56,7 +56,7 @@
 <simpara>Hashtags</simpara>
 </listitem>
 <listitem>
-<simpara>Nombres de lugares (utilizando un <emphasis>gazetteer</emphasis> <footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> geográfico)</simpara>
+<simpara>Nombres de lugares (utilizando un gazetteer<footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> geográfico)</simpara>
 </listitem>
 </orderedlist>
 
@@ -367,14 +367,56 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</screen>
 </varlistentry>
 </variablelist>
 
-<simpara>La idea será comparar datasets con el mismo idioma para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</simpara>
+<simpara>La idea será comparar datasets con el mismo idioma pero de distintas localizaciones para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</simpara>
 </section>
 <section xml:id="_sistema_de_filtros">
 <title>Sistema de filtros</title>
+<simpara>Para poder comenzar a trabajar con los datos recopilados por el sistema Falcon, fue necesario definir qué tipo de información se quería extraer de cada tuit con el objetivo de realizar las operaciones necesarias sobre ella. Se definieron los siguientes términos como los más interesantes para encontrar vocabulario discriminativo:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Menciones</simpara>
+</listitem>
+<listitem>
+<simpara>Hashtags</simpara>
+</listitem>
+<listitem>
+<simpara>Bigramas</simpara>
+</listitem>
+<listitem>
+<simpara>Keywords</simpara>
+</listitem>
+<listitem>
+<simpara>Keywords en el campo de localización del usuario</simpara>
+</listitem>
+</itemizedlist>
+
+<simpara>Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decorator<footnote><simpara><link xlink:href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</link></simpara></footnote>.</simpara>
+<simpara>Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.</simpara>
+<figure>
+<title>Representación del patrón Decorator que ilustra el sistema de filtros</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="../assets/appendixes/extractor-filter.png" contentwidth="700" contentdepth="200"/>
+    </imageobject>
+    <textobject><phrase>Representación del patrón Decorator que ilustra el sistema de filtros</phrase></textobject>
+  </mediaobject>
+</figure>
+
+</section>
+<section xml:id="_algoritmo_de_poda_y_control_del_uso_de_memoria">
+<title>Algoritmo de poda y control del uso de memoria</title>
 
 </section>
 <section xml:id="_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">
 <title>Likelihood-ratio test y Likelihood-ratio test normalizado</title>
+
+</section>
+<section xml:id="_generaci_n_de_puntuaciones">
+<title>Generación de puntuaciones</title>
+
+</section>
+<section xml:id="_configuraci_n_del_sistema">
+<title>Configuración del sistema</title>
 
 </section>
 </appendix>
@@ -385,7 +427,7 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</screen>
 <appendix xml:id="_entrenamiento_del_modelo_de_an_lisis_de_datos">
 <title>Entrenamiento del modelo de análisis de datos.</title>
 <simpara>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <emphasis role="strong">software de aprendizaje automático</emphasis>.</simpara>
-<simpara><emphasis role="strong">Vowpal Wabbit</emphasis> <footnote><simpara><link xlink:href="http://hunch.net/~vw/">http://hunch.net/~vw/</link></simpara></footnote> es un proyecto creado originalmente por <emphasis>Yahoo! Research</emphasis> que fue posteriormente continuado por <emphasis>Microsoft Research</emphasis>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</simpara>
+<simpara>Vowpal Wabbit<footnote><simpara><link xlink:href="http://hunch.net/~vw/">http://hunch.net/~vw/</link></simpara></footnote> es un proyecto creado originalmente por <emphasis>Yahoo! Research</emphasis> que fue posteriormente continuado por <emphasis>Microsoft Research</emphasis>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</simpara>
 <simpara>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <emphasis>en caliente</emphasis> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</simpara>
 <section xml:id="_normalizaci_n_de_datos">
 <title>Normalización de datos</title>

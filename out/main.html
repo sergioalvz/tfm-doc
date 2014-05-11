@@ -394,7 +394,10 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <ul class="sectlevel2">
 <li><a href="#__qu_datos_se_deben_estudiar">¿Qué datos se deben estudiar?</a></li>
 <li><a href="#_sistema_de_filtros">Sistema de filtros</a></li>
+<li><a href="#_algoritmo_de_poda_y_control_del_uso_de_memoria">Algoritmo de poda y control del uso de memoria</a></li>
 <li><a href="#_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">Likelihood-ratio test y Likelihood-ratio test normalizado</a></li>
+<li><a href="#_generaci_n_de_puntuaciones">Generación de puntuaciones</a></li>
+<li><a href="#_configuraci_n_del_sistema">Configuración del sistema</a></li>
 </ul>
 </li>
 <li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix D: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
@@ -473,7 +476,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Hashtags</p>
 </li>
 <li>
-<p>Nombres de lugares (utilizando un <em>gazetteer</em> <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> geográfico)</p>
+<p>Nombres de lugares (utilizando un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> geográfico)</p>
 </li>
 </ol>
 </div>
@@ -883,15 +886,60 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 </dl>
 </div>
 <div class="paragraph">
-<p>La idea será comparar datasets con el mismo idioma para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</p>
+<p>La idea será comparar datasets con el mismo idioma pero de distintas localizaciones para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_sistema_de_filtros">Sistema de filtros</h3>
+<div class="paragraph">
+<p>Para poder comenzar a trabajar con los datos recopilados por el sistema Falcon, fue necesario definir qué tipo de información se quería extraer de cada tuit con el objetivo de realizar las operaciones necesarias sobre ella. Se definieron los siguientes términos como los más interesantes para encontrar vocabulario discriminativo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Menciones</p>
+</li>
+<li>
+<p>Hashtags</p>
+</li>
+<li>
+<p>Bigramas</p>
+</li>
+<li>
+<p>Keywords</p>
+</li>
+<li>
+<p>Keywords en el campo de localización del usuario</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decorator<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>.</p>
+</div>
+<div class="paragraph">
+<p>Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros" width="700" height="200">
+</div>
+<div class="title">Figure 2. Representación del patrón Decorator que ilustra el sistema de filtros</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_algoritmo_de_poda_y_control_del_uso_de_memoria">Algoritmo de poda y control del uso de memoria</h3>
 
 </div>
 <div class="sect2">
 <h3 id="_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">Likelihood-ratio test y Likelihood-ratio test normalizado</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_generaci_n_de_puntuaciones">Generación de puntuaciones</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_configuraci_n_del_sistema">Configuración del sistema</h3>
 
 </div>
 </div>
@@ -909,7 +957,7 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 <p>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit</strong> <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -993,7 +1041,10 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <a href="#_footnoteref_1">1</a>. Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres
 </div>
 <div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_2">2</a>. <a href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</a>
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
 </div>
 </div>
 <div id="footer">
