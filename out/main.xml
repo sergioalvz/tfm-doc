@@ -245,51 +245,55 @@
 </section>
 <section xml:id="_par_metros_del_sistema">
 <title>Parámetros del sistema</title>
-<simpara>Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero <literal>properties</literal> que se ha utilizado para indicar al sistema algunos parámetros:</simpara>
+<simpara>Debido a que Falcon es un sistema sin ánimo de ejecutarse a través de una GUI, la manera de parametrizar la ejecución ha sido a través de una interfaz de línea de comandos. Para ello, se ha utilizado la biblioteca <emphasis role="strong">scopt</emphasis> (<link xlink:href="https://github.com/scopt/scopt">https://github.com/scopt/scopt</link>).</simpara>
+<simpara>scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto <literal>ScoptParser</literal> que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (<literal>String</literal>, <literal>Integer</literal>, <literal>Boolean</literal>) y si son requeridos u opcionales.</simpara>
+<simpara>A continuación se muestra el <emphasis>usage</emphasis> de la aplicación:</simpara>
+<screen>Falcon 1.0
+Usage: Falcon [options]
+
+  -l &lt;value&gt; | --language &lt;value&gt;
+        Specifies the language, in ISO 639-1 format, for the tweets to collect.
+  -s &lt;value&gt; | --stopwords &lt;value&gt;
+        Specifies the file for the stopwords.
+  -t &lt;value&gt; | --time-in &lt;value&gt;
+        The time measure for collecting tweets (SECONDS, MINUTES, HOURS, DAYS).
+  -n &lt;value&gt; | --timestamp &lt;value&gt;
+        Units of time for collecting tweets.
+  -o &lt;value&gt; | --output &lt;value&gt;
+        The output filename where store the collection results.
+  -c &lt;value&gt; | --credentials &lt;value&gt;
+        Properties file with the Twitter credentials
+  --coordinates-mandatory
+        This flag indicates whether every tweet must have a geolocation tag associated or not.
+  -b &lt;value&gt; | --bounding-boxes &lt;value&gt;
+        Specifies the file which contains the bounding boxes.</screen>
+
 <itemizedlist>
 <listitem>
-<simpara><literal>time_in</literal> y <literal>time_to_collect</literal>: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.</simpara>
+<simpara><literal>--time-in</literal> y <literal>--timestamp</literal>: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.</simpara>
 </listitem>
 <listitem>
-<simpara><literal>file_name</literal>: nombre del fichero de salida.</simpara>
+<simpara><literal>--output</literal>: nombre del fichero de salida.</simpara>
 </listitem>
 <listitem>
-<simpara><literal>coordiantes_mandatory</literal>: <literal>boolean</literal> que indica si los tuits recolectados deben contener o no información geográfica adjunta.</simpara>
+<simpara><literal>--coordinates-mandatory</literal>: su presencia indica si los tuits recolectados deben contener o no información geográfica adjunta.</simpara>
 </listitem>
 <listitem>
-<simpara><literal>filter_language</literal>: idioma en el que se desean obtener los tuits.</simpara>
+<simpara><literal>--language</literal>: idioma en el que se desean obtener los tuits.</simpara>
 </listitem>
 <listitem>
-<simpara><literal>stop_words_file</literal>: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de <emphasis>stop words</emphasis> del idioma por el que se esté filtrando.</simpara>
+<simpara><literal>--stopwords</literal>: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de <emphasis>stop words</emphasis> del idioma por el que se esté filtrando.</simpara>
 </listitem>
 <listitem>
-<simpara><literal>filter_bounding_boxes_file</literal>: fichero <literal>XML</literal> que contiene los <emphasis>bounding boxes</emphasis> sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.</simpara>
+<simpara><literal>--bounding-boxes</literal>: opcionalmente, se puede proveer un fichero <literal>XML</literal> que contiene los <emphasis>bounding boxes</emphasis> sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>--credentials</literal>: indica el fichero que contiene las credenciales que se utilizarán para conectarse con la API de Twitter y utilizar su servicio de Streaming.</simpara>
 </listitem>
 </itemizedlist>
 
-<note>
-<simpara>El siguiente fragmento de código muestra un fichero donde se aplican a la vez todas las propiedades. En un caso real, sólo se aplicarían aquellas que tuvieran sentido para el resultado que se quisiera obtener. Por tanto, no tendría sentido que estuvieran habilitadas a la vez las propiedades <literal>filter_language</literal> y <literal>filter_bounding_boxes_file</literal></simpara>
-</note>
-
-<screen># Valid values for time_in property:
-#
-# DAYS
-# HOURS
-# MICROSECONDS
-# MILLISECONDS
-# MINUTES
-# NANOSECONDS
-# SECONDS
-time_in=DAYS
-time_to_collect=1
-
-# File to save the results
-file_name=ES-Spain.xml
-
-coordinates_mandatory=true
-filter_language=es
-stop_words_file=spanish-stop-words.txt
-filter_bounding_boxes_file=es_bounding_boxes.xml</screen>
+<simpara>Un ejemplo de uso para obtener datos en español sobre los bounding boxes de España durante un día, podría ser algo como esto:</simpara>
+<screen>falcon.jar -l es -s es_stop_words.txt -t DAYS -n 1 --o es_tweets_collection -c credentials.properties -b spain_bounding_boxes.xml</screen>
 
 </section>
 <section xml:id="_ejemplo_de_resultados">
@@ -396,7 +400,7 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</screen>
 <title>Representación del patrón Decorator que ilustra el sistema de filtros</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="../assets/appendixes/extractor-filter.png" contentwidth="700" contentdepth="200"/>
+      <imagedata fileref="../assets/appendixes/extractor-filter.png"/>
     </imageobject>
     <textobject><phrase>Representación del patrón Decorator que ilustra el sistema de filtros</phrase></textobject>
   </mediaobject>

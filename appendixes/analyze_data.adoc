@@ -31,7 +31,7 @@ Con el objetivo de poder generar un sistema flexible y personalizable, se diseñ
 Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.
 
 .Representación del patrón Decorator que ilustra el sistema de filtros
-image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, 700, 200, align="center"]
+image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, align="center"]
 
 === Algoritmo de poda y control del uso de memoria
 

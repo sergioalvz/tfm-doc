@@ -67,40 +67,46 @@ class Tweet(id:String, username: String, name:String, location: String, timezone
 
 === Parámetros del sistema
 
-Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero `properties` que se ha utilizado para indicar al sistema algunos parámetros:
+Debido a que Falcon es un sistema sin ánimo de ejecutarse a través de una GUI, la manera de parametrizar la ejecución ha sido a través de una interfaz de línea de comandos. Para ello, se ha utilizado la biblioteca *scopt* (https://github.com/scopt/scopt).
 
-* `time_in` y `time_to_collect`: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.
-* `file_name`: nombre del fichero de salida.
-* `coordiantes_mandatory`: `boolean` que indica si los tuits recolectados deben contener o no información geográfica adjunta.
-* `filter_language`: idioma en el que se desean obtener los tuits.
-* `stop_words_file`: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de _stop words_ del idioma por el que se esté filtrando.
-* `filter_bounding_boxes_file`: fichero `XML` que contiene los _bounding boxes_ sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.
+scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto `ScoptParser` que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (`String`, `Integer`, `Boolean`) y si son requeridos u opcionales.
 
-[NOTE]
-====
-El siguiente fragmento de código muestra un fichero donde se aplican a la vez todas las propiedades. En un caso real, sólo se aplicarían aquellas que tuvieran sentido para el resultado que se quisiera obtener. Por tanto, no tendría sentido que estuvieran habilitadas a la vez las propiedades `filter_language` y `filter_bounding_boxes_file`
-====
+A continuación se muestra el _usage_ de la aplicación:
 
 ----
-# Valid values for time_in property:
-#
-# DAYS
-# HOURS
-# MICROSECONDS
-# MILLISECONDS
-# MINUTES
-# NANOSECONDS
-# SECONDS
-time_in=DAYS
-time_to_collect=1
+Falcon 1.0
+Usage: Falcon [options]
 
-# File to save the results
-file_name=ES-Spain.xml
+  -l <value> | --language <value>
+        Specifies the language, in ISO 639-1 format, for the tweets to collect.
+  -s <value> | --stopwords <value>
+        Specifies the file for the stopwords.
+  -t <value> | --time-in <value>
+        The time measure for collecting tweets (SECONDS, MINUTES, HOURS, DAYS).
+  -n <value> | --timestamp <value>
+        Units of time for collecting tweets.
+  -o <value> | --output <value>
+        The output filename where store the collection results.
+  -c <value> | --credentials <value>
+        Properties file with the Twitter credentials
+  --coordinates-mandatory
+        This flag indicates whether every tweet must have a geolocation tag associated or not.
+  -b <value> | --bounding-boxes <value>
+        Specifies the file which contains the bounding boxes.
+----
 
-coordinates_mandatory=true
-filter_language=es
-stop_words_file=spanish-stop-words.txt
-filter_bounding_boxes_file=es_bounding_boxes.xml
+* `--time-in` y `--timestamp`: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.
+* `--output`: nombre del fichero de salida.
+* `--coordinates-mandatory`: su presencia indica si los tuits recolectados deben contener o no información geográfica adjunta.
+* `--language`: idioma en el que se desean obtener los tuits.
+* `--stopwords`: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de _stop words_ del idioma por el que se esté filtrando.
+* `--bounding-boxes`: opcionalmente, se puede proveer un fichero `XML` que contiene los _bounding boxes_ sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.
+* `--credentials`: indica el fichero que contiene las credenciales que se utilizarán para conectarse con la API de Twitter y utilizar su servicio de Streaming.
+
+Un ejemplo de uso para obtener datos en español sobre los bounding boxes de España durante un día, podría ser algo como esto:
+
+----
+falcon.jar -l es -s es_stop_words.txt -t DAYS -n 1 --o es_tweets_collection -c credentials.properties -b spain_bounding_boxes.xml
 ----
 
 === Ejemplo de resultados

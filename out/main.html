@@ -728,65 +728,68 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="sect2">
 <h3 id="_par_metros_del_sistema">Parámetros del sistema</h3>
 <div class="paragraph">
-<p>Como parte de los requisitos del sistema, era necesario ofrecer la capacidad de parametrizar la ejecución para poder obtener un tipo de resultados u otros. A continuación se muestra un ejemplo del fichero <code>properties</code> que se ha utilizado para indicar al sistema algunos parámetros:</p>
+<p>Debido a que Falcon es un sistema sin ánimo de ejecutarse a través de una GUI, la manera de parametrizar la ejecución ha sido a través de una interfaz de línea de comandos. Para ello, se ha utilizado la biblioteca <strong>scopt</strong> (<a href="https://github.com/scopt/scopt">https://github.com/scopt/scopt</a>).</p>
+</div>
+<div class="paragraph">
+<p>scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto <code>ScoptParser</code> que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (<code>String</code>, <code>Integer</code>, <code>Boolean</code>) y si son requeridos u opcionales.</p>
+</div>
+<div class="paragraph">
+<p>A continuación se muestra el <em>usage</em> de la aplicación:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Falcon 1.0
+Usage: Falcon [options]
+
+  -l &lt;value&gt; | --language &lt;value&gt;
+        Specifies the language, in ISO 639-1 format, for the tweets to collect.
+  -s &lt;value&gt; | --stopwords &lt;value&gt;
+        Specifies the file for the stopwords.
+  -t &lt;value&gt; | --time-in &lt;value&gt;
+        The time measure for collecting tweets (SECONDS, MINUTES, HOURS, DAYS).
+  -n &lt;value&gt; | --timestamp &lt;value&gt;
+        Units of time for collecting tweets.
+  -o &lt;value&gt; | --output &lt;value&gt;
+        The output filename where store the collection results.
+  -c &lt;value&gt; | --credentials &lt;value&gt;
+        Properties file with the Twitter credentials
+  --coordinates-mandatory
+        This flag indicates whether every tweet must have a geolocation tag associated or not.
+  -b &lt;value&gt; | --bounding-boxes &lt;value&gt;
+        Specifies the file which contains the bounding boxes.</pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>time_in</code> y <code>time_to_collect</code>: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.</p>
+<p><code>--time-in</code> y <code>--timestamp</code>: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.</p>
 </li>
 <li>
-<p><code>file_name</code>: nombre del fichero de salida.</p>
+<p><code>--output</code>: nombre del fichero de salida.</p>
 </li>
 <li>
-<p><code>coordiantes_mandatory</code>: <code>boolean</code> que indica si los tuits recolectados deben contener o no información geográfica adjunta.</p>
+<p><code>--coordinates-mandatory</code>: su presencia indica si los tuits recolectados deben contener o no información geográfica adjunta.</p>
 </li>
 <li>
-<p><code>filter_language</code>: idioma en el que se desean obtener los tuits.</p>
+<p><code>--language</code>: idioma en el que se desean obtener los tuits.</p>
 </li>
 <li>
-<p><code>stop_words_file</code>: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de <em>stop words</em> del idioma por el que se esté filtrando.</p>
+<p><code>--stopwords</code>: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de <em>stop words</em> del idioma por el que se esté filtrando.</p>
 </li>
 <li>
-<p><code>filter_bounding_boxes_file</code>: fichero <code>XML</code> que contiene los <em>bounding boxes</em> sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.</p>
+<p><code>--bounding-boxes</code>: opcionalmente, se puede proveer un fichero <code>XML</code> que contiene los <em>bounding boxes</em> sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.</p>
+</li>
+<li>
+<p><code>--credentials</code>: indica el fichero que contiene las credenciales que se utilizarán para conectarse con la API de Twitter y utilizar su servicio de Streaming.</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>El siguiente fragmento de código muestra un fichero donde se aplican a la vez todas las propiedades. En un caso real, sólo se aplicarían aquellas que tuvieran sentido para el resultado que se quisiera obtener. Por tanto, no tendría sentido que estuvieran habilitadas a la vez las propiedades <code>filter_language</code> y <code>filter_bounding_boxes_file</code></p>
-</div>
-</td>
-</tr>
-</table>
+<p>Un ejemplo de uso para obtener datos en español sobre los bounding boxes de España durante un día, podría ser algo como esto:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># Valid values for time_in property:
-#
-# DAYS
-# HOURS
-# MICROSECONDS
-# MILLISECONDS
-# MINUTES
-# NANOSECONDS
-# SECONDS
-time_in=DAYS
-time_to_collect=1
-
-# File to save the results
-file_name=ES-Spain.xml
-
-coordinates_mandatory=true
-filter_language=es
-stop_words_file=spanish-stop-words.txt
-filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
+<pre>falcon.jar -l es -s es_stop_words.txt -t DAYS -n 1 --o es_tweets_collection -c credentials.properties -b spain_bounding_boxes.xml</pre>
 </div>
 </div>
 </div>
@@ -921,7 +924,7 @@ filter_bounding_boxes_file=es_bounding_boxes.xml</pre>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros" width="700" height="200">
+<img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros">
 </div>
 <div class="title">Figure 2. Representación del patrón Decorator que ilustra el sistema de filtros</div>
 </div>
