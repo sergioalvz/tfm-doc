@@ -106,7 +106,7 @@ Usage: Falcon [options]
 Un ejemplo de uso para obtener datos en español sobre los bounding boxes de España durante un día, podría ser algo como esto:
 
 ----
-falcon.jar -l es -s es_stop_words.txt -t DAYS -n 1 --o es_tweets_collection -c credentials.properties -b spain_bounding_boxes.xml
+falcon.jar -l es -s es_stop_words.txt -t DAYS -n 1 -o es_tweets_collection -c credentials.properties -b spain_bounding_boxes.xml
 ----
 
 === Ejemplo de resultados
