@@ -33,10 +33,154 @@ Debido a la naturaleza del problema, en este caso no tiene sentido que las opera
 .Representación del patrón Decorator que ilustra el sistema de filtros
 image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, align="center"]
 
-=== Algoritmo de poda y control del uso de memoria
-
 === Likelihood-ratio test y Likelihood-ratio test normalizado
 
+=== Algoritmo de poda y control del uso de memoria
+
 === Generación de puntuaciones
+
+=== Caso de uso y flujo completo del sistema de análisis
+
+Partiendo de dos conjuntos de datasets (uno global y otro local) con los siguientes tuits de ejemplo (se ha simplificado la estructura de los tuits ajustándolos a aquellas características importantes para ilustrar el ejemplo):
+
+*LOCAL (ASTURIAS)*
+
+----
+
+username: cris_cerra
+name: cristina cerra
+location: Ribadesella; Gijón
+latitude: -5.6653517
+longitude: 43.5279244
+tweet: No me disgusta economia de la empresa, pero tampoco entiendo a que fin lo tengo que estudiar yo…  Mas sinsentido imposible…
+
+
+username: LorenaGS93
+name: Lorena González
+location: Moreda, Aller
+latitude: -5.73753988
+longitude: 43.168336
+tweet: Conocemos lo que hacemos, pero desconocemos lo que podemos llegar a hacer
+
+username: Luciantomil
+name: ∴
+location: Oviedo
+latitude: -5.8362912
+longitude: 43.3740172
+tweet: Tanto quejarme de lo de espiar el #Wa y ahora me pasa a mi @LorenaGS93.
+
+----
+
+*GLOBAL (ESPAÑA SIN ASTURIAS)*
+
+----
+
+username: elenita9614
+name: Elenaa
+location: España, Madrid
+latitude: -3.6598875
+longitude: 40.4746948
+tweet: Siempre en el amor hay un poco de locura pero en la locura hay un poco de razón.
+
+username: xtian_herrero
+name: Christian Herrero
+location: Al sur del sur.
+latitude: -5.15107127
+longitude: 36.42808127
+tweet: Copiando a mi amigo pacojarillo con su asamblea laminar. Me recuerda a #starwars #backlighting @… http://t.co/XQ5GGUrq9X
+
+username: AlisTwittah
+name: Ali
+location:
+latitude: -6.1914368
+longitude: 36.4725925
+tweet: VIVA EL BETIS
+
+----
+
+El algoritmo encargado de generar LLR recorrería cada uno de los dos ficheros aplicando los siguientes pasos:
+
+*1.* Para cada entidad Tweet se extraen aquellos términos estipulados por el usuario (Bigramas, Menciones, Hashtags, Keywords o Keywords en el campo de Localización)
+
+A continuación se muestran los efectos de aplicar todos los filtros sobre uno de los tweets de prueba:
+
+*ORIGINAL*
+
+----
+username: Luciantomil
+name: ∴
+location: Oviedo
+latitude: -5.8362912
+longitude: 43.3740172
+tweet: Tanto quejarme de lo de espiar el #Wa y ahora me pasa a mi @LorenaGS93.
+----
+
+*PROCESADO*
+
+----
+Menciones: @lorenags93
+Hashtags: #wa
+Keywords: tanto, quejarme, espiar, ahora, pasa
+Bigramas: quejarme tanto, espiar tanto, ahora tanto, pasa tanto, espiar quejarme, ahora quejarme, pasa quejarme, ahora espiar, espiar pasa, ahora pasa
+KW en Localización: oviedo
+----
+
+Como se pueda observar, se aplica una normalización a cada tweet que implica transformar todo el contenido a minúsculas así como aplicar un filtro que elimina stop words o signos de puntuación. En el caso de los Bigramas, además, se realiza una ordenación por orden alfabético.
+
+*2.* Cada término extraído por tuit, se añade a un Hash que contabiliza su número de apariciones en total para ese dataset. Se ha creado un algoritmo de poda agresiva que permita controlar la cantidad de memoria utilizada por el proceso. Para ello, cuando el número de términos alcanza un umbral (configurado por el usuario) se realiza un truncado de los términos con menos apariciones del Hash en un porcentaje definido por el usuario. Para minimizar el impacto de la poda, se controla cual era la mayor de las frecuencias que tenían los términos que se eliminaron, de esa manera, los nuevos términos empezarán directamente en esa frecuencia mínima.
+
+*3.* Una vez ambos datasets tienen un Hash de resultados que contiene todos los términos con mayor número de apariciones, es necesario recorrer cada dataset para ver qué frecuencia tienen los términos del dataset local en el dataset global. Un caso que se puede presentar, es que ciertos términos aparezcan en el dataset local y *no* en el global, para ello, se utiliza un algoritmo en el que se buscan todos aquellos términos con la misma frecuencia en el dataset local *pero* que tengan correspondencia también en el dataset global y se calcula su media, aplicando este valor como frecuencia para el término sin correspondencia en el dataset global.
+
+Por ejemplo, supongamos que estamos analizando un dataset local geolocalizado en Asturias, y aparece el término _escanciar_ con una frecuencia de 10 apariciones. Después observamos que no existen correspondencia en el dataset global para ese término, por lo que buscamos en el dataset local otros términos con el mismo número de apariciones pero que *sí* tenga frecuencia asignada en el dataset global:
+
+[cols="3*", options="header"]
+|===
+|Término
+|Local
+|Global
+
+|oviedo
+|10
+|4
+
+|sidra
+|10
+|3
+
+|culín
+|10
+|5
+|===
+
+Como resultado, el término _escanciar_ pasaría a tener: `(4 + 3 + 5)/3 = 4` como valor de frecuencia
+
+*4.* Para cada par de frecuencias, se aplica el logaritmo del test estadístico denominado: *Likelihood ratio test* (http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm), el cual es capaz de devolver un valor aproximado del impacto que un determinado término tiene sobre el dataset global (indicando si es más o menos discriminativo). El agoritmo utilizado es una implementación normalizada desarrollada por el doctor Daniel Gayo-Avello.
+
+*5.* Una vez se obtiene el valor LLR para cada término, se guarda en un Hash de resultados que asocia `Término -> LLR`. Por último, se serializa en un fichero TSV donde cada línea contiene un término concreto y su valor LLR asociado para esa pareja de datasets. Un ejemplo de fichero de salida sería el siguiente:
+
+----
+52.096630093774245  principado asturias
+57.068998944725266  gracies besin
+63.80508052413473   héctor simón
+63.80508052413473   asturias oviedo
+63.80508052413473   oviedo principado
+63.80508052413473   muches besin
+----
+
+Los valores más positivos indican una mayor discriminación. En este caso, los resultados pertenecen a extraer bigramas sobre un conjunto de datasets entre los que se quería sacar los términos más discriminativos para la provincia de Asturias (a fecha de 17 de Mayo de 2014).
+
+*6.* Una vez con estos resultados, lo habitual es poner a descargar otras 24h de tuits de acuerdo al área global específicada y, después, recorrer los nuevos tuits obtenidos uno a uno para extraer todos sus términos y comprobar que puntuación LLR asignada tienen en los ficheros TSV generados en la versión anterior. De acuerdo al extracto de puntuaciones anterior, un tuit como el siguiente:
+
+----
+Estoy con Héctor y Simón en Parque Principado de Oviedo. Tenía muches ganas de verlos. 1 besin.
+----
+
+Tendría la siguiente puntuación:
+
+----
+63.80508052413473 + 57.068998944725266 + 63.80508052413473 + 63.80508052413473 ~= 248,483
+----
+
+
 
 === Configuración del sistema
