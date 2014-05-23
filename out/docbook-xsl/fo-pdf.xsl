@@ -251,7 +251,7 @@
   <xsl:param name="formal.title.placement">
     figure after
     example before
-    table before
+    table after
   </xsl:param>
 
   <xsl:attribute-set name="formal.title.properties">

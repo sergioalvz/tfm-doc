@@ -6,23 +6,69 @@ Como consecuencia de todo ello, durante los últimos años han ido apareciendo d
 
 El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que _tan sólo_ agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.
 
-Por ello, en este capítulo se recopilan algunos _papers_ que han servido como punto de arranque para este proyecto, así como algunas aplicaciones que comparten características similares.
+Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto, así como algunas aplicaciones que comparten características similares.
 
-==== Papers
-
-Estos son los _papers_ más importantes y que han tenido una mayor transcendencia a la hora de desarrollar el proyecto.
+==== Estudios y artículos de investigación
 
 ===== Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles
 _Por Brent Hecht et al. Northwestern University y Palo Alto Research Center_
 
-El estudio liderado por Brent Hecht demuestra como aproximadamente el 66% de los usuarios no utiliza el campo de _Localización_ en sus perfiles para informar acerca de su localización real. Por tanto, propone como estrategia el conteo de los términos que forman cada tuit con el objetivo de poder realizar cálculos estadísticos que permitan identificar aquellas palabras más indicativas para cada localización.
+El estudio liderado por Brent Hecht demuestra de manera científica como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.
 
-Esta estrategia será parcialmente utilizada en la implementación del presente proyecto.
+Entre los datos obtenidos por Brent y su equipo se pueden destacar los siguientes:
+
+. Sólo un 66% de los usuarios utiliza el campo de Localización para aportar información geográfica válida (es decir, localizaciones reales pero que *no tienen porqué indicar su situación real*. Por ejemplo, si una persona de *Oviedo* escribe *California* en el campo de Localización de su perfil, este estudio lo incluye dentro del 66% anterior).
+
+. Algunos de los usos que los usuarios dentro del 34% restante aplican al campo de Localización se puede observar en <<location-use-type>>.
+
+. La manera de distinguir entre localización real y ficticia supuso de un proceso manual en el que dos miembros del equipo debieron revisar tuit a tuit el campo de Localización, debido a la habilidad de los usuarios para poder expresar sarcasmo o ironía, así como expresiones comunes que pueden tener asociado un componente geográfico inherente (un ejemplo puede ser referirse al Principado de Asturias como _la tierrina_).
+
+.Tipos de uso del campo de Localización por parte de los usuarios de Twitter
+[cols="3,1", id="location-use-type"]
+|===
+|Cultura popular
+|12.9%
+
+|Referencias a su propia privacidad
+|1.2%
+
+|Insultos o contenido violento
+|4.6%
+
+|Localizaciones no terráqueas
+|5.0%
+
+|Emociones negativas hacia su localización real
+|3.2%
+
+|Naturaleza sexual
+|3.2%
+|===
+
+Como alternativa a los resultados anteriores, y buscando una manera de automatizar el proceso y encontrar resultados más fiables y exhaustivos, se propusieron hacer un primer experimento para comprobar si el estudio de los contenidos publicados por un usuario pueden aportar la información necesaria para permitir inferir su ubicación geográfica.
+
+Para ello, utilizaron un software de aprendizaje automático y un clasificador Bayesiano multinomial que en base a un conjunto de datos obtenidos a partir de aplicar el algoritmo _CALGARI_ (de implementación propia), fuese capaz de predecir a qué área (País y Estado) pertenece un tuit en base a su contenido.
+
+[NOTE]
+.CALGARI
+====
+El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellas que son más específicas de un área (ciudad o estado) en concreto.
+====
+
+Entre los resultados ofrecidos por el estudio destacan un *72.7% de acierto para inferir el país* de un usuario pero tan *sólo un 30% de acierto a nivel de estado*.
+
+Como apunte adicional, es interesante una afirmación que se enuncia en el artículo cuando se hace referencia al nuevo campo de localización que la API Streaming de Twitter ofrece para adjuntar información geolocalizada (siempre que el usuario lo permita):
+
+____
+ First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. Second, we found that only 0.77% of our 62 million tweets contained this embedded location information.
+____
+
+De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta.
 
 ===== Where Is This Tweet From? Inferring Home Locations of Twitter Users
 _Por Jalal Mahmud et al. IBM Research_
 
-Con el objetivo de poder identificar un tuit a nivel de ciudad, este estudio plantea la posibilidad de analizar tres tipos de términos diferentes para localizar una publicación en Twitter:
+Con el objetivo de poder identificar un tuit a diferentes granularidades: ciudad o estado, el estudio plantea la posibilidad de analizar tres tipos de términos diferentes para localizar una publicación en Twitter:
 
 . Palabras
 . Hashtags
@@ -30,7 +76,18 @@ Con el objetivo de poder identificar un tuit a nivel de ciudad, este estudio pla
 
 Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.
 
-También en este estudio se hace mención a la utilización de un *software de aprendizaje automático*, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue _Naïve Bayes Multimonial_.
+Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como `#` para indicar _hashtags_ o `@` para indicar _menciones_) y palabras vacías.
+
+También en este estudio se hace mención a la utilización de un *software de aprendizaje automático*, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.
+
+La estrategia propuesta en este trabajo para inferir la localización de un usuario en Twitter fue:
+
+. A lo largo de sus tuits, mencionará más veces su ciudad o estado de origen que el resto de ciudades o estados.
+. Visitará más lugares de su ciudad o estado de origen que del resto de ciudades o estados (para detectar este tipo de visitas, se guardan todas las URLs generadas a partir de check-ins compartidos a través de *Foursquare* para luego comprobar su información asociada através de la propia API de Foursquare).
+
+Los resultados presentados a nivel de ciudad no fueron realmente positivos, y sólo presentan niveles de precisión superiores al 70% cuando se permiten márgenes de error superiores a 200 millas.
+
+Se presenta como incógnita como actúa realmente el algoritmo cuando se trabajan con usuarios que no tienen contenido generado por Foursquare o no hacen una referencia explícita a su ciudad, estado o país.
 
 ===== TweoLocator: A Non-Intrusive Geographical Locator System for Twitter
 _Por Yi-Shin Chen et al. National Tsing Hua University_
