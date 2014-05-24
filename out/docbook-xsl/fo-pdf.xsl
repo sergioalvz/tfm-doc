@@ -48,15 +48,15 @@
   -->
 
   <xsl:template name="pickfont-sans">
-    <xsl:text>Arial,sans-serif</xsl:text>
+    <xsl:text>Helvetica,sans-serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-serif">
-    <xsl:text>Georgia,serif</xsl:text>
+    <xsl:text>Times,serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-mono">
-    <xsl:text>Liberation Mono,Courier New,Courier,monospace</xsl:text>
+    <xsl:text>Courier,monospace</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-dingbat">
@@ -251,7 +251,7 @@
   <xsl:param name="formal.title.placement">
     figure after
     example before
-    table after
+    table before
   </xsl:param>
 
   <xsl:attribute-set name="formal.title.properties">
@@ -259,7 +259,7 @@
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
-    <xsl:attribute name="font-weight">normal</xsl:attribute>
+    <xsl:attribute name="font-weight">bold</xsl:attribute>
     <xsl:attribute name="text-align">center</xsl:attribute>
   </xsl:attribute-set>
 
