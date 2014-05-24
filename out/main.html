@@ -363,8 +363,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <body class="article">
 <div id="header">
 <h1>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</h1>
-<span id="author" class="author">Sergio Álvarez Suárez</span><br>
-<span id="email" class="email"><a href="mailto:sergioalvarezsuarez@gmail.com">sergioalvarezsuarez@gmail.com</a></span><br>
+<span id="author" class="author">Sergio Álvarez Suárez</span><br><span id="author2" class="author">Daniel Gayo Avello</span><br>
 <div id="toc" class="toc">
 <div id="toctitle">Tabla de Contenidos</div>
 <ul class="sectlevel1">
@@ -518,7 +517,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <td class="content">
 <div class="title">CALGARI</div>
 <div class="paragraph">
-<p>El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellas que son más específicas de un área (ciudad o estado) en concreto.</p>
+<p>El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellos que son más específicas de un área (ciudad o estado) en concreto, penalizando palabras comunes como <em>ya, hola, adiós, etc.</em></p>
 </div>
 </td>
 </tr>
@@ -532,10 +531,8 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 <div class="quoteblock">
 <blockquote>
-<div class="literalblock">
-<div class="content">
-<pre>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. Second, we found that only 0.77% of our 62 million tweets contained this embedded location information.</pre>
-</div>
+<div class="paragraph">
+<p>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. <strong>Second, we found that only 0.77% of our 62 million tweets contained this embedded location information</strong>.</p>
 </div>
 </blockquote>
 </div>
@@ -560,7 +557,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Hashtags</p>
 </li>
 <li>
-<p>Nombres de lugares (utilizando un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> geográfico)</p>
+<p>Nombres de lugares (utilizando un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <em>Red Sox</em> para referirse a la ciudad de Boston).</p>
 </li>
 </ol>
 </div>
@@ -568,7 +565,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.</p>
 </div>
 <div class="paragraph">
-<p>Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como <code>#</code> para indicar <em>hashtags</em> o <code>@</code> para indicar <em>menciones</em>) y palabras vacías.</p>
+<p>Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como <code>#</code> para indicar <em>hashtags</em>) y palabras vacías.</p>
 </div>
 <div class="paragraph">
 <p>También en este estudio se hace mención a la utilización de un <strong>software de aprendizaje automático</strong>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</p>
@@ -582,15 +579,15 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>A lo largo de sus tuits, mencionará más veces su ciudad o estado de origen que el resto de ciudades o estados.</p>
 </li>
 <li>
-<p>Visitará más lugares de su ciudad o estado de origen que del resto de ciudades o estados (para detectar este tipo de visitas, se guardan todas las URLs generadas a partir de check-ins compartidos a través de <strong>Foursquare</strong> para luego comprobar su información asociada através de la propia API de Foursquare).</p>
+<p>Visitará más lugares de su ciudad o estado de origen que del resto de ciudades o estados (para detectar este tipo de visitas, se guardan todas las URLs generadas a partir de <em>check-ins</em> compartidos a través de <strong>Foursquare</strong> para luego comprobar su información asociada a través de la propia API de Foursquare).</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Los resultados presentados a nivel de ciudad no fueron realmente positivos, y sólo presentan niveles de precisión superiores al 70% cuando se permiten márgenes de error superiores a 200 millas.</p>
+<p>A partir de estas premisas y de las decisiones anteriores, se crearon 3 modelos diferentes para poder entrenar sobre cada uno de los términos que se quieren extraer: palabras, hashtags y nombres de lugares. Los resultados presentados a nivel de ciudad no fueron realmente positivos, y sólo presentan niveles de precisión superiores al 70% cuando se permiten márgenes de error superiores a 200 millas (~= 322 kilómetros).</p>
 </div>
 <div class="paragraph">
-<p>Se presenta como incógnita como actúa realmente el algoritmo cuando se trabajan con usuarios que no tienen contenido generado por Foursquare o no hacen una referencia explícita a su ciudad, estado o país.</p>
+<p>Por último, no se especifica con exactitud cómo actúa realmente el algoritmo cuando se trabaja con usuarios que no tienen contenido generado por Foursquare o no hacen una referencia explícita a su ciudad, estado o país.</p>
 </div>
 </div>
 <div class="sect4">
@@ -599,10 +596,80 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><em>Por Yi-Shin Chen et al. National Tsing Hua University</em></p>
 </div>
 <div class="paragraph">
-<p>En este estudio, Yi-Shin Chen propone un sistema denominado <strong>TweoLocator</strong> que funciona como un <em>framework</em> el cual, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.</p>
+<p>En este estudio, Yi-Shin Chen diseña un sistema que a través de diferentes etapas y aglutinando varios procesos es capaz de inferir la localización de un usuario en Twitter en función del contenido de sus tuits.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Baseline Classification</dt>
+<dd>
+<p>A partir de un gran dataset de usuarios de Twitter, en esta fase se realiza un análisis para comprobar qué perfiles puede ser potencialmente válidos para realizar un análisis de contenidos, eliminando aquellos que puedan pertenecer a <em>bots</em> automáticos o sean perfiles de spam. Una vez se obtiene una masa de usuarios válidos se procede, dentro aún de esta etapa, a analizar todos sus tuits (a excepción de aquellos con información de geolocalización asociada) para volver a categorizarlos en 3 tipos:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Direct subject</strong>: Tuits que hacen referencia al usuario en primera persona.</p>
+</li>
+<li>
+<p><strong>Anonymous subject</strong>: Tuits que no hacen una referencia directa al usuario, pero utilizan otros pronombres personales o la primera secuencia de palabras es un verbo que no es una palabra vacía.</p>
+</li>
+<li>
+<p><strong>Others</strong>: Tuits descartados por no pertenecer a ninguna de las 2 categorías anteriores.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Rule Generation</dt>
+<dd>
+<p>Una vez todos los tuits anteriores han sido analizados semánticamente se realiza una normalización de los mismos aplicando técnicas de análisis de texto (utilizando un tokenizador y un stemmer) para luego poder formar n-gramas como los mismos. Durante esta etapa, se intentan inferir reglas que permitan asociar términos comunes a localizaciones específicas como aeropuertos, parques, estaciones de tren, etc.</p>
+</dd>
+<dt class="hdlist1">Location Discovery</dt>
+<dd>
+<p>A partir de los términos de cada tuit, se generan trigramas, bigramas y unigramas y se comparan sobre un gazetteer y las reglas generadas en el paso anterior, obteniendo localizaciones que se pueden agrupar en:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Explicit Specific</strong>: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» or «Los Angeles».</p>
+</li>
+<li>
+<p><strong>Explicit</strong>: Nombres que hacen referencia a localizaciones generales como parques o gimnasios.</p>
+</li>
+<li>
+<p><strong>Implicit</strong>: Combinaciones de palabras que implícitamente sugieren una localización. Estos resultaos se obtienen a partir de las reglas generadas en el paso anterior.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Toponym Removal</dt>
+<dd>
+<p>Mediante la utilización de un clúster, y partiendo de la premisa de que un usuario nombrará con mayor frecuencia lugares cercanos a su lugar de origen, en esta fase se analizan las menciones realizadas por el usuario sobre ciudades, lugares, países y se refinarán los datos para obtener su lugar de origen.</p>
+</dd>
+<dt class="hdlist1">Timeline Sorting</dt>
+<dd>
+<p>Es el último paso en el refinamiento de los datos. En esta fase se intenta minimizar la aparición de ruido detectando aquellas ocasiones en las que el usuario hace referencia a una localización geográfica sin aportar una información real acerca de su posición. Por ejemplo, es habitual que alguien situado en Asturias pueda nombrar la ciudad de Nueva York para hablar de alguna noticia o para mostrar sus ganas por conocer la ciudad, sin que esa mención indique que se encuentre realmente allí. Para resolver este problema, y aceptando que en algunos casos sólo se podrían resolver dichas inconsistencias de manera manual mediante la intervención humana, se diseñó un sistema que a partir de dos tuits con contenido geolocalizado consecutivos (del mismo usuario) compruebe si su diferencia en el tiempo es acorde a la posibilidad de haberse movido entre ambos puntos a una velocidad normal de transporte.</p>
+</dd>
+<dt class="hdlist1">Location Inferred</dt>
+<dd>
+<p>De acuerdo a los resultados obtenidos en todas las fases anteriores y de acuerdo al nivel sobre que el que se haya podido inferir su localización, los usuarios son clasificados en los siguientes grupos:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No information</strong>: Si no se ha podido obtener información geográfica válida para inferir la localización del usuario.</p>
+</li>
+<li>
+<p><strong>Just country</strong>: Si sólo se ha podido inferir el país del usuario.</p>
+</li>
+<li>
+<p><strong>Timeline</strong>: Se han podido detectar ubicaciones actuales y previas del usuario, pero no su lugar de origen.</p>
+</li>
+<li>
+<p><strong>Hometown</strong>: Se han podido detectar ubincaciones actuales y previas del usuario y <strong>también</strong> su lugar de origen. Es el grupo con información más completa.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>Este paper ofrece el interesante concepto de n-gramas, que será utilizado en el presente proyecto como una de las estrategias para la detección de términos con posibilidad de ofrecer contenido geolocalizable.</p>
+<p>En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de acierto cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1339,7 +1406,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-05-11 17:46:20 CEST
+Last updated 2014-05-24 16:53:31 CEST
 </div>
 </div>
 </body>

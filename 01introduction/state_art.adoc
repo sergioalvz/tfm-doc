@@ -52,7 +52,7 @@ Para ello, utilizaron un software de aprendizaje automático y un clasificador B
 [NOTE]
 .CALGARI
 ====
-El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellas que son más específicas de un área (ciudad o estado) en concreto.
+El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellos que son más específicas de un área (ciudad o estado) en concreto, penalizando palabras comunes como _ya, hola, adiós, etc._
 ====
 
 Entre los resultados ofrecidos por el estudio destacan un *72.7% de acierto para inferir el país* de un usuario pero tan *sólo un 30% de acierto a nivel de estado*.
@@ -60,7 +60,7 @@ Entre los resultados ofrecidos por el estudio destacan un *72.7% de acierto para
 Como apunte adicional, es interesante una afirmación que se enuncia en el artículo cuando se hace referencia al nuevo campo de localización que la API Streaming de Twitter ofrece para adjuntar información geolocalizada (siempre que el usuario lo permita):
 
 ____
- First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. Second, we found that only 0.77% of our 62 million tweets contained this embedded location information.
+First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. *Second, we found that only 0.77% of our 62 million tweets contained this embedded location information*.
 ____
 
 De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta.
@@ -72,29 +72,63 @@ Con el objetivo de poder identificar un tuit a diferentes granularidades: ciudad
 
 . Palabras
 . Hashtags
-. Nombres de lugares (utilizando un gazetteerfootnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] geográfico)
+. Nombres de lugares (utilizando un gazetteerfootnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería _Red Sox_ para referirse a la ciudad de Boston).
 
 Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.
 
-Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como `#` para indicar _hashtags_ o `@` para indicar _menciones_) y palabras vacías.
+Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como `#` para indicar _hashtags_) y palabras vacías.
 
 También en este estudio se hace mención a la utilización de un *software de aprendizaje automático*, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.
 
 La estrategia propuesta en este trabajo para inferir la localización de un usuario en Twitter fue:
 
 . A lo largo de sus tuits, mencionará más veces su ciudad o estado de origen que el resto de ciudades o estados.
-. Visitará más lugares de su ciudad o estado de origen que del resto de ciudades o estados (para detectar este tipo de visitas, se guardan todas las URLs generadas a partir de check-ins compartidos a través de *Foursquare* para luego comprobar su información asociada através de la propia API de Foursquare).
+. Visitará más lugares de su ciudad o estado de origen que del resto de ciudades o estados (para detectar este tipo de visitas, se guardan todas las URLs generadas a partir de _check-ins_ compartidos a través de *Foursquare* para luego comprobar su información asociada a través de la propia API de Foursquare).
 
-Los resultados presentados a nivel de ciudad no fueron realmente positivos, y sólo presentan niveles de precisión superiores al 70% cuando se permiten márgenes de error superiores a 200 millas.
+A partir de estas premisas y de las decisiones anteriores, se crearon 3 modelos diferentes para poder entrenar sobre cada uno de los términos que se quieren extraer: palabras, hashtags y nombres de lugares. Los resultados presentados a nivel de ciudad no fueron realmente positivos, y sólo presentan niveles de precisión superiores al 70% cuando se permiten márgenes de error superiores a 200 millas (~= 322 kilómetros).
 
-Se presenta como incógnita como actúa realmente el algoritmo cuando se trabajan con usuarios que no tienen contenido generado por Foursquare o no hacen una referencia explícita a su ciudad, estado o país.
+Por último, no se especifica con exactitud cómo actúa realmente el algoritmo cuando se trabaja con usuarios que no tienen contenido generado por Foursquare o no hacen una referencia explícita a su ciudad, estado o país.
 
 ===== TweoLocator: A Non-Intrusive Geographical Locator System for Twitter
 _Por Yi-Shin Chen et al. National Tsing Hua University_
 
-En este estudio, Yi-Shin Chen propone un sistema denominado *TweoLocator* que funciona como un _framework_ el cual, a través de diferentes etapas, asegura ofrecer unos resultados altamente fiables acerca de la localización de un usuario en Twitter.
+En este estudio, Yi-Shin Chen diseña un sistema que a través de diferentes etapas y aglutinando varios procesos es capaz de inferir la localización de un usuario en Twitter en función del contenido de sus tuits.
 
-Este paper ofrece el interesante concepto de n-gramas, que será utilizado en el presente proyecto como una de las estrategias para la detección de términos con posibilidad de ofrecer contenido geolocalizable.
+Baseline Classification::
+
+A partir de un gran dataset de usuarios de Twitter, en esta fase se realiza un análisis para comprobar qué perfiles puede ser potencialmente válidos para realizar un análisis de contenidos, eliminando aquellos que puedan pertenecer a _bots_ automáticos o sean perfiles de spam. Una vez se obtiene una masa de usuarios válidos se procede, dentro aún de esta etapa, a analizar todos sus tuits (a excepción de aquellos con información de geolocalización asociada) para volver a categorizarlos en 3 tipos:
+* *Direct subject*: Tuits que hacen referencia al usuario en primera persona.
+* *Anonymous subject*: Tuits que no hacen una referencia directa al usuario, pero utilizan otros pronombres personales o la primera secuencia de palabras es un verbo que no es una palabra vacía.
+* *Others*: Tuits descartados por no pertenecer a ninguna de las 2 categorías anteriores.
+
+Rule Generation::
+
+Una vez todos los tuits anteriores han sido analizados semánticamente se realiza una normalización de los mismos aplicando técnicas de análisis de texto (utilizando un tokenizador y un stemmer) para luego poder formar n-gramas como los mismos. Durante esta etapa, se intentan inferir reglas que permitan asociar términos comunes a localizaciones específicas como aeropuertos, parques, estaciones de tren, etc.
+
+Location Discovery::
+
+A partir de los términos de cada tuit, se generan trigramas, bigramas y unigramas y se comparan sobre un gazetteer y las reglas generadas en el paso anterior, obteniendo localizaciones que se pueden agrupar en:
+
+* *Explicit Specific*: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» or «Los Angeles».
+* *Explicit*: Nombres que hacen referencia a localizaciones generales como parques o gimnasios.
+* *Implicit*: Combinaciones de palabras que implícitamente sugieren una localización. Estos resultaos se obtienen a partir de las reglas generadas en el paso anterior.
+
+Toponym Removal:: Mediante la utilización de un clúster, y partiendo de la premisa de que un usuario nombrará con mayor frecuencia lugares cercanos a su lugar de origen, en esta fase se analizan las menciones realizadas por el usuario sobre ciudades, lugares, países y se refinarán los datos para obtener su lugar de origen.
+
+Timeline Sorting::
+
+Es el último paso en el refinamiento de los datos. En esta fase se intenta minimizar la aparición de ruido detectando aquellas ocasiones en las que el usuario hace referencia a una localización geográfica sin aportar una información real acerca de su posición. Por ejemplo, es habitual que alguien situado en Asturias pueda nombrar la ciudad de Nueva York para hablar de alguna noticia o para mostrar sus ganas por conocer la ciudad, sin que esa mención indique que se encuentre realmente allí. Para resolver este problema, y aceptando que en algunos casos sólo se podrían resolver dichas inconsistencias de manera manual mediante la intervención humana, se diseñó un sistema que a partir de dos tuits con contenido geolocalizado consecutivos (del mismo usuario) compruebe si su diferencia en el tiempo es acorde a la posibilidad de haberse movido entre ambos puntos a una velocidad normal de transporte.
+
+Location Inferred::
+
+De acuerdo a los resultados obtenidos en todas las fases anteriores y de acuerdo al nivel sobre que el que se haya podido inferir su localización, los usuarios son clasificados en los siguientes grupos:
+
+* *No information*: Si no se ha podido obtener información geográfica válida para inferir la localización del usuario.
+* *Just country*: Si sólo se ha podido inferir el país del usuario.
+* *Timeline*: Se han podido detectar ubicaciones actuales y previas del usuario, pero no su lugar de origen.
+* *Hometown*: Se han podido detectar ubincaciones actuales y previas del usuario y *también* su lugar de origen. Es el grupo con información más completa.
+
+En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de acierto cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.
 
 ===== A Multi-Indicator Approach for Geolocalization of Tweets
 _Por Axel Schulz et al. SAP Research_

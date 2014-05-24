@@ -1,6 +1,5 @@
 = Geolocalización de usuarios en medios sociales mediante análisis de contenidos
-:author: Sergio Álvarez Suárez
-:email: sergioalvarezsuarez@gmail.com
+Sergio Álvarez Suárez; Daniel Gayo Avello
 :toc:
 :toc-title: Tabla de Contenidos
 :lang: es
