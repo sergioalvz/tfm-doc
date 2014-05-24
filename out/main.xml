@@ -265,8 +265,46 @@
 <section xml:id="_a_multi_indicator_approach_for_geolocalization_of_tweets">
 <title>A Multi-Indicator Approach for Geolocalization of Tweets</title>
 <simpara><emphasis>Por Axel Schulz et al. SAP Research</emphasis></simpara>
-<simpara>Presenta un sistema muy interesante mediante la utilización de formas poligonales en 3D para decidir la localización de un tuit y usuario. Cada polígono tiene dos valores de calidad en base al indicador que los define. Los polígonos se superponen, y la intersección de mayor altura es el área con más probabilidades de contener el tuit analizado.</simpara>
-<simpara>Para obtener la información de cada tuit, utiliza varios sistemas como la <emphasis role="strong">DBPedia</emphasis> (<link xlink:href="http://dbpedia.org/">http://dbpedia.org/</link>) o <emphasis role="strong">Foursquare</emphasis> (<link xlink:href="https://es.foursquare.com/">https://es.foursquare.com/</link>) para reconocer entidades y topónimos. Su dependencia de sistemas externos impide que sea capaz de deducir una localización a través del contexto si esta no contiene ninguna referencia a una entidad localizable.</simpara>
+<simpara>En este artículo, un equipo de investigación de <emphasis role="strong">SAP AG</emphasis> presenta un enfoque muy interesante para inferir la localización de un usuario mediante la utilización de formas poligonales en 3D. Los polígonos se superponen, y la intersección de mayor altura es el área con más probabilidades de contener al usuario analizado.</simpara>
+<simpara>La altura de cada polígono viene determinada por pesos específicos que se aplican en función de la fuente utilizada para obtener esa localización. Cada fuente tiene sus propios estándares de calidad y sus propias métricas para indicar más o menos fiabilidad.</simpara>
+<simpara>Para obtener las coordenadas o posiciones geográficas que deben ocupar los polígonos, los investigadores extraen información de los siguientes campos:</simpara>
+<variablelist>
+<varlistentry>
+<term>Contenido del tuit</term>
+<listitem>
+<simpara>Se optó por utilizar <emphasis role="strong">DBPedia Spotlight</emphasis> para extraer las entidades que existían en el tuit. Con los resultados de la extracción, se seleccionaban únicamente aquellas que tenían coordenadas asociadas. Además, se utilizó como calidad de cada predicción la propia confianza aportada por DBPedia Spotlight en su resultado. También se utilizaron las publicaciones realizadas a través de servicios como Foursquare, Flickr o Ubisoft, las cuales tienen adjunta información geográfica precisa mediante la utilización de coordenadas geográficas.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Localización</term>
+<listitem>
+<simpara>Se hizo uso de gazetteers que permitiesen buscar coincidencias textuales en el campo de Localización. Además, se volvió a utilizar DBPedia Spotlight para conseguir trabajar con expresiones comunes como «La gran manzana» y expresiones regulares para detectar si algún usuario incluía coordenadas geográficas directamente en su campo de Localización.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Web del usuario</term>
+<listitem>
+<simpara>Para aquellos usuarios que añaden en su perfil su página web personal se aplican dos estrategias:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Extraer el dominio de la página (.com, .es, etc).</simpara>
+</listitem>
+<listitem>
+<simpara>Utilizar la dirección IP y obtener las coordenadas a través del servicio IPInfoDB.</simpara>
+</listitem>
+</orderedlist>
+
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Zona horaria</term>
+<listitem>
+<simpara>Se asume como cierto que la zona horaria asociada al usuario es la capital de su país de origen.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<simpara>Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de <emphasis role="strong">múltiples indicadores</emphasis> con un 37% de acierto con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.</simpara>
 </section>
 <section xml:id="_inferring_the_origin_locations_of_tweets_with_quantitative_confidence">
 <title>Inferring the Origin Locations of Tweets with Quantitative Confidence</title>

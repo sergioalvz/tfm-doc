@@ -133,9 +133,32 @@ En las conclusiones que se exponen en el artículo se muestran unos resultados b
 ===== A Multi-Indicator Approach for Geolocalization of Tweets
 _Por Axel Schulz et al. SAP Research_
 
-Presenta un sistema muy interesante mediante la utilización de formas poligonales en 3D para decidir la localización de un tuit y usuario. Cada polígono tiene dos valores de calidad en base al indicador que los define. Los polígonos se superponen, y la intersección de mayor altura es el área con más probabilidades de contener el tuit analizado.
+En este artículo, un equipo de investigación de *SAP AG* presenta un enfoque muy interesante para inferir la localización de un usuario mediante la utilización de formas poligonales en 3D. Los polígonos se superponen, y la intersección de mayor altura es el área con más probabilidades de contener al usuario analizado.
 
-Para obtener la información de cada tuit, utiliza varios sistemas como la *DBPedia* (http://dbpedia.org/) o *Foursquare* (https://es.foursquare.com/) para reconocer entidades y topónimos. Su dependencia de sistemas externos impide que sea capaz de deducir una localización a través del contexto si esta no contiene ninguna referencia a una entidad localizable.
+La altura de cada polígono viene determinada por pesos específicos que se aplican en función de la fuente utilizada para obtener esa localización. Cada fuente tiene sus propios estándares de calidad y sus propias métricas para indicar más o menos fiabilidad.
+
+Para obtener las coordenadas o posiciones geográficas que deben ocupar los polígonos, los investigadores extraen información de los siguientes campos:
+
+Contenido del tuit::
+
+Se optó por utilizar *DBPedia Spotlight* para extraer las entidades que existían en el tuit. Con los resultados de la extracción, se seleccionaban únicamente aquellas que tenían coordenadas asociadas. Además, se utilizó como calidad de cada predicción la propia confianza aportada por DBPedia Spotlight en su resultado. También se utilizaron las publicaciones realizadas a través de servicios como Foursquare, Flickr o Ubisoft, las cuales tienen adjunta información geográfica precisa mediante la utilización de coordenadas geográficas.
+
+Localización::
+
+Se hizo uso de gazetteers que permitiesen buscar coincidencias textuales en el campo de Localización. Además, se volvió a utilizar DBPedia Spotlight para conseguir trabajar con expresiones comunes como «La gran manzana» y expresiones regulares para detectar si algún usuario incluía coordenadas geográficas directamente en su campo de Localización.
+
+Web del usuario::
+
+Para aquellos usuarios que añaden en su perfil su página web personal se aplican dos estrategias:
+
+. Extraer el dominio de la página (.com, .es, etc).
+. Utilizar la dirección IP y obtener las coordenadas a través del servicio IPInfoDB.
+
+Zona horaria::
+
+Se asume como cierto que la zona horaria asociada al usuario es la capital de su país de origen.
+
+Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de *múltiples indicadores* con un 37% de acierto con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.
 
 ===== Inferring the Origin Locations of Tweets with Quantitative Confidence
 _Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University_
