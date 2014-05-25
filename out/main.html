@@ -440,7 +440,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que <em>tan sólo</em> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.</p>
 </div>
 <div class="paragraph">
-<p>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto, así como algunas aplicaciones que comparten características similares.</p>
+<p>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto.</p>
 </div>
 <div class="sect3">
 <h4 id="_estudios_y_art_culos_de_investigaci_n">1.3.1. Estudios y artículos de investigación</h4>
@@ -568,7 +568,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como <code>#</code> para indicar <em>hashtags</em>) y palabras vacías.</p>
 </div>
 <div class="paragraph">
-<p>También en este estudio se hace mención a la utilización de un <strong>software de aprendizaje automático</strong>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</p>
+<p>También se hace mención a la utilización de un <strong>software de aprendizaje automático</strong>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</p>
 </div>
 <div class="paragraph">
 <p>La estrategia propuesta en este trabajo para inferir la localización de un usuario en Twitter fue:</p>
@@ -726,26 +726,51 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><em>Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University</em></p>
 </div>
 <div class="paragraph">
-<p>Este nuevo estudio presenta otra estrategia para encontrar términos fuertemente localizados en base al uso de <em>n-gramas</em>. Para ello, los investigadores se centraron en extraer bigramas de los siguientes campos:</p>
+<p>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</p>
+</div>
+<div class="paragraph">
+<p>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</p>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de la extracción de bigramas sería:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Que se traduciría a:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</p>
+</div>
+<div class="paragraph">
+<p>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Campo de Localización</p>
+<p>Peso por propiedades de calidad</p>
 </li>
 <li>
-<p>Contenido del tuit</p>
+<p>Peso por error inverso</p>
 </li>
 <li>
-<p>Zona horaria</p>
-</li>
-<li>
-<p>Idioma seleccionado en el perfil del usuario</p>
+<p>Peso por optimización</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>A su vez, desarrollaron un modelo estadístico propio, basado en un clasificador Gaussiano, el cual aplicaban sobre aquellos bigramas que superaban un número mínimo de apariciones.</p>
+<p>Todos ellos con una alta dosis de componente algorítmico y matemático.</p>
+</div>
+<div class="paragraph">
+<p>Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.</p>
 </div>
 </div>
 <div class="sect4">
@@ -774,39 +799,6 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><strong>Geotagging One Hundred Million Twitter Accounts with Total Variation Minimization</strong> <em>por Ryan Compton et al. HRL Laboratories (Malibu)</em></p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_aplicaciones_web">1.3.2. Aplicaciones web</h4>
-<div class="paragraph">
-<p>A continuación, se recopilan algunas aplicaciones con características similares a las del presente proyecto, y otras que, sin centrarse en el estudio de la geolocalización del contenido de manera específica, utilizan <strong>Twitter</strong> como fuente de información y realizan un estudio a gran escala sobre las publicaciones realizadas.</p>
-</div>
-<div class="sect4">
-<h5 id="_trendsmap">Trendsmap</h5>
-<div class="paragraph">
-<p><strong>Trendsmap</strong> (<a href="http://trendsmap.com/">http://trendsmap.com/</a>) es una aplicación web que muestra en tiempo real las tendencias en Twitter para cada localización a escala mundial. Según datos ofrecidos por la propia web en su página de <em>FAQ</em>, gestionan un volumen de tuits del orden de <strong>80 millones al día</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Su objetivo principal consiste, por tanto, en localizar las tendencias específicas de cada localización, sin ofrecer ninguna información acerca de las posibilidades de que uno u otro tuit que contengan dicha tendencia puedan pertenecer a una localización en concreto.</p>
-</div>
-<div class="paragraph">
-<p>No se ha podido encontrar ninguna información acerca del tipo de algoritmo que utiliza Trendsmap para determinar la localización de un tuit (en pos de poder determinar la tendencia para un alto número de los mismos).</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_what_the_trend">What the Trend</h5>
-<div class="paragraph">
-<p><strong>What the Trend</strong> (<a href="http://whatthetrend.com/faq">http://whatthetrend.com/faq</a>) se centra en ofrecer al usuario una explicación acerca de los propios <em>Trending Topics</em> identificados por Twitter para cada localidad.</p>
-</div>
-<div class="paragraph">
-<p>En este caso, la aplicación no incluye ningún tipo de algoritmo para adivinar la localidad de un volumen de tuits, si no que únicamente recoge las tendencias previamente analizadas y localizadas por Twitter.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_klout">Klout</h5>
-<div class="paragraph">
-<p><strong>Klout</strong> (<a href="http://klout.com/home">http://klout.com/home</a>) se describe como un servicio capaz de obtener la influencia de un usuario en la red a través de sus publicaciones y relaciones en redes sociales. Durante sus primeros años fue objetivo de varias inversiones millonarias que sacaron a la luz la gran importancia que tiene a nivel empresaria el análisis de los grandes volúmenes de información que se generan a diario en las redes sociales por parte de los propios usuarios.</p>
 </div>
 </div>
 </div>
@@ -883,7 +875,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="content">
 <img src="../assets/05development/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 1. Comunicación entre un cliente y la API Streaming de Twitter (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>)</div>
+<div class="title">Figure 1. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -1126,7 +1118,7 @@ Usage: Falcon [options]
 </ul>
 </div>
 <div class="paragraph">
-<p>Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decorator<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>.</p>
+<p>Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decorator<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span>.</p>
 </div>
 <div class="paragraph">
 <p>Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.</p>
@@ -1350,7 +1342,7 @@ KW en Localización: oviedo</pre>
 <p>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -1434,10 +1426,13 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <a href="#_footnoteref_1">1</a>. Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres
 </div>
 <div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a>. <a href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</a>
+<a href="#_footnoteref_2">2</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 <div class="footnote" id="_footnote_3">
-<a href="#_footnoteref_3">3</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_3">3</a>. <a href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</a>
+</div>
+<div class="footnote" id="_footnote_4">
+<a href="#_footnoteref_4">4</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
 </div>
 </div>
 <div id="footer">

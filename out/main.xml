@@ -44,7 +44,7 @@
 <simpara>El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.</simpara>
 <simpara>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</simpara>
 <simpara>El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.</simpara>
-<simpara>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto, así como algunas aplicaciones que comparten características similares.</simpara>
+<simpara>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto.</simpara>
 <section xml:id="_estudios_y_art_culos_de_investigaci_n">
 <title>Estudios y artículos de investigación</title>
 <section xml:id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">
@@ -164,7 +164,7 @@
 
 <simpara>Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.</simpara>
 <simpara>Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como <literal>#</literal> para indicar <emphasis>hashtags</emphasis>) y palabras vacías.</simpara>
-<simpara>También en este estudio se hace mención a la utilización de un <emphasis role="strong">software de aprendizaje automático</emphasis>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</simpara>
+<simpara>También se hace mención a la utilización de un <emphasis role="strong">software de aprendizaje automático</emphasis>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</simpara>
 <simpara>La estrategia propuesta en este trabajo para inferir la localización de un usuario en Twitter fue:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -309,23 +309,30 @@
 <section xml:id="_inferring_the_origin_locations_of_tweets_with_quantitative_confidence">
 <title>Inferring the Origin Locations of Tweets with Quantitative Confidence</title>
 <simpara><emphasis>Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University</emphasis></simpara>
-<simpara>Este nuevo estudio presenta otra estrategia para encontrar términos fuertemente localizados en base al uso de <emphasis>n-gramas</emphasis>. Para ello, los investigadores se centraron en extraer bigramas de los siguientes campos:</simpara>
+<simpara>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</simpara>
+<simpara>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</simpara>
+<simpara>Un ejemplo de la extracción de bigramas sería:</simpara>
+<screen>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</screen>
+
+<simpara>Que se traduciría a:</simpara>
+<screen>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</screen>
+
+<simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</simpara>
+<simpara>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
 <itemizedlist>
 <listitem>
-<simpara>Campo de Localización</simpara>
+<simpara>Peso por propiedades de calidad</simpara>
 </listitem>
 <listitem>
-<simpara>Contenido del tuit</simpara>
+<simpara>Peso por error inverso</simpara>
 </listitem>
 <listitem>
-<simpara>Zona horaria</simpara>
-</listitem>
-<listitem>
-<simpara>Idioma seleccionado en el perfil del usuario</simpara>
+<simpara>Peso por optimización</simpara>
 </listitem>
 </itemizedlist>
 
-<simpara>A su vez, desarrollaron un modelo estadístico propio, basado en un clasificador Gaussiano, el cual aplicaban sobre aquellos bigramas que superaban un número mínimo de apariciones.</simpara>
+<simpara>Todos ellos con una alta dosis de componente algorítmico y matemático.</simpara>
+<simpara>Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.</simpara>
 </section>
 <section xml:id="_otros_emphasis_papers_emphasis_de_inter_s">
 <title>Otros <emphasis>papers</emphasis> de interés</title>
@@ -353,25 +360,6 @@
 </listitem>
 </itemizedlist>
 
-</section>
-</section>
-<section xml:id="_aplicaciones_web">
-<title>Aplicaciones web</title>
-<simpara>A continuación, se recopilan algunas aplicaciones con características similares a las del presente proyecto, y otras que, sin centrarse en el estudio de la geolocalización del contenido de manera específica, utilizan <emphasis role="strong">Twitter</emphasis> como fuente de información y realizan un estudio a gran escala sobre las publicaciones realizadas.</simpara>
-<section xml:id="_trendsmap">
-<title>Trendsmap</title>
-<simpara><emphasis role="strong">Trendsmap</emphasis> (<link xlink:href="http://trendsmap.com/">http://trendsmap.com/</link>) es una aplicación web que muestra en tiempo real las tendencias en Twitter para cada localización a escala mundial. Según datos ofrecidos por la propia web en su página de <emphasis>FAQ</emphasis>, gestionan un volumen de tuits del orden de <emphasis role="strong">80 millones al día</emphasis>.</simpara>
-<simpara>Su objetivo principal consiste, por tanto, en localizar las tendencias específicas de cada localización, sin ofrecer ninguna información acerca de las posibilidades de que uno u otro tuit que contengan dicha tendencia puedan pertenecer a una localización en concreto.</simpara>
-<simpara>No se ha podido encontrar ninguna información acerca del tipo de algoritmo que utiliza Trendsmap para determinar la localización de un tuit (en pos de poder determinar la tendencia para un alto número de los mismos).</simpara>
-</section>
-<section xml:id="_what_the_trend">
-<title>What the Trend</title>
-<simpara><emphasis role="strong">What the Trend</emphasis> (<link xlink:href="http://whatthetrend.com/faq">http://whatthetrend.com/faq</link>) se centra en ofrecer al usuario una explicación acerca de los propios <emphasis>Trending Topics</emphasis> identificados por Twitter para cada localidad.</simpara>
-<simpara>En este caso, la aplicación no incluye ningún tipo de algoritmo para adivinar la localidad de un volumen de tuits, si no que únicamente recoge las tendencias previamente analizadas y localizadas por Twitter.</simpara>
-</section>
-<section xml:id="_klout">
-<title>Klout</title>
-<simpara><emphasis role="strong">Klout</emphasis> (<link xlink:href="http://klout.com/home">http://klout.com/home</link>) se describe como un servicio capaz de obtener la influencia de un usuario en la red a través de sus publicaciones y relaciones en redes sociales. Durante sus primeros años fue objetivo de varias inversiones millonarias que sacaron a la luz la gran importancia que tiene a nivel empresaria el análisis de los grandes volúmenes de información que se generan a diario en las redes sociales por parte de los propios usuarios.</simpara>
 </section>
 </section>
 </section>
@@ -425,7 +413,7 @@
 </orderedlist>
 
 <figure>
-<title>Comunicación entre un cliente y la API Streaming de Twitter (<link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link>)</title>
+<title>Comunicación entre un cliente y la API Streaming de Twitter<footnote><simpara><link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link></simpara></footnote></title>
   <mediaobject>
     <imageobject>
       <imagedata fileref="../assets/05development/twitter-streaming-api.png"/>
