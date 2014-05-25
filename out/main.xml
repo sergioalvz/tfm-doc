@@ -4,7 +4,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-05-24</date>
+<date>2014-05-25</date>
 <authorgroup>
 <author>
 <personname>
@@ -368,18 +368,6 @@
 <simpara>Aquí los aspectos teóricos.</simpara>
 </section>
 </chapter>
-<chapter xml:id="_planificaci_n_y_gesti_n_del_proyecto">
-<title>Planificación y gestión del proyecto</title>
-
-</chapter>
-<chapter xml:id="_an_lisis_del_sistema">
-<title>Análisis del sistema</title>
-
-</chapter>
-<chapter xml:id="_desarrollo_e_implementaci_n_del_sistema">
-<title>Desarrollo e implementación del sistema</title>
-
-</chapter>
 <appendix xml:id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">
 <title>Falcon, sistema para coleccionar datos de la API Streaming de Twitter</title>
 <simpara>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</simpara>
@@ -543,13 +531,6 @@ Usage: Falcon [options]
     &lt;/text&gt;
   &lt;/tweet&gt;
 &lt;/tweets&gt;</programlisting>
-
-<important>
-<title>Bug en Twitter4j</title>
-<simpara>En fases posteriores del desarrollo del proyecto salió a la luz un bug por parte de la biblioteca Twitter4j que produce que la latitud y longitud de cada tuit se devuelvan de manera inversa. Por tanto, aquellos valores que se estaban considerando como latitud eran realmente la longitud y viceversa.</simpara>
-<simpara>Este error no tuvo un gran impacto, puesto que fue fácilmente detectable y, una vez sabido, se tomaron las medidas adecuadas para tratar los datos correctamente.</simpara>
-<simpara>A continuación se muestra el enlace donde se hace alusión al bug: <link xlink:href="https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE">https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE</link> el cual está presente tanto para la versión <literal>3.0.4-SNAPSHOT</literal> como en anteriores versiones.</simpara>
-</important>
 
 </section>
 </appendix>

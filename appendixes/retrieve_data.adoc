@@ -141,13 +141,3 @@ Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:
   </tweet>
 </tweets>
 ----
-
-[IMPORTANT]
-.Bug en Twitter4j
-====
-En fases posteriores del desarrollo del proyecto salió a la luz un bug por parte de la biblioteca Twitter4j que produce que la latitud y longitud de cada tuit se devuelvan de manera inversa. Por tanto, aquellos valores que se estaban considerando como latitud eran realmente la longitud y viceversa.
-
-Este error no tuvo un gran impacto, puesto que fue fácilmente detectable y, una vez sabido, se tomaron las medidas adecuadas para tratar los datos correctamente.
-
-A continuación se muestra el enlace donde se hace alusión al bug: https://groups.google.com/forum/#!topic/twitter4j/Kp-gqzBJIxE el cual está presente tanto para la versión `3.0.4-SNAPSHOT` como en anteriores versiones.
-====

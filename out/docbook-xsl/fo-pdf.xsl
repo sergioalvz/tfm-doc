@@ -56,7 +56,7 @@
   </xsl:template>
 
   <xsl:template name="pickfont-mono">
-    <xsl:text>Monaco,Courier New,monospace</xsl:text>
+    <xsl:text>Courier,Courier New,monospace</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-dingbat">
@@ -75,25 +75,25 @@
     Fonts
   -->
 
-<xsl:param name="body.font.family">
-  <xsl:call-template name="pickfont-serif"/>
-</xsl:param>
+  <xsl:param name="body.font.family">
+    <xsl:call-template name="pickfont-serif"/>
+  </xsl:param>
 
-<xsl:param name="sans.font.family">
-  <xsl:call-template name="pickfont-sans"/>
-</xsl:param>
+  <xsl:param name="sans.font.family">
+    <xsl:call-template name="pickfont-sans"/>
+  </xsl:param>
 
-<xsl:param name="monospace.font.family">
-  <xsl:call-template name="pickfont-mono"/>
-</xsl:param>
+  <xsl:param name="monospace.font.family">
+    <xsl:call-template name="pickfont-mono"/>
+  </xsl:param>
 
-<xsl:param name="title.font.family">
-  <xsl:call-template name="pickfont-sans"/>
-</xsl:param>
+  <xsl:param name="title.font.family">
+    <xsl:call-template name="pickfont-sans"/>
+  </xsl:param>
 
-<xsl:param name="item.font.family">
-  <xsl:call-template name="pickfont-unicode"/>
-</xsl:param>
+  <xsl:param name="item.font.family">
+    <xsl:call-template name="pickfont-unicode"/>
+  </xsl:param>
 
   <!--
     Text properties
@@ -156,7 +156,8 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="monospace.verbatim.properties" use-attribute-sets="monospace.properties verbatim.properties">
-    <xsl:attribute name="font-size">10pt</xsl:attribute>
+    <xsl:attribute name="font-style">normal</xsl:attribute>
+    <xsl:attribute name="font-size">11pt</xsl:attribute>
     <xsl:attribute name="text-align">start</xsl:attribute>
     <xsl:attribute name="wrap-option">wrap</xsl:attribute>
   </xsl:attribute-set>
@@ -723,7 +724,7 @@
 
   <xsl:attribute-set name="itemizedlist.label.properties">
    <xsl:attribute name="font-family"><xsl:value-of select="$item.font.family"/></xsl:attribute>
-  </xsl:attribute-set>
+ </xsl:attribute-set>
 
   <!--
     Title pages

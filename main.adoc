@@ -5,12 +5,6 @@ Sergio Álvarez Suárez; Daniel Gayo Avello
 :lang: es
 :numbered:
 
-include::01introduction/index.adoc[]
-
-include::02project_management/index.adoc[]
-
-include::03analysis/index.adoc[]
-
-include::05development/index.adoc[]
+include::introduction/index.adoc[]
 
 include::appendixes/index.adoc[]
