@@ -48,15 +48,15 @@
   -->
 
   <xsl:template name="pickfont-sans">
-    <xsl:text>Helvetica,sans-serif</xsl:text>
+    <xsl:text>Helvetica Neue,sans-serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-serif">
-    <xsl:text>Times,serif</xsl:text>
+    <xsl:text>Charter,serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-mono">
-    <xsl:text>Courier,monospace</xsl:text>
+    <xsl:text>Monaco,Courier New,monospace</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-dingbat">
@@ -67,15 +67,19 @@
     <xsl:text>Symbol,ZapfDingbats</xsl:text>
   </xsl:template>
 
+  <xsl:template name="pickfont-unicode">
+    <xsl:text>Arial,sans-serif</xsl:text>
+  </xsl:template>
+
   <!--
     Fonts
   -->
 
-  <xsl:param name="body.font.family">
-   <xsl:call-template name="pickfont-sans"/>
- </xsl:param>
+<xsl:param name="body.font.family">
+  <xsl:call-template name="pickfont-serif"/>
+</xsl:param>
 
- <xsl:param name="sans.font.family">
+<xsl:param name="sans.font.family">
   <xsl:call-template name="pickfont-sans"/>
 </xsl:param>
 
@@ -87,6 +91,10 @@
   <xsl:call-template name="pickfont-sans"/>
 </xsl:param>
 
+<xsl:param name="item.font.family">
+  <xsl:call-template name="pickfont-unicode"/>
+</xsl:param>
+
   <!--
     Text properties
   -->
@@ -95,7 +103,7 @@
   <xsl:param name="alignment">left</xsl:param>
   <xsl:param name="line-height">1.5</xsl:param>
   <xsl:param name="alignment">justify</xsl:param>
-  <xsl:param name="body.font.master">11</xsl:param>
+  <xsl:param name="body.font.master">12</xsl:param>
   <xsl:param name="body.font.size">
     <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
   </xsl:param>
@@ -712,6 +720,10 @@
       <xsl:otherwise>&#x2022;</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:attribute-set name="itemizedlist.label.properties">
+   <xsl:attribute name="font-family"><xsl:value-of select="$item.font.family"/></xsl:attribute>
+  </xsl:attribute-set>
 
   <!--
     Title pages
