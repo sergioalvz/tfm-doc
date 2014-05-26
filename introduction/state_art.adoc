@@ -10,6 +10,12 @@ Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos
 
 ==== Estudios y artículos de investigación
 
+Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteerfootnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el _timeline_ del usuario son aquellas más próximas a su localización real.
+
+Por otro lado, otros investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.
+
+Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el _timeline_ del usuario y además adjuntar información geolocalizada (*Foursquare* sería un claro ejemplo de este tipo de servicios).
+
 ===== Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles
 _Por Brent Hecht et al. Northwestern University y Palo Alto Research Center_
 
@@ -70,9 +76,9 @@ _Por Jalal Mahmud et al. IBM Research_
 
 Con el objetivo de poder identificar un tuit a diferentes granularidades: ciudad o estado, el estudio plantea la posibilidad de analizar tres tipos de términos diferentes para localizar una publicación en Twitter:
 
-. Palabras
-. Hashtags
-. Nombres de lugares (utilizando un gazetteerfootnote:[Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres] geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería _Red Sox_ para referirse a la ciudad de Boston).
+. *Palabras*
+. *Hashtags*
+. *Nombres de lugares* (utilizando un gazetteer geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería _Red Sox_ para referirse a la ciudad de Boston).
 
 Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.
 
@@ -169,15 +175,15 @@ Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitte
 
 Un ejemplo de la extracción de bigramas sería:
 
-----
+____
 Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.
-----
+____
 
 Que se traduciría a:
 
-----
+____
 Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.
-----
+____
 
 Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.
 
@@ -191,9 +197,21 @@ Todos ellos con una alta dosis de componente algorítmico y matemático.
 
 Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.
 
+===== You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users
+_Por Zhiyuan Cheng et al. Texas A&M University_
+
+En este estudio, Zhiyuan Cheng y su equipo aportan datos interesantes en la investigación de la geolocalización en Twitter. Centrados en buscar un algoritmo capaz de inferir la localización de un usuario *únicamente* con el contenido de sus tuits, establecen tres criterios que serán ampliamente utilizados por el resto de investigaciones posteriores:
+
+1. Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.
+
+2. El test Likelihood ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.
+
+3. Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.
+
+Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).
+
 ===== Otros _papers_ de interés
 
-* *You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users* _por Zhiyuan Cheng et al. Texas A&M University_
 * *Location Type Classification Using Tweet Content* _por Haibin Liu et al. The Pennsylvania State University_
 * *TweetLocalize: Inferring Author Location in Social Media* _por Evan Sparks et al. University of California-Berkeley_
 * *Inferring the Location of Twitter Messages Based on User Relationships* _por Clodoveu A. Davis Jr. et al. Universidade Federal de Minas Gerais_

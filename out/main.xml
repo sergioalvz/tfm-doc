@@ -47,6 +47,9 @@
 <simpara>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto.</simpara>
 <section xml:id="_estudios_y_art_culos_de_investigaci_n">
 <title>Estudios y artículos de investigación</title>
+<simpara>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer<footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <emphasis>timeline</emphasis> del usuario son aquellas más próximas a su localización real.</simpara>
+<simpara>Por otro lado, otros investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</simpara>
+<simpara>Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el <emphasis>timeline</emphasis> del usuario y además adjuntar información geolocalizada (<emphasis role="strong">Foursquare</emphasis> sería un claro ejemplo de este tipo de servicios).</simpara>
 <section xml:id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">
 <title>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</title>
 <simpara><emphasis>Por Brent Hecht et al. Northwestern University y Palo Alto Research Center</emphasis></simpara>
@@ -152,13 +155,13 @@
 <simpara>Con el objetivo de poder identificar un tuit a diferentes granularidades: ciudad o estado, el estudio plantea la posibilidad de analizar tres tipos de términos diferentes para localizar una publicación en Twitter:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
-<simpara>Palabras</simpara>
+<simpara><emphasis role="strong">Palabras</emphasis></simpara>
 </listitem>
 <listitem>
-<simpara>Hashtags</simpara>
+<simpara><emphasis role="strong">Hashtags</emphasis></simpara>
 </listitem>
 <listitem>
-<simpara>Nombres de lugares (utilizando un gazetteer<footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <emphasis>Red Sox</emphasis> para referirse a la ciudad de Boston).</simpara>
+<simpara><emphasis role="strong">Nombres de lugares</emphasis> (utilizando un gazetteer geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <emphasis>Red Sox</emphasis> para referirse a la ciudad de Boston).</simpara>
 </listitem>
 </orderedlist>
 
@@ -312,10 +315,16 @@
 <simpara>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</simpara>
 <simpara>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</simpara>
 <simpara>Un ejemplo de la extracción de bigramas sería:</simpara>
-<screen>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</screen>
+<blockquote>
+  
+<simpara>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</simpara>
+</blockquote>
 
 <simpara>Que se traduciría a:</simpara>
-<screen>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</screen>
+<blockquote>
+  
+<simpara>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</simpara>
+</blockquote>
 
 <simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</simpara>
 <simpara>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
@@ -334,12 +343,27 @@
 <simpara>Todos ellos con una alta dosis de componente algorítmico y matemático.</simpara>
 <simpara>Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.</simpara>
 </section>
+<section xml:id="_you_are_where_you_tweet_a_content_based_approach_to_geo_locating_twitter_users">
+<title>You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users</title>
+<simpara><emphasis>Por Zhiyuan Cheng et al. Texas A&amp;M University</emphasis></simpara>
+<simpara>En este estudio, Zhiyuan Cheng y su equipo aportan datos interesantes en la investigación de la geolocalización en Twitter. Centrados en buscar un algoritmo capaz de inferir la localización de un usuario <emphasis role="strong">únicamente</emphasis> con el contenido de sus tuits, establecen tres criterios que serán ampliamente utilizados por el resto de investigaciones posteriores:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.</simpara>
+</listitem>
+<listitem>
+<simpara>El test Likelihood ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.</simpara>
+</listitem>
+<listitem>
+<simpara>Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.</simpara>
+</listitem>
+</orderedlist>
+
+<simpara>Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).</simpara>
+</section>
 <section xml:id="_otros_emphasis_papers_emphasis_de_inter_s">
 <title>Otros <emphasis>papers</emphasis> de interés</title>
 <itemizedlist>
-<listitem>
-<simpara><emphasis role="strong">You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users</emphasis> <emphasis>por Zhiyuan Cheng et al. Texas A&amp;M University</emphasis></simpara>
-</listitem>
 <listitem>
 <simpara><emphasis role="strong">Location Type Classification Using Tweet Content</emphasis> <emphasis>por Haibin Liu et al. The Pennsylvania State University</emphasis></simpara>
 </listitem>

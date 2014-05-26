@@ -441,6 +441,15 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 <div class="sect3">
 <h4 id="_estudios_y_art_culos_de_investigaci_n">1.3.1. Estudios y artículos de investigación</h4>
+<div class="paragraph">
+<p>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <em>timeline</em> del usuario son aquellas más próximas a su localización real.</p>
+</div>
+<div class="paragraph">
+<p>Por otro lado, otros investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</p>
+</div>
+<div class="paragraph">
+<p>Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el <em>timeline</em> del usuario y además adjuntar información geolocalizada (<strong>Foursquare</strong> sería un claro ejemplo de este tipo de servicios).</p>
+</div>
 <div class="sect4">
 <h5 id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</h5>
 <div class="paragraph">
@@ -548,13 +557,13 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Palabras</p>
+<p><strong>Palabras</strong></p>
 </li>
 <li>
-<p>Hashtags</p>
+<p><strong>Hashtags</strong></p>
 </li>
 <li>
-<p>Nombres de lugares (utilizando un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <em>Red Sox</em> para referirse a la ciudad de Boston).</p>
+<p><strong>Nombres de lugares</strong> (utilizando un gazetteer geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <em>Red Sox</em> para referirse a la ciudad de Boston).</p>
 </li>
 </ol>
 </div>
@@ -731,18 +740,22 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="paragraph">
 <p>Un ejemplo de la extracción de bigramas sería:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</pre>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</p>
 </div>
+</blockquote>
 </div>
 <div class="paragraph">
 <p>Que se traduciría a:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</pre>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</p>
 </div>
+</blockquote>
 </div>
 <div class="paragraph">
 <p>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</p>
@@ -771,12 +784,34 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="sect4">
+<h5 id="_you_are_where_you_tweet_a_content_based_approach_to_geo_locating_twitter_users">You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users</h5>
+<div class="paragraph">
+<p><em>Por Zhiyuan Cheng et al. Texas A&amp;M University</em></p>
+</div>
+<div class="paragraph">
+<p>En este estudio, Zhiyuan Cheng y su equipo aportan datos interesantes en la investigación de la geolocalización en Twitter. Centrados en buscar un algoritmo capaz de inferir la localización de un usuario <strong>únicamente</strong> con el contenido de sus tuits, establecen tres criterios que serán ampliamente utilizados por el resto de investigaciones posteriores:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.</p>
+</li>
+<li>
+<p>El test Likelihood ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.</p>
+</li>
+<li>
+<p>Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).</p>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_otros_em_papers_em_de_inter_s">Otros <em>papers</em> de interés</h5>
 <div class="ulist">
 <ul>
-<li>
-<p><strong>You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users</strong> <em>por Zhiyuan Cheng et al. Texas A&amp;M University</em></p>
-</li>
 <li>
 <p><strong>Location Type Classification Using Tweet Content</strong> <em>por Haibin Liu et al. The Pennsylvania State University</em></p>
 </li>
