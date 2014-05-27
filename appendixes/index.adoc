@@ -1,5 +1,7 @@
 :numbered!:
 
+include::scala-sbt.adoc[]
+
 include::retrieve_data.adoc[]
 
 include::b2pick.adoc[]

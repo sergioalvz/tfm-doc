@@ -1,2 +1,53 @@
 [appendix]
-== b2pick, aplicación web para obtener _bounding boxes_
+== B2pick, aplicación web para seleccionar _bounding boxes_
+
+Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de bounding boxes para aplicar filtros sobre el Streaming de Twitter. Un bounding box, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.
+
+*B2pick* (https://github.com/sergio-alvarez/b2pick), viene a cubrir la necesidad de poder automatizar el proceso mediante una sencilla aplicación web escrita puramente en JavaScript en la capa de cliente, que mediante la utilización de la API de Google Maps permita dibujar al usuario rectángulos sobre las zonas geográficas que desee.
+
+Actualmente, no se conoce ninguna herramienta que ofrezca un servicio similar.
+
+Una vez el usuario ha seleccionado los bounding boxes que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.
+
+.Ejemplo de salida XML para un conjunto de Bounding Boxes
+[source,xml]
+----
+<boundingBoxes>
+  <boundingBox>
+    <sw>
+      <latitude>35.75</latitude>
+      <longitude>-12.04</longitude>
+    </sw>
+    <ne>
+      <latitude>44.53</latitude>
+      <longitude>4.22</longitude>
+    </ne>
+  </boundingBox>
+  <boundingBox>
+    <sw>
+      <latitude>50.23</latitude>
+      <longitude>-13.89</longitude>
+    </sw>
+    <ne>
+      <latitude>59.27</latitude>
+      <longitude>1.85</longitude>
+    </ne>
+  </boundingBox>
+  <boundingBox>
+    <sw>
+      <latitude>54.72</latitude>
+      <longitude>6.24</longitude>
+    </sw>
+    <ne>
+      <latitude>57.61</latitude>
+      <longitude>12.83</longitude>
+    </ne>
+  </boundingBox>
+</boundingBoxes>
+----
+
+.Imagen de la pantalla principal de B2pick
+image::appendixes/b2pick-main-screen.png[Imagen de la pantalla principal de b2pick, align="center"]
+
+.Ejemplo del lightbox de salida con los bounding boxes seleccionados
+image::appendixes/b2pick-lightbox.png[Ejemplo del lightbox de salida con los bounding boxes seleccionados, align="center"]

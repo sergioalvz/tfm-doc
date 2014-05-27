@@ -1,45 +1,9 @@
-:imagesdir: ../assets
-
 [appendix]
 == Puma, sistema de análisis de datos
 
-Para el análisis de los datos recogidos mediante el recolector, fue necesario desarrollar un nuevo sistema preparado para trabajar con grandes volúmenes de datos y capaz de aplicar los algoritmos planteados en estudios anteriores para obtener vocabulario discriminativo. Este sistema fue bautizado con el nombre de *Puma*, como una manera rápida de poder referirse a él.
-
-=== ¿Qué datos se deben estudiar?
-
-Con el objetivo de poder encontrar vocabulario discriminativo, se comenzaron a descargar datos, durante 4 semanas, con las siguientes características:
-
-Semana 1:: Tuits en español para todo el mundo
-Semana 2:: Tuits en español localizados en España
-Semana 3:: Tuits en inglés para todo el mundo
-Semana 4:: Tuits en inglés localizados en UK
-
-La idea será comparar datasets con el mismo idioma pero de distintas localizaciones para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.
-
-=== Sistema de filtros
-
-Para poder comenzar a trabajar con los datos recopilados por el sistema Falcon, fue necesario definir qué tipo de información se quería extraer de cada tuit con el objetivo de realizar las operaciones necesarias sobre ella. Se definieron los siguientes términos como los más interesantes para encontrar vocabulario discriminativo:
-
-* Menciones
-* Hashtags
-* Bigramas
-* Keywords
-* Keywords en el campo de localización del usuario
-
-Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decoratorfootnote:[http://en.wikipedia.org/wiki/Decorator_pattern].
-
-Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.
-
-.Representación del patrón Decorator que ilustra el sistema de filtros
-image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, align="center"]
-
-=== Likelihood-ratio test y Likelihood-ratio test normalizado
-
-=== Algoritmo de poda y control del uso de memoria
-
-=== Generación de puntuaciones
-
 === Caso de uso y flujo completo del sistema de análisis
+
+DEMASIADO EN SUCIO COMO PARA TENERLO EN CUENTA AÚN.
 
 Partiendo de dos conjuntos de datasets (uno global y otro local) con los siguientes tuits de ejemplo (se ha simplificado la estructura de los tuits ajustándolos a aquellas características importantes para ilustrar el ejemplo):
 
@@ -180,7 +144,3 @@ Tendría la siguiente puntuación:
 ----
 63.80508052413473 + 57.068998944725266 + 63.80508052413473 + 63.80508052413473 ~= 248,483
 ----
-
-
-
-=== Configuración del sistema

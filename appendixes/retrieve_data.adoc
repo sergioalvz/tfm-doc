@@ -1,21 +1,17 @@
-:imagesdir: ../assets
-
 [appendix]
 == Falcon, sistema para coleccionar datos de la API Streaming de Twitter
 
-El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.
+Para crear los diferentes datasets que fueron necesarios para desarrollar los prototipos y modelos de datos, se diseñó un sistema capaz de conectarse a la *API Streaming de Twitter* (https://dev.twitter.com/docs/api/streaming) para descargar y almacenar tuits en tiempo real.
 
-Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener. En base a estos requisitos, se utilizó la *API Streaming de Twitter* (https://dev.twitter.com/docs/api/streaming), la cual aporta dos características principales:
+Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener de acuerdo a los filtros disponibles a través de la API de Twitter:
 
-* Capacidad de obtener datos en tiempo real de Twitter de manera ininterrumpida
-* Capacidad de establecer filtros sobre el flujo de entrada:
-** Filtro por idioma del tuit
-** Filtro por localización del tuit (mediante el uso de _bounding boxes_)
+* Filtro por idioma del tuit
+* Filtro por localización del tuit (mediante el uso de _bounding boxes_)
 
-Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca *Twitter4j* (http://twitter4j.org/en/index.html), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:
+Para realizar la conexión entre el sistem Falcon y la API de Twitter se utilizó la biblioteca *Twitter4j* (http://twitter4j.org/en/index.html). La ventajas de utilizar una biblioteca construida sobre la API original es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:
 
 1. Autenticación OAuth2 simplificada mediante clases propias de la biblioteca
-2. La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.
+2. Simplificación del proceso para poder utilizar la API de Streaming, aislando al desarrollador de la complejidad para mantener activa la conexión con el servidor de Twitter.
 
 .Comunicación entre un cliente y la API Streaming de Twitterfootnote:[https://dev.twitter.com/docs/api/streaming]
 image::05development/twitter-streaming-api.png[Modelo de comunicación entre un cliente y la API Streaming de Twitter, align="center"]
@@ -24,14 +20,13 @@ image::05development/twitter-streaming-api.png[Modelo de comunicación entre un 
 
 Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.
 
-En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones `grep`. Esta decisión fue cancelada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - http://opencsv.sourceforge.net/ ) combinados con caracteres extraños como Emoji (http://www.unicode.org/faq/emoji_dingbats.html).
+En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones `grep`. Esta decisión fue descartada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - http://opencsv.sourceforge.net/ ) combinados con caracteres extraños como Emoji (http://www.unicode.org/faq/emoji_dingbats.html).
 
-Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de marcado que mejor podría serializar y estructurar los datos obtenidos a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML mediante la utilización de literales:
+Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de estructuración de datos que mejor podría serializar la información obtenida a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML:
 
 [source, scala]
 ----
-class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String,
-            longitude: String, text: String) {
+class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String, longitude: String, text: String) {
   def toXML =
     <tweet>
       <id>
@@ -69,9 +64,9 @@ class Tweet(id:String, username: String, name:String, location: String, timezone
 
 Debido a que Falcon es un sistema sin ánimo de ejecutarse a través de una GUI, la manera de parametrizar la ejecución ha sido a través de una interfaz de línea de comandos. Para ello, se ha utilizado la biblioteca *scopt* (https://github.com/scopt/scopt).
 
-scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto `ScoptParser` que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (`String`, `Integer`, `Boolean`) y si son requeridos u opcionales.
+scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto `ScoptParser` que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (`String`, `Integer`, `Boolean`, etc.) y si son requeridos u opcionales.
 
-A continuación se muestra el _usage_ de la aplicación:
+A continuación se muestra el mensaje de ayuda de la aplicación:
 
 ----
 Falcon 1.0
@@ -79,8 +74,8 @@ Usage: Falcon [options]
 
   -l <value> | --language <value>
         Specifies the language, in ISO 639-1 format, for the tweets to collect.
-  -s <value> | --stopwords <value>
-        Specifies the file for the stopwords.
+  -k <value> | --keywords <value>
+        Specifies the file for the keywords.
   -t <value> | --time-in <value>
         The time measure for collecting tweets (SECONDS, MINUTES, HOURS, DAYS).
   -n <value> | --timestamp <value>
@@ -89,18 +84,15 @@ Usage: Falcon [options]
         The output filename where store the collection results.
   -c <value> | --credentials <value>
         Properties file with the Twitter credentials
-  --coordinates-mandatory
-        This flag indicates whether every tweet must have a geolocation tag associated or not.
   -b <value> | --bounding-boxes <value>
         Specifies the file which contains the bounding boxes.
 ----
 
 * `--time-in` y `--timestamp`: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.
 * `--output`: nombre del fichero de salida.
-* `--coordinates-mandatory`: su presencia indica si los tuits recolectados deben contener o no información geográfica adjunta.
 * `--language`: idioma en el que se desean obtener los tuits.
 * `--stopwords`: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de _stop words_ del idioma por el que se esté filtrando.
-* `--bounding-boxes`: opcionalmente, se puede proveer un fichero `XML` que contiene los _bounding boxes_ sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.
+* `--bounding-boxes`: fichero `XML` que contiene los _bounding boxes_ sobre los que se realizará el filtrado.
 * `--credentials`: indica el fichero que contiene las credenciales que se utilizarán para conectarse con la API de Twitter y utilizar su servicio de Streaming.
 
 Un ejemplo de uso para obtener datos en español sobre los bounding boxes de España durante un día, podría ser algo como esto:
@@ -115,29 +107,33 @@ Un ejemplo de los resultados obtenidos por el recolector sería el siguiente:
 
 [source, xml]
 ----
-<tweets>
-  <tweet>
-    <username>
-      gaabriforner
-    </username>
-    <location>
-      Málaga
-    </location>
-    <timezone>
-      Athens
-    </timezone>
-    <createdAt>
-      2014-03-04 21:53
-    </createdAt>
-    <latitude>
-      -4.437747
-    </latitude>
-    <longitude>
-      36.7055494
-    </longitude>
-    <text>
-      y ante todo a echarle fuerza d voluntad y ganas para conseguir lo que quiero!!
-    </text>
-  </tweet>
-</tweets>
+<tweet>
+  <id>
+    469499350327255040
+  </id>
+  <username>
+    jessfhickey
+  </username>
+  <name>
+    Jessica Hickey
+  </name>
+  <location>
+    Ireland
+  </location>
+  <timezone>
+    London
+  </timezone>
+  <createdAt>
+    2014-05-22 15:25
+  </createdAt>
+  <latitude>
+    53.3444086
+  </latitude>
+  <longitude>
+    -6.2649497
+  </longitude>
+  <text>
+    In the most beautiful cafe ever. #boulevardcafe
+  </text>
+</tweet>
 ----

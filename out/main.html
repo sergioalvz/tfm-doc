@@ -373,10 +373,24 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_motivaci_n_del_proyecto">1.1. Motivación del proyecto</a></li>
 <li><a href="#_alcance">1.2. Alcance</a></li>
 <li><a href="#_estado_del_arte">1.3. Estado del arte</a></li>
-<li><a href="#_aspectos_te_ricos">1.4. Aspectos teóricos</a></li>
 </ul>
 </li>
-<li><a href="#_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</a></li>
+<li><a href="#_algoritmos_y_aspectos_te_ricos">2. Algoritmos y aspectos teóricos</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_log_likelihood_ratio_test">2.1. Log Likelihood Ratio test</a></li>
+<li><a href="#_t_rminos_discriminativos">2.2. Términos discriminativos</a></li>
+</ul>
+</li>
+<li><a href="#_experimentos_y_resultados">3. Experimentos y resultados</a></li>
+<li><a href="#_conclusiones_del_sistema_de_geolocalizaci_n">4. Conclusiones del sistema de geolocalización</a></li>
+<li><a href="#_scala">Appendix A: Scala</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_sbt">sbt</a></li>
+</ul>
+</li>
+<li><a href="#_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix B: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</a></li>
 <li>
 <ul class="sectlevel2">
 <li><a href="#_almacenamiento_de_datos">Almacenamiento de datos</a></li>
@@ -384,26 +398,19 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_ejemplo_de_resultados">Ejemplo de resultados</a></li>
 </ul>
 </li>
-<li><a href="#_b2pick_aplicaci_n_web_para_obtener_em_bounding_boxes_em">Appendix B: b2pick, aplicación web para obtener <em>bounding boxes</em></a></li>
-<li><a href="#_puma_sistema_de_an_lisis_de_datos">Appendix C: Puma, sistema de análisis de datos</a></li>
+<li><a href="#_b2pick_aplicaci_n_web_para_seleccionar_em_bounding_boxes_em">Appendix C: B2pick, aplicación web para seleccionar <em>bounding boxes</em></a></li>
+<li><a href="#_puma_sistema_de_an_lisis_de_datos">Appendix D: Puma, sistema de análisis de datos</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#__qu_datos_se_deben_estudiar">¿Qué datos se deben estudiar?</a></li>
-<li><a href="#_sistema_de_filtros">Sistema de filtros</a></li>
-<li><a href="#_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">Likelihood-ratio test y Likelihood-ratio test normalizado</a></li>
-<li><a href="#_algoritmo_de_poda_y_control_del_uso_de_memoria">Algoritmo de poda y control del uso de memoria</a></li>
-<li><a href="#_generaci_n_de_puntuaciones">Generación de puntuaciones</a></li>
 <li><a href="#_caso_de_uso_y_flujo_completo_del_sistema_de_an_lisis">Caso de uso y flujo completo del sistema de análisis</a></li>
-<li><a href="#_configuraci_n_del_sistema">Configuración del sistema</a></li>
 </ul>
 </li>
-<li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix D: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
-<li><a href="#_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix E: Entrenamiento del modelo de análisis de datos.</a></li>
+<li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix E: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
+<li><a href="#_software_de_aprendizaje_autom_tico_y_vowpal_wabbit">Appendix F: Software de aprendizaje automático y Vowpal Wabbit</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#_normalizaci_n_de_datos">Normalización de datos</a></li>
-<li><a href="#_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a></li>
-<li><a href="#_estudio_de_los_primeros_resultados_y_cambio_de_estrategia">Estudio de los primeros resultados y cambio de estrategia</a></li>
+<li><a href="#_software_de_aprendizaje_autom_tico">Software de aprendizaje automático</a></li>
+<li><a href="#_vowpal_wabbit">Vowpal Wabbit</a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +452,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <em>timeline</em> del usuario son aquellas más próximas a su localización real.</p>
 </div>
 <div class="paragraph">
-<p>Por otro lado, otros investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</p>
+<p>Por otro lado, grupos de investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</p>
 </div>
 <div class="paragraph">
 <p>Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el <em>timeline</em> del usuario y además adjuntar información geolocalizada (<strong>Foursquare</strong> sería un claro ejemplo de este tipo de servicios).</p>
@@ -835,30 +842,145 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_algoritmos_y_aspectos_te_ricos">2. Algoritmos y aspectos teóricos</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_aspectos_te_ricos">1.4. Aspectos teóricos</h3>
+<h3 id="_log_likelihood_ratio_test">2.1. Log Likelihood Ratio test</h3>
+<div class="sect3">
+<h4 id="_log_likelihood_ratio_test_normalizado">2.1.1. Log Likelihood Ratio test normalizado</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_t_rminos_discriminativos">2.2. Términos discriminativos</h3>
 <div class="paragraph">
-<p>Aquí los aspectos teóricos.</p>
+<p>Se consideran términos discriminativos aquellos que son capaces de aportar información muy geolocalizable de manera implícita. Un ejemplo son aquellas palabras muy propias de una localización en concreto, como el caso del término <em>sidra</em> o <em>carbayu</em>, que con mucha probabilidad indican un contenido que ha sido generado en Asturias.</p>
+</div>
+<div class="paragraph">
+<p>La estrategia planteada en este proyecto está basada en descubrir este tipo de términos a través de los tuits que los usuarios publican para una determinada región (país, estado, ciudad, etc.). Para ello, la premisa básica es aceptar que los términos más discriminativos tenderán a tener un epicentro muy significativo donde su frecuencia es muy elevada, para después, no tener apenas dispersión y ser muy poco frecuentes en el resto.</p>
+</div>
+<div class="paragraph">
+<p>Con el objetivo de poder aplicar los algoritmos anteriores, será necesario trabajar siempre con dos datasets sobre los que establecer la comparativa. Por un lado, se trabajará con un conjunto de datos localizados en el área en concreto que se quiera analizar, y por otro lado, otro conjunto de datos que se establezcan en un área más global para ese mismo idioma.</p>
+</div>
+<div class="paragraph">
+<p>A partir de ahí, el análisis de cada dataset extraerá los siguientes términos:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menciones</dt>
+<dd>
+<p>Se considerán menciones todos aquellos términos que comienzan con el literal <code>@</code>. En Twitter, se utilizan para hacer referencia a otro usuario en el contenido que se está publicando.</p>
+</dd>
+<dt class="hdlist1">Hashtags</dt>
+<dd>
+<p>Un hashtag es un término que comienza con el literal <code>#</code> y sirve para categorizar el contenido de un tuit. Un ejemplo claro es durante los partidos de fútbol del Fútbol Club Barcelona, donde los aficionados que se encuentran comentando el partido en Twitter, suelen acompañar cada publicación con el hashtag <code>#fcblive</code> de manera que clasifican manualmente el contenido de su tuit para poder ser agrupado en una misma conversación.</p>
+</dd>
+<dt class="hdlist1">Bigramas</dt>
+<dd>
+<p>En este proyecto, hemos considerado como bigramas todas aquellas combinaciones de 2 palabras que se puedan hacer con el contenido de un tuit. Al contrario que en algunos artículos de investigación anteriores donde sólo se consideran términos consecutivos, en este caso hemos realizado todas las combinaciones posibles para cada tuit.</p>
+<div class="paragraph">
+<p>Algunas consideraciones importantes sobre esto son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Se han eliminado todos aquellos bigramas que contienen 2 veces la misma palabra.</p>
+</li>
+<li>
+<p>Se han eliminado todos aquellos bigramas que contienen al menos una palabra vacía.</p>
+</li>
+<li>
+<p>Se han elminado todos aquellos bigramas con términos inferiores a 2 caracteres.</p>
+</li>
+<li>
+<p>Se han ordenado alfabéticamente todos los bigramas de acuerdo a las 2 palabras que contienen, facilitando así el control de bigramas repetidos.</p>
+<div class="paragraph">
+<p>Un ejemplo del tipo de bigramas que sacaríamos de analizar un tuit en nuestro proyecto sería:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Buenos días vamos a trabajar todo el día</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Que generaría las siguientes combinaciones</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>(buenos días), (buenos vamos), (buenos trabajar), (buenos todo), (buenos día), (días vamos), (días trabajar), (días todo), (día días), (trabajar vamos), (todo vamos), (día vamos), (todo trabajar), (día trabajar), (día todo)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar para evitar sobrepasar la memoria del sistema.</p>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Keywords</dt>
+<dd>
+<p>Las keywords son unigramas formandos, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).</p>
+</dd>
+<dt class="hdlist1">Keywords en el campo de Localización</dt>
+<dd>
+<p>Son el resultado de aplicar la extracción anterior sobre el campo de Localización del perfil del usuario.</p>
+</dd>
+</dl>
+</div>
+<div class="sect3">
+<h4 id="_sistema_de_filtros">2.2.1. Sistema de filtros</h4>
+<div class="paragraph">
+<p>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros">
+</div>
+<div class="title">Figure 1. Representación del patrón Decorator que ilustra el sistema de filtros</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_utilizaci_n_de_algoritmos_de_poda">2.2.2. Utilización de algoritmos de poda</h4>
+
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix A: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</h2>
+<h2 id="_experimentos_y_resultados">3. Experimentos y resultados</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusiones_del_sistema_de_geolocalizaci_n">4. Conclusiones del sistema de geolocalización</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scala">Appendix A: Scala</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_sbt">sbt</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix B: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>El primer paso en el desarrollo del proyecto, fue la creación de un sistema capaz de recolectar tuits con el objetivo de obtener material de entrenamiento sobre el que aplicar las diferentes estrategias planteadas.</p>
+<p>Para crear los diferentes datasets que fueron necesarios para desarrollar los prototipos y modelos de datos, se diseñó un sistema capaz de conectarse a la <strong>API Streaming de Twitter</strong> (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>) para descargar y almacenar tuits en tiempo real.</p>
 </div>
 <div class="paragraph">
-<p>Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener. En base a estos requisitos, se utilizó la <strong>API Streaming de Twitter</strong> (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>), la cual aporta dos características principales:</p>
+<p>Este sistema debía ser parametrizable, con el objetivo de poder configurar en cada ejecución el tipo de tuits que se querían obtener de acuerdo a los filtros disponibles a través de la API de Twitter:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Capacidad de obtener datos en tiempo real de Twitter de manera ininterrumpida</p>
-</li>
-<li>
-<p>Capacidad de establecer filtros sobre el flujo de entrada:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -869,11 +991,8 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </li>
 </ul>
 </div>
-</li>
-</ul>
-</div>
 <div class="paragraph">
-<p>Para realizar la conexión entre el sistema desarrollado y la API de Twitter se utilizó la biblioteca <strong>Twitter4j</strong> (<a href="http://twitter4j.org/en/index.html">http://twitter4j.org/en/index.html</a>), la cual aunque originalmente está desarrollada para ser utilizada sobre Java, es perfectamente utilizable en Scala gracias a la compatibilidad entre ambos lenguajes mediante la Java Virtual Machine. La ventajas de utilizar una biblioteca construida sobre la API original de Twitter es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:</p>
+<p>Para realizar la conexión entre el sistem Falcon y la API de Twitter se utilizó la biblioteca <strong>Twitter4j</strong> (<a href="http://twitter4j.org/en/index.html">http://twitter4j.org/en/index.html</a>). La ventajas de utilizar una biblioteca construida sobre la API original es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -881,7 +1000,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Autenticación OAuth2 simplificada mediante clases propias de la biblioteca</p>
 </li>
 <li>
-<p>La API de Twitter4J para utilizar el Streaming de Twitter permite aislar al desarrollador de la necesidad de mantener activa la comunicación HTTP manualmente para estar conectado al Streaming de Twitter.</p>
+<p>Simplificación del proceso para poder utilizar la API de Streaming, aislando al desarrollador de la complejidad para mantener activa la conexión con el servidor de Twitter.</p>
 </li>
 </ol>
 </div>
@@ -889,7 +1008,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="content">
 <img src="../assets/05development/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 1. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span></div>
+<div class="title">Figure 2. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -897,15 +1016,14 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.</p>
 </div>
 <div class="paragraph">
-<p>En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones <code>grep</code>. Esta decisión fue cancelada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - <a href="http://opencsv.sourceforge.net/">http://opencsv.sourceforge.net/</a> ) combinados con caracteres extraños como Emoji (<a href="http://www.unicode.org/faq/emoji_dingbats.html">http://www.unicode.org/faq/emoji_dingbats.html</a>).</p>
+<p>En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones <code>grep</code>. Esta decisión fue descartada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - <a href="http://opencsv.sourceforge.net/">http://opencsv.sourceforge.net/</a> ) combinados con caracteres extraños como Emoji (<a href="http://www.unicode.org/faq/emoji_dingbats.html">http://www.unicode.org/faq/emoji_dingbats.html</a>).</p>
 </div>
 <div class="paragraph">
-<p>Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de marcado que mejor podría serializar y estructurar los datos obtenidos a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML mediante la utilización de literales:</p>
+<p>Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de estructuración de datos que mejor podría serializar la información obtenida a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="scala language-scala">class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String,
-            longitude: String, text: String) {
+<pre class="highlight"><code class="scala language-scala">class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String, longitude: String, text: String) {
   def toXML =
     &lt;tweet&gt;
       &lt;id&gt;
@@ -946,10 +1064,10 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Debido a que Falcon es un sistema sin ánimo de ejecutarse a través de una GUI, la manera de parametrizar la ejecución ha sido a través de una interfaz de línea de comandos. Para ello, se ha utilizado la biblioteca <strong>scopt</strong> (<a href="https://github.com/scopt/scopt">https://github.com/scopt/scopt</a>).</p>
 </div>
 <div class="paragraph">
-<p>scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto <code>ScoptParser</code> que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (<code>String</code>, <code>Integer</code>, <code>Boolean</code>) y si son requeridos u opcionales.</p>
+<p>scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto <code>ScoptParser</code> que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (<code>String</code>, <code>Integer</code>, <code>Boolean</code>, etc.) y si son requeridos u opcionales.</p>
 </div>
 <div class="paragraph">
-<p>A continuación se muestra el <em>usage</em> de la aplicación:</p>
+<p>A continuación se muestra el mensaje de ayuda de la aplicación:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -958,8 +1076,8 @@ Usage: Falcon [options]
 
   -l &lt;value&gt; | --language &lt;value&gt;
         Specifies the language, in ISO 639-1 format, for the tweets to collect.
-  -s &lt;value&gt; | --stopwords &lt;value&gt;
-        Specifies the file for the stopwords.
+  -k &lt;value&gt; | --keywords &lt;value&gt;
+        Specifies the file for the keywords.
   -t &lt;value&gt; | --time-in &lt;value&gt;
         The time measure for collecting tweets (SECONDS, MINUTES, HOURS, DAYS).
   -n &lt;value&gt; | --timestamp &lt;value&gt;
@@ -968,8 +1086,6 @@ Usage: Falcon [options]
         The output filename where store the collection results.
   -c &lt;value&gt; | --credentials &lt;value&gt;
         Properties file with the Twitter credentials
-  --coordinates-mandatory
-        This flag indicates whether every tweet must have a geolocation tag associated or not.
   -b &lt;value&gt; | --bounding-boxes &lt;value&gt;
         Specifies the file which contains the bounding boxes.</pre>
 </div>
@@ -983,16 +1099,13 @@ Usage: Falcon [options]
 <p><code>--output</code>: nombre del fichero de salida.</p>
 </li>
 <li>
-<p><code>--coordinates-mandatory</code>: su presencia indica si los tuits recolectados deben contener o no información geográfica adjunta.</p>
-</li>
-<li>
 <p><code>--language</code>: idioma en el que se desean obtener los tuits.</p>
 </li>
 <li>
 <p><code>--stopwords</code>: debido a restricciones de Twitter, es necesario proveer una lista de términos cuando se intenta realizar un filtrado por idioma. Con el objetivo de restringir lo mínimo posible el número de tuits a obtener, se provee una lista de <em>stop words</em> del idioma por el que se esté filtrando.</p>
 </li>
 <li>
-<p><code>--bounding-boxes</code>: opcionalmente, se puede proveer un fichero <code>XML</code> que contiene los <em>bounding boxes</em> sobre los que se realizará el filtrado para aquellas ejecuciones que requieran tuits localizados en un área en concreto.</p>
+<p><code>--bounding-boxes</code>: fichero <code>XML</code> que contiene los <em>bounding boxes</em> sobre los que se realizará el filtrado.</p>
 </li>
 <li>
 <p><code>--credentials</code>: indica el fichero que contiene las credenciales que se utilizarán para conectarse con la API de Twitter y utilizar su servicio de Streaming.</p>
@@ -1015,128 +1128,114 @@ Usage: Falcon [options]
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="xml language-xml">&lt;tweets&gt;
-  &lt;tweet&gt;
-    &lt;username&gt;
-      gaabriforner
-    &lt;/username&gt;
-    &lt;location&gt;
-      Málaga
-    &lt;/location&gt;
-    &lt;timezone&gt;
-      Athens
-    &lt;/timezone&gt;
-    &lt;createdAt&gt;
-      2014-03-04 21:53
-    &lt;/createdAt&gt;
-    &lt;latitude&gt;
-      -4.437747
-    &lt;/latitude&gt;
-    &lt;longitude&gt;
-      36.7055494
-    &lt;/longitude&gt;
-    &lt;text&gt;
-      y ante todo a echarle fuerza d voluntad y ganas para conseguir lo que quiero!!
-    &lt;/text&gt;
-  &lt;/tweet&gt;
-&lt;/tweets&gt;</code></pre>
+<pre class="highlight"><code class="xml language-xml">&lt;tweet&gt;
+  &lt;id&gt;
+    469499350327255040
+  &lt;/id&gt;
+  &lt;username&gt;
+    jessfhickey
+  &lt;/username&gt;
+  &lt;name&gt;
+    Jessica Hickey
+  &lt;/name&gt;
+  &lt;location&gt;
+    Ireland
+  &lt;/location&gt;
+  &lt;timezone&gt;
+    London
+  &lt;/timezone&gt;
+  &lt;createdAt&gt;
+    2014-05-22 15:25
+  &lt;/createdAt&gt;
+  &lt;latitude&gt;
+    53.3444086
+  &lt;/latitude&gt;
+  &lt;longitude&gt;
+    -6.2649497
+  &lt;/longitude&gt;
+  &lt;text&gt;
+    In the most beautiful cafe ever. #boulevardcafe
+  &lt;/text&gt;
+&lt;/tweet&gt;</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_b2pick_aplicaci_n_web_para_obtener_em_bounding_boxes_em">Appendix B: b2pick, aplicación web para obtener <em>bounding boxes</em></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_puma_sistema_de_an_lisis_de_datos">Appendix C: Puma, sistema de análisis de datos</h2>
+<h2 id="_b2pick_aplicaci_n_web_para_seleccionar_em_bounding_boxes_em">Appendix C: B2pick, aplicación web para seleccionar <em>bounding boxes</em></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Para el análisis de los datos recogidos mediante el recolector, fue necesario desarrollar un nuevo sistema preparado para trabajar con grandes volúmenes de datos y capaz de aplicar los algoritmos planteados en estudios anteriores para obtener vocabulario discriminativo. Este sistema fue bautizado con el nombre de <strong>Puma</strong>, como una manera rápida de poder referirse a él.</p>
-</div>
-<div class="sect2">
-<h3 id="__qu_datos_se_deben_estudiar">¿Qué datos se deben estudiar?</h3>
-<div class="paragraph">
-<p>Con el objetivo de poder encontrar vocabulario discriminativo, se comenzaron a descargar datos, durante 4 semanas, con las siguientes características:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Semana 1</dt>
-<dd>
-<p>Tuits en español para todo el mundo</p>
-</dd>
-<dt class="hdlist1">Semana 2</dt>
-<dd>
-<p>Tuits en español localizados en España</p>
-</dd>
-<dt class="hdlist1">Semana 3</dt>
-<dd>
-<p>Tuits en inglés para todo el mundo</p>
-</dd>
-<dt class="hdlist1">Semana 4</dt>
-<dd>
-<p>Tuits en inglés localizados en UK</p>
-</dd>
-</dl>
+<p>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de bounding boxes para aplicar filtros sobre el Streaming de Twitter. Un bounding box, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</p>
 </div>
 <div class="paragraph">
-<p>La idea será comparar datasets con el mismo idioma pero de distintas localizaciones para obtener, mediante la aplicación de ciertos algoritmos, aquellos vocabularios más geográficamente geolocalizados.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_sistema_de_filtros">Sistema de filtros</h3>
-<div class="paragraph">
-<p>Para poder comenzar a trabajar con los datos recopilados por el sistema Falcon, fue necesario definir qué tipo de información se quería extraer de cada tuit con el objetivo de realizar las operaciones necesarias sobre ella. Se definieron los siguientes términos como los más interesantes para encontrar vocabulario discriminativo:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Menciones</p>
-</li>
-<li>
-<p>Hashtags</p>
-</li>
-<li>
-<p>Bigramas</p>
-</li>
-<li>
-<p>Keywords</p>
-</li>
-<li>
-<p>Keywords en el campo de localización del usuario</p>
-</li>
-</ul>
+<p><strong>B2pick</strong> (<a href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</a>), viene a cubrir la necesidad de poder automatizar el proceso mediante una sencilla aplicación web escrita puramente en JavaScript en la capa de cliente, que mediante la utilización de la API de Google Maps permita dibujar al usuario rectángulos sobre las zonas geográficas que desee.</p>
 </div>
 <div class="paragraph">
-<p>Con el objetivo de poder generar un sistema flexible y personalizable, se diseñó un sistema de filtros que permita combinar la extracción de varios filtros por ejecución. Este diseño se basó en una implementación adaptada del patrón Decorator<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span>.</p>
+<p>Actualmente, no se conoce ninguna herramienta que ofrezca un servicio similar.</p>
 </div>
 <div class="paragraph">
-<p>Debido a la naturaleza del problema, en este caso no tiene sentido que las operaciones de una extracción se basen en la extracción anterior, por tanto, en esta implementación personalizada, cada extracción se basa en el tuit original y acumula los resultados en una lista común.</p>
+<p>Una vez el usuario ha seleccionado los bounding boxes que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.</p>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de salida XML para un conjunto de Bounding Boxes</div>
+<div class="content">
+<pre class="highlight"><code class="xml language-xml">&lt;boundingBoxes&gt;
+  &lt;boundingBox&gt;
+    &lt;sw&gt;
+      &lt;latitude&gt;35.75&lt;/latitude&gt;
+      &lt;longitude&gt;-12.04&lt;/longitude&gt;
+    &lt;/sw&gt;
+    &lt;ne&gt;
+      &lt;latitude&gt;44.53&lt;/latitude&gt;
+      &lt;longitude&gt;4.22&lt;/longitude&gt;
+    &lt;/ne&gt;
+  &lt;/boundingBox&gt;
+  &lt;boundingBox&gt;
+    &lt;sw&gt;
+      &lt;latitude&gt;50.23&lt;/latitude&gt;
+      &lt;longitude&gt;-13.89&lt;/longitude&gt;
+    &lt;/sw&gt;
+    &lt;ne&gt;
+      &lt;latitude&gt;59.27&lt;/latitude&gt;
+      &lt;longitude&gt;1.85&lt;/longitude&gt;
+    &lt;/ne&gt;
+  &lt;/boundingBox&gt;
+  &lt;boundingBox&gt;
+    &lt;sw&gt;
+      &lt;latitude&gt;54.72&lt;/latitude&gt;
+      &lt;longitude&gt;6.24&lt;/longitude&gt;
+    &lt;/sw&gt;
+    &lt;ne&gt;
+      &lt;latitude&gt;57.61&lt;/latitude&gt;
+      &lt;longitude&gt;12.83&lt;/longitude&gt;
+    &lt;/ne&gt;
+  &lt;/boundingBox&gt;
+&lt;/boundingBoxes&gt;</code></pre>
+</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros">
+<img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 2. Representación del patrón Decorator que ilustra el sistema de filtros</div>
+<div class="title">Figure 3. Imagen de la pantalla principal de B2pick</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
+</div>
+<div class="title">Figure 4. Ejemplo del lightbox de salida con los bounding boxes seleccionados</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_likelihood_ratio_test_y_likelihood_ratio_test_normalizado">Likelihood-ratio test y Likelihood-ratio test normalizado</h3>
-
 </div>
-<div class="sect2">
-<h3 id="_algoritmo_de_poda_y_control_del_uso_de_memoria">Algoritmo de poda y control del uso de memoria</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_generaci_n_de_puntuaciones">Generación de puntuaciones</h3>
-
-</div>
+<div class="sect1">
+<h2 id="_puma_sistema_de_an_lisis_de_datos">Appendix D: Puma, sistema de análisis de datos</h2>
+<div class="sectionbody">
 <div class="sect2">
 <h3 id="_caso_de_uso_y_flujo_completo_del_sistema_de_an_lisis">Caso de uso y flujo completo del sistema de análisis</h3>
+<div class="paragraph">
+<p>DEMASIADO EN SUCIO COMO PARA TENERLO EN CUENTA AÚN.</p>
+</div>
 <div class="paragraph">
 <p>Partiendo de dos conjuntos de datasets (uno global y otro local) con los siguientes tuits de ejemplo (se ha simplificado la estructura de los tuits ajustándolos a aquellas características importantes para ilustrar el ejemplo):</p>
 </div>
@@ -1316,34 +1415,33 @@ KW en Localización: oviedo</pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix E: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_software_de_aprendizaje_autom_tico_y_vowpal_wabbit">Appendix F: Software de aprendizaje automático y Vowpal Wabbit</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_configuraci_n_del_sistema">Configuración del sistema</h3>
+<h3 id="_software_de_aprendizaje_autom_tico">Software de aprendizaje automático</h3>
 
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">Appendix D: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_entrenamiento_del_modelo_de_an_lisis_de_datos">Appendix E: Entrenamiento del modelo de análisis de datos.</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p>Un objetivo muy importante del proyecto es obtener la habilidad de automatizar el sistema de inferir la localización para poder trabajar sobre datos que no tengan una etiqueta de geolocalización asociada. Para ello, es necesario recurrir a software especializado, denominado habitualmente como <strong>software de aprendizaje automático</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit</strong> <span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
 </div>
-<div class="sect2">
-<h3 id="_normalizaci_n_de_datos">Normalización de datos</h3>
+<div class="sect3">
+<h4 id="_normalizaci_n_de_datos">Normalización de datos</h4>
 <div class="paragraph">
-<p>Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, el primer paso es crear ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:</p>
+<p>Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, es necesario generar ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1363,25 +1461,25 @@ KW en Localización: oviedo</pre>
 <div class="listingblock">
 <div class="content">
 <pre>1 |Tweet @adrianzenb scl rainer wirth óscar amigos radio quillota
-2 |Tweet @thomasuribe medellín colombia celebra día hombre
-3 |Tweet @fvminajx @cursiperono mujer ruega punto</pre>
+0 |Tweet @thomasuribe medellín colombia celebra día hombre
+1 |Tweet @fvminajx @cursiperono mujer ruega punto</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Debido al dominio específico del problema de este proyecto, el sistema que debe realizar la traducción entre los ficheros de puntuación generados por el sistema Puma y los datos que espera recibir Vowpal Wabbit, debía de ser parametrizable para poder cubrir los siguientes dos casos:</p>
+<p>Debido a que un primer momento se consideró la opción de trabajar con modelos multiclase, el sistema que realiza la traducción entre los ficheros de puntuación generados por el sistema Puma y los datos que espera recibir Vowpal Wabbit, debía de ser parametrizable para poder cubrir los siguientes dos casos:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Entrenar un modelo de clasificación binario donde sólo se indicara si un tuit pertenece o no a un conjunto de coordenadas (útil para modelos que se quieran utilizar para saber si un tuit en español pertenece o no a España).</p>
+<p>Entrenar un modelo de clasificación binario donde sólo se indicara si un tuit pertenece o no a un conjunto de coordenadas (útil para modelos en los que se quiera conocer de manera binaria si una dato pertenece o no a una localización en concreto).</p>
 </li>
 <li>
-<p>Entrenar un modelo de clasificación multiclase donde se agruparan las clases en torno a un número de decimales para la latitud y longitud. Esto permite que se pueden considerar de la misma clase todos los tuits cuyas coordenadas con 3 decimales sean las mismas, permitiendo obtener predicciones con un grado de precisión de 10 kilómetros (en caso de agrupar por 2 decimales, la precisión sería de 100 y con 1, de 1000 kilómetros).</p>
+<p>Entrenar un modelo de clasificación multiclase donde se agruparan las clases en torno a un número de decimales para la latitud y longitud. Esto haría que se considerasen de la misma clase todos los tuits cuyas coordenadas con 3 decimales sean las mismas, permitiendo obtener predicciones con un grado de precisión de 10 kilómetros (en caso de agrupar por 2 decimales, la precisión sería de 100 y con 1, de 1000 kilómetros).</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Para ello, se creo un sistema que mediante una interfaz de línea de comandos pudiese ser parametrizable mediante los siguientes argumentos:</p>
+<p>Para ello, se creo un sistema que mediante una interfaz de línea de comandos pudiese ser configurable mediante los siguientes argumentos:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1397,18 +1495,15 @@ Usage: vw-input-translator [options] &lt;file&gt;
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</h3>
+<div class="sect3">
+<h4 id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</h4>
 <div class="paragraph">
 <p>Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.</p>
 </div>
 <div class="paragraph">
-<p>Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios fue destinado al grupo de entrenamiento, mientras que el 20% restante fue a parar al conjunto de test.</p>
+<p>Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios sería destinado al grupo de entrenamiento, mientras que el 20% restante iría a parar al conjunto de test.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_estudio_de_los_primeros_resultados_y_cambio_de_estrategia">Estudio de los primeros resultados y cambio de estrategia</h3>
-
 </div>
 </div>
 </div>
@@ -1419,10 +1514,10 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <a href="#_footnoteref_1">1</a>. Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres
 </div>
 <div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_2">2</a>. <a href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</a>
 </div>
 <div class="footnote" id="_footnote_3">
-<a href="#_footnoteref_3">3</a>. <a href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</a>
+<a href="#_footnoteref_3">3</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 <div class="footnote" id="_footnote_4">
 <a href="#_footnoteref_4">4</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
@@ -1430,7 +1525,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-05-25 20:23:30 CEST
+Last updated 2014-05-27 00:17:15 CEST
 </div>
 </div>
 </body>

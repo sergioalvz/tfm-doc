@@ -5,5 +5,3 @@ include::motivation.adoc[]
 include::scope.adoc[]
 
 include::state_art.adoc[]
-
-include::theoretical_aspects.adoc[]
