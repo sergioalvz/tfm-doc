@@ -2,9 +2,17 @@
 
 == Algoritmos y aspectos teóricos
 
-=== Log Likelihood Ratio test
+=== Log Likelihood-Ratio test
 
-==== Log Likelihood Ratio test normalizado
+El test Log Likelihood-Ratio (http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm) es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos.
+
+En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).
+
+En este caso, partimos del *supuesto* de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.
+
+El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.
+
+==== Log Likelihood-Ratio test normalizado
 
 === Términos discriminativos
 
@@ -43,7 +51,7 @@ Que generaría las siguientes combinaciones
 (buenos días), (buenos vamos), (buenos trabajar), (buenos todo), (buenos día), (días vamos), (días trabajar), (días todo), (día días), (trabajar vamos), (todo vamos), (día vamos), (todo trabajar), (día trabajar), (día todo)
 ----
 +
-Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar para evitar sobrepasar la memoria del sistema.
+Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar (explicado en <<_utilización_de_algoritmos_de_poda>>) para evitar sobrepasar la memoria del sistema.
 
 Keywords::
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?asciidoc-toc?>
 <?asciidoc-numbered?>
-<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="es">
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-05-27</date>
+<date>2014-05-28</date>
 <authorgroup>
 <author>
 <personname>
@@ -12,26 +13,21 @@
 <othername>Álvarez</othername>
 <surname>Suárez</surname>
 </personname>
-
+<email>sergioalvarezsuarez@gmail.com</email>
 </author>
-
 <author>
 <personname>
 <firstname>Daniel</firstname>
 <othername>Gayo</othername>
 <surname>Avello</surname>
 </personname>
-
+<email>dani@uniovi.es</email>
 </author>
-
 </authorgroup>
-
-
-
 </info>
-<chapter xml:id="_introducci_n">
+<chapter xml:id="_introducción">
 <title>Introducción</title>
-<section xml:id="_motivaci_n_del_proyecto">
+<section xml:id="_motivación_del_proyecto">
 <title>Motivación del proyecto</title>
 <simpara>Aquí la motivación del proyecto</simpara>
 </section>
@@ -45,7 +41,7 @@
 <simpara>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</simpara>
 <simpara>El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.</simpara>
 <simpara>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto.</simpara>
-<section xml:id="_estudios_y_art_culos_de_investigaci_n">
+<section xml:id="_estudios_y_artículos_de_investigación">
 <title>Estudios y artículos de investigación</title>
 <simpara>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer<footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <emphasis>timeline</emphasis> del usuario son aquellas más próximas a su localización real.</simpara>
 <simpara>Por otro lado, grupos de investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</simpara>
@@ -66,87 +62,50 @@
 <simpara>La manera de distinguir entre localización real y ficticia supuso de un proceso manual en el que dos miembros del equipo debieron revisar tuit a tuit el campo de Localización, debido a la habilidad de los usuarios para poder expresar sarcasmo o ironía, así como expresiones comunes que pueden tener asociado un componente geográfico inherente (un ejemplo puede ser referirse al Principado de Asturias como <emphasis>la tierrina</emphasis>).</simpara>
 </listitem>
 </orderedlist>
-
-<table xml:id="location-use-type" frame="all"
-    rowsep="1" colsep="1">
+<table xml:id="location-use-type" frame="all" rowsep="1" colsep="1">
 <title>Tipos de uso del campo de Localización por parte de los usuarios de Twitter</title>
-  
-  <tgroup cols="2">
-    
-    <colspec colname="col_1" colwidth="75*"/>
-    
-    <colspec colname="col_2" colwidth="25*"/>
-    
-    
-    <tbody>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>Cultura popular</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>12.9%</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>Referencias a su propia privacidad</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>1.2%</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>Insultos o contenido violento</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>4.6%</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>Localizaciones no terráqueas</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>5.0%</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>Emociones negativas hacia su localización real</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>3.2%</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>Naturaleza sexual</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>3.2%</simpara></entry>
-        
-      </row>
-      
-    </tbody>
-    
-  </tgroup>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="75*"/>
+<colspec colname="col_2" colwidth="25*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Cultura popular</simpara></entry>
+<entry align="left" valign="top"><simpara>12.9%</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Referencias a su propia privacidad</simpara></entry>
+<entry align="left" valign="top"><simpara>1.2%</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Insultos o contenido violento</simpara></entry>
+<entry align="left" valign="top"><simpara>4.6%</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Localizaciones no terráqueas</simpara></entry>
+<entry align="left" valign="top"><simpara>5.0%</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Emociones negativas hacia su localización real</simpara></entry>
+<entry align="left" valign="top"><simpara>3.2%</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Naturaleza sexual</simpara></entry>
+<entry align="left" valign="top"><simpara>3.2%</simpara></entry>
+</row>
+</tbody>
+</tgroup>
 </table>
-
 <simpara>Como alternativa a los resultados anteriores, y buscando una manera de automatizar el proceso y encontrar resultados más fiables y exhaustivos, se propusieron hacer un primer experimento para comprobar si el estudio de los contenidos publicados por un usuario pueden aportar la información necesaria para permitir inferir su ubicación geográfica.</simpara>
 <simpara>Para ello, utilizaron un software de aprendizaje automático y un clasificador Bayesiano multinomial que en base a un conjunto de datos obtenidos a partir de aplicar el algoritmo <emphasis>CALGARI</emphasis> (de implementación propia), fuese capaz de predecir a qué área (País y Estado) pertenece un tuit en base a su contenido.</simpara>
 <note>
 <title>CALGARI</title>
 <simpara>El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellos que son más específicas de un área (ciudad o estado) en concreto, penalizando palabras comunes como <emphasis>ya, hola, adiós, etc.</emphasis></simpara>
 </note>
-
 <simpara>Entre los resultados ofrecidos por el estudio destacan un <emphasis role="strong">72.7% de acierto para inferir el país</emphasis> de un usuario pero tan <emphasis role="strong">sólo un 30% de acierto a nivel de estado</emphasis>.</simpara>
 <simpara>Como apunte adicional, es interesante una afirmación que se enuncia en el artículo cuando se hace referencia al nuevo campo de localización que la API Streaming de Twitter ofrece para adjuntar información geolocalizada (siempre que el usuario lo permita):</simpara>
 <blockquote>
-  
 <simpara>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. <emphasis role="strong">Second, we found that only 0.77% of our 62 million tweets contained this embedded location information</emphasis>.</simpara>
 </blockquote>
-
 <simpara>De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta.</simpara>
 </section>
 <section xml:id="_where_is_this_tweet_from_inferring_home_locations_of_twitter_users">
@@ -164,7 +123,6 @@
 <simpara><emphasis role="strong">Nombres de lugares</emphasis> (utilizando un gazetteer geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <emphasis>Red Sox</emphasis> para referirse a la ciudad de Boston).</simpara>
 </listitem>
 </orderedlist>
-
 <simpara>Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.</simpara>
 <simpara>Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como <literal>#</literal> para indicar <emphasis>hashtags</emphasis>) y palabras vacías.</simpara>
 <simpara>También se hace mención a la utilización de un <emphasis role="strong">software de aprendizaje automático</emphasis>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</simpara>
@@ -177,7 +135,6 @@
 <simpara>Visitará más lugares de su ciudad o estado de origen que del resto de ciudades o estados (para detectar este tipo de visitas, se guardan todas las URLs generadas a partir de <emphasis>check-ins</emphasis> compartidos a través de <emphasis role="strong">Foursquare</emphasis> para luego comprobar su información asociada a través de la propia API de Foursquare).</simpara>
 </listitem>
 </orderedlist>
-
 <simpara>A partir de estas premisas y de las decisiones anteriores, se crearon 3 modelos diferentes para poder entrenar sobre cada uno de los términos que se quieren extraer: palabras, hashtags y nombres de lugares. Los resultados presentados a nivel de ciudad no fueron realmente positivos, y sólo presentan niveles de precisión superiores al 70% cuando se permiten márgenes de error superiores a 200 millas (~= 322 kilómetros).</simpara>
 <simpara>Por último, no se especifica con exactitud cómo actúa realmente el algoritmo cuando se trabaja con usuarios que no tienen contenido generado por Foursquare o no hacen una referencia explícita a su ciudad, estado o país.</simpara>
 </section>
@@ -201,7 +158,6 @@
 <simpara><emphasis role="strong">Others</emphasis>: Tuits descartados por no pertenecer a ninguna de las 2 categorías anteriores.</simpara>
 </listitem>
 </itemizedlist>
-
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -225,7 +181,6 @@
 <simpara><emphasis role="strong">Implicit</emphasis>: Combinaciones de palabras que implícitamente sugieren una localización. Estos resultaos se obtienen a partir de las reglas generadas en el paso anterior.</simpara>
 </listitem>
 </itemizedlist>
-
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -258,11 +213,9 @@
 <simpara><emphasis role="strong">Hometown</emphasis>: Se han podido detectar ubincaciones actuales y previas del usuario y <emphasis role="strong">también</emphasis> su lugar de origen. Es el grupo con información más completa.</simpara>
 </listitem>
 </itemizedlist>
-
 </listitem>
 </varlistentry>
 </variablelist>
-
 <simpara>En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de acierto cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.</simpara>
 </section>
 <section xml:id="_a_multi_indicator_approach_for_geolocalization_of_tweets">
@@ -296,7 +249,6 @@
 <simpara>Utilizar la dirección IP y obtener las coordenadas a través del servicio IPInfoDB.</simpara>
 </listitem>
 </orderedlist>
-
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -306,7 +258,6 @@
 </listitem>
 </varlistentry>
 </variablelist>
-
 <simpara>Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de <emphasis role="strong">múltiples indicadores</emphasis> con un 37% de acierto con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.</simpara>
 </section>
 <section xml:id="_inferring_the_origin_locations_of_tweets_with_quantitative_confidence">
@@ -316,16 +267,12 @@
 <simpara>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</simpara>
 <simpara>Un ejemplo de la extracción de bigramas sería:</simpara>
 <blockquote>
-  
 <simpara>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</simpara>
 </blockquote>
-
 <simpara>Que se traduciría a:</simpara>
 <blockquote>
-  
 <simpara>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</simpara>
 </blockquote>
-
 <simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</simpara>
 <simpara>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
 <itemizedlist>
@@ -339,7 +286,6 @@
 <simpara>Peso por optimización</simpara>
 </listitem>
 </itemizedlist>
-
 <simpara>Todos ellos con una alta dosis de componente algorítmico y matemático.</simpara>
 <simpara>Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.</simpara>
 </section>
@@ -358,10 +304,9 @@
 <simpara>Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.</simpara>
 </listitem>
 </orderedlist>
-
 <simpara>Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).</simpara>
 </section>
-<section xml:id="_otros_emphasis_papers_emphasis_de_inter_s">
+<section xml:id="_otros_emphasis_papers_emphasis_de_interés">
 <title>Otros <emphasis>papers</emphasis> de interés</title>
 <itemizedlist>
 <listitem>
@@ -383,21 +328,24 @@
 <simpara><emphasis role="strong">Geotagging One Hundred Million Twitter Accounts with Total Variation Minimization</emphasis> <emphasis>por Ryan Compton et al. HRL Laboratories (Malibu)</emphasis></simpara>
 </listitem>
 </itemizedlist>
-
 </section>
 </section>
 </section>
 </chapter>
-<chapter xml:id="_algoritmos_y_aspectos_te_ricos">
+<chapter xml:id="_algoritmos_y_aspectos_teóricos">
 <title>Algoritmos y aspectos teóricos</title>
 <section xml:id="_log_likelihood_ratio_test">
-<title>Log Likelihood Ratio test</title>
+<title>Log Likelihood-Ratio test</title>
+<simpara>El test Log Likelihood-Ratio (<link xlink:href="http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm">http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm</link>) es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos.</simpara>
+<simpara>En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).</simpara>
+<simpara>En este caso, partimos del <emphasis role="strong">supuesto</emphasis> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</simpara>
+<simpara>El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</simpara>
 <section xml:id="_log_likelihood_ratio_test_normalizado">
-<title>Log Likelihood Ratio test normalizado</title>
+<title>Log Likelihood-Ratio test normalizado</title>
 
 </section>
 </section>
-<section xml:id="_t_rminos_discriminativos">
+<section xml:id="_términos_discriminativos">
 <title>Términos discriminativos</title>
 <simpara>Se consideran términos discriminativos aquellos que son capaces de aportar información muy geolocalizable de manera implícita. Un ejemplo son aquellas palabras muy propias de una localización en concreto, como el caso del término <emphasis>sidra</emphasis> o <emphasis>carbayu</emphasis>, que con mucha probabilidad indican un contenido que ha sido generado en Asturias.</simpara>
 <simpara>La estrategia planteada en este proyecto está basada en descubrir este tipo de términos a través de los tuits que los usuarios publican para una determinada región (país, estado, ciudad, etc.). Para ello, la premisa básica es aceptar que los términos más discriminativos tenderán a tener un epicentro muy significativo donde su frecuencia es muy elevada, para después, no tener apenas dispersión y ser muy poco frecuentes en el resto.</simpara>
@@ -435,17 +383,13 @@
 <simpara>Se han ordenado alfabéticamente todos los bigramas de acuerdo a las 2 palabras que contienen, facilitando así el control de bigramas repetidos.</simpara>
 <simpara>Un ejemplo del tipo de bigramas que sacaríamos de analizar un tuit en nuestro proyecto sería:</simpara>
 <blockquote>
-  
 <simpara>Buenos días vamos a trabajar todo el día</simpara>
 </blockquote>
-
 <simpara>Que generaría las siguientes combinaciones</simpara>
 <screen>(buenos días), (buenos vamos), (buenos trabajar), (buenos todo), (buenos día), (días vamos), (días trabajar), (días todo), (día días), (trabajar vamos), (todo vamos), (día vamos), (todo trabajar), (día trabajar), (día todo)</screen>
-
-<simpara>Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar para evitar sobrepasar la memoria del sistema.</simpara>
+<simpara>Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar (explicado en <xref linkend="_utilización_de_algoritmos_de_poda"/>) para evitar sobrepasar la memoria del sistema.</simpara>
 </listitem>
 </itemizedlist>
-
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -461,22 +405,20 @@
 </listitem>
 </varlistentry>
 </variablelist>
-
 <section xml:id="_sistema_de_filtros">
 <title>Sistema de filtros</title>
 <simpara>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<footnote><simpara><link xlink:href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</link></simpara></footnote>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</simpara>
 <figure>
 <title>Representación del patrón Decorator que ilustra el sistema de filtros</title>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../assets/appendixes/extractor-filter.png"/>
-    </imageobject>
-    <textobject><phrase>Representación del patrón Decorator que ilustra el sistema de filtros</phrase></textobject>
-  </mediaobject>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/appendixes/extractor-filter.png" align="center"/>
+</imageobject>
+<textobject><phrase>Representación del patrón Decorator que ilustra el sistema de filtros</phrase></textobject>
+</mediaobject>
 </figure>
-
 </section>
-<section xml:id="_utilizaci_n_de_algoritmos_de_poda">
+<section xml:id="_utilización_de_algoritmos_de_poda">
 <title>Utilización de algoritmos de poda</title>
 
 </section>
@@ -486,7 +428,7 @@
 <title>Experimentos y resultados</title>
 
 </chapter>
-<chapter xml:id="_conclusiones_del_sistema_de_geolocalizaci_n">
+<chapter xml:id="_conclusiones_del_sistema_de_geolocalización">
 <title>Conclusiones del sistema de geolocalización</title>
 
 </chapter>
@@ -509,7 +451,6 @@
 <simpara>Filtro por localización del tuit (mediante el uso de <emphasis>bounding boxes</emphasis>)</simpara>
 </listitem>
 </itemizedlist>
-
 <simpara>Para realizar la conexión entre el sistem Falcon y la API de Twitter se utilizó la biblioteca <emphasis role="strong">Twitter4j</emphasis> (<link xlink:href="http://twitter4j.org/en/index.html">http://twitter4j.org/en/index.html</link>). La ventajas de utilizar una biblioteca construida sobre la API original es que algunos de los problemas más habituales se solucionan a través de nuevas capas de abstracción:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -519,17 +460,15 @@
 <simpara>Simplificación del proceso para poder utilizar la API de Streaming, aislando al desarrollador de la complejidad para mantener activa la conexión con el servidor de Twitter.</simpara>
 </listitem>
 </orderedlist>
-
 <figure>
 <title>Comunicación entre un cliente y la API Streaming de Twitter<footnote><simpara><link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link></simpara></footnote></title>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../assets/05development/twitter-streaming-api.png"/>
-    </imageobject>
-    <textobject><phrase>Modelo de comunicación entre un cliente y la API Streaming de Twitter</phrase></textobject>
-  </mediaobject>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/05development/twitter-streaming-api.png" align="center"/>
+</imageobject>
+<textobject><phrase>Modelo de comunicación entre un cliente y la API Streaming de Twitter</phrase></textobject>
+</mediaobject>
 </figure>
-
 <section xml:id="_almacenamiento_de_datos">
 <title>Almacenamiento de datos</title>
 <simpara>Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.</simpara>
@@ -567,9 +506,8 @@
       &lt;/text&gt;
     &lt;/tweet&gt;
 }</programlisting>
-
 </section>
-<section xml:id="_par_metros_del_sistema">
+<section xml:id="_parámetros_del_sistema">
 <title>Parámetros del sistema</title>
 <simpara>Debido a que Falcon es un sistema sin ánimo de ejecutarse a través de una GUI, la manera de parametrizar la ejecución ha sido a través de una interfaz de línea de comandos. Para ello, se ha utilizado la biblioteca <emphasis role="strong">scopt</emphasis> (<link xlink:href="https://github.com/scopt/scopt">https://github.com/scopt/scopt</link>).</simpara>
 <simpara>scopt permite parsear de manera sencilla los argumentos que se le pasan al programa en el momento de su ejecución. Para ello, simplemente hay que definir un objeto <literal>ScoptParser</literal> que contenga las reglas necesarias para especificar qué parámetros se esperan, qué tipo deben tener (<literal>String</literal>, <literal>Integer</literal>, <literal>Boolean</literal>, etc.) y si son requeridos u opcionales.</simpara>
@@ -591,7 +529,6 @@ Usage: Falcon [options]
         Properties file with the Twitter credentials
   -b &lt;value&gt; | --bounding-boxes &lt;value&gt;
         Specifies the file which contains the bounding boxes.</screen>
-
 <itemizedlist>
 <listitem>
 <simpara><literal>--time-in</literal> y <literal>--timestamp</literal>: permiten establecer al recolector un tiempo de ejecución representado en diferentes magnitudes.</simpara>
@@ -612,10 +549,8 @@ Usage: Falcon [options]
 <simpara><literal>--credentials</literal>: indica el fichero que contiene las credenciales que se utilizarán para conectarse con la API de Twitter y utilizar su servicio de Streaming.</simpara>
 </listitem>
 </itemizedlist>
-
 <simpara>Un ejemplo de uso para obtener datos en español sobre los bounding boxes de España durante un día, podría ser algo como esto:</simpara>
 <screen>falcon.jar -l es -s es_stop_words.txt -t DAYS -n 1 -o es_tweets_collection -c credentials.properties -b spain_bounding_boxes.xml</screen>
-
 </section>
 <section xml:id="_ejemplo_de_resultados">
 <title>Ejemplo de resultados</title>
@@ -649,10 +584,9 @@ Usage: Falcon [options]
     In the most beautiful cafe ever. #boulevardcafe
   &lt;/text&gt;
 &lt;/tweet&gt;</programlisting>
-
 </section>
 </appendix>
-<appendix xml:id="_b2pick_aplicaci_n_web_para_seleccionar_emphasis_bounding_boxes_emphasis">
+<appendix xml:id="_b2pick_aplicación_web_para_seleccionar_emphasis_bounding_boxes_emphasis">
 <title>B2pick, aplicación web para seleccionar <emphasis>bounding boxes</emphasis></title>
 <simpara>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de bounding boxes para aplicar filtros sobre el Streaming de Twitter. Un bounding box, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</simpara>
 <simpara><emphasis role="strong">B2pick</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</link>), viene a cubrir la necesidad de poder automatizar el proceso mediante una sencilla aplicación web escrita puramente en JavaScript en la capa de cliente, que mediante la utilización de la API de Google Maps permita dibujar al usuario rectángulos sobre las zonas geográficas que desee.</simpara>
@@ -695,37 +629,33 @@ Usage: Falcon [options]
 &lt;/boundingBoxes&gt;</programlisting>
 </para>
 </formalpara>
-
 <figure>
 <title>Imagen de la pantalla principal de B2pick</title>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../assets/appendixes/b2pick-main-screen.png"/>
-    </imageobject>
-    <textobject><phrase>Imagen de la pantalla principal de b2pick</phrase></textobject>
-  </mediaobject>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/appendixes/b2pick-main-screen.png" align="center"/>
+</imageobject>
+<textobject><phrase>Imagen de la pantalla principal de b2pick</phrase></textobject>
+</mediaobject>
 </figure>
-
 <figure>
 <title>Ejemplo del lightbox de salida con los bounding boxes seleccionados</title>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../assets/appendixes/b2pick-lightbox.png"/>
-    </imageobject>
-    <textobject><phrase>Ejemplo del lightbox de salida con los bounding boxes seleccionados</phrase></textobject>
-  </mediaobject>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/appendixes/b2pick-lightbox.png" align="center"/>
+</imageobject>
+<textobject><phrase>Ejemplo del lightbox de salida con los bounding boxes seleccionados</phrase></textobject>
+</mediaobject>
 </figure>
-
 </appendix>
-<appendix xml:id="_puma_sistema_de_an_lisis_de_datos">
+<appendix xml:id="_puma_sistema_de_análisis_de_datos">
 <title>Puma, sistema de análisis de datos</title>
-<section xml:id="_caso_de_uso_y_flujo_completo_del_sistema_de_an_lisis">
+<section xml:id="_caso_de_uso_y_flujo_completo_del_sistema_de_análisis">
 <title>Caso de uso y flujo completo del sistema de análisis</title>
 <simpara>DEMASIADO EN SUCIO COMO PARA TENERLO EN CUENTA AÚN.</simpara>
 <simpara>Partiendo de dos conjuntos de datasets (uno global y otro local) con los siguientes tuits de ejemplo (se ha simplificado la estructura de los tuits ajustándolos a aquellas características importantes para ilustrar el ejemplo):</simpara>
 <simpara><emphasis role="strong">LOCAL (ASTURIAS)</emphasis></simpara>
-<screen>
-username: cris_cerra
+<screen>username: cris_cerra
 name: cristina cerra
 location: Ribadesella; Gijón
 latitude: -5.6653517
@@ -745,12 +675,9 @@ name: ∴
 location: Oviedo
 latitude: -5.8362912
 longitude: 43.3740172
-tweet: Tanto quejarme de lo de espiar el #Wa y ahora me pasa a mi @LorenaGS93.
-</screen>
-
+tweet: Tanto quejarme de lo de espiar el #Wa y ahora me pasa a mi @LorenaGS93.</screen>
 <simpara><emphasis role="strong">GLOBAL (ESPAÑA SIN ASTURIAS)</emphasis></simpara>
-<screen>
-username: elenita9614
+<screen>username: elenita9614
 name: Elenaa
 location: España, Madrid
 latitude: -3.6598875
@@ -769,9 +696,7 @@ name: Ali
 location:
 latitude: -6.1914368
 longitude: 36.4725925
-tweet: VIVA EL BETIS
-</screen>
-
+tweet: VIVA EL BETIS</screen>
 <simpara>El algoritmo encargado de generar LLR recorrería cada uno de los dos ficheros aplicando los siguientes pasos:</simpara>
 <simpara><emphasis role="strong">1.</emphasis> Para cada entidad Tweet se extraen aquellos términos estipulados por el usuario (Bigramas, Menciones, Hashtags, Keywords o Keywords en el campo de Localización)</simpara>
 <simpara>A continuación se muestran los efectos de aplicar todos los filtros sobre uno de los tweets de prueba:</simpara>
@@ -782,81 +707,47 @@ location: Oviedo
 latitude: -5.8362912
 longitude: 43.3740172
 tweet: Tanto quejarme de lo de espiar el #Wa y ahora me pasa a mi @LorenaGS93.</screen>
-
 <simpara><emphasis role="strong">PROCESADO</emphasis></simpara>
 <screen>Menciones: @lorenags93
 Hashtags: #wa
 Keywords: tanto, quejarme, espiar, ahora, pasa
 Bigramas: quejarme tanto, espiar tanto, ahora tanto, pasa tanto, espiar quejarme, ahora quejarme, pasa quejarme, ahora espiar, espiar pasa, ahora pasa
 KW en Localización: oviedo</screen>
-
 <simpara>Como se pueda observar, se aplica una normalización a cada tweet que implica transformar todo el contenido a minúsculas así como aplicar un filtro que elimina stop words o signos de puntuación. En el caso de los Bigramas, además, se realiza una ordenación por orden alfabético.</simpara>
 <simpara><emphasis role="strong">2.</emphasis> Cada término extraído por tuit, se añade a un Hash que contabiliza su número de apariciones en total para ese dataset. Se ha creado un algoritmo de poda agresiva que permita controlar la cantidad de memoria utilizada por el proceso. Para ello, cuando el número de términos alcanza un umbral (configurado por el usuario) se realiza un truncado de los términos con menos apariciones del Hash en un porcentaje definido por el usuario. Para minimizar el impacto de la poda, se controla cual era la mayor de las frecuencias que tenían los términos que se eliminaron, de esa manera, los nuevos términos empezarán directamente en esa frecuencia mínima.</simpara>
 <simpara><emphasis role="strong">3.</emphasis> Una vez ambos datasets tienen un Hash de resultados que contiene todos los términos con mayor número de apariciones, es necesario recorrer cada dataset para ver qué frecuencia tienen los términos del dataset local en el dataset global. Un caso que se puede presentar, es que ciertos términos aparezcan en el dataset local y <emphasis role="strong">no</emphasis> en el global, para ello, se utiliza un algoritmo en el que se buscan todos aquellos términos con la misma frecuencia en el dataset local <emphasis role="strong">pero</emphasis> que tengan correspondencia también en el dataset global y se calcula su media, aplicando este valor como frecuencia para el término sin correspondencia en el dataset global.</simpara>
 <simpara>Por ejemplo, supongamos que estamos analizando un dataset local geolocalizado en Asturias, y aparece el término <emphasis>escanciar</emphasis> con una frecuencia de 10 apariciones. Después observamos que no existen correspondencia en el dataset global para ese término, por lo que buscamos en el dataset local otros términos con el mismo número de apariciones pero que <emphasis role="strong">sí</emphasis> tenga frecuencia asignada en el dataset global:</simpara>
-<informaltable frame="all"
-    rowsep="1" colsep="1">
-  
-  <tgroup cols="3">
-    
-    <colspec colname="col_1" colwidth="33*"/>
-    
-    <colspec colname="col_2" colwidth="33*"/>
-    
-    <colspec colname="col_3" colwidth="33*"/>
-    
-    
-    <thead>
-      
-      <row>
-        
-        <entry align="left" valign="top">Término</entry>
-        
-        <entry align="left" valign="top">Local</entry>
-        
-        <entry align="left" valign="top">Global</entry>
-        
-      </row>
-      
-    </thead>
-    
-    <tbody>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>oviedo</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>10</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>4</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>sidra</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>10</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>3</simpara></entry>
-        
-      </row>
-      
-      <row>
-        
-        <entry align="left" valign="top"><simpara>culín</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>10</simpara></entry>
-        
-        <entry align="left" valign="top"><simpara>5</simpara></entry>
-        
-      </row>
-      
-    </tbody>
-    
-  </tgroup>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Término</entry>
+<entry align="left" valign="top">Local</entry>
+<entry align="left" valign="top">Global</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>oviedo</simpara></entry>
+<entry align="left" valign="top"><simpara>10</simpara></entry>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sidra</simpara></entry>
+<entry align="left" valign="top"><simpara>10</simpara></entry>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>culín</simpara></entry>
+<entry align="left" valign="top"><simpara>10</simpara></entry>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+</row>
+</tbody>
+</tgroup>
 </informaltable>
-
 <simpara>Como resultado, el término <emphasis>escanciar</emphasis> pasaría a tener: <literal>(4 + 3 + 5)/3 = 4</literal> como valor de frecuencia</simpara>
 <simpara><emphasis role="strong">4.</emphasis> Para cada par de frecuencias, se aplica el logaritmo del test estadístico denominado: <emphasis role="strong">Likelihood ratio test</emphasis> (<link xlink:href="http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm">http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm</link>), el cual es capaz de devolver un valor aproximado del impacto que un determinado término tiene sobre el dataset global (indicando si es más o menos discriminativo). El agoritmo utilizado es una implementación normalizada desarrollada por el doctor Daniel Gayo-Avello.</simpara>
 <simpara><emphasis role="strong">5.</emphasis> Una vez se obtiene el valor LLR para cada término, se guarda en un Hash de resultados que asocia <literal>Término -&gt; LLR</literal>. Por último, se serializa en un fichero TSV donde cada línea contiene un término concreto y su valor LLR asociado para esa pareja de datasets. Un ejemplo de fichero de salida sería el siguiente:</simpara>
@@ -866,23 +757,20 @@ KW en Localización: oviedo</screen>
 63.80508052413473   asturias oviedo
 63.80508052413473   oviedo principado
 63.80508052413473   muches besin</screen>
-
 <simpara>Los valores más positivos indican una mayor discriminación. En este caso, los resultados pertenecen a extraer bigramas sobre un conjunto de datasets entre los que se quería sacar los términos más discriminativos para la provincia de Asturias (a fecha de 17 de Mayo de 2014).</simpara>
 <simpara><emphasis role="strong">6.</emphasis> Una vez con estos resultados, lo habitual es poner a descargar otras 24h de tuits de acuerdo al área global específicada y, después, recorrer los nuevos tuits obtenidos uno a uno para extraer todos sus términos y comprobar que puntuación LLR asignada tienen en los ficheros TSV generados en la versión anterior. De acuerdo al extracto de puntuaciones anterior, un tuit como el siguiente:</simpara>
 <screen>Estoy con Héctor y Simón en Parque Principado de Oviedo. Tenía muches ganas de verlos. 1 besin.</screen>
-
 <simpara>Tendría la siguiente puntuación:</simpara>
 <screen>63.80508052413473 + 57.068998944725266 + 63.80508052413473 + 63.80508052413473 ~= 248,483</screen>
-
 </section>
 </appendix>
-<appendix xml:id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuaci_n">
+<appendix xml:id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">
 <title>TweetHeat, mapa de calor sobre ficheros TSV de puntuación</title>
 
 </appendix>
-<appendix xml:id="_software_de_aprendizaje_autom_tico_y_vowpal_wabbit">
+<appendix xml:id="_software_de_aprendizaje_automático_y_vowpal_wabbit">
 <title>Software de aprendizaje automático y Vowpal Wabbit</title>
-<section xml:id="_software_de_aprendizaje_autom_tico">
+<section xml:id="_software_de_aprendizaje_automático">
 <title>Software de aprendizaje automático</title>
 
 </section>
@@ -890,25 +778,19 @@ KW en Localización: oviedo</screen>
 <title>Vowpal Wabbit</title>
 <simpara><emphasis role="strong">Vowpal Wabbit</emphasis> <footnote><simpara><link xlink:href="http://hunch.net/~vw/">http://hunch.net/~vw/</link></simpara></footnote> es un proyecto creado originalmente por <emphasis>Yahoo! Research</emphasis> que fue posteriormente continuado por <emphasis>Microsoft Research</emphasis>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</simpara>
 <simpara>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <emphasis>en caliente</emphasis> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</simpara>
-<section xml:id="_normalizaci_n_de_datos">
+<section xml:id="_normalización_de_datos">
 <title>Normalización de datos</title>
 <simpara>Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, es necesario generar ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:</simpara>
 <screen>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <co xml:id="CO1-1"/></screen>
-
 <calloutlist>
-  
-  <callout arearefs="CO1-1">
-    <para><link xlink:href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</link></para>
-    
-  </callout>
-  
+<callout arearefs="CO1-1">
+<para><link xlink:href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</link></para>
+</callout>
 </calloutlist>
-
 <simpara>En el presente proyecto, esta estructura generaría datos de la siguiente manera:</simpara>
 <screen>1 |Tweet @adrianzenb scl rainer wirth óscar amigos radio quillota
 0 |Tweet @thomasuribe medellín colombia celebra día hombre
 1 |Tweet @fvminajx @cursiperono mujer ruega punto</screen>
-
 <simpara>Debido a que un primer momento se consideró la opción de trabajar con modelos multiclase, el sistema que realiza la traducción entre los ficheros de puntuación generados por el sistema Puma y los datos que espera recibir Vowpal Wabbit, debía de ser parametrizable para poder cubrir los siguientes dos casos:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -918,7 +800,6 @@ KW en Localización: oviedo</screen>
 <simpara>Entrenar un modelo de clasificación multiclase donde se agruparan las clases en torno a un número de decimales para la latitud y longitud. Esto haría que se considerasen de la misma clase todos los tuits cuyas coordenadas con 3 decimales sean las mismas, permitiendo obtener predicciones con un grado de precisión de 10 kilómetros (en caso de agrupar por 2 decimales, la precisión sería de 100 y con 1, de 1000 kilómetros).</simpara>
 </listitem>
 </orderedlist>
-
 <simpara>Para ello, se creo un sistema que mediante una interfaz de línea de comandos pudiese ser configurable mediante los siguientes argumentos:</simpara>
 <screen>vw-input-translator 1.0
 Usage: vw-input-translator [options] &lt;file&gt;
@@ -929,9 +810,8 @@ Usage: vw-input-translator [options] &lt;file&gt;
         Creates an input file for multi-class classification. Each sample will have the selected number of decimals on latitude and longitude coordinates
   &lt;file&gt;
         Source file</screen>
-
 </section>
-<section xml:id="_divisi_n_de_datos_en_conjuntos_de_entrenamiento_y_test">
+<section xml:id="_división_de_datos_en_conjuntos_de_entrenamiento_y_test">
 <title>División de datos en conjuntos de entrenamiento y test</title>
 <simpara>Con el objetivo de entrenar al clasificador, se desarrolló un script capaz de, a partir de los datos de entrada que recibiría Vowpal Wabbit, dividir el conjunto en dos para dedicar una parte al proceso de entrenamiento y otra a probar el modelo de datos generados.</simpara>
 <simpara>Con el objetivo de generar dos conjuntos consistentes, la división se realizó en base a los usuarios, haciendo que un mismo usuario no pudiese formar parte de ambos grupos. Un 80% de los usuarios sería destinado al grupo de entrenamiento, mientras que el 20% restante iría a parar al conjunto de test.</simpara>
