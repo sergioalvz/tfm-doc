@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    asciidoctor (0.1.4)
+    asciidoctor (1.5.0.preview.7)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
@@ -41,7 +41,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  asciidoctor
+  asciidoctor (~> 1.5.0.preview.7)
   guard
   guard-shell
   rb-inotify
