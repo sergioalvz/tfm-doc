@@ -63,7 +63,7 @@ Son el resultado de aplicar la extracción anterior sobre el campo de Localizaci
 
 ==== Sistema de filtros
 
-Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decoratorfootnote:[http://en.wikipedia.org/wiki/Decorator_pattern], aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).
+Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decoratorfootnote:[http://perldesignpatterns.com/?word=decorator+pattern], aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).
 
 .Representación del patrón Decorator que ilustra el sistema de filtros
 image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, align="center"]
