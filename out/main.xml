@@ -330,6 +330,7 @@
 <simpara>En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).</simpara>
 <simpara>En este caso, partimos del <emphasis role="strong">supuesto</emphasis> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</simpara>
 <simpara>El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</simpara>
+<simpara>La consideración acerca de qué es un <emphasis role="strong">término</emphasis> se explica en <xref linkend="_términos_discriminativos"/>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</simpara>
 <section xml:id="_log_likelihood_ratio_test_normalizado">
 <title>Log Likelihood-Ratio test normalizado</title>
 
@@ -412,6 +413,84 @@
 <title>Utilización de algoritmos de poda</title>
 
 </section>
+</section>
+<section xml:id="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">
+<title>Pseudocódigo para ilustrar el proceso completo de análisis de tuits</title>
+<formalpara>
+<title>Algoritmo para extraer la frecuencia de cada término</title>
+<para>
+<screen>for each tweet in tweets do
+  terms = apply_extractor_filter(tweet)
+  check_memory_status()
+  for each term in terms do
+    if frequencies[term].is_defined then
+      frequencies[term] += 1
+    else
+      frequencies[term] = minimum_frequency
+    end
+  end
+end
+
+def check_memory_status
+  if frequencies.size &gt;= maximum_extracted_terms then
+    reduce_map_load()
+  end
+end
+
+def reduce_map_load
+  items_to_remove = frequencies.size * FACTOR_TO_REMOVE
+  ordered_map     = frequencies.order_by_frequency
+  minimum_freq    = ordered_map.get(items_to_remove - 1)
+
+  ordered_map.slice from items_to_remove - 1 to ordered_map.size
+end</screen>
+</para>
+</formalpara>
+<formalpara>
+<title>Algoritmo para calcular la puntuación LLR de cada término</title>
+<para>
+<screen>for each term in locals do
+  freq = locals[term]
+  if freq &gt; min_frequency then
+    global_freq = get_global_freq(term)
+    if global_freq &gt; 0 then
+      k11 = freq
+      k12 = global_freq
+      k21 = total_local_frequencies
+      k22 = total_global_frequencies
+      llr = Dunning.normalized_llr(k11, k12, k21, k22)
+      results[term] =&gt; llr
+    end
+  end
+end
+
+def get_global_freq(term)
+  globals[term].is_defined ? globals[term] : avg_global_freq(term)
+end
+
+def avg_global_freq(term)
+  same_freq_in_local = locals.select(
+    t =&gt; globals[t].is_defined &amp;&amp; locals[t] == locals[term]
+  )
+  acc = same_freq_in_local.map(t =&gt; globals[t]).reduce(
+    (previous, current) =&gt; previous + current
+  )
+  return acc / same_freq_in_local.size
+end</screen>
+</para>
+</formalpara>
+<formalpara>
+<title>Algoritmo para calcular la puntuación LLR de cada tuit</title>
+<para>
+<screen>for each tweet in tweets do
+  terms = extract_terms(tweet)
+  score = terms.reduce(
+    (previous, current) =&gt; previous + get_llr_score(current)
+  )
+  results[tweet] = score
+end</screen>
+</para>
+</formalpara>
 </section>
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">

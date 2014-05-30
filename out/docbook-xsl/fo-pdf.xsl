@@ -157,7 +157,7 @@
 
   <xsl:attribute-set name="monospace.verbatim.properties" use-attribute-sets="monospace.properties verbatim.properties">
     <xsl:attribute name="font-style">normal</xsl:attribute>
-    <xsl:attribute name="font-size">11pt</xsl:attribute>
+    <xsl:attribute name="font-size">10pt</xsl:attribute>
     <xsl:attribute name="text-align">start</xsl:attribute>
     <xsl:attribute name="wrap-option">wrap</xsl:attribute>
   </xsl:attribute-set>

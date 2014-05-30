@@ -401,6 +401,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <ul class="sectlevel2">
 <li><a href="#_log_likelihood_ratio_test">2.1. Log Likelihood-Ratio test</a></li>
 <li><a href="#_términos_discriminativos">2.2. Términos discriminativos</a></li>
+<li><a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.3. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a></li>
 </ul>
 </li>
 <li><a href="#_experimentos_y_resultados">3. Experimentos y resultados</a></li>
@@ -875,6 +876,9 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="paragraph">
 <p>El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</p>
 </div>
+<div class="paragraph">
+<p>La consideración acerca de qué es un <strong>término</strong> se explica en <a href="#_términos_discriminativos">Términos discriminativos</a>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</p>
+</div>
 <div class="sect3">
 <h4 id="_log_likelihood_ratio_test_normalizado">2.1.1. Log Likelihood-Ratio test normalizado</h4>
 
@@ -973,6 +977,84 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="sect3">
 <h4 id="_utilización_de_algoritmos_de_poda">2.2.2. Utilización de algoritmos de poda</h4>
 
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.3. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</h3>
+<div class="listingblock">
+<div class="title">Algoritmo para extraer la frecuencia de cada término</div>
+<div class="content">
+<pre>for each tweet in tweets do
+  terms = apply_extractor_filter(tweet)
+  check_memory_status()
+  for each term in terms do
+    if frequencies[term].is_defined then
+      frequencies[term] += 1
+    else
+      frequencies[term] = minimum_frequency
+    end
+  end
+end
+
+def check_memory_status
+  if frequencies.size &gt;= maximum_extracted_terms then
+    reduce_map_load()
+  end
+end
+
+def reduce_map_load
+  items_to_remove = frequencies.size * FACTOR_TO_REMOVE
+  ordered_map     = frequencies.order_by_frequency
+  minimum_freq    = ordered_map.get(items_to_remove - 1)
+
+  ordered_map.slice from items_to_remove - 1 to ordered_map.size
+end</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Algoritmo para calcular la puntuación LLR de cada término</div>
+<div class="content">
+<pre>for each term in locals do
+  freq = locals[term]
+  if freq &gt; min_frequency then
+    global_freq = get_global_freq(term)
+    if global_freq &gt; 0 then
+      k11 = freq
+      k12 = global_freq
+      k21 = total_local_frequencies
+      k22 = total_global_frequencies
+      llr = Dunning.normalized_llr(k11, k12, k21, k22)
+      results[term] =&gt; llr
+    end
+  end
+end
+
+def get_global_freq(term)
+  globals[term].is_defined ? globals[term] : avg_global_freq(term)
+end
+
+def avg_global_freq(term)
+  same_freq_in_local = locals.select(
+    t =&gt; globals[t].is_defined &amp;&amp; locals[t] == locals[term]
+  )
+  acc = same_freq_in_local.map(t =&gt; globals[t]).reduce(
+    (previous, current) =&gt; previous + current
+  )
+  return acc / same_freq_in_local.size
+end</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Algoritmo para calcular la puntuación LLR de cada tuit</div>
+<div class="content">
+<pre>for each tweet in tweets do
+  terms = extract_terms(tweet)
+  score = terms.reduce(
+    (previous, current) =&gt; previous + get_llr_score(current)
+  )
+  results[tweet] = score
+end</pre>
+</div>
 </div>
 </div>
 </div>
