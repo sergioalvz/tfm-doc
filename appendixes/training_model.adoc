@@ -37,8 +37,8 @@ Para ello, se creo un sistema que mediante una interfaz de línea de comandos pu
 vw-input-translator 1.0
 Usage: vw-input-translator [options] <file>
 
-  --inout <value>
-        Creates an input file for binary classification
+  --inout
+        Flag for creating an input file for binary classification
   -d <value> | --decimals <value>
         Creates an input file for multi-class classification. Each sample will have the selected number of decimals on latitude and longitude coordinates
   <file>

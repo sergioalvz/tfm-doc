@@ -14,7 +14,7 @@ Para realizar la conexi처n entre el sistem Falcon y la API de Twitter se utiliz�
 2. Simplificaci처n del proceso para poder utilizar la API de Streaming, aislando al desarrollador de la complejidad para mantener activa la conexi처n con el servidor de Twitter.
 
 .Comunicaci처n entre un cliente y la API Streaming de Twitterfootnote:[https://dev.twitter.com/docs/api/streaming]
-image::05development/twitter-streaming-api.png[Modelo de comunicaci처n entre un cliente y la API Streaming de Twitter, align="center"]
+image::appendixes/twitter-streaming-api.png[Modelo de comunicaci처n entre un cliente y la API Streaming de Twitter, align="center"]
 
 === Almacenamiento de datos
 

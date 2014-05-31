@@ -16,6 +16,76 @@ La consideración acerca de qué es un *término* se explica en <<_términos_dis
 
 ==== Log Likelihood-Ratio test normalizado
 
+La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.footnote:[Disponible en: http://aisl.umbc.edu/resources/369.pdf (ver tablas y ecuaciones en la página 7)]
+
+Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discruminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación _normalizada_ sobre el algoritmo anterior, basada en la siguiente sospecha:
+
+____
+Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es *muy posible* que provengan de España.
+____
+
+Para tratar de demostrar la intuición anterior, se desarrolló una normalización basada en tres pasos:
+
+. La puntuación LLR de cada término, es normalizada contra el mínimo (negativo) y máximo (positivo) valor teórico que LLR puede alcanzar dados dos datasets.
+. La frecuencia del término en el dataset local y global, es normalizada frente al total de frecuencias en ambos datasets.
+. Por último, el valor LLR normalizado es dividido por el valor correspondiente de la frecuencia local o global dependiendo de si el valor obtenido es positivo o negativo (es decir, si es más posible que pertenezca al dataset A o al dataset B).
+
+.Algoritmo para normalizar el valor LLR de un término
+[source,java]
+----
+  /*
+   * @param a  frequency of token of interest in dataset A
+   * @param b  frequency of token of interest in dataset B
+   * @param c  total number of observations in dataset A
+   * @param d  total number of observations in dataset B
+   */
+  public double normalizedLLR (long a, long b, long c, long d) {
+    double min, max, a_norm, b_norm, llr;
+    min    = getLLR(0, d, c, d);
+    max    = getLLR(c, 0, c, d);
+    a_norm = a / (double)c;
+    b_norm = b / (double)d;
+    llr    = getLLR(a, b, c, d);
+
+    return (llr>0) ? (llr/(max*a_norm)) : (-llr/(min*b_norm));
+  }
+----
+
+De esta manera, el valor LLR normalizado se puede usar como _proxy_ para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. Además, para el término «chile», su peso sería negativo pero mucho menos que si aparece el término «achunchar», el cual sería mucho más discriminativo para descartar que un tuit provenga de España.
+
+A continuación, se muestran los 10 resultados más discriminativos tras aplicar LLR y LLR normalizado sobre keywords que sirvan para diferenciar tuits de Asturias del resto de España:
+
+.LLR sin normalizar
+----
+5.673174267765713    avilés
+5.786668335161142    muches
+6.55625607825904     gracies
+6.9163915469140225   gijon
+7.082198151712459    olmo
+7.650261596901131    ye
+7.8221070414197245   besin
+8.673885864488826    gijón
+11.355768634976933   asturias
+13.541645339239054   oviedo
+----
+
+.LLR normalizado
+----
+34.03033586645537    economia
+34.83206427341024    escalera
+35.896146032001866   moreda
+40.13311132890776    héctor
+40.13311132890776    celebralos
+40.13311132890776    sidra
+41.63987088300992    avilés
+41.65857127377122    simón
+45.94585510324283    presta
+----
+
+Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: _oviedo_, _gijón_ y _asturias_; mientras que se favorecen otros más específicos como _sidra_, _presta_ o _celebralos_ (escrito como se pronunciaría en asturiano).
+
+La implementación de ambos algoritmos Root Log Likelihood-Ratio fue desarrollada por el doctor Daniel Gayo Avello.
+
 === Términos discriminativos
 
 Se consideran términos discriminativos aquellos que son capaces de aportar información muy geolocalizable de manera implícita. Un ejemplo son aquellas palabras muy propias de una localización en concreto, como el caso del término _sidra_ o _carbayu_, que con mucha probabilidad indican un contenido que ha sido generado en Asturias.
@@ -53,7 +123,7 @@ Que generaría las siguientes combinaciones
 (buenos días), (buenos vamos), (buenos trabajar), (buenos todo), (buenos día), (días vamos), (días trabajar), (días todo), (día días), (trabajar vamos), (todo vamos), (día vamos), (todo trabajar), (día trabajar), (día todo)
 ----
 +
-Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar (explicado en <<_utilización_de_algoritmos_de_poda>>) para evitar sobrepasar la memoria del sistema.
+Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar (explicado en <<_utilización_de_algoritmos_de_streaming>>) para evitar sobrepasar la memoria del sistema.
 
 Keywords::
 
@@ -70,13 +140,36 @@ Con el objetivo de poder realizar las extracciones de los términos anteriores d
 .Representación del patrón Decorator que ilustra el sistema de filtros
 image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, align="center"]
 
-==== Utilización de algoritmos de poda
+==== Utilización de algoritmos de Streaming
+
+Como se ha visto en secciones anteriores, el proceso de extracción de términos genera una gran cantidad de datos que será necesario gestionar en memoria. Para solucionar este problema, se hizo uso de técnicas propias de los algoritmos de Streaming, los cuales tienen varios puntos en común con el problema actual.
+
+[NOTE]
+.Algoritmos de Streaming
+====
+Se conocen como algoritmos de Streaming aqellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.
+====
+
+La solución, por tanto, pasa por controlar el número de elementos que se gestionan en cada momento en memoria por el sistema, y plantear una estrategia que sea capaz de liberar memoria sin el riesgo de perder información que pueda adulterar los resultados. Los pasos seguidos en este proyecto para lidiar con el problema fueron los siguientes:
+
+. Establecer un número máximo de _keys_ que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características hardware sobre las que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.
++
+Esto también implica que el sistema de generación de puntuaciones LLR podrá trabajar únicamente sobre los `n` términos que se seleccionen aquí.
+
+. Una vez determinado el umbral máximo de elementos, será necesario definir que porcentaje de términos se eliminarán una vez alcanzado el límite anterior. En este caso, se ha optado por seguir una estrategia de poda agresiva en la que se eliminan de manera constante un % de los elementos con menos frecuencia del hash.
++
+Esta estrategia implica que siempre que se produzca una situación de poda, se deba ordenar el hash de acuerdo a la frecuencia de sus elementos. De manera experimental, se ha comprobado como la eliminación constante de un 40% de los elementos con menor frecuencia, a pesar de parecer demasiado agresiva, da resultados muy positivos sin existir riesgo de eliminar términos con una frecuencia muy elevada (por supuesto, todo esto dentro del dominio del problema actual).
+
+. En el momento de realizar la poda, se debe guardar qué frecuencia es la mayor del grupo de elementos a eliminar. De esta manera, se consigue que términos que vuelvan a aparecer tras la poda, partan de su frecuencia original en vez de volver a empezar de 0. Esto provoca también que muchos términos nuevos, empiecen con una frecuencia más elevada de lo esperado. Sin embargo, la frecuencia mínima que se utilizará después para seleccionar sobre qué términos se aplica el LLR, será lo suficientemente elevada como para evitar situaciones donde este problema pueda adulterar los resultados.
+
+En <<_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits>> se muestra el proceso para realizar la poda en el algoritmo para extraer la frecuencia de cada término, a través de los métodos `check_memory_status` y `reduce_map_load`.
 
 === Pseudocódigo para ilustrar el proceso completo de análisis de tuits
 
+Los siguientes fragmentos de _pseudocódigo_ muestran los diferentes algoritmos que se han utilizado para obtener la frecuencia de términos en los diferentes datasets, así como el proceso para realizar el cálculo de su Log Likelihood-Ratio asociado y la manera de computar la puntuación total de cada tuit en función de la puntuación de cada uno de los términos que contiene.
+
 .Algoritmo para extraer la frecuencia de cada término
 ----
-
 for each tweet in tweets do
   terms = apply_extractor_filter(tweet)
   check_memory_status()
@@ -90,15 +183,15 @@ for each tweet in tweets do
 end
 
 def check_memory_status
-  if frequencies.size >= maximum_extracted_terms then
+  if frequencies.size >= MAXIMUM_EXTRACTED_TERMS then
     reduce_map_load()
   end
 end
 
 def reduce_map_load
-  items_to_remove = frequencies.size * FACTOR_TO_REMOVE
-  ordered_map     = frequencies.order_by_frequency
-  minimum_freq    = ordered_map.get(items_to_remove - 1)
+  items_to_remove   = frequencies.size * FACTOR_TO_REMOVE
+  ordered_map       = frequencies.order_by_frequency
+  minimum_frequency = ordered_map.get(items_to_remove - 1)
 
   ordered_map.slice from items_to_remove - 1 to ordered_map.size
 end
@@ -147,4 +240,3 @@ for each tweet in tweets do
   results[tweet] = score
 end
 ----
-
