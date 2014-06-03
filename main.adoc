@@ -1,8 +1,14 @@
 = Geolocalización de usuarios en medios sociales mediante análisis de contenidos
 :author: Sergio Álvarez Suárez
 :toc:
+:toc-placement!:
 :toc-title: Tabla de Contenidos
 :lang: es
+
+include::front-end/index.adoc[]
+
+toc::[]
+
 :numbered:
 
 include::introduction/index.adoc[]

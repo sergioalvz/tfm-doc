@@ -1,0 +1,4 @@
+[preface]
+== Agradecimientos
+
+Aquí los agradecimientos.

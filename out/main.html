@@ -385,9 +385,37 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div id="header">
 <h1>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</h1>
 <span id="author" class="author">Sergio Álvarez Suárez</span><br>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_resumen">Resumen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aquí el resumen en español.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abstract">Abstract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here the abstract in english.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agradecimientos">Agradecimientos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aquí los agradecimientos.</p>
+</div>
 <div id="toc" class="toc">
-<div id="toctitle">Tabla de Contenidos</div>
+<div id="toctitle" class="title">Tabla de Contenidos</div>
 <ul class="sectlevel1">
+<li><a href="#_resumen">Resumen</a></li>
+<li><a href="#_abstract">Abstract</a></li>
+<li><a href="#_agradecimientos">Agradecimientos</a></li>
 <li><a href="#_introducción">1. Introducción</a></li>
 <li>
 <ul class="sectlevel2">
@@ -402,9 +430,16 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_log_likelihood_ratio_test">2.1. Log Likelihood-Ratio test</a></li>
 <li><a href="#_términos_discriminativos">2.2. Términos discriminativos</a></li>
 <li><a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.3. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a></li>
+<li><a href="#_procesando_xml_con_em_pull_parsing_em">2.4. Procesando XML con <em>pull parsing</em></a></li>
 </ul>
 </li>
 <li><a href="#_experimentos_y_resultados">3. Experimentos y resultados</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_primeros_experimentos_trabajando_con_grandes_volúmenes_de_datos">3.1. Primeros experimentos: trabajando con grandes volúmenes de datos</a></li>
+<li><a href="#_trabajando_con_diferentes_niveles_de_granularidad">3.2. Trabajando con diferentes niveles de granularidad</a></li>
+</ul>
+</li>
 <li><a href="#_conclusiones_del_sistema_de_geolocalización">4. Conclusiones del sistema de geolocalización</a></li>
 <li><a href="#_aplicación_web_de_geolocalización_como_servicio">5. Aplicación web de geolocalización como servicio</a></li>
 <li>
@@ -438,7 +473,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </ul>
 </div>
 </div>
-<div id="content">
+</div>
 <div class="sect1">
 <h2 id="_introducción">1. Introducción</h2>
 <div class="sectionbody">
@@ -1113,7 +1148,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </ol>
 </div>
 <div class="paragraph">
-<p>En <a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a> se muestra el proceso para realizar la poda en el algoritmo para extraer la frecuencia de cada término, a través de los métodos <code>check_memory_status</code> y <code>reduce_map_load</code>.</p>
+<p>En <a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a>, se muestra un esbozo de la implementación del algoritmo anterior. El control de memoria y proceso de poda agresiva se ilustra a través de los métodos <code>check_memory_status</code> y <code>reduce_map_load</code>.</p>
 </div>
 </div>
 </div>
@@ -1198,12 +1233,114 @@ end</pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_procesando_xml_con_em_pull_parsing_em">2.4. Procesando XML con <em>pull parsing</em></h3>
+
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_experimentos_y_resultados">3. Experimentos y resultados</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia y área metropolitana, ciudad y barrio.</p>
+</div>
+<div class="paragraph">
+<p>La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.</p>
+</div>
+<div class="sect2">
+<h3 id="_primeros_experimentos_trabajando_con_grandes_volúmenes_de_datos">3.1. Primeros experimentos: trabajando con grandes volúmenes de datos</h3>
+<div class="paragraph">
+<p>Los primeros experimentos se basaron en establecer diferencias a nivel de país. Para ello, se realizó un proceso de recolección de tuits durante una semana para los siguientes casos:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Tuits de España escritos en español</p>
+</li>
+<li>
+<p>Tuits del mundo escritos en español</p>
+</li>
+<li>
+<p>Tuits del Reino Unido escritos en inglés</p>
+</li>
+<li>
+<p>Tuits del mundo escritos en inglés</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>En total esta fase duró 4 semanas, recolectando en torno a <code>2 x 8GB</code> de datos para los tuits globales, así como <code>2 x 1GB</code> para los tuits localizados en España y el Reino Unido.</p>
+</div>
+<div class="paragraph">
+<p>Estos primeros conjuntos de datos permitieron que se desarrollasen los algoritmos de puntuación LLR y se empezase a comprobar empíricamente qué resultados aportaban los términos utilizados (menciones, hashtags, bigramas) así como investigar que otros campos o términos del perfil del usuario podrían ayudar a encontrar pistas acerca de su geolocalización. Durante esta fase se añadió el uso de <em>keywords</em> tanto a nivel de contenido de un tuit como sobre el campo de localización del usuario, sospechando que podrían aportar más información útil en base a los resultados LLR que se estaban observando a nivel de bigramas.</p>
+</div>
+<div class="paragraph">
+<p>Sobre estos conjuntos de datos no llegaron a establecerse pruebas que involucrasen software de aprendizaje automático, puesto que el uso de grandes volúmenes de datos quedó descartado al comprobar empíricamente que los términos que implican contenido geolocalizable no tienen que ser uniformes en el tiempo para una determinada región. Esta apreciación se realizó al trabajar con nuevos conjuntos de datos más pequeños, donde aparecieron como términos muy significativos aquellos que tenían que ver con un evento temporal muy concreto, el fallecimiento del seleccionador de fútbol nacional, Luis Aragonés.</p>
+</div>
+<div class="listingblock">
+<div class="title">Puntuación LLR para algunos términos recogidos en conjuntos de datos entre el 1 y 2 de febrero de 2014</div>
+<div class="content">
+<pre>48.958529065415576  aragonés gran
+49.17093149031471   aragonés selección
+50.049053227619474  aragonés descanse
+50.049053227619474  grandes luis
+50.739417608310795  luis roja
+50.97596629207029   luis nunca
+50.97596629207029   luis mas
+51.215854517258855  aragones hoy
+51.215854517258855  aragonés historia
+51.45916160893309   fútbol hombre
+51.95636312422304   aragonés hombre
+52.21042998468123   siempre aragones
+52.46826083659376   luis mejor
+52.46826083659376   dep sabio
+56.28098057747021   descanse paz
+81.59614077426396   fútbol grande
+102.31617863438613  entrenador gran
+107.56036254304512  bernabéu santiago
+107.5697695101089   noticia triste
+107.87375147152346  hoy madrid
+111.68234684538564  hizo hombre
+111.93538868096397  dep triste
+115.39967536884996  fútbol va
+116.50155357908382  futbol hoy
+119.45187311362997  día fútbol</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Como se puede observar, términos vinculados al fallecimiento del seleccionador aportaban una gran información geográfica que hacía que todos los tuits que los contenían prácticamente fuesen vinculados a España (lo cual en este caso sería correcto). Pero, ¿qué sucede si ocurre sobre un evento que se pueda aplicar sobre cualquier otro lugar del mundo en cualquier momento?</p>
+</div>
+<div class="paragraph">
+<p>Por ejemplo, es habitual que durante los meses de verano en el hemisferio sur, términos relativos a la estación estival sean más habituales en países como Argentina, Chile, etc. que en España. Lo cual sería justamente al revés en épocas de verano en el hemisferio norte. Por tanto, es importante tener en cuenta que los términos y el vocabulario tienen una importancia temporal, y el hecho de obtener grandes volúmenes de datos no tiene porque beneficiar el entrenamiento de un modelo de aprendizaje automático para inferir la localización de un tuit.</p>
+</div>
+<div class="paragraph">
+<p>Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercursión de ciertos términos ante cualquier evento.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trabajando_con_diferentes_niveles_de_granularidad">3.2. Trabajando con diferentes niveles de granularidad</h3>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_país">3.2.1. Resultados a nivel de país</h4>
 
+</div>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_provincia">3.2.2. Resultados a nivel de provincia</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_área_metropolitana">3.2.3. Resultados a nivel de área metropolitana</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_cudad">3.2.4. Resultados a nivel de cudad</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_barrio">3.2.5. Resultados a nivel de barrio</h4>
+
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1629,7 +1766,7 @@ Usage: Falcon [options]
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-05-31 18:30:31 CEST
+Last updated 2014-06-03 21:36:47 CEST
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-05-31</date>
+<date>2014-06-03</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -15,6 +15,20 @@
 </author>
 <authorinitials>SÁS</authorinitials>
 </info>
+<preface xml:id="_resumen">
+<title>Resumen</title>
+<simpara>Aquí el resumen en español.</simpara>
+<simpara><?asciidoc-pagebreak?></simpara>
+</preface>
+<preface xml:id="_abstract">
+<title>Abstract</title>
+<simpara>Here the abstract in english.</simpara>
+</preface>
+<preface xml:id="_agradecimientos">
+<title>Agradecimientos</title>
+<simpara>Aquí los agradecimientos.</simpara>
+
+</preface>
 <chapter xml:id="_introducción">
 <title>Introducción</title>
 <section xml:id="_motivación_del_proyecto">
@@ -500,7 +514,7 @@
 <simpara>En el momento de realizar la poda, se debe guardar qué frecuencia es la mayor del grupo de elementos a eliminar. De esta manera, se consigue que términos que vuelvan a aparecer tras la poda, partan de su frecuencia original en vez de volver a empezar de 0. Esto provoca también que muchos términos nuevos, empiecen con una frecuencia más elevada de lo esperado. Sin embargo, la frecuencia mínima que se utilizará después para seleccionar sobre qué términos se aplica el LLR, será lo suficientemente elevada como para evitar situaciones donde este problema pueda adulterar los resultados.</simpara>
 </listitem>
 </orderedlist>
-<simpara>En <xref linkend="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits"/> se muestra el proceso para realizar la poda en el algoritmo para extraer la frecuencia de cada término, a través de los métodos <literal>check_memory_status</literal> y <literal>reduce_map_load</literal>.</simpara>
+<simpara>En <xref linkend="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits"/>, se muestra un esbozo de la implementación del algoritmo anterior. El control de memoria y proceso de poda agresiva se ilustra a través de los métodos <literal>check_memory_status</literal> y <literal>reduce_map_load</literal>.</simpara>
 </section>
 </section>
 <section xml:id="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">
@@ -582,10 +596,92 @@ end</screen>
 </para>
 </formalpara>
 </section>
+<section xml:id="_procesando_xml_con_emphasis_pull_parsing_emphasis">
+<title>Procesando XML con <emphasis>pull parsing</emphasis></title>
+
+</section>
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">
 <title>Experimentos y resultados</title>
+<simpara>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia y área metropolitana, ciudad y barrio.</simpara>
+<simpara>La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.</simpara>
+<section xml:id="_primeros_experimentos_trabajando_con_grandes_volúmenes_de_datos">
+<title>Primeros experimentos: trabajando con grandes volúmenes de datos</title>
+<simpara>Los primeros experimentos se basaron en establecer diferencias a nivel de país. Para ello, se realizó un proceso de recolección de tuits durante una semana para los siguientes casos:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Tuits de España escritos en español</simpara>
+</listitem>
+<listitem>
+<simpara>Tuits del mundo escritos en español</simpara>
+</listitem>
+<listitem>
+<simpara>Tuits del Reino Unido escritos en inglés</simpara>
+</listitem>
+<listitem>
+<simpara>Tuits del mundo escritos en inglés</simpara>
+</listitem>
+</orderedlist>
+<simpara>En total esta fase duró 4 semanas, recolectando en torno a <literal>2 x 8GB</literal> de datos para los tuits globales, así como <literal>2 x 1GB</literal> para los tuits localizados en España y el Reino Unido.</simpara>
+<simpara>Estos primeros conjuntos de datos permitieron que se desarrollasen los algoritmos de puntuación LLR y se empezase a comprobar empíricamente qué resultados aportaban los términos utilizados (menciones, hashtags, bigramas) así como investigar que otros campos o términos del perfil del usuario podrían ayudar a encontrar pistas acerca de su geolocalización. Durante esta fase se añadió el uso de <emphasis>keywords</emphasis> tanto a nivel de contenido de un tuit como sobre el campo de localización del usuario, sospechando que podrían aportar más información útil en base a los resultados LLR que se estaban observando a nivel de bigramas.</simpara>
+<simpara>Sobre estos conjuntos de datos no llegaron a establecerse pruebas que involucrasen software de aprendizaje automático, puesto que el uso de grandes volúmenes de datos quedó descartado al comprobar empíricamente que los términos que implican contenido geolocalizable no tienen que ser uniformes en el tiempo para una determinada región. Esta apreciación se realizó al trabajar con nuevos conjuntos de datos más pequeños, donde aparecieron como términos muy significativos aquellos que tenían que ver con un evento temporal muy concreto, el fallecimiento del seleccionador de fútbol nacional, Luis Aragonés.</simpara>
+<formalpara>
+<title>Puntuación LLR para algunos términos recogidos en conjuntos de datos entre el 1 y 2 de febrero de 2014</title>
+<para>
+<screen>48.958529065415576  aragonés gran
+49.17093149031471   aragonés selección
+50.049053227619474  aragonés descanse
+50.049053227619474  grandes luis
+50.739417608310795  luis roja
+50.97596629207029   luis nunca
+50.97596629207029   luis mas
+51.215854517258855  aragones hoy
+51.215854517258855  aragonés historia
+51.45916160893309   fútbol hombre
+51.95636312422304   aragonés hombre
+52.21042998468123   siempre aragones
+52.46826083659376   luis mejor
+52.46826083659376   dep sabio
+56.28098057747021   descanse paz
+81.59614077426396   fútbol grande
+102.31617863438613  entrenador gran
+107.56036254304512  bernabéu santiago
+107.5697695101089   noticia triste
+107.87375147152346  hoy madrid
+111.68234684538564  hizo hombre
+111.93538868096397  dep triste
+115.39967536884996  fútbol va
+116.50155357908382  futbol hoy
+119.45187311362997  día fútbol</screen>
+</para>
+</formalpara>
+<simpara>Como se puede observar, términos vinculados al fallecimiento del seleccionador aportaban una gran información geográfica que hacía que todos los tuits que los contenían prácticamente fuesen vinculados a España (lo cual en este caso sería correcto). Pero, ¿qué sucede si ocurre sobre un evento que se pueda aplicar sobre cualquier otro lugar del mundo en cualquier momento?</simpara>
+<simpara>Por ejemplo, es habitual que durante los meses de verano en el hemisferio sur, términos relativos a la estación estival sean más habituales en países como Argentina, Chile, etc. que en España. Lo cual sería justamente al revés en épocas de verano en el hemisferio norte. Por tanto, es importante tener en cuenta que los términos y el vocabulario tienen una importancia temporal, y el hecho de obtener grandes volúmenes de datos no tiene porque beneficiar el entrenamiento de un modelo de aprendizaje automático para inferir la localización de un tuit.</simpara>
+<simpara>Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercursión de ciertos términos ante cualquier evento.</simpara>
+</section>
+<section xml:id="_trabajando_con_diferentes_niveles_de_granularidad">
+<title>Trabajando con diferentes niveles de granularidad</title>
+<section xml:id="_resultados_a_nivel_de_país">
+<title>Resultados a nivel de país</title>
 
+</section>
+<section xml:id="_resultados_a_nivel_de_provincia">
+<title>Resultados a nivel de provincia</title>
+
+</section>
+<section xml:id="_resultados_a_nivel_de_área_metropolitana">
+<title>Resultados a nivel de área metropolitana</title>
+
+</section>
+<section xml:id="_resultados_a_nivel_de_cudad">
+<title>Resultados a nivel de cudad</title>
+
+</section>
+<section xml:id="_resultados_a_nivel_de_barrio">
+<title>Resultados a nivel de barrio</title>
+
+</section>
+</section>
 </chapter>
 <chapter xml:id="_conclusiones_del_sistema_de_geolocalización">
 <title>Conclusiones del sistema de geolocalización</title>

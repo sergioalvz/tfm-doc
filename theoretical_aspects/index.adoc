@@ -162,7 +162,7 @@ Esta estrategia implica que siempre que se produzca una situación de poda, se d
 
 . En el momento de realizar la poda, se debe guardar qué frecuencia es la mayor del grupo de elementos a eliminar. De esta manera, se consigue que términos que vuelvan a aparecer tras la poda, partan de su frecuencia original en vez de volver a empezar de 0. Esto provoca también que muchos términos nuevos, empiecen con una frecuencia más elevada de lo esperado. Sin embargo, la frecuencia mínima que se utilizará después para seleccionar sobre qué términos se aplica el LLR, será lo suficientemente elevada como para evitar situaciones donde este problema pueda adulterar los resultados.
 
-En <<_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits>> se muestra el proceso para realizar la poda en el algoritmo para extraer la frecuencia de cada término, a través de los métodos `check_memory_status` y `reduce_map_load`.
+En <<_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits>>, se muestra un esbozo de la implementación del algoritmo anterior. El control de memoria y proceso de poda agresiva se ilustra a través de los métodos `check_memory_status` y `reduce_map_load`.
 
 === Pseudocódigo para ilustrar el proceso completo de análisis de tuits
 
@@ -240,3 +240,5 @@ for each tweet in tweets do
   results[tweet] = score
 end
 ----
+
+=== Procesando XML con _pull parsing_
