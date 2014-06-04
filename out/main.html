@@ -1321,24 +1321,366 @@ end</pre>
 <div class="sect2">
 <h3 id="_trabajando_con_diferentes_niveles_de_granularidad">3.2. Trabajando con diferentes niveles de granularidad</h3>
 <div class="sect3">
-<h4 id="_resultados_a_nivel_de_país">3.2.1. Resultados a nivel de país</h4>
+<h4 id="_conceptos_previos">3.2.1. Conceptos previos</h4>
+<div class="sect4">
+<h5 id="_acierto_y_exhaustividad">Acierto y exhaustividad</h5>
 
 </div>
-<div class="sect3">
-<h4 id="_resultados_a_nivel_de_provincia">3.2.2. Resultados a nivel de provincia</h4>
+<div class="sect4">
+<h5 id="_umbral_de_acierto">Umbral de acierto</h5>
 
 </div>
-<div class="sect3">
-<h4 id="_resultados_a_nivel_de_área_metropolitana">3.2.3. Resultados a nivel de área metropolitana</h4>
-
 </div>
 <div class="sect3">
-<h4 id="_resultados_a_nivel_de_cudad">3.2.4. Resultados a nivel de cudad</h4>
-
+<h4 id="_resultados_a_nivel_de_país">3.2.2. Resultados a nivel de país</h4>
+<div class="paragraph">
+<p>De acuerdo con los objetivos establecidos al comienzo del proyecto, se realizaron dos experimentos a nivel de país para poder trabajar tanto con tuits escritos en español como con aquellos escritos en inglés.</p>
+</div>
+<div class="paragraph">
+<p>Por un lado, se realizó un experimento que pudiese discriminar tuits procedentes de España en un conjunto de tuits globales escritos en español. Por el otro, se realizó un segundo experimento enfocado en detectar qué tuits escritos en inglés desde las islas británicas procedían de la República Irlandesa.</p>
+</div>
+<div class="paragraph">
+<p>Los resultados para ambos experimentos se pueden observar en las tablas <a href="#experiment-spain-global">Resultados de la ejecución para detectar tuits procedentes España</a> y <a href="#experiment-uk-ireland">Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.</a>.</p>
+</div>
+<table id="experiment-spain-global" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 2. Resultados de la ejecución para detectar tuits procedentes España</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.16%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89.48%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.13%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90.35%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-uk-ireland" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 3. Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98.17%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">71.17%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.56%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98.20%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_provincia">3.2.3. Resultados a nivel de provincia</h4>
+<div class="paragraph">
+<p>Para realizar los experimentos a nivel de provincia se seleccionaron las siguientes tres regiones del estado español: <strong>Principado de Asturias</strong>, <strong>Madrid y</strong> <strong>Barcelona</strong>.</p>
+</div>
+<div class="paragraph">
+<p>En este caso, se consideró como área local cada una de las tres regiones anteriores y como área global, el total del territorio español a excepción de la provincia evaluada. Así pues, para realizar el experimento sobre el Principado de Asturias se consideró:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Área local</strong>: Principado de Asturias</p>
+</li>
+<li>
+<p><strong>Área global</strong>: Todo el territorio español a excepción del Principado de Asturias.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Siguiendo el mismo mecanismo en el resto de provincias.</p>
+</div>
+<div class="paragraph">
+<p>Las tablas <a href="#experiment-spain-asturias">Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.</a>, <a href="#experiment-spain-madrid">Resultados de la ejecución para detectar tuits procedentes de Madrid.</a> y <a href="#experiment-spain-barcelona">Resultados de la ejecución para detectar tuits procedentes de Barcelona.</a> muestran los resultados de la ejecución para esta granularidad.</p>
+</div>
+<table id="experiment-spain-asturias" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 4. Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98.89%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">53.53%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89.83%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99.00%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-spain-madrid" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 5. Resultados de la ejecución para detectar tuits procedentes de Madrid.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.27%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72.70%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86.78%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.39%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-spain-barcelona" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 6. Resultados de la ejecución para detectar tuits procedentes de Barcelona.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98.25%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65.73%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.09%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98.29%</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_barcelona_y_el_impacto_del_catalán">Barcelona y el impacto del catalán</h5>
+<div class="paragraph">
+<p>Uno de los aspectos más curiosos de los resultados y puntuaciones generadas por el algoritmo Log Likelihood-Ratio fue comprobar como entre los términos más discriminativos para la provincia de Barcelona se encontraban, en su mayoría, vocablos en catalán.</p>
+</div>
+<div class="paragraph">
+<p>Esto certifica de manera empírica las intuiciones acerca de la validez del algoritmo para este tipo de problema, siendo capaz de detectar que los términos en catalán, con una frecuencia muy baja a nivel global y relativamente alta en Barcelona, son los más significativos para identificar al territorio.</p>
+</div>
+<div class="listingblock">
+<div class="title">Bigramas más discriminativos para encontrar tuits procedentes de la provincia de Barcelona</div>
+<div class="content">
+<pre>94.52274667047315   per tres
+100.19650868429694  per dos
+100.19650868429694  salón barcelona
+100.19650868429694  ara per
+100.19650868429694  acuerdo leo
+100.19650868429694  gracias horas
+100.19650868429694  debat els
+101.79780787750204  buenos barcelona
+111.11339666895931  catalunya és
+111.11339666895931  avui amb</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resultados_a_nivel_de_área_metropolitana">3.2.4. Resultados a nivel de área metropolitana</h4>
+<div class="paragraph">
+<p>Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: <strong>Manchester</strong>, <strong>Birminghan</strong> y <strong>Londres</strong>. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.</p>
+</div>
+<div class="paragraph">
+<p>Las tablas <a href="#experiment-uk-london">Resultados de la ejecución para detectar tuits procedentes de Londres.</a>, <a href="#experiment-uk-manchester">Resultados de la ejecución para detectar tuits procedentes de Manchester.</a> y <a href="#experiment-uk-birminghan">Resultados de la ejecución para detectar tuits procedentes de Birminghan.</a> muestran los resultados para esta granularidad.</p>
+</div>
+<table id="experiment-uk-london" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 7. Resultados de la ejecución para detectar tuits procedentes de Londres.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">91.69%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70.98%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86.43%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.77%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-uk-manchester" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 8. Resultados de la ejecución para detectar tuits procedentes de Manchester.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.68%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51.10%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">88.53%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.97%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-uk-birminghan" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 9. Resultados de la ejecución para detectar tuits procedentes de Birminghan.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.22%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47.05%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.95%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.20%</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_resultados_a_nivel_de_barrio">3.2.5. Resultados a nivel de barrio</h4>
-
+<div class="paragraph">
+<p>Por último, se realizó un experimento a nivel de barrio, siendo la granularidad más baja analizada en el proyecto. Para ello, se utilizaron los 3 barrios más importantes de Londres como área local (<strong>Wandsworth</strong>, <strong>Lambeth</strong> y <strong>Southwark</strong>), así como la ciudad de Londres como área global. Los resultados de este experimento se pueden consultar en las tablas <a href="#experiment-london-wandsworth">Resultados de la ejecución para detectar tuits procedentes de Wandsworth.</a>, <a href="#experiment-london-lambeth">Resultados de la ejecución para detectar tuits procedentes de Lambeth.</a> y <a href="#experiment-london-southwark">Resultados de la ejecución para detectar tuits procedentes de Southwark.</a>.</p>
+</div>
+<table id="experiment-london-wandsworth" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 10. Resultados de la ejecución para detectar tuits procedentes de Wandsworth.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99.54%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18.18%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100.0%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99.54%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-london-lambeth" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 11. Resultados de la ejecución para detectar tuits procedentes de Lambeth.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99.20%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24.13%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87.5%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99.23%</p></td>
+</tr>
+</tbody>
+</table>
+<table id="experiment-london-southwark" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 12. Resultados de la ejecución para detectar tuits procedentes de Southwark.</caption>
+<colgroup>
+<col style="width: 75%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98.98%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25.0%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90.0%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99.01%</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

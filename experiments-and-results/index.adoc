@@ -56,12 +56,235 @@ Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en peri
 
 === Trabajando con diferentes niveles de granularidad
 
+==== Conceptos previos
+
+===== Acierto y exhaustividad
+
+===== Umbral de acierto
+
 ==== Resultados a nivel de país
+
+De acuerdo con los objetivos establecidos al comienzo del proyecto, se realizaron dos experimentos a nivel de país para poder trabajar tanto con tuits escritos en español como con aquellos escritos en inglés.
+
+Por un lado, se realizó un experimento que pudiese discriminar tuits procedentes de España en un conjunto de tuits globales escritos en español. Por el otro, se realizó un segundo experimento enfocado en detectar qué tuits escritos en inglés desde las islas británicas procedían de la República Irlandesa.
+
+Los resultados para ambos experimentos se pueden observar en las tablas <<experiment-spain-global>> y <<experiment-uk-ireland>>.
+
+.Resultados de la ejecución para detectar tuits procedentes España
+[cols="3,1", id="experiment-spain-global"]
+|===
+|Acierto
+|93.16%
+
+|Exhaustividad
+|89.48%
+
+|Acierto en predicciones locales
+|96.13%
+
+|Acierto en predicciones globales
+|90.35%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.
+[cols="3,1", id="experiment-uk-ireland"]
+|===
+|Acierto
+|98.17%
+
+|Exhaustividad
+|71.17%
+
+|Acierto en predicciones locales
+|97.56%
+
+|Acierto en predicciones globales
+|98.20%
+|===
 
 ==== Resultados a nivel de provincia
 
+Para realizar los experimentos a nivel de provincia se seleccionaron las siguientes tres regiones del estado español: *Principado de Asturias*, *Madrid y* *Barcelona*.
+
+En este caso, se consideró como área local cada una de las tres regiones anteriores y como área global, el total del territorio español a excepción de la provincia evaluada. Así pues, para realizar el experimento sobre el Principado de Asturias se consideró:
+
+* *Área local*: Principado de Asturias
+* *Área global*: Todo el territorio español a excepción del Principado de Asturias.
+
+Siguiendo el mismo mecanismo en el resto de provincias.
+
+Las tablas <<experiment-spain-asturias>>, <<experiment-spain-madrid>> y <<experiment-spain-barcelona>> muestran los resultados de la ejecución para esta granularidad.
+
+.Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.
+[cols="3,1", id="experiment-spain-asturias"]
+|===
+|Acierto
+|98.89%
+
+|Exhaustividad
+|53.53%
+
+|Acierto en predicciones locales
+|89.83%
+
+|Acierto en predicciones globales
+|99.00%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Madrid.
+[cols="3,1", id="experiment-spain-madrid"]
+|===
+|Acierto
+|92.27%
+
+|Exhaustividad
+|72.70%
+
+|Acierto en predicciones locales
+|86.78%
+
+|Acierto en predicciones globales
+|93.39%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Barcelona.
+[cols="3,1", id="experiment-spain-barcelona"]
+|===
+|Acierto
+|98.25%
+
+|Exhaustividad
+|65.73%
+
+|Acierto en predicciones locales
+|97.09%
+
+|Acierto en predicciones globales
+|98.29%
+|===
+
+===== Barcelona y el impacto del catalán
+
+Uno de los aspectos más curiosos de los resultados y puntuaciones generadas por el algoritmo Log Likelihood-Ratio fue comprobar como entre los términos más discriminativos para la provincia de Barcelona se encontraban, en su mayoría, vocablos en catalán.
+
+Esto certifica de manera empírica las intuiciones acerca de la validez del algoritmo para este tipo de problema, siendo capaz de detectar que los términos en catalán, con una frecuencia muy baja a nivel global y relativamente alta en Barcelona, son los más significativos para identificar al territorio.
+
+.Bigramas más discriminativos para encontrar tuits procedentes de la provincia de Barcelona
+----
+94.52274667047315   per tres
+100.19650868429694  per dos
+100.19650868429694  salón barcelona
+100.19650868429694  ara per
+100.19650868429694  acuerdo leo
+100.19650868429694  gracias horas
+100.19650868429694  debat els
+101.79780787750204  buenos barcelona
+111.11339666895931  catalunya és
+111.11339666895931  avui amb
+----
+
 ==== Resultados a nivel de área metropolitana
 
-==== Resultados a nivel de cudad
+Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: *Manchester*, *Birminghan* y *Londres*. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.
+
+Las tablas <<experiment-uk-london>>, <<experiment-uk-manchester>> y <<experiment-uk-birminghan>> muestran los resultados para esta granularidad.
+
+.Resultados de la ejecución para detectar tuits procedentes de Londres.
+[cols="3,1", id="experiment-uk-london"]
+|===
+|Acierto
+|91.69%
+
+|Exhaustividad
+|70.98%
+
+|Acierto en predicciones locales
+|86.43%
+
+|Acierto en predicciones globales
+|92.77%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Manchester.
+[cols="3,1", id="experiment-uk-manchester"]
+|===
+|Acierto
+|96.68%
+
+|Exhaustividad
+|51.10%
+
+|Acierto en predicciones locales
+|88.53%
+
+|Acierto en predicciones globales
+|96.97%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Birminghan.
+[cols="3,1", id="experiment-uk-birminghan"]
+|===
+|Acierto
+|97.22%
+
+|Exhaustividad
+|47.05%
+
+|Acierto en predicciones locales
+|97.95%
+
+|Acierto en predicciones globales
+|97.20%
+|===
 
 ==== Resultados a nivel de barrio
+
+Por último, se realizó un experimento a nivel de barrio, siendo la granularidad más baja analizada en el proyecto. Para ello, se utilizaron los 3 barrios más importantes de Londres como área local (*Wandsworth*, *Lambeth* y *Southwark*), así como la ciudad de Londres como área global. Los resultados de este experimento se pueden consultar en las tablas <<experiment-london-wandsworth>>, <<experiment-london-lambeth>> y <<experiment-london-southwark>>.
+
+.Resultados de la ejecución para detectar tuits procedentes de Wandsworth.
+[cols="3,1", id="experiment-london-wandsworth"]
+|===
+|Acierto
+|99.54%
+
+|Exhaustividad
+|18.18%
+
+|Acierto en predicciones locales
+|100.0%
+
+|Acierto en predicciones globales
+|99.54%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Lambeth.
+[cols="3,1", id="experiment-london-lambeth"]
+|===
+|Acierto
+|99.20%
+
+|Exhaustividad
+|24.13%
+
+|Acierto en predicciones locales
+|87.5%
+
+|Acierto en predicciones globales
+|99.23%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Southwark.
+[cols="3,1", id="experiment-london-southwark"]
+|===
+|Acierto
+|98.98%
+
+|Exhaustividad
+|25.0%
+
+|Acierto en predicciones locales
+|90.0%
+
+|Acierto en predicciones globales
+|99.01%
+|===
