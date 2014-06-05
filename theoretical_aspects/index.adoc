@@ -51,7 +51,7 @@ Para tratar de demostrar la intuición anterior, se desarrolló una normalizaci�
   }
 ----
 
-De esta manera, el valor LLR normalizado se puede usar como _proxy_ para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. Además, para el término «chile», su peso sería negativo pero mucho menos que si aparece el término «achunchar», el cual sería mucho más discriminativo para descartar que un tuit provenga de España.
+De esta manera, el valor LLR normalizado se puede usar como _proxy_ para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. En el caso contrario, donde se querría identificar cuando un término no es lo suficientemente discriminativo para el área local, se aplicaría la misma lógica, y términos como «chile» tendría un peso negativo moderado, mientras que «achunchar» obtendría un peso mucho más negativo para indicar que el vocablo es más discriminativo para el área global.
 
 A continuación, se muestran los 10 resultados más discriminativos tras aplicar LLR y LLR normalizado sobre keywords que sirvan para diferenciar tuits de Asturias del resto de España:
 
@@ -108,10 +108,10 @@ Algunas consideraciones importantes sobre esto son:
 +
 * Se han eliminado todos aquellos bigramas que contienen 2 veces la misma palabra.
 * Se han eliminado todos aquellos bigramas que contienen al menos una palabra vacía.
-* Se han elminado todos aquellos bigramas con términos inferiores a 2 caracteres.
+* Se han eliminado todos aquellos bigramas con términos inferiores a 2 caracteres.
 * Se han ordenado alfabéticamente todos los bigramas de acuerdo a las 2 palabras que contienen, facilitando así el control de bigramas repetidos.
 +
-Un ejemplo del tipo de bigramas que sacaríamos de analizar un tuit en nuestro proyecto sería:
+Un ejemplo de los bigramas que obtendríamos tras analizar un tuit en base a las condiciones anteriores sería:
 +
 ____
 Buenos días vamos a trabajar todo el día
@@ -147,12 +147,12 @@ Como se ha visto en secciones anteriores, el proceso de extracción de términos
 [NOTE]
 .Algoritmos de Streaming
 ====
-Se conocen como algoritmos de Streaming aqellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.
+Se conocen como algoritmos de Streaming aquellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.
 ====
 
 La solución, por tanto, pasa por controlar el número de elementos que se gestionan en cada momento en memoria por el sistema, y plantear una estrategia que sea capaz de liberar memoria sin el riesgo de perder información que pueda adulterar los resultados. Los pasos seguidos en este proyecto para lidiar con el problema fueron los siguientes:
 
-. Establecer un número máximo de _keys_ que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características hardware sobre las que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.
+. Establecer un número máximo de _keys_ que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características del hardware sobre el que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.
 +
 Esto también implica que el sistema de generación de puntuaciones LLR podrá trabajar únicamente sobre los `n` términos que se seleccionen aquí.
 
@@ -242,3 +242,30 @@ end
 ----
 
 === Procesando XML con _pull parsing_
+
+Debido al intenso uso que se hace en el proyecto de datos en XML, fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.
+
+Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: *Simple API XML (o SAX)footnote:[http://www.saxproject.org/]* y *pulling parsingfootnote:[http://www.xmlpull.org/]*.
+
+En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete `xml.pull`. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: _comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc_. Cada uno de estos eventos, puede tener asignado un _listener_ que contenga la lógica a ejecutar.
+
+El fragmento de código posterior muestra un ejemplo de uso para analizar un fichero XML mediante _pulling parser_. En primer lugar se define el fichero sobre el que realizar el análisis y se crea una nueva variable que nos ayudar a controlar cuando estamos dentro del elemento que queremos analizar. Utilizando _pattern matching_ nos aseguramos de seleccionar aquellos elementos cuya etiqueta coincida con la del campo sobre el que debe actuar el filtro que deseamos aplicar. En caso de encontrar un elemento de apertura para ese nodo, indicamos en la variable booleana `in` que nos encontramos en el elemento deseado y los eventos encargados de detectar nodos de texto la consultarán para saber si sobre ese texto deben aplicar o no el filtro.
+
+El evento para detectar que hemos salido del nodo deseado se encarga de volver a _setear_ el valor de la variable `in` a `false`.
+
+
+
+[source,java]
+.Ejemplo de código para analizar un documento XML utilizando _pulling parser_
+----
+val reader = new XMLEventReader(Source.fromFile(xmlFile))
+var in = false
+reader.foreach({
+  case e: EvElemStart if e.label == _filter.field => in = true
+  case EvText(text) if in => applyFilter(text)
+  case e: EvElemEnd if e.label == _filter.field => in = false
+  case _ => ;
+})
+----
+
+=== Entrenamiento del clasificador

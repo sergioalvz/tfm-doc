@@ -385,33 +385,8 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div id="header">
 <h1>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</h1>
 <span id="author" class="author">Sergio Álvarez Suárez</span><br>
-</div>
-<div id="content">
-<div class="sect1">
-<h2 id="_resumen">Resumen</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Aquí el resumen en español.</p>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_abstract">Abstract</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here the abstract in english.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_agradecimientos">Agradecimientos</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Aquí los agradecimientos.</p>
-</div>
 <div id="toc" class="toc">
-<div id="toctitle" class="title">Tabla de Contenidos</div>
+<div id="toctitle">Tabla de Contenidos</div>
 <ul class="sectlevel1">
 <li><a href="#_resumen">Resumen</a></li>
 <li><a href="#_abstract">Abstract</a></li>
@@ -431,6 +406,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_términos_discriminativos">2.2. Términos discriminativos</a></li>
 <li><a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.3. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a></li>
 <li><a href="#_procesando_xml_con_em_pull_parsing_em">2.4. Procesando XML con <em>pull parsing</em></a></li>
+<li><a href="#_entrenamiento_del_clasificador">2.5. Entrenamiento del clasificador</a></li>
 </ul>
 </li>
 <li><a href="#_experimentos_y_resultados">3. Experimentos y resultados</a></li>
@@ -471,6 +447,31 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix D: B2pick, aplicación web para seleccionar <em>bounding boxes</em></a></li>
 <li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix E: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
 </ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_resumen">Resumen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aquí el resumen en español.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abstract">Abstract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here the abstract in english.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agradecimientos">Agradecimientos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aquí los agradecimientos.</p>
 </div>
 </div>
 </div>
@@ -973,7 +974,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="paragraph">
-<p>De esta manera, el valor LLR normalizado se puede usar como <em>proxy</em> para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. Además, para el término «chile», su peso sería negativo pero mucho menos que si aparece el término «achunchar», el cual sería mucho más discriminativo para descartar que un tuit provenga de España.</p>
+<p>De esta manera, el valor LLR normalizado se puede usar como <em>proxy</em> para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. En el caso contrario, donde se querría identificar cuando un término no es lo suficientemente discriminativo para el área local, se aplicaría la misma lógica, y términos como «chile» tendría un peso negativo moderado, mientras que «achunchar» obtendría un peso mucho más negativo para indicar que el vocablo es más discriminativo para el área global.</p>
 </div>
 <div class="paragraph">
 <p>A continuación, se muestran los 10 resultados más discriminativos tras aplicar LLR y LLR normalizado sobre keywords que sirvan para diferenciar tuits de Asturias del resto de España:</p>
@@ -1054,12 +1055,12 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Se han eliminado todos aquellos bigramas que contienen al menos una palabra vacía.</p>
 </li>
 <li>
-<p>Se han elminado todos aquellos bigramas con términos inferiores a 2 caracteres.</p>
+<p>Se han eliminado todos aquellos bigramas con términos inferiores a 2 caracteres.</p>
 </li>
 <li>
 <p>Se han ordenado alfabéticamente todos los bigramas de acuerdo a las 2 palabras que contienen, facilitando así el control de bigramas repetidos.</p>
 <div class="paragraph">
-<p>Un ejemplo del tipo de bigramas que sacaríamos de analizar un tuit en nuestro proyecto sería:</p>
+<p>Un ejemplo de los bigramas que obtendríamos tras analizar un tuit en base a las condiciones anteriores sería:</p>
 </div>
 <div class="quoteblock">
 <blockquote>
@@ -1119,7 +1120,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <td class="content">
 <div class="title">Algoritmos de Streaming</div>
 <div class="paragraph">
-<p>Se conocen como algoritmos de Streaming aqellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.</p>
+<p>Se conocen como algoritmos de Streaming aquellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.</p>
 </div>
 </td>
 </tr>
@@ -1131,7 +1132,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Establecer un número máximo de <em>keys</em> que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características hardware sobre las que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.</p>
+<p>Establecer un número máximo de <em>keys</em> que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características del hardware sobre el que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.</p>
 <div class="paragraph">
 <p>Esto también implica que el sistema de generación de puntuaciones LLR podrá trabajar únicamente sobre los <code>n</code> términos que se seleccionen aquí.</p>
 </div>
@@ -1235,6 +1236,37 @@ end</pre>
 </div>
 <div class="sect2">
 <h3 id="_procesando_xml_con_em_pull_parsing_em">2.4. Procesando XML con <em>pull parsing</em></h3>
+<div class="paragraph">
+<p>Debido al intenso uso que se hace en el proyecto de datos en XML, fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</p>
+</div>
+<div class="paragraph">
+<p>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <strong>Simple API XML (o SAX)<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span></strong> y <strong>pulling parsing<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></strong>.</p>
+</div>
+<div class="paragraph">
+<p>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete <code>xml.pull</code>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <em>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</em>. Cada uno de estos eventos, puede tener asignado un <em>listener</em> que contenga la lógica a ejecutar.</p>
+</div>
+<div class="paragraph">
+<p>El fragmento de código posterior muestra un ejemplo de uso para analizar un fichero XML mediante <em>pulling parser</em>. En primer lugar se define el fichero sobre el que realizar el análisis y se crea una nueva variable que nos ayudar a controlar cuando estamos dentro del elemento que queremos analizar. Utilizando <em>pattern matching</em> nos aseguramos de seleccionar aquellos elementos cuya etiqueta coincida con la del campo sobre el que debe actuar el filtro que deseamos aplicar. En caso de encontrar un elemento de apertura para ese nodo, indicamos en la variable booleana <code>in</code> que nos encontramos en el elemento deseado y los eventos encargados de detectar nodos de texto la consultarán para saber si sobre ese texto deben aplicar o no el filtro.</p>
+</div>
+<div class="paragraph">
+<p>El evento para detectar que hemos salido del nodo deseado se encarga de volver a <em>setear</em> el valor de la variable <code>in</code> a <code>false</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de código para analizar un documento XML utilizando <em>pulling parser</em></div>
+<div class="content">
+<pre class="highlight"><code class="java language-java">val reader = new XMLEventReader(Source.fromFile(xmlFile))
+var in = false
+reader.foreach({
+  case e: EvElemStart if e.label == _filter.field =&gt; in = true
+  case EvText(text) if in =&gt; applyFilter(text)
+  case e: EvElemEnd if e.label == _filter.field =&gt; in = false
+  case _ =&gt; ;
+})</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_entrenamiento_del_clasificador">2.5. Entrenamiento del clasificador</h3>
 
 </div>
 </div>
@@ -1243,7 +1275,7 @@ end</pre>
 <h2 id="_experimentos_y_resultados">3. Experimentos y resultados</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia y área metropolitana, ciudad y barrio.</p>
+<p>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.</p>
 </div>
 <div class="paragraph">
 <p>La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.</p>
@@ -1751,7 +1783,7 @@ end</pre>
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit</strong> <span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -1861,7 +1893,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 7. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></div>
+<div class="title">Figure 7. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -2100,15 +2132,21 @@ Usage: Falcon [options]
 <a href="#_footnoteref_3">3</a>. <a href="http://perldesignpatterns.com/?word=decorator+pattern">http://perldesignpatterns.com/?word=decorator+pattern</a>
 </div>
 <div class="footnote" id="_footnote_4">
-<a href="#_footnoteref_4">4</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_4">4</a>. <a href="http://www.saxproject.org/">http://www.saxproject.org/</a>
 </div>
 <div class="footnote" id="_footnote_5">
-<a href="#_footnoteref_5">5</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_5">5</a>. <a href="http://www.xmlpull.org/">http://www.xmlpull.org/</a>
+</div>
+<div class="footnote" id="_footnote_6">
+<a href="#_footnoteref_6">6</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+</div>
+<div class="footnote" id="_footnote_7">
+<a href="#_footnoteref_7">7</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-06-03 21:36:47 CEST
+Last updated 2014-06-05 23:22:42 CEST
 </div>
 </div>
 </body>

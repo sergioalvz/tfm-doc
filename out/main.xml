@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-03</date>
+<date>2014-06-05</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -27,7 +27,6 @@
 <preface xml:id="_agradecimientos">
 <title>Agradecimientos</title>
 <simpara>Aquí los agradecimientos.</simpara>
-
 </preface>
 <chapter xml:id="_introducción">
 <title>Introducción</title>
@@ -385,7 +384,7 @@
   }</programlisting>
 </para>
 </formalpara>
-<simpara>De esta manera, el valor LLR normalizado se puede usar como <emphasis>proxy</emphasis> para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. Además, para el término «chile», su peso sería negativo pero mucho menos que si aparece el término «achunchar», el cual sería mucho más discriminativo para descartar que un tuit provenga de España.</simpara>
+<simpara>De esta manera, el valor LLR normalizado se puede usar como <emphasis>proxy</emphasis> para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. En el caso contrario, donde se querría identificar cuando un término no es lo suficientemente discriminativo para el área local, se aplicaría la misma lógica, y términos como «chile» tendría un peso negativo moderado, mientras que «achunchar» obtendría un peso mucho más negativo para indicar que el vocablo es más discriminativo para el área global.</simpara>
 <simpara>A continuación, se muestran los 10 resultados más discriminativos tras aplicar LLR y LLR normalizado sobre keywords que sirvan para diferenciar tuits de Asturias del resto de España:</simpara>
 <formalpara>
 <title>LLR sin normalizar</title>
@@ -452,11 +451,11 @@
 <simpara>Se han eliminado todos aquellos bigramas que contienen al menos una palabra vacía.</simpara>
 </listitem>
 <listitem>
-<simpara>Se han elminado todos aquellos bigramas con términos inferiores a 2 caracteres.</simpara>
+<simpara>Se han eliminado todos aquellos bigramas con términos inferiores a 2 caracteres.</simpara>
 </listitem>
 <listitem>
 <simpara>Se han ordenado alfabéticamente todos los bigramas de acuerdo a las 2 palabras que contienen, facilitando así el control de bigramas repetidos.</simpara>
-<simpara>Un ejemplo del tipo de bigramas que sacaríamos de analizar un tuit en nuestro proyecto sería:</simpara>
+<simpara>Un ejemplo de los bigramas que obtendríamos tras analizar un tuit en base a las condiciones anteriores sería:</simpara>
 <blockquote>
 <simpara>Buenos días vamos a trabajar todo el día</simpara>
 </blockquote>
@@ -498,12 +497,12 @@
 <simpara>Como se ha visto en secciones anteriores, el proceso de extracción de términos genera una gran cantidad de datos que será necesario gestionar en memoria. Para solucionar este problema, se hizo uso de técnicas propias de los algoritmos de Streaming, los cuales tienen varios puntos en común con el problema actual.</simpara>
 <note>
 <title>Algoritmos de Streaming</title>
-<simpara>Se conocen como algoritmos de Streaming aqellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.</simpara>
+<simpara>Se conocen como algoritmos de Streaming aquellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.</simpara>
 </note>
 <simpara>La solución, por tanto, pasa por controlar el número de elementos que se gestionan en cada momento en memoria por el sistema, y plantear una estrategia que sea capaz de liberar memoria sin el riesgo de perder información que pueda adulterar los resultados. Los pasos seguidos en este proyecto para lidiar con el problema fueron los siguientes:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
-<simpara>Establecer un número máximo de <emphasis>keys</emphasis> que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características hardware sobre las que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.</simpara>
+<simpara>Establecer un número máximo de <emphasis>keys</emphasis> que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características del hardware sobre el que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.</simpara>
 <simpara>Esto también implica que el sistema de generación de puntuaciones LLR podrá trabajar únicamente sobre los <literal>n</literal> términos que se seleccionen aquí.</simpara>
 </listitem>
 <listitem>
@@ -598,12 +597,33 @@ end</screen>
 </section>
 <section xml:id="_procesando_xml_con_emphasis_pull_parsing_emphasis">
 <title>Procesando XML con <emphasis>pull parsing</emphasis></title>
+<simpara>Debido al intenso uso que se hace en el proyecto de datos en XML, fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</simpara>
+<simpara>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <emphasis role="strong">Simple API XML (o SAX)<footnote><simpara><link xlink:href="http://www.saxproject.org/">http://www.saxproject.org/</link></simpara></footnote></emphasis> y <emphasis role="strong">pulling parsing<footnote><simpara><link xlink:href="http://www.xmlpull.org/">http://www.xmlpull.org/</link></simpara></footnote></emphasis>.</simpara>
+<simpara>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete <literal>xml.pull</literal>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <emphasis>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</emphasis>. Cada uno de estos eventos, puede tener asignado un <emphasis>listener</emphasis> que contenga la lógica a ejecutar.</simpara>
+<simpara>El fragmento de código posterior muestra un ejemplo de uso para analizar un fichero XML mediante <emphasis>pulling parser</emphasis>. En primer lugar se define el fichero sobre el que realizar el análisis y se crea una nueva variable que nos ayudar a controlar cuando estamos dentro del elemento que queremos analizar. Utilizando <emphasis>pattern matching</emphasis> nos aseguramos de seleccionar aquellos elementos cuya etiqueta coincida con la del campo sobre el que debe actuar el filtro que deseamos aplicar. En caso de encontrar un elemento de apertura para ese nodo, indicamos en la variable booleana <literal>in</literal> que nos encontramos en el elemento deseado y los eventos encargados de detectar nodos de texto la consultarán para saber si sobre ese texto deben aplicar o no el filtro.</simpara>
+<simpara>El evento para detectar que hemos salido del nodo deseado se encarga de volver a <emphasis>setear</emphasis> el valor de la variable <literal>in</literal> a <literal>false</literal>.</simpara>
+<formalpara>
+<title>Ejemplo de código para analizar un documento XML utilizando <emphasis>pulling parser</emphasis></title>
+<para>
+<programlisting language="java" linenumbering="unnumbered">val reader = new XMLEventReader(Source.fromFile(xmlFile))
+var in = false
+reader.foreach({
+  case e: EvElemStart if e.label == _filter.field =&gt; in = true
+  case EvText(text) if in =&gt; applyFilter(text)
+  case e: EvElemEnd if e.label == _filter.field =&gt; in = false
+  case _ =&gt; ;
+})</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="_entrenamiento_del_clasificador">
+<title>Entrenamiento del clasificador</title>
 
 </section>
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">
 <title>Experimentos y resultados</title>
-<simpara>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia y área metropolitana, ciudad y barrio.</simpara>
+<simpara>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.</simpara>
 <simpara>La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.</simpara>
 <section xml:id="_primeros_experimentos_trabajando_con_grandes_volúmenes_de_datos">
 <title>Primeros experimentos: trabajando con grandes volúmenes de datos</title>
@@ -1072,7 +1092,7 @@ end</screen>
 </section>
 <section xml:id="_vowpal_wabbit">
 <title>Vowpal Wabbit</title>
-<simpara><emphasis role="strong">Vowpal Wabbit</emphasis> <footnote><simpara><link xlink:href="http://hunch.net/~vw/">http://hunch.net/~vw/</link></simpara></footnote> es un proyecto creado originalmente por <emphasis>Yahoo! Research</emphasis> que fue posteriormente continuado por <emphasis>Microsoft Research</emphasis>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</simpara>
+<simpara><emphasis role="strong">Vowpal Wabbit<footnote><simpara><link xlink:href="http://hunch.net/~vw/">http://hunch.net/~vw/</link></simpara></footnote></emphasis> es un proyecto creado originalmente por <emphasis>Yahoo! Research</emphasis> que fue posteriormente continuado por <emphasis>Microsoft Research</emphasis>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</simpara>
 <simpara>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <emphasis>en caliente</emphasis> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</simpara>
 <section xml:id="_normalización_de_datos">
 <title>Normalización de datos</title>
