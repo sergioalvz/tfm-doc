@@ -1,0 +1,83 @@
+=== Log Likelihood-Ratio test
+
+El test Log Likelihood-Ratio (http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm) es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos.
+
+En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).
+
+En este caso, partimos del *supuesto* de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.
+
+El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.
+
+La consideración acerca de qué es un *término* se explica en <<_términos_discriminativos>>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.
+
+==== Log Likelihood-Ratio test normalizado
+
+La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.footnote:[Disponible en: http://aisl.umbc.edu/resources/369.pdf (ver tablas y ecuaciones en la página 7)]
+
+Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discruminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación _normalizada_ sobre el algoritmo anterior, basada en la siguiente sospecha:
+
+____
+Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es *muy posible* que provengan de España.
+____
+
+Para tratar de demostrar la intuición anterior, se desarrolló una normalización basada en tres pasos:
+
+. La puntuación LLR de cada término, es normalizada contra el mínimo (negativo) y máximo (positivo) valor teórico que LLR puede alcanzar dados dos datasets.
+. La frecuencia del término en el dataset local y global, es normalizada frente al total de frecuencias en ambos datasets.
+. Por último, el valor LLR normalizado es dividido por el valor correspondiente de la frecuencia local o global dependiendo de si el valor obtenido es positivo o negativo (es decir, si es más posible que pertenezca al dataset A o al dataset B).
+
+.Algoritmo para normalizar el valor LLR de un término
+[source,java]
+----
+  /*
+   * @param a  frequency of token of interest in dataset A
+   * @param b  frequency of token of interest in dataset B
+   * @param c  total number of observations in dataset A
+   * @param d  total number of observations in dataset B
+   */
+  public double normalizedLLR (long a, long b, long c, long d) {
+    double min, max, a_norm, b_norm, llr;
+    min    = getLLR(0, d, c, d);
+    max    = getLLR(c, 0, c, d);
+    a_norm = a / (double)c;
+    b_norm = b / (double)d;
+    llr    = getLLR(a, b, c, d);
+
+    return (llr>0) ? (llr/(max*a_norm)) : (-llr/(min*b_norm));
+  }
+----
+
+De esta manera, el valor LLR normalizado se puede usar como _proxy_ para el nivel de confianza que tendremos a la hora de asignar cada término a uno u otro dataset. Por ejemplo, en el supuesto anterior, «españa» obtendría un peso relativamente bajo, mientras que si aparece «culín sidra» su peso sería muy alto. En el caso contrario, donde se querría identificar cuando un término no es lo suficientemente discriminativo para el área local, se aplicaría la misma lógica, y términos como «chile» tendría un peso negativo moderado, mientras que «achunchar» obtendría un peso mucho más negativo para indicar que el vocablo es más discriminativo para el área global.
+
+A continuación, se muestran los 10 resultados más discriminativos tras aplicar LLR y LLR normalizado sobre keywords que sirvan para diferenciar tuits de Asturias del resto de España:
+
+.LLR sin normalizar
+----
+5.673174267765713    avilés
+5.786668335161142    muches
+6.55625607825904     gracies
+6.9163915469140225   gijon
+7.082198151712459    olmo
+7.650261596901131    ye
+7.8221070414197245   besin
+8.673885864488826    gijón
+11.355768634976933   asturias
+13.541645339239054   oviedo
+----
+
+.LLR normalizado
+----
+34.03033586645537    economia
+34.83206427341024    escalera
+35.896146032001866   moreda
+40.13311132890776    héctor
+40.13311132890776    celebralos
+40.13311132890776    sidra
+41.63987088300992    avilés
+41.65857127377122    simón
+45.94585510324283    presta
+----
+
+Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: _oviedo_, _gijón_ y _asturias_; mientras que se favorecen otros más específicos como _sidra_, _presta_ o _celebralos_ (escrito como se pronunciaría en asturiano).
+
+La implementación de ambos algoritmos Root Log Likelihood-Ratio fue desarrollada por el doctor Daniel Gayo Avello.

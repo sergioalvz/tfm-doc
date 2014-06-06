@@ -1,0 +1,39 @@
+==== Resultados a nivel de país
+
+De acuerdo con los objetivos establecidos al comienzo del proyecto, se realizaron dos experimentos a nivel de país para poder trabajar tanto con tuits escritos en español como con aquellos escritos en inglés.
+
+Por un lado, se realizó un experimento que pudiese discriminar tuits procedentes de España en un conjunto de tuits globales escritos en español. Por el otro, se realizó un segundo experimento enfocado en detectar qué tuits escritos en inglés desde las islas británicas procedían de la República Irlandesa.
+
+Los resultados para ambos experimentos se pueden observar en las tablas <<experiment-spain-global>> y <<experiment-uk-ireland>>.
+
+.Resultados de la ejecución para detectar tuits procedentes España
+[cols="3,1", id="experiment-spain-global"]
+|===
+|Acierto
+|93.16%
+
+|Exhaustividad
+|89.48%
+
+|Acierto en predicciones locales
+|96.13%
+
+|Acierto en predicciones globales
+|90.35%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.
+[cols="3,1", id="experiment-uk-ireland"]
+|===
+|Acierto
+|98.17%
+
+|Exhaustividad
+|71.17%
+
+|Acierto en predicciones locales
+|97.56%
+
+|Acierto en predicciones globales
+|98.20%
+|===

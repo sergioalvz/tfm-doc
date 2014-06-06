@@ -1,0 +1,80 @@
+==== Resultados a nivel de provincia
+
+Para realizar los experimentos a nivel de provincia se seleccionaron las siguientes tres regiones del estado español: *Principado de Asturias*, *Madrid y* *Barcelona*.
+
+En este caso, se consideró como área local cada una de las tres regiones anteriores y como área global, el total del territorio español a excepción de la provincia evaluada. Así pues, para realizar el experimento sobre el Principado de Asturias se consideró:
+
+* *Área local*: Principado de Asturias
+* *Área global*: Todo el territorio español a excepción del Principado de Asturias.
+
+Siguiendo el mismo mecanismo en el resto de provincias.
+
+Las tablas <<experiment-spain-asturias>>, <<experiment-spain-madrid>> y <<experiment-spain-barcelona>> muestran los resultados de la ejecución para esta granularidad.
+
+.Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.
+[cols="3,1", id="experiment-spain-asturias"]
+|===
+|Acierto
+|98.89%
+
+|Exhaustividad
+|53.53%
+
+|Acierto en predicciones locales
+|89.83%
+
+|Acierto en predicciones globales
+|99.00%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Madrid.
+[cols="3,1", id="experiment-spain-madrid"]
+|===
+|Acierto
+|92.27%
+
+|Exhaustividad
+|72.70%
+
+|Acierto en predicciones locales
+|86.78%
+
+|Acierto en predicciones globales
+|93.39%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Barcelona.
+[cols="3,1", id="experiment-spain-barcelona"]
+|===
+|Acierto
+|98.25%
+
+|Exhaustividad
+|65.73%
+
+|Acierto en predicciones locales
+|97.09%
+
+|Acierto en predicciones globales
+|98.29%
+|===
+
+===== Barcelona y el impacto del catalán
+
+Uno de los aspectos más curiosos de los resultados y puntuaciones generadas por el algoritmo Log Likelihood-Ratio fue comprobar como entre los términos más discriminativos para la provincia de Barcelona se encontraban, en su mayoría, vocablos en catalán.
+
+Esto certifica de manera empírica las intuiciones acerca de la validez del algoritmo para este tipo de problema, siendo capaz de detectar que los términos en catalán, con una frecuencia muy baja a nivel global y relativamente alta en Barcelona, son los más significativos para identificar al territorio.
+
+.Bigramas más discriminativos para encontrar tuits procedentes de la provincia de Barcelona
+----
+94.52274667047315   per tres
+100.19650868429694  per dos
+100.19650868429694  salón barcelona
+100.19650868429694  ara per
+100.19650868429694  acuerdo leo
+100.19650868429694  gracias horas
+100.19650868429694  debat els
+101.79780787750204  buenos barcelona
+111.11339666895931  catalunya és
+111.11339666895931  avui amb
+----

@@ -1,0 +1,77 @@
+=== Términos discriminativos
+
+Se consideran términos discriminativos aquellos que son capaces de aportar información muy geolocalizable de manera implícita. Un ejemplo son aquellas palabras muy propias de una localización en concreto, como el caso del término _sidra_ o _carbayu_, que con mucha probabilidad indican un contenido que ha sido generado en Asturias.
+
+La estrategia planteada en este proyecto está basada en descubrir este tipo de términos a través de los tuits que los usuarios publican para una determinada región (país, estado, ciudad, etc.). Para ello, la premisa básica es aceptar que los términos más discriminativos tenderán a tener un epicentro muy significativo donde su frecuencia es muy elevada, para después, no tener apenas dispersión y ser muy poco frecuentes en el resto.
+
+Con el objetivo de poder aplicar los algoritmos anteriores, será necesario trabajar siempre con dos datasets sobre los que establecer la comparativa. Por un lado, se trabajará con un conjunto de datos localizados en el área en concreto que se quiera analizar, y por otro lado, otro conjunto de datos que se establezcan en un área más global para ese mismo idioma.
+
+A partir de ahí, el análisis de cada dataset extraerá los siguientes términos:
+
+Menciones::
+Se considerán menciones todos aquellos términos que comienzan con el literal `@`. En Twitter, se utilizan para hacer referencia a otro usuario en el contenido que se está publicando.
+
+Hashtags::
+Un hashtag es un término que comienza con el literal `#` y sirve para categorizar el contenido de un tuit. Un ejemplo claro es durante los partidos de fútbol del Fútbol Club Barcelona, donde los aficionados que se encuentran comentando el partido en Twitter, suelen acompañar cada publicación con el hashtag `#fcblive` de manera que clasifican manualmente el contenido de su tuit para poder ser agrupado en una misma conversación.
+
+Bigramas:: En este proyecto, hemos considerado como bigramas todas aquellas combinaciones de 2 palabras que se puedan hacer con el contenido de un tuit. Al contrario que en algunos artículos de investigación anteriores donde sólo se consideran términos consecutivos, en este caso hemos realizado todas las combinaciones posibles para cada tuit.
++
+Algunas consideraciones importantes sobre esto son:
++
+* Se han eliminado todos aquellos bigramas que contienen 2 veces la misma palabra.
+* Se han eliminado todos aquellos bigramas que contienen al menos una palabra vacía.
+* Se han eliminado todos aquellos bigramas con términos inferiores a 2 caracteres.
+* Se han ordenado alfabéticamente todos los bigramas de acuerdo a las 2 palabras que contienen, facilitando así el control de bigramas repetidos.
++
+Un ejemplo de los bigramas que obtendríamos tras analizar un tuit en base a las condiciones anteriores sería:
++
+____
+Buenos días vamos a trabajar todo el día
+____
++
+Que generaría las siguientes combinaciones
++
+----
+(buenos días), (buenos vamos), (buenos trabajar), (buenos todo), (buenos día), (días vamos), (días trabajar), (días todo), (día días), (trabajar vamos), (todo vamos), (día vamos), (todo trabajar), (día trabajar), (día todo)
+----
++
+Como se puede observar, la generación de bigramas para cada tuit provoca una explosión de términos que fue necesario controlar (explicado en <<_utilización_de_algoritmos_de_streaming>>) para evitar sobrepasar la memoria del sistema.
+
+Keywords::
+
+Las keywords son unigramas formandos, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).
+
+Keywords en el campo de Localización::
+
+Son el resultado de aplicar la extracción anterior sobre el campo de Localización del perfil del usuario.
+
+==== Sistema de filtros
+
+Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decoratorfootnote:[http://perldesignpatterns.com/?word=decorator+pattern], aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).
+
+.Representación del patrón Decorator que ilustra el sistema de filtros
+image::appendixes/extractor-filter.png[Representación del patrón Decorator que ilustra el sistema de filtros, align="center"]
+
+==== Utilización de algoritmos de Streaming
+
+Como se ha visto en secciones anteriores, el proceso de extracción de términos genera una gran cantidad de datos que será necesario gestionar en memoria. Para solucionar este problema, se hizo uso de técnicas propias de los algoritmos de Streaming, los cuales tienen varios puntos en común con el problema actual.
+
+[NOTE]
+.Algoritmos de Streaming
+====
+Se conocen como algoritmos de Streaming aquellos problemas donde la capacidad de memoria o procesamiento es menor a la cantidad de datos que se reciben como entrada. Estos datos, se procesan de uno en uno y una única vez, manteniendo un orden secuencial e incremental que implica que sea necesario conocer el dato anterior para poder procesar correctamente el dato actual.
+====
+
+La solución, por tanto, pasa por controlar el número de elementos que se gestionan en cada momento en memoria por el sistema, y plantear una estrategia que sea capaz de liberar memoria sin el riesgo de perder información que pueda adulterar los resultados. Los pasos seguidos en este proyecto para lidiar con el problema fueron los siguientes:
+
+. Establecer un número máximo de _keys_ que podrán ser gestionadas por el hash. Este valor deberá ser configurado por el desarrollador en función de las características del hardware sobre el que se ejecute el sistema. En las pruebas realizadas en este proyecto, el número máximo de elementos se situó en 500.000.
++
+Esto también implica que el sistema de generación de puntuaciones LLR podrá trabajar únicamente sobre los `n` términos que se seleccionen aquí.
+
+. Una vez determinado el umbral máximo de elementos, será necesario definir que porcentaje de términos se eliminarán una vez alcanzado el límite anterior. En este caso, se ha optado por seguir una estrategia de poda agresiva en la que se eliminan de manera constante un % de los elementos con menos frecuencia del hash.
++
+Esta estrategia implica que siempre que se produzca una situación de poda, se deba ordenar el hash de acuerdo a la frecuencia de sus elementos. De manera experimental, se ha comprobado como la eliminación constante de un 40% de los elementos con menor frecuencia, a pesar de parecer demasiado agresiva, da resultados muy positivos sin existir riesgo de eliminar términos con una frecuencia muy elevada (por supuesto, todo esto dentro del dominio del problema actual).
+
+. En el momento de realizar la poda, se debe guardar qué frecuencia es la mayor del grupo de elementos a eliminar. De esta manera, se consigue que términos que vuelvan a aparecer tras la poda, partan de su frecuencia original en vez de volver a empezar de 0. Esto provoca también que muchos términos nuevos, empiecen con una frecuencia más elevada de lo esperado. Sin embargo, la frecuencia mínima que se utilizará después para seleccionar sobre qué términos se aplica el LLR, será lo suficientemente elevada como para evitar situaciones donde este problema pueda adulterar los resultados.
+
+En <<_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits>>, se muestra un esbozo de la implementación del algoritmo anterior. El control de memoria y proceso de poda agresiva se ilustra a través de los métodos `check_memory_status` y `reduce_map_load`.

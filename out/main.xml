@@ -618,7 +618,31 @@ reader.foreach({
 </section>
 <section xml:id="_entrenamiento_del_clasificador">
 <title>Entrenamiento del clasificador</title>
-
+<simpara>Después de todos los algoritmos y procesos anteriores, el último paso es entrenar al software de aprendizaje automático (ver <xref linkend="_software_de_aprendizaje_automático_y_vowpal_wabbit"/>) para proporcionarle la información necesaria para que pueda inferir la localización de un tuit de manera automática.</simpara>
+<simpara>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <xref linkend="_normalización_de_datos"/>.</simpara>
+<simpara>Una vez hecho esto, y como se explica también en <xref linkend="_división_de_datos_en_conjuntos_de_entrenamiento_y_test"/> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restante los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</simpara>
+<simpara>Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.</simpara>
+<simpara>A modo de resumen, los pasos necesarios para entrenar por tanto al software de aprendizaje automático serían los siguientes:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Obtención de puntuaciones LLR para los tuits de una colección de datos.</simpara>
+</listitem>
+<listitem>
+<simpara>Refinamiento de los resultados para entrenar únicamente con datos válidos.</simpara>
+</listitem>
+<listitem>
+<simpara>Traducción del fichero de puntuaciones a un <emphasis>input</emphasis> válido para Vowpal Wabbit.</simpara>
+</listitem>
+<listitem>
+<simpara>División del fichero de entrada en base a un 80% de usuarios para entrenamiento y un 20% para test.</simpara>
+</listitem>
+<listitem>
+<simpara>Creación de un modelo de clasificación utilizando Vowpal Wabbit y el conjunto de tuits de entrenamiento.</simpara>
+</listitem>
+<listitem>
+<simpara>Prueba del modelo creado anteriormente utilizando el 20% de tuits del conjunto de test.</simpara>
+</listitem>
+</orderedlist>
 </section>
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">
@@ -685,11 +709,19 @@ reader.foreach({
 <title>Conceptos previos</title>
 <section xml:id="_acierto_y_exhaustividad">
 <title>Acierto y exhaustividad</title>
-
+<simpara>Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de <emphasis role="strong">acierto</emphasis> se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.</simpara>
+<simpara>Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de acierto sería:</simpara>
+<screen>(18/20) * 100 = 90% de acierto</screen>
+<simpara>El concepto <emphasis role="strong">exhaustividad</emphasis> se explica como el porcentaje de tuits locales que se han identificado sobre el conjunto de tuits locales reales. En este caso, partiendo de un ejemplo en el que se hubiesen etiquetado 25 tuits como locales de manera correcta y sabiendo que en el conjunto a evaluar existían 30 tuits locales, el porcentaje de exhaustividad de nuestro modelo sería de:</simpara>
+<screen>(25/30) * 100 = 83.33%</screen>
+<simpara>Entendiendo este porcentaje como que para cada 100 tuits que sabemos son locales, nuestro modelo es capaz de detectar ~ 83 satisfactoriamente.</simpara>
 </section>
 <section xml:id="_umbral_de_acierto">
 <title>Umbral de acierto</title>
-
+<simpara>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <emphasis role="strong">umbral de acierto</emphasis>.</simpara>
+<simpara>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <emphasis role="strong">sí</emphasis> pertenece al conjunto local y 0 como que <emphasis role="strong">no</emphasis>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <emphasis>0.5, 0.6, 0.7, etc.</emphasis></simpara>
+<simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuando más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
+<simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener un buen comportamiento en la relación acierto - exhaustividad.</simpara>
 </section>
 </section>
 <section xml:id="_resultados_a_nivel_de_país">

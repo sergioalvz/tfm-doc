@@ -1,0 +1,53 @@
+==== Resultados a nivel de área metropolitana
+
+Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: *Manchester*, *Birminghan* y *Londres*. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.
+
+Las tablas <<experiment-uk-london>>, <<experiment-uk-manchester>> y <<experiment-uk-birminghan>> muestran los resultados para esta granularidad.
+
+.Resultados de la ejecución para detectar tuits procedentes de Londres.
+[cols="3,1", id="experiment-uk-london"]
+|===
+|Acierto
+|91.69%
+
+|Exhaustividad
+|70.98%
+
+|Acierto en predicciones locales
+|86.43%
+
+|Acierto en predicciones globales
+|92.77%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Manchester.
+[cols="3,1", id="experiment-uk-manchester"]
+|===
+|Acierto
+|96.68%
+
+|Exhaustividad
+|51.10%
+
+|Acierto en predicciones locales
+|88.53%
+
+|Acierto en predicciones globales
+|96.97%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Birminghan.
+[cols="3,1", id="experiment-uk-birminghan"]
+|===
+|Acierto
+|97.22%
+
+|Exhaustividad
+|47.05%
+
+|Acierto en predicciones locales
+|97.95%
+
+|Acierto en predicciones globales
+|97.20%
+|===

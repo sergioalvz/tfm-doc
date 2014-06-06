@@ -1,0 +1,51 @@
+==== Resultados a nivel de barrio
+
+Por último, se realizó un experimento a nivel de barrio, siendo la granularidad más baja analizada en el proyecto. Para ello, se utilizaron los 3 barrios más importantes de Londres como área local (*Wandsworth*, *Lambeth* y *Southwark*), así como la ciudad de Londres como área global. Los resultados de este experimento se pueden consultar en las tablas <<experiment-london-wandsworth>>, <<experiment-london-lambeth>> y <<experiment-london-southwark>>.
+
+.Resultados de la ejecución para detectar tuits procedentes de Wandsworth.
+[cols="3,1", id="experiment-london-wandsworth"]
+|===
+|Acierto
+|99.54%
+
+|Exhaustividad
+|18.18%
+
+|Acierto en predicciones locales
+|100.0%
+
+|Acierto en predicciones globales
+|99.54%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Lambeth.
+[cols="3,1", id="experiment-london-lambeth"]
+|===
+|Acierto
+|99.20%
+
+|Exhaustividad
+|24.13%
+
+|Acierto en predicciones locales
+|87.5%
+
+|Acierto en predicciones globales
+|99.23%
+|===
+
+.Resultados de la ejecución para detectar tuits procedentes de Southwark.
+[cols="3,1", id="experiment-london-southwark"]
+|===
+|Acierto
+|98.98%
+
+|Exhaustividad
+|25.0%
+
+|Acierto en predicciones locales
+|90.0%
+
+|Acierto en predicciones globales
+|99.01%
+|===

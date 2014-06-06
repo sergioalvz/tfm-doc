@@ -1,0 +1,24 @@
+=== Procesando XML con _pull parsing_
+
+Debido al intenso uso que se hace en el proyecto de datos en XML, fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.
+
+Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: *Simple API XML (o SAX)footnote:[http://www.saxproject.org/]* y *pulling parsingfootnote:[http://www.xmlpull.org/]*.
+
+En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete `xml.pull`. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: _comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc_. Cada uno de estos eventos, puede tener asignado un _listener_ que contenga la lógica a ejecutar.
+
+El fragmento de código posterior muestra un ejemplo de uso para analizar un fichero XML mediante _pulling parser_. En primer lugar se define el fichero sobre el que realizar el análisis y se crea una nueva variable que nos ayudar a controlar cuando estamos dentro del elemento que queremos analizar. Utilizando _pattern matching_ nos aseguramos de seleccionar aquellos elementos cuya etiqueta coincida con la del campo sobre el que debe actuar el filtro que deseamos aplicar. En caso de encontrar un elemento de apertura para ese nodo, indicamos en la variable booleana `in` que nos encontramos en el elemento deseado y los eventos encargados de detectar nodos de texto la consultarán para saber si sobre ese texto deben aplicar o no el filtro.
+
+El evento para detectar que hemos salido del nodo deseado se encarga de volver a _setear_ el valor de la variable `in` a `false`.
+
+[source,java]
+.Ejemplo de código para analizar un documento XML utilizando _pulling parser_
+----
+val reader = new XMLEventReader(Source.fromFile(xmlFile))
+var in = false
+reader.foreach({
+  case e: EvElemStart if e.label == _filter.field => in = true
+  case EvText(text) if in => applyFilter(text)
+  case e: EvElemEnd if e.label == _filter.field => in = false
+  case _ => ;
+})
+----
