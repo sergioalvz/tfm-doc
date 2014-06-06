@@ -389,7 +389,6 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div id="toctitle">Tabla de Contenidos</div>
 <ul class="sectlevel1">
 <li><a href="#_resumen">Resumen</a></li>
-<li><a href="#_abstract">Abstract</a></li>
 <li><a href="#_agradecimientos">Agradecimientos</a></li>
 <li><a href="#_introducción">1. Introducción</a></li>
 <li>
@@ -429,14 +428,15 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_sbt">sbt</a></li>
 </ul>
 </li>
-<li><a href="#_software_de_aprendizaje_automático_y_vowpal_wabbit">Appendix B: Software de aprendizaje automático y Vowpal Wabbit</a></li>
+<li><a href="#_git">Appendix B: Git</a></li>
+<li><a href="#_software_de_aprendizaje_automático_y_vowpal_wabbit">Appendix C: Software de aprendizaje automático y Vowpal Wabbit</a></li>
 <li>
 <ul class="sectlevel2">
 <li><a href="#_software_de_aprendizaje_automático">Software de aprendizaje automático</a></li>
 <li><a href="#_vowpal_wabbit">Vowpal Wabbit</a></li>
 </ul>
 </li>
-<li><a href="#_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix C: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</a></li>
+<li><a href="#_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix D: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</a></li>
 <li>
 <ul class="sectlevel2">
 <li><a href="#_almacenamiento_de_datos">Almacenamiento de datos</a></li>
@@ -444,8 +444,8 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_ejemplo_de_resultados">Ejemplo de resultados</a></li>
 </ul>
 </li>
-<li><a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix D: B2pick, aplicación web para seleccionar <em>bounding boxes</em></a></li>
-<li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix E: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
+<li><a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix E: B2pick, aplicación web para seleccionar <em>bounding boxes</em></a></li>
+<li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
 </ul>
 </div>
 </div>
@@ -454,16 +454,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <h2 id="_resumen">Resumen</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Aquí el resumen en español.</p>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_abstract">Abstract</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here the abstract in english.</p>
+<p>Aquí el resumen.</p>
 </div>
 </div>
 </div>
@@ -1271,7 +1262,7 @@ reader.foreach({
 <p>Después de todos los algoritmos y procesos anteriores, el último paso es entrenar al software de aprendizaje automático (ver <a href="#_software_de_aprendizaje_automático_y_vowpal_wabbit">Software de aprendizaje automático y Vowpal Wabbit</a>) para proporcionarle la información necesaria para que pueda inferir la localización de un tuit de manera automática.</p>
 </div>
 <div class="paragraph">
-<p>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <a href="#_normalización_de_datos">Normalización de datos</a>.</p>
+<p>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <a href="#_normalización_de_datos">Normalización de datos</a>.</p>
 </div>
 <div class="paragraph">
 <p>Una vez hecho esto, y como se explica también en <a href="#_división_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restante los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</p>
@@ -1303,6 +1294,12 @@ reader.foreach({
 <p>Prueba del modelo creado anteriormente utilizando el 20% de tuits del conjunto de test.</p>
 </li>
 </ol>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/theoretical-aspects/training_vw_process.png" alt="Flujo de trabajo para procesar los datos y entrenar al clasificador automático">
+</div>
+<div class="title">Figure 2. Flujo de trabajo para procesar los datos y entrenar al clasificador automático</div>
 </div>
 </div>
 </div>
@@ -1427,7 +1424,7 @@ reader.foreach({
 <p>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuando más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</p>
 </div>
 <div class="paragraph">
-<p>Para los siguientes ejemplos se ha tomado como umbral el valor <strong>0.5</strong>, el cual demuestra tener un buen comportamiento en la relación acierto - exhaustividad.</p>
+<p>Para los siguientes ejemplos se ha tomado como umbral el valor <strong>0.5</strong>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.</p>
 </div>
 </div>
 </div>
@@ -1788,7 +1785,22 @@ reader.foreach({
 <div class="sect1">
 <h2 id="_conclusiones_del_sistema_de_geolocalización">4. Conclusiones del sistema de geolocalización</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>A raíz de las tablas resumen mostradas en <a href="#_experimentos_y_resultados">Experimentos y resultados</a> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de acierto y precisión (para todos los niveles de granularidad el porcentaje de aciertos es superior al 90%).</p>
+</div>
+<div class="paragraph">
+<p>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión siempre que se coloque el umbral de aciertos por debajo de 0.5.</p>
+</div>
+<div class="paragraph">
+<p>Los diferentes prototipos que se han desarrollado utilizando los algoritmos anteriores, prueban como no es necesario recurrir a agentes externos para obtener información geográfica para geolocalizar a un usuario. En muchos de los artículos de investigación comentados en el <strong>Estado del arte</strong> era habitual que se hiciera referencia a <strong>gazetteers</strong> y sistemas de terceros como <em>Foursquare</em>, para obtener información geográfica en base al reconocimiento de entidades. Este proyecto se ha centrado en desarrollar un proceso automático que permita inferir qué términos son más o menos discriminativos para identificar la localidad de un usuario, partiendo de una premisa que ha sido corroborada en base a los resultados anteriores:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Existen términos con una alta frecuencia para un determinado área geográfica y una muy baja dispersión que sirven para inferir la localización de casi cualquier tuit que los contenga.</p>
+</div>
+</blockquote>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1802,31 +1814,31 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
 </div>
-<div class="title">Figure 2. Pantalla de login de la aplicación.</div>
+<div class="title">Figure 3. Pantalla de login de la aplicación.</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-projects.png" alt="dashboard projects">
 </div>
-<div class="title">Figure 3. Pantalla que muestra el dashboard del usuario en la sección de proyectos.</div>
+<div class="title">Figure 4. Pantalla que muestra el dashboard del usuario en la sección de proyectos.</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-executions.png" alt="dashboard executions">
 </div>
-<div class="title">Figure 4. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones.</div>
+<div class="title">Figure 5. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones.</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/new-project.png" alt="new project" height="650px">
 </div>
-<div class="title">Figure 5. Lightboxes de creación de un nuevo proyecto.</div>
+<div class="title">Figure 6. Lightboxes de creación de un nuevo proyecto.</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/execution.png" alt="execution">
 </div>
-<div class="title">Figure 6. Pantalla de ejecución de un proyecto en tiempo real.</div>
+<div class="title">Figure 7. Pantalla de ejecución de un proyecto en tiempo real.</div>
 </div>
 </div>
 </div>
@@ -1842,7 +1854,13 @@ reader.foreach({
 </div>
 </div>
 <div class="sect1">
-<h2 id="_software_de_aprendizaje_automático_y_vowpal_wabbit">Appendix B: Software de aprendizaje automático y Vowpal Wabbit</h2>
+<h2 id="_git">Appendix B: Git</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_software_de_aprendizaje_automático_y_vowpal_wabbit">Appendix C: Software de aprendizaje automático y Vowpal Wabbit</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_software_de_aprendizaje_automático">Software de aprendizaje automático</h3>
@@ -1926,7 +1944,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 </div>
 </div>
 <div class="sect1">
-<h2 id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix C: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</h2>
+<h2 id="_falcon_sistema_para_coleccionar_datos_de_la_api_streaming_de_twitter">Appendix D: Falcon, sistema para coleccionar datos de la API Streaming de Twitter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Para crear los diferentes datasets que fueron necesarios para desarrollar los prototipos y modelos de datos, se diseñó un sistema capaz de conectarse a la <strong>API Streaming de Twitter</strong> (<a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>) para descargar y almacenar tuits en tiempo real.</p>
@@ -1961,7 +1979,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 7. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
+<div class="title">Figure 8. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -2116,7 +2134,7 @@ Usage: Falcon [options]
 </div>
 </div>
 <div class="sect1">
-<h2 id="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix D: B2pick, aplicación web para seleccionar <em>bounding boxes</em></h2>
+<h2 id="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix E: B2pick, aplicación web para seleccionar <em>bounding boxes</em></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de bounding boxes para aplicar filtros sobre el Streaming de Twitter. Un bounding box, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</p>
@@ -2171,18 +2189,18 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 8. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 9. Imagen de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 9. Ejemplo del lightbox de salida con los bounding boxes seleccionados</div>
+<div class="title">Figure 10. Ejemplo del lightbox de salida con los bounding boxes seleccionados</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix E: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</h2>
+<h2 id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</h2>
 <div class="sectionbody">
 
 </div>

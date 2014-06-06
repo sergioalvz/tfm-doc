@@ -17,17 +17,12 @@
 </info>
 <preface xml:id="_resumen">
 <title>Resumen</title>
-<simpara>Aquí el resumen en español.</simpara>
-<simpara><?asciidoc-pagebreak?></simpara>
+<simpara>Aquí el resumen.</simpara>
 </preface>
-<preface xml:id="_abstract">
-<title>Abstract</title>
-<simpara>Here the abstract in english.</simpara>
-</preface>
-<preface xml:id="_agradecimientos">
+<acknowledgements xml:id="_agradecimientos">
 <title>Agradecimientos</title>
 <simpara>Aquí los agradecimientos.</simpara>
-</preface>
+</acknowledgements>
 <chapter xml:id="_introducción">
 <title>Introducción</title>
 <section xml:id="_motivación_del_proyecto">
@@ -619,7 +614,7 @@ reader.foreach({
 <section xml:id="_entrenamiento_del_clasificador">
 <title>Entrenamiento del clasificador</title>
 <simpara>Después de todos los algoritmos y procesos anteriores, el último paso es entrenar al software de aprendizaje automático (ver <xref linkend="_software_de_aprendizaje_automático_y_vowpal_wabbit"/>) para proporcionarle la información necesaria para que pueda inferir la localización de un tuit de manera automática.</simpara>
-<simpara>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <xref linkend="_normalización_de_datos"/>.</simpara>
+<simpara>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <xref linkend="_normalización_de_datos"/>.</simpara>
 <simpara>Una vez hecho esto, y como se explica también en <xref linkend="_división_de_datos_en_conjuntos_de_entrenamiento_y_test"/> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restante los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</simpara>
 <simpara>Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.</simpara>
 <simpara>A modo de resumen, los pasos necesarios para entrenar por tanto al software de aprendizaje automático serían los siguientes:</simpara>
@@ -643,6 +638,15 @@ reader.foreach({
 <simpara>Prueba del modelo creado anteriormente utilizando el 20% de tuits del conjunto de test.</simpara>
 </listitem>
 </orderedlist>
+<figure>
+<title>Flujo de trabajo para procesar los datos y entrenar al clasificador automático</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/theoretical-aspects/training_vw_process.png" align="center"/>
+</imageobject>
+<textobject><phrase>Flujo de trabajo para procesar los datos y entrenar al clasificador automático</phrase></textobject>
+</mediaobject>
+</figure>
 </section>
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">
@@ -721,7 +725,7 @@ reader.foreach({
 <simpara>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <emphasis role="strong">umbral de acierto</emphasis>.</simpara>
 <simpara>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <emphasis role="strong">sí</emphasis> pertenece al conjunto local y 0 como que <emphasis role="strong">no</emphasis>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <emphasis>0.5, 0.6, 0.7, etc.</emphasis></simpara>
 <simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuando más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
-<simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener un buen comportamiento en la relación acierto - exhaustividad.</simpara>
+<simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.</simpara>
 </section>
 </section>
 <section xml:id="_resultados_a_nivel_de_país">
@@ -1053,7 +1057,12 @@ reader.foreach({
 </chapter>
 <chapter xml:id="_conclusiones_del_sistema_de_geolocalización">
 <title>Conclusiones del sistema de geolocalización</title>
-
+<simpara>A raíz de las tablas resumen mostradas en <xref linkend="_experimentos_y_resultados"/> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de acierto y precisión (para todos los niveles de granularidad el porcentaje de aciertos es superior al 90%).</simpara>
+<simpara>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión siempre que se coloque el umbral de aciertos por debajo de 0.5.</simpara>
+<simpara>Los diferentes prototipos que se han desarrollado utilizando los algoritmos anteriores, prueban como no es necesario recurrir a agentes externos para obtener información geográfica para geolocalizar a un usuario. En muchos de los artículos de investigación comentados en el <emphasis role="strong">Estado del arte</emphasis> era habitual que se hiciera referencia a <emphasis role="strong">gazetteers</emphasis> y sistemas de terceros como <emphasis>Foursquare</emphasis>, para obtener información geográfica en base al reconocimiento de entidades. Este proyecto se ha centrado en desarrollar un proceso automático que permita inferir qué términos son más o menos discriminativos para identificar la localidad de un usuario, partiendo de una premisa que ha sido corroborada en base a los resultados anteriores:</simpara>
+<blockquote>
+<simpara>Existen términos con una alta frecuencia para un determinado área geográfica y una muy baja dispersión que sirven para inferir la localización de casi cualquier tuit que los contenga.</simpara>
+</blockquote>
 </chapter>
 <chapter xml:id="_aplicación_web_de_geolocalización_como_servicio">
 <title>Aplicación web de geolocalización como servicio</title>
@@ -1115,6 +1124,10 @@ reader.foreach({
 <title>sbt</title>
 
 </section>
+</appendix>
+<appendix xml:id="_git">
+<title>Git</title>
+
 </appendix>
 <appendix xml:id="_software_de_aprendizaje_automático_y_vowpal_wabbit">
 <title>Software de aprendizaje automático y Vowpal Wabbit</title>

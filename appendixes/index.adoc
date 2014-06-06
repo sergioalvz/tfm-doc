@@ -2,6 +2,8 @@
 
 include::scala-sbt.adoc[]
 
+include::git.adoc[]
+
 include::training_model.adoc[]
 
 include::retrieve_data.adoc[]

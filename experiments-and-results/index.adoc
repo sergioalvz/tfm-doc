@@ -84,7 +84,7 @@ Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de 
 
 Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuando más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.
 
-Para los siguientes ejemplos se ha tomado como umbral el valor *0.5*, el cual demuestra tener un buen comportamiento en la relación acierto - exhaustividad.
+Para los siguientes ejemplos se ha tomado como umbral el valor *0.5*, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.
 
 include::country.adoc[]
 

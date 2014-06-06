@@ -1,11 +1,4 @@
 [preface]
 == Resumen
 
-Aquí el resumen en español.
-
-<<<
-
-[preface]
-== Abstract
-
-Here the abstract in english.
+Aquí el resumen.

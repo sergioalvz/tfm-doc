@@ -1,4 +1,4 @@
-[preface]
+[acknowledgements]
 == Agradecimientos
 
 Aquí los agradecimientos.
