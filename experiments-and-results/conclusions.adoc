@@ -1,4 +1,4 @@
-== Conclusiones del sistema de geolocalización
+=== Conclusiones del sistema de geolocalización
 
 A raíz de las tablas resumen mostradas en <<_experimentos_y_resultados>> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de acierto y precisión (para todos los niveles de granularidad el porcentaje de aciertos es superior al 90%).
 

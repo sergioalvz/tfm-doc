@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-05</date>
+<date>2014-06-07</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -342,7 +342,7 @@
 <section xml:id="_log_likelihood_ratio_test_normalizado">
 <title>Log Likelihood-Ratio test normalizado</title>
 <simpara>La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.<footnote><simpara>Disponible en: <link xlink:href="http://aisl.umbc.edu/resources/369.pdf">http://aisl.umbc.edu/resources/369.pdf</link> (ver tablas y ecuaciones en la página 7)</simpara></footnote></simpara>
-<simpara>Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discruminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación <emphasis>normalizada</emphasis> sobre el algoritmo anterior, basada en la siguiente sospecha:</simpara>
+<simpara>Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discriminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación <emphasis>normalizada</emphasis> sobre el algoritmo anterior, basada en la siguiente sospecha:</simpara>
 <blockquote>
 <simpara>Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es <emphasis role="strong">muy posible</emphasis> que provengan de España.</simpara>
 </blockquote>
@@ -592,7 +592,7 @@ end</screen>
 </section>
 <section xml:id="_procesando_xml_con_emphasis_pull_parsing_emphasis">
 <title>Procesando XML con <emphasis>pull parsing</emphasis></title>
-<simpara>Debido al intenso uso que se hace en el proyecto de datos en XML, fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</simpara>
+<simpara>Debido al intenso uso que se hace en el proyecto de datos en XML (ver <xref linkend="_almacenamiento_de_datos"/>), fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</simpara>
 <simpara>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <emphasis role="strong">Simple API XML (o SAX)<footnote><simpara><link xlink:href="http://www.saxproject.org/">http://www.saxproject.org/</link></simpara></footnote></emphasis> y <emphasis role="strong">pulling parsing<footnote><simpara><link xlink:href="http://www.xmlpull.org/">http://www.xmlpull.org/</link></simpara></footnote></emphasis>.</simpara>
 <simpara>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete <literal>xml.pull</literal>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <emphasis>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</emphasis>. Cada uno de estos eventos, puede tener asignado un <emphasis>listener</emphasis> que contenga la lógica a ejecutar.</simpara>
 <simpara>El fragmento de código posterior muestra un ejemplo de uso para analizar un fichero XML mediante <emphasis>pulling parser</emphasis>. En primer lugar se define el fichero sobre el que realizar el análisis y se crea una nueva variable que nos ayudar a controlar cuando estamos dentro del elemento que queremos analizar. Utilizando <emphasis>pattern matching</emphasis> nos aseguramos de seleccionar aquellos elementos cuya etiqueta coincida con la del campo sobre el que debe actuar el filtro que deseamos aplicar. En caso de encontrar un elemento de apertura para ese nodo, indicamos en la variable booleana <literal>in</literal> que nos encontramos en el elemento deseado y los eventos encargados de detectar nodos de texto la consultarán para saber si sobre ese texto deben aplicar o no el filtro.</simpara>
@@ -724,7 +724,7 @@ reader.foreach({
 <title>Umbral de acierto</title>
 <simpara>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <emphasis role="strong">umbral de acierto</emphasis>.</simpara>
 <simpara>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <emphasis role="strong">sí</emphasis> pertenece al conjunto local y 0 como que <emphasis role="strong">no</emphasis>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <emphasis>0.5, 0.6, 0.7, etc.</emphasis></simpara>
-<simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuando más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
+<simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
 <simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.</simpara>
 </section>
 </section>
@@ -1054,8 +1054,7 @@ reader.foreach({
 </table>
 </section>
 </section>
-</chapter>
-<chapter xml:id="_conclusiones_del_sistema_de_geolocalización">
+<section xml:id="_conclusiones_del_sistema_de_geolocalización">
 <title>Conclusiones del sistema de geolocalización</title>
 <simpara>A raíz de las tablas resumen mostradas en <xref linkend="_experimentos_y_resultados"/> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de acierto y precisión (para todos los niveles de granularidad el porcentaje de aciertos es superior al 90%).</simpara>
 <simpara>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión siempre que se coloque el umbral de aciertos por debajo de 0.5.</simpara>
@@ -1063,6 +1062,7 @@ reader.foreach({
 <blockquote>
 <simpara>Existen términos con una alta frecuencia para un determinado área geográfica y una muy baja dispersión que sirven para inferir la localización de casi cualquier tuit que los contenga.</simpara>
 </blockquote>
+</section>
 </chapter>
 <chapter xml:id="_aplicación_web_de_geolocalización_como_servicio">
 <title>Aplicación web de geolocalización como servicio</title>

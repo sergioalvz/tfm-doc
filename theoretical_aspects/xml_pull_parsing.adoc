@@ -1,6 +1,6 @@
 === Procesando XML con _pull parsing_
 
-Debido al intenso uso que se hace en el proyecto de datos en XML, fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.
+Debido al intenso uso que se hace en el proyecto de datos en XML (ver <<_almacenamiento_de_datos>>), fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.
 
 Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: *Simple API XML (o SAX)footnote:[http://www.saxproject.org/]* y *pulling parsingfootnote:[http://www.xmlpull.org/]*.
 
