@@ -445,7 +445,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </ul>
 </li>
 <li><a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix E: B2pick, aplicación web para seleccionar <em>bounding boxes</em></a></li>
-<li><a href="#_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</a></li>
+<li><a href="#_tweetheat_mapas_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapas de calor sobre ficheros TSV de puntuación</a></li>
 </ul>
 </div>
 </div>
@@ -1845,16 +1845,123 @@ reader.foreach({
 <div class="sect1">
 <h2 id="_scala">Appendix A: Scala</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>El lenguaje de programación <strong>Scala</strong> (en su versión 2.11.0) fue la tecnología utilizada para desarrollar todos los prototipos y scripts que se realizaron como parte del ejercicio para poder inferir la localización de un usuario.</p>
+</div>
+<div class="paragraph">
+<p>Scala (<a href="http://scala-lang.org/">http://scala-lang.org/</a>) es un lenguaje de programación orientado a objetos, fuertemente tipado y con un gran soporte para realizar programación funcional. Está construido sobre la Java Virtual Machine y por tanto compila al mismo <em>bytecode</em> que compilan el resto de lenguajes de la misma plataforma (Java, Groovy, etc.) permitiendo que la interoperabilidad entre bibliotecas escritas en estos lenguajes sea total.</p>
+</div>
+<div class="paragraph">
+<p>Scala ha sido desarrollado con el objetivo de mejorar la experiencia de los programadores habituados a desarrollar en la JVM sobre Java, aportando características que permiten un desarrollo más potente mediante la inferencia de tipos dinámica, <em>closures</em>, <em>pattern matching</em>, sobrecarga de operadores y, por lo general, un código menos verboso.</p>
+</div>
+<div class="paragraph">
+<p>Las principales razones de escoger Scala como el lenguaje de programación principal en el desarrollo de prototipos fueron:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Introducirme en los conceptos de la programación funcional con un lenguaje que también tiene soporte para un tipo de programación estructurada más tradicional.</p>
+</li>
+<li>
+<p>Soporte nativo para trabajar con XML, tecnología sobre la que se basa gran parte del proyecto.</p>
+</li>
+<li>
+<p>Compatibilidad total con bibliotecas desarrolladas en Java que hace que sea un complemento perfecto para mi preparación académica anterior.</p>
+</li>
+<li>
+<p>Posibilidad de utilizarlo como un lenguaje de <em>scripting</em>.</p>
+</li>
+</ol>
+</div>
 <div class="sect2">
 <h3 id="_sbt">sbt</h3>
+<div class="paragraph">
+<p><strong>sbt</strong> (o <strong>Simple Build Tool</strong>) es una herramienta de gestión de dependencias y sistema de <em>building</em> (similar a <strong>Maven</strong> o <strong>Ant</strong>) muy popular en la comunidad de desarrolladores de Scala (aunque también se puede utilizar sobre Java).</p>
+</div>
+<div class="paragraph">
+<p>sbt (<a href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a>) fue desarrollado por <strong>Typesafe Inc.</strong> con el objetivo de dotar a Scala de una herramienta sencilla para realizar una compilación incremental de los proyectos y ofrecer un <em>shell</em> interactivo sobre el que realizar ciertas acciones como: <code>clean</code>, <code>compile</code>, <code>assembly</code>, etc. Su uso está muy vinculado también a todos aquellos proyectos desarrollados sobre el framework de desarrollo web <strong>Play!</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros <code>jar</code> que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblaje).</p>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo del fichero build.sbt para el sistema de análisis <strong>Puma</strong></div>
+<div class="content">
+<pre>name := "Puma" <b>(1)</b>
 
+version := "1.0" <b>(2)</b>
+
+scalaVersion := "2.11.0" <b>(3)</b>
+
+libraryDependencies ++= List(
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.1",
+  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
+  "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.0-rc1",
+  "com.twitter" % "twitter-text" % "1.6.1",
+  "org.apache.logging.log4j" % "log4j-api" % "2.0-rc1",
+  "org.apache.logging.log4j" % "log4j-core" % "2.0-rc1",
+  "com.github.scopt" %% "scopt" % "3.2.0"
+) <b>(4)</b>
+
+scalacOptions ++= Seq("-unchecked", "-deprecation") <b>(5)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Nombre del proyecto que se está desarrollando</p>
+</li>
+<li>
+<p>Versión actual del proyecto</p>
+</li>
+<li>
+<p>Versión de Scala que se desea utilizar para compilar el proyecto</p>
+</li>
+<li>
+<p>Lista de dependencias que se desea que sean gestionadas por sbt</p>
+</li>
+<li>
+<p>Opciones de compilación para el compilador de Scala</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_git">Appendix B: Git</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><strong>Git</strong> es un <strong>sistema de control de versiones distribuido</strong> desarrollado originalmente por Linus Torvalds para desarrollar el kernel de Linux en 2005. La diferencia con sistemas de control de versiones más tradicionales como SVN, es que en un proyecto con Git, cada desarrollador tiene una copia del proyecto entero en su máquina local, mientras que en SVN todo se basa en un repositorio central donde cada programador puede ir añadiendo o modificando ficheros.</p>
+</div>
+<div class="paragraph">
+<p>Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar <em>merges</em> de manera sencilla (habitualmnente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).</p>
+</div>
+<div class="paragraph">
+<p>En este proyecto, el uso de Git se une a los beneficios de poder trabajar con servicios de hosting como <strong>Github</strong> (<a href="http://www.github.com">http://www.github.com</a>), el cual permite tener un respaldo del código 100% asegurado. De la misma manera que aporta la flexibilidad necesaria para poder seguir trabajando en el proyecto desde diferentes máquinas y ubicaciones.</p>
+</div>
+<div class="paragraph">
+<p>Los enlaces para consultar los diferentes sistemas y repositorios Git utilizados en este proyecto, hospedados en Github, son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Falcon</strong> (<a href="https://github.com/sergio-alvarez/falcon">https://github.com/sergio-alvarez/falcon</a>), es el sistema encargado de recopilar tuits de la API de Streaming de Twitter.</p>
+</li>
+<li>
+<p><strong>Puma</strong> (<a href="https://github.com/sergio-alvarez/puma">https://github.com/sergio-alvarez/puma</a>), realiza los análisis de las colecciones de tuits recopilados por Falcon y calcula las puntuaciones LLR.</p>
+</li>
+<li>
+<p><strong>vw-input-translator</strong> (<a href="https://github.com/sergio-alvarez/vw-input-translator">https://github.com/sergio-alvarez/vw-input-translator</a>), realiza las traducciones del fichero de salida de Puma, al fichero de entrada esperado por Vowpal Wabbit.</p>
+</li>
+<li>
+<p><strong>tfm-utilities</strong> (<a href="https://github.com/sergio-alvarez/tfm-utilities">https://github.com/sergio-alvarez/tfm-utilities</a>), contiene varios <em>scripts</em> que han servido para realizar pequeñas tareas de refinamiento sobre los datos obtenidos.</p>
+</li>
+<li>
+<p><strong>B2pick</strong> (<a href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</a>), es una aplicación web desarrollada para poder seleccionar <em>bounding boxes</em> directamente sobre mapas de Google Maps.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2198,9 +2305,40 @@ Usage: Falcon [options]
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapa de calor sobre ficheros TSV de puntuación</h2>
+<h2 id="_tweetheat_mapas_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapas de calor sobre ficheros TSV de puntuación</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><strong>TweetHeat</strong> (<a href="http://sergioalvarezsuarez.com/utilities/tweetheat/">http://sergioalvarezsuarez.com/utilities/tweetheat/</a>) es una aplicación web desarrollada con la idea de poder visualizar de manera rápida cuándo un conjunto de resultados en formato TSV con las puntuaciones para una determinada localización están dentro de un área específica.</p>
+</div>
+<div class="paragraph">
+<p>Esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y vicerversa.</p>
+</div>
+<div class="paragraph">
+<p>Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de drag&amp;drop para HTML5.</p>
+</div>
+<div class="paragraph">
+<p>El funcionamiento es realmente sencillo, a partir de un fichero TSV con el siguiente formato:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[puntuacion_llr]  latitud  longitud  contenido_del_tuit</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se debe arrastrar sobre la zona de drag&amp;drop superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y Google Maps, las zonas cubiertas por los tuits contenidos en el fichero.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/appendixes/tweetheat-home.png" alt="Pantalla de inicio de la aplicación TweetHeat">
+</div>
+<div class="title">Figure 11. Pantalla de inicio de la aplicación TweetHeat</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
+</div>
+<div class="title">Figure 12. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+</div>
 </div>
 </div>
 </div>

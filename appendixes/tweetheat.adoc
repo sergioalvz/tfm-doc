@@ -1,2 +1,22 @@
 [appendix]
-== TweetHeat, mapa de calor sobre ficheros TSV de puntuación
+== TweetHeat, mapas de calor sobre ficheros TSV de puntuación
+
+*TweetHeat* (http://sergioalvarezsuarez.com/utilities/tweetheat/) es una aplicación web desarrollada con la idea de poder visualizar de manera rápida cuándo un conjunto de resultados en formato TSV con las puntuaciones para una determinada localización están dentro de un área específica.
+
+Esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y vicerversa.
+
+Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de drag&drop para HTML5.
+
+El funcionamiento es realmente sencillo, a partir de un fichero TSV con el siguiente formato:
+
+----
+[puntuacion_llr]  latitud  longitud  contenido_del_tuit
+----
+
+Se debe arrastrar sobre la zona de drag&drop superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y Google Maps, las zonas cubiertas por los tuits contenidos en el fichero.
+
+.Pantalla de inicio de la aplicación TweetHeat
+image::appendixes/tweetheat-home.png[Pantalla de inicio de la aplicación TweetHeat, align="center"]
+
+.Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias
+image::appendixes/tweetheat-asturias-results.png[Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias, align="center"]

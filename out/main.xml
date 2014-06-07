@@ -1120,14 +1120,93 @@ reader.foreach({
 </chapter>
 <appendix xml:id="_scala">
 <title>Scala</title>
+<simpara>El lenguaje de programación <emphasis role="strong">Scala</emphasis> (en su versión 2.11.0) fue la tecnología utilizada para desarrollar todos los prototipos y scripts que se realizaron como parte del ejercicio para poder inferir la localización de un usuario.</simpara>
+<simpara>Scala (<link xlink:href="http://scala-lang.org/">http://scala-lang.org/</link>) es un lenguaje de programación orientado a objetos, fuertemente tipado y con un gran soporte para realizar programación funcional. Está construido sobre la Java Virtual Machine y por tanto compila al mismo <emphasis>bytecode</emphasis> que compilan el resto de lenguajes de la misma plataforma (Java, Groovy, etc.) permitiendo que la interoperabilidad entre bibliotecas escritas en estos lenguajes sea total.</simpara>
+<simpara>Scala ha sido desarrollado con el objetivo de mejorar la experiencia de los programadores habituados a desarrollar en la JVM sobre Java, aportando características que permiten un desarrollo más potente mediante la inferencia de tipos dinámica, <emphasis>closures</emphasis>, <emphasis>pattern matching</emphasis>, sobrecarga de operadores y, por lo general, un código menos verboso.</simpara>
+<simpara>Las principales razones de escoger Scala como el lenguaje de programación principal en el desarrollo de prototipos fueron:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Introducirme en los conceptos de la programación funcional con un lenguaje que también tiene soporte para un tipo de programación estructurada más tradicional.</simpara>
+</listitem>
+<listitem>
+<simpara>Soporte nativo para trabajar con XML, tecnología sobre la que se basa gran parte del proyecto.</simpara>
+</listitem>
+<listitem>
+<simpara>Compatibilidad total con bibliotecas desarrolladas en Java que hace que sea un complemento perfecto para mi preparación académica anterior.</simpara>
+</listitem>
+<listitem>
+<simpara>Posibilidad de utilizarlo como un lenguaje de <emphasis>scripting</emphasis>.</simpara>
+</listitem>
+</orderedlist>
 <section xml:id="_sbt">
 <title>sbt</title>
+<simpara><emphasis role="strong">sbt</emphasis> (o <emphasis role="strong">Simple Build Tool</emphasis>) es una herramienta de gestión de dependencias y sistema de <emphasis>building</emphasis> (similar a <emphasis role="strong">Maven</emphasis> o <emphasis role="strong">Ant</emphasis>) muy popular en la comunidad de desarrolladores de Scala (aunque también se puede utilizar sobre Java).</simpara>
+<simpara>sbt (<link xlink:href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</link>) fue desarrollado por <emphasis role="strong">Typesafe Inc.</emphasis> con el objetivo de dotar a Scala de una herramienta sencilla para realizar una compilación incremental de los proyectos y ofrecer un <emphasis>shell</emphasis> interactivo sobre el que realizar ciertas acciones como: <literal>clean</literal>, <literal>compile</literal>, <literal>assembly</literal>, etc. Su uso está muy vinculado también a todos aquellos proyectos desarrollados sobre el framework de desarrollo web <emphasis role="strong">Play!</emphasis>.</simpara>
+<simpara>Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros <literal>jar</literal> que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblaje).</simpara>
+<formalpara>
+<title>Ejemplo del fichero build.sbt para el sistema de análisis <emphasis role="strong">Puma</emphasis></title>
+<para>
+<screen>name := "Puma" <co xml:id="CO1-1"/>
 
+version := "1.0" <co xml:id="CO1-2"/>
+
+scalaVersion := "2.11.0" <co xml:id="CO1-3"/>
+
+libraryDependencies ++= List(
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.1",
+  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
+  "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.0-rc1",
+  "com.twitter" % "twitter-text" % "1.6.1",
+  "org.apache.logging.log4j" % "log4j-api" % "2.0-rc1",
+  "org.apache.logging.log4j" % "log4j-core" % "2.0-rc1",
+  "com.github.scopt" %% "scopt" % "3.2.0"
+) <co xml:id="CO1-4"/>
+
+scalacOptions ++= Seq("-unchecked", "-deprecation") <co xml:id="CO1-5"/></screen>
+</para>
+</formalpara>
+<calloutlist>
+<callout arearefs="CO1-1">
+<para>Nombre del proyecto que se está desarrollando</para>
+</callout>
+<callout arearefs="CO1-2">
+<para>Versión actual del proyecto</para>
+</callout>
+<callout arearefs="CO1-3">
+<para>Versión de Scala que se desea utilizar para compilar el proyecto</para>
+</callout>
+<callout arearefs="CO1-4">
+<para>Lista de dependencias que se desea que sean gestionadas por sbt</para>
+</callout>
+<callout arearefs="CO1-5">
+<para>Opciones de compilación para el compilador de Scala</para>
+</callout>
+</calloutlist>
 </section>
 </appendix>
 <appendix xml:id="_git">
 <title>Git</title>
-
+<simpara><emphasis role="strong">Git</emphasis> es un <emphasis role="strong">sistema de control de versiones distribuido</emphasis> desarrollado originalmente por Linus Torvalds para desarrollar el kernel de Linux en 2005. La diferencia con sistemas de control de versiones más tradicionales como SVN, es que en un proyecto con Git, cada desarrollador tiene una copia del proyecto entero en su máquina local, mientras que en SVN todo se basa en un repositorio central donde cada programador puede ir añadiendo o modificando ficheros.</simpara>
+<simpara>Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar <emphasis>merges</emphasis> de manera sencilla (habitualmnente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).</simpara>
+<simpara>En este proyecto, el uso de Git se une a los beneficios de poder trabajar con servicios de hosting como <emphasis role="strong">Github</emphasis> (<link xlink:href="http://www.github.com">http://www.github.com</link>), el cual permite tener un respaldo del código 100% asegurado. De la misma manera que aporta la flexibilidad necesaria para poder seguir trabajando en el proyecto desde diferentes máquinas y ubicaciones.</simpara>
+<simpara>Los enlaces para consultar los diferentes sistemas y repositorios Git utilizados en este proyecto, hospedados en Github, son:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">Falcon</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/falcon">https://github.com/sergio-alvarez/falcon</link>), es el sistema encargado de recopilar tuits de la API de Streaming de Twitter.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Puma</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/puma">https://github.com/sergio-alvarez/puma</link>), realiza los análisis de las colecciones de tuits recopilados por Falcon y calcula las puntuaciones LLR.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">vw-input-translator</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/vw-input-translator">https://github.com/sergio-alvarez/vw-input-translator</link>), realiza las traducciones del fichero de salida de Puma, al fichero de entrada esperado por Vowpal Wabbit.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">tfm-utilities</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/tfm-utilities">https://github.com/sergio-alvarez/tfm-utilities</link>), contiene varios <emphasis>scripts</emphasis> que han servido para realizar pequeñas tareas de refinamiento sobre los datos obtenidos.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">B2pick</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</link>), es una aplicación web desarrollada para poder seleccionar <emphasis>bounding boxes</emphasis> directamente sobre mapas de Google Maps.</simpara>
+</listitem>
+</itemizedlist>
 </appendix>
 <appendix xml:id="_software_de_aprendizaje_automático_y_vowpal_wabbit">
 <title>Software de aprendizaje automático y Vowpal Wabbit</title>
@@ -1142,9 +1221,9 @@ reader.foreach({
 <section xml:id="_normalización_de_datos">
 <title>Normalización de datos</title>
 <simpara>Para aprovechar toda la potencia y velocidad que ofrece Vowpal Wabbit, es necesario generar ficheros de entrada que estén estructurados de acuerdo a un formato optimizado para el clasificador. En este caso, Vowpal Wabbit espera datos de entrada estructurados de la siguiente manera:</simpara>
-<screen>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <co xml:id="CO1-1"/></screen>
+<screen>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <co xml:id="CO2-1"/></screen>
 <calloutlist>
-<callout arearefs="CO1-1">
+<callout arearefs="CO2-1">
 <para><link xlink:href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</link></para>
 </callout>
 </calloutlist>
@@ -1388,8 +1467,31 @@ Usage: Falcon [options]
 </mediaobject>
 </figure>
 </appendix>
-<appendix xml:id="_tweetheat_mapa_de_calor_sobre_ficheros_tsv_de_puntuación">
-<title>TweetHeat, mapa de calor sobre ficheros TSV de puntuación</title>
-
+<appendix xml:id="_tweetheat_mapas_de_calor_sobre_ficheros_tsv_de_puntuación">
+<title>TweetHeat, mapas de calor sobre ficheros TSV de puntuación</title>
+<simpara><emphasis role="strong">TweetHeat</emphasis> (<link xlink:href="http://sergioalvarezsuarez.com/utilities/tweetheat/">http://sergioalvarezsuarez.com/utilities/tweetheat/</link>) es una aplicación web desarrollada con la idea de poder visualizar de manera rápida cuándo un conjunto de resultados en formato TSV con las puntuaciones para una determinada localización están dentro de un área específica.</simpara>
+<simpara>Esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y vicerversa.</simpara>
+<simpara>Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de drag&amp;drop para HTML5.</simpara>
+<simpara>El funcionamiento es realmente sencillo, a partir de un fichero TSV con el siguiente formato:</simpara>
+<screen>[puntuacion_llr]  latitud  longitud  contenido_del_tuit</screen>
+<simpara>Se debe arrastrar sobre la zona de drag&amp;drop superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y Google Maps, las zonas cubiertas por los tuits contenidos en el fichero.</simpara>
+<figure>
+<title>Pantalla de inicio de la aplicación TweetHeat</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/appendixes/tweetheat-home.png" align="center"/>
+</imageobject>
+<textobject><phrase>Pantalla de inicio de la aplicación TweetHeat</phrase></textobject>
+</mediaobject>
+</figure>
+<figure>
+<title>Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/appendixes/tweetheat-asturias-results.png" align="center"/>
+</imageobject>
+<textobject><phrase>Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</phrase></textobject>
+</mediaobject>
+</figure>
 </appendix>
 </book>

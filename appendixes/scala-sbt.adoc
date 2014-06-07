@@ -3,4 +3,49 @@
 [appendix]
 == Scala
 
+El lenguaje de programación *Scala* (en su versión 2.11.0) fue la tecnología utilizada para desarrollar todos los prototipos y scripts que se realizaron como parte del ejercicio para poder inferir la localización de un usuario.
+
+Scala (http://scala-lang.org/) es un lenguaje de programación orientado a objetos, fuertemente tipado y con un gran soporte para realizar programación funcional. Está construido sobre la Java Virtual Machine y por tanto compila al mismo _bytecode_ que compilan el resto de lenguajes de la misma plataforma (Java, Groovy, etc.) permitiendo que la interoperabilidad entre bibliotecas escritas en estos lenguajes sea total.
+
+Scala ha sido desarrollado con el objetivo de mejorar la experiencia de los programadores habituados a desarrollar en la JVM sobre Java, aportando características que permiten un desarrollo más potente mediante la inferencia de tipos dinámica, _closures_, _pattern matching_, sobrecarga de operadores y, por lo general, un código menos verboso.
+
+Las principales razones de escoger Scala como el lenguaje de programación principal en el desarrollo de prototipos fueron:
+
+. Introducirme en los conceptos de la programación funcional con un lenguaje que también tiene soporte para un tipo de programación estructurada más tradicional.
+. Soporte nativo para trabajar con XML, tecnología sobre la que se basa gran parte del proyecto.
+. Compatibilidad total con bibliotecas desarrolladas en Java que hace que sea un complemento perfecto para mi preparación académica anterior.
+. Posibilidad de utilizarlo como un lenguaje de _scripting_.
+
 === sbt
+
+*sbt* (o *Simple Build Tool*) es una herramienta de gestión de dependencias y sistema de _building_ (similar a *Maven* o *Ant*) muy popular en la comunidad de desarrolladores de Scala (aunque también se puede utilizar sobre Java).
+
+sbt (http://www.scala-sbt.org/) fue desarrollado por *Typesafe Inc.* con el objetivo de dotar a Scala de una herramienta sencilla para realizar una compilación incremental de los proyectos y ofrecer un _shell_ interactivo sobre el que realizar ciertas acciones como: `clean`, `compile`, `assembly`, etc. Su uso está muy vinculado también a todos aquellos proyectos desarrollados sobre el framework de desarrollo web *Play!*.
+
+Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros `jar` que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblaje).
+
+.Ejemplo del fichero build.sbt para el sistema de análisis *Puma*
+----
+name := "Puma" <1>
+
+version := "1.0" <2>
+
+scalaVersion := "2.11.0" <3>
+
+libraryDependencies ++= List(
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.1",
+  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
+  "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.0-rc1",
+  "com.twitter" % "twitter-text" % "1.6.1",
+  "org.apache.logging.log4j" % "log4j-api" % "2.0-rc1",
+  "org.apache.logging.log4j" % "log4j-core" % "2.0-rc1",
+  "com.github.scopt" %% "scopt" % "3.2.0"
+) <4>
+
+scalacOptions ++= Seq("-unchecked", "-deprecation") <5>
+----
+<1> Nombre del proyecto que se está desarrollando
+<2> Versión actual del proyecto
+<3> Versión de Scala que se desea utilizar para compilar el proyecto
+<4> Lista de dependencias que se desea que sean gestionadas por sbt
+<5> Opciones de compilación para el compilador de Scala
