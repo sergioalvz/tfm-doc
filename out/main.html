@@ -1807,7 +1807,250 @@ reader.foreach({
 <div class="sect2">
 <h3 id="_análisis_del_sistema">4.1. Análisis del sistema</h3>
 <div class="sect3">
-<h4 id="_diseño_de_em_mockups_em_para_interfaces_de_usuario">4.1.1. Diseño de <em>mockups</em> para interfaces de usuario</h4>
+<h4 id="_definición_y_alcance_del_sistema">4.1.1. Definición y alcance del Sistema</h4>
+<div class="paragraph">
+<p>A partir de las tecnologías y experimentos desarrollados en las secciones anteriores, las próximas páginas recogen el análisis y diseño de una posible aplicación web que, basándose en los trabajos anteriores, sirva para ofrecer un servicio de geolocalización de tuits en base a su contenido.</p>
+</div>
+<div class="paragraph">
+<p>El sistema deberá ser capaz de permitir a los usuarios la creación de <strong>proyectos</strong> en los que identificar sobre qué idioma, localización y términos desean realizar la monitorización. Y ofrecer una interfaz web sencilla en la que puedan consultar los resultados y recuperar la información para poder trabajar posteriormente con ella (es decir, se debe brindar la capacidad de descargar los datos en algún tipo de fichero con información estructurada como CSV, JSON o XML).</p>
+</div>
+<div class="paragraph">
+<p>El <em>back-end</em> de la aplicación deberá utilizar la experiencia de los experimentos anteriores para poder repetir los resultados obtenidos. Por tanto, deberá ser capaz de recuperar tuits de manera ininterrumpida a partir de algún streaming de datos con el objetivo de tener constantemente la información necesaria para poder ejecutar los proyectos de los usuarios. Además, debe ser capaz de comunicarse con software de aprendizaje automático y crear (o reutilizar) modelos de clasificación <em>al vuelo</em> para cada uno de los proyectos generados.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_requisitos_del_sistema">4.1.2. Requisitos del Sistema</h4>
+<div class="sect4">
+<h5 id="_requisitos_funcionales">Requisitos Funcionales</h5>
+<table id="user-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 13. Requisitos de Usuario - R1.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Crear cuenta en el Sistema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe ser capaz de crear una cuenta en el sistema mediante la inserción de información básica como: <strong>e-mail</strong>, <strong>nombre</strong> y <strong>contraseña</strong> a través de un formulario de registro disponible en la aplicación web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identificarse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Todo aquel usuario con una cuenta creada en el sistema, deberá ser capaz de identificarse a través de un formulario de <em>login</em> accesible desde la aplicación web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Crear proyecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe ser capaz de crear un proyecto sobre el que obtener datos geolocalizados aportando de manera sencilla toda la información necesaria para su evaluación: idioma, palabras a monitorizar, área local y global y fecha de evaluación.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selección de <em>bounding boxes</em> de manera gráfica</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe ser capaz de seleccionar <em>bounding boxes</em> de manera gráfica a través de un mapa.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Evaluar un proyecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe ser capaz de evaluar un proyecto para las fechas seleccionadas en el momento de su creación.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Descargar resultados de ejecución</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe disponer de un mecanismo para descargar los datos de cada ejecución en, al menos, formato XML y JSON.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acceso a histórico de proyectos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe tener acceso a su historial de proyectos a través de la aplicación web. Deberá ser capaz de reevaluar un proyecto anterior o consultar su información.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="project-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 14. Requisitos a nivel de Proyecto - R2.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fechas de ejecución</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los proyectos deben tener asignada una fecha sobre la que se desea realizar la ejecución. Esta fecha siempre tiene que ser igual o posterior al día de creación del proyecto (en función de si se quiere trabajar con datos ya almacenados en el sistema o con datos futuros respectivamente).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Múltiples idiomas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los proyectos deben poder trabajar con múltiples idiomas. Cómo mínimo se debe ofrecer la posibilidad de trabajar con <strong>inglés</strong> y <strong>español</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Términos a monitorizar personalizables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los proyectos deben poder trabajar sobre una lista de términos propuesta por el usuario y encontrar y geolocalizar aquellos tuits que los contengan. Estos términos se deberán añadir en el momento de la creación del proyecto y deberán cumplir unas condiciones concretas: se debe incluir una fila por cada término que se desee monitorizar.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Localización local</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los proyectos deben ser capaces de trabajar sobre un área local de la que obtener tuits.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Localización global</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">De manera análoga al requisito de localización local, los proyectos debe ser capaces también de trabajar con otras áreas en los que se puedan encontrar tuits escritos en el mismo idioma seleccionado. De esta manera se aportará al sistema de los mecanismos adecuados para poder buscar términos discriminativos.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reevaluar un proyecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema debe ofrecer la posibilidad de reevaluar un proyecto a partir de una nueva fecha de ejecución que cumpla las mismas condiciones que las establecidas en el momento de su creación (se debe seleccionar una fecha igual o posterior a la del momento de la reevaluación).</p></td>
+</tr>
+</tbody>
+</table>
+<table id="execution-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 15. Requisitos a nivel de Ejecución - R3.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R3.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exhaustividad variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Las ejecuciones deben poder trabajar con diferentes niveles de exhaustividad con el objetivo de procesar más o menos tuits a distintos niveles de confianza.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R3.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exportar resultados</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los resultados de una ejecución deben poder ser exportados a <strong>XML</strong> y <strong>JSON</strong>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_requisitos_no_funcionales">Requisitos No Funcionales</h5>
+<table id="information-retrival-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 16. Requisitos de acceso a la información - RNF1.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF1.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recolección de datos de manera ininterrumpida</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema deberá de crear un flujo de comunicación constante que abastezca de información ininterrumpidamente.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF1.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recolección de datos parametrizable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se deberá de trabajar con un sistema de <em>streaming</em> de datos que acepte parámetros para devolver información de manera selectiva.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF1.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Utilización de un sistema de <em>streaming</em> que aporte más de un 1% de los datos disponibles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Con el objetivo de poder ofrecer el mejor servicio posible, será necesario trabajar con un sistema de <em>streaming</em> que sea capaz ofrecer el mayor número de datos posibles, es decir, que no limite como en el caso de la API Streaming de Twitter, su flujo a únicamente un 1% del total del <em>streaming</em> público.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="security-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 17. Requisitos de Seguridad - RNF2.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF2.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La aplicación deberá funcionar sobre <strong>HTTPS</strong> y <strong>SSL</strong> mediante un certificado válido que asegure que la información no pueda ser interceptada por terceras partes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF2.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hashing para las contraseñas de usuario</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Las contraseñas de los usuarios deberán ser <em>hasheadas</em> mediante el algoritmo <strong>bcrypt</strong>.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="technologies-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 18. Requisitos Tecnológicos - RNF3.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF3.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scala</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará el lenguaje de programación <strong>Scala</strong> con el objetivo de aprovechar la experiencia previa de la etapa de experimentación y prototipado. Su soporte para programación funcional dará al sistema la flexibilidad necesaria en materia de escalabilidad y concurrencia de cara al futuro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF3.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Play! Framework</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Play! será el framework web utilizado para desarrollar la aplicación. Su soporte nativo para Scala, desarrollo de trabajos asíncronos e imposición de la arquitectura <strong>Modelo-Vista-Controlador</strong> encaja a la perfección con los requisitos del sistema.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF3.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vowpal Wabbit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vowpal Wabbit y su ejecución como <em>daemon</em> del sistema, velocidad y buenos resultados en la etapa de prototipado, será el software de aprendizaje automático utilizado.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF3.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mercurial</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre <strong>Bitbucket</strong> como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: <code>pull</code>, <code>push</code>, <code>merge</code>, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento <em>similar</em> mediante el uso de <strong>bookmarks</strong>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diseño_de_em_mockups_em_para_interfaces_de_usuario">4.1.3. Diseño de <em>mockups</em> para interfaces de usuario</h4>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
