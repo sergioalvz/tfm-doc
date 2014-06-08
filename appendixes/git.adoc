@@ -3,7 +3,7 @@
 
 *Git* es un *sistema de control de versiones distribuido* desarrollado originalmente por Linus Torvalds para desarrollar el kernel de Linux en 2005. La diferencia con sistemas de control de versiones más tradicionales como SVN, es que en un proyecto con Git, cada desarrollador tiene una copia del proyecto entero en su máquina local, mientras que en SVN todo se basa en un repositorio central donde cada programador puede ir añadiendo o modificando ficheros.
 
-Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar _merges_ de manera sencilla (habitualmnente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).
+Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar _merges_ de manera sencilla (habitualmente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).
 
 En este proyecto, el uso de Git se une a los beneficios de poder trabajar con servicios de hosting como *Github* (http://www.github.com), el cual permite tener un respaldo del código 100% asegurado. De la misma manera que aporta la flexibilidad necesaria para poder seguir trabajando en el proyecto desde diferentes máquinas y ubicaciones.
 

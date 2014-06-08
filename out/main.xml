@@ -464,7 +464,7 @@
 <varlistentry>
 <term>Keywords</term>
 <listitem>
-<simpara>Las keywords son unigramas formandos, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).</simpara>
+<simpara>Las keywords son unigramas formados, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -651,7 +651,7 @@ reader.foreach({
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">
 <title>Experimentos y resultados</title>
-<simpara>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.</simpara>
+<simpara>Para comprobar la validez de los algoritmos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.</simpara>
 <simpara>La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.</simpara>
 <section xml:id="_primeros_experimentos_trabajando_con_grandes_volúmenes_de_datos">
 <title>Primeros experimentos: trabajando con grandes volúmenes de datos</title>
@@ -705,7 +705,7 @@ reader.foreach({
 </formalpara>
 <simpara>Como se puede observar, términos vinculados al fallecimiento del seleccionador aportaban una gran información geográfica que hacía que todos los tuits que los contenían prácticamente fuesen vinculados a España (lo cual en este caso sería correcto). Pero, ¿qué sucede si ocurre sobre un evento que se pueda aplicar sobre cualquier otro lugar del mundo en cualquier momento?</simpara>
 <simpara>Por ejemplo, es habitual que durante los meses de verano en el hemisferio sur, términos relativos a la estación estival sean más habituales en países como Argentina, Chile, etc. que en España. Lo cual sería justamente al revés en épocas de verano en el hemisferio norte. Por tanto, es importante tener en cuenta que los términos y el vocabulario tienen una importancia temporal, y el hecho de obtener grandes volúmenes de datos no tiene porque beneficiar el entrenamiento de un modelo de aprendizaje automático para inferir la localización de un tuit.</simpara>
-<simpara>Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercursión de ciertos términos ante cualquier evento.</simpara>
+<simpara>Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercusión de ciertos términos ante cualquier evento.</simpara>
 </section>
 <section xml:id="_trabajando_con_diferentes_niveles_de_granularidad">
 <title>Trabajando con diferentes niveles de granularidad</title>
@@ -1187,7 +1187,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <co xml:id="CO1-5"/></screen
 <appendix xml:id="_git">
 <title>Git</title>
 <simpara><emphasis role="strong">Git</emphasis> es un <emphasis role="strong">sistema de control de versiones distribuido</emphasis> desarrollado originalmente por Linus Torvalds para desarrollar el kernel de Linux en 2005. La diferencia con sistemas de control de versiones más tradicionales como SVN, es que en un proyecto con Git, cada desarrollador tiene una copia del proyecto entero en su máquina local, mientras que en SVN todo se basa en un repositorio central donde cada programador puede ir añadiendo o modificando ficheros.</simpara>
-<simpara>Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar <emphasis>merges</emphasis> de manera sencilla (habitualmnente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).</simpara>
+<simpara>Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar <emphasis>merges</emphasis> de manera sencilla (habitualmente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).</simpara>
 <simpara>En este proyecto, el uso de Git se une a los beneficios de poder trabajar con servicios de hosting como <emphasis role="strong">Github</emphasis> (<link xlink:href="http://www.github.com">http://www.github.com</link>), el cual permite tener un respaldo del código 100% asegurado. De la misma manera que aporta la flexibilidad necesaria para poder seguir trabajando en el proyecto desde diferentes máquinas y ubicaciones.</simpara>
 <simpara>Los enlaces para consultar los diferentes sistemas y repositorios Git utilizados en este proyecto, hospedados en Github, son:</simpara>
 <itemizedlist>
@@ -1407,12 +1407,12 @@ Usage: Falcon [options]
 </appendix>
 <appendix xml:id="_b2pick_aplicación_web_para_seleccionar_emphasis_bounding_boxes_emphasis">
 <title>B2pick, aplicación web para seleccionar <emphasis>bounding boxes</emphasis></title>
-<simpara>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de bounding boxes para aplicar filtros sobre el Streaming de Twitter. Un bounding box, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</simpara>
+<simpara>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de <emphasis>bounding boxes</emphasis> para aplicar filtros sobre el Streaming de Twitter. Un <emphasis>bounding box</emphasis>, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</simpara>
 <simpara><emphasis role="strong">B2pick</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</link>), viene a cubrir la necesidad de poder automatizar el proceso mediante una sencilla aplicación web escrita puramente en JavaScript en la capa de cliente, que mediante la utilización de la API de Google Maps permita dibujar al usuario rectángulos sobre las zonas geográficas que desee.</simpara>
 <simpara>Actualmente, no se conoce ninguna herramienta que ofrezca un servicio similar.</simpara>
-<simpara>Una vez el usuario ha seleccionado los bounding boxes que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.</simpara>
+<simpara>Una vez el usuario ha seleccionado los <emphasis>bounding boxes</emphasis> que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.</simpara>
 <formalpara>
-<title>Ejemplo de salida XML para un conjunto de Bounding Boxes</title>
+<title>Ejemplo de salida XML para un conjunto de <emphasis>Bounding Boxes</emphasis></title>
 <para>
 <programlisting language="xml" linenumbering="unnumbered">&lt;boundingBoxes&gt;
   &lt;boundingBox&gt;
@@ -1458,7 +1458,7 @@ Usage: Falcon [options]
 </mediaobject>
 </figure>
 <figure>
-<title>Ejemplo del lightbox de salida con los bounding boxes seleccionados</title>
+<title>Ejemplo del lightbox de salida con los <emphasis>bounding boxes</emphasis> seleccionados</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="../assets/appendixes/b2pick-lightbox.png" align="center"/>
@@ -1469,12 +1469,12 @@ Usage: Falcon [options]
 </appendix>
 <appendix xml:id="_tweetheat_mapas_de_calor_sobre_ficheros_tsv_de_puntuación">
 <title>TweetHeat, mapas de calor sobre ficheros TSV de puntuación</title>
-<simpara><emphasis role="strong">TweetHeat</emphasis> (<link xlink:href="http://sergioalvarezsuarez.com/utilities/tweetheat/">http://sergioalvarezsuarez.com/utilities/tweetheat/</link>) es una aplicación web desarrollada con la idea de poder visualizar de manera rápida cuándo un conjunto de resultados en formato TSV con las puntuaciones para una determinada localización están dentro de un área específica.</simpara>
-<simpara>Esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y vicerversa.</simpara>
-<simpara>Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de drag&amp;drop para HTML5.</simpara>
-<simpara>El funcionamiento es realmente sencillo, a partir de un fichero TSV con el siguiente formato:</simpara>
+<simpara><emphasis role="strong">TweetHeat</emphasis> (<link xlink:href="http://sergioalvarezsuarez.com/utilities/tweetheat/">http://sergioalvarezsuarez.com/utilities/tweetheat/</link>) es una aplicación web desarrollada con el objetivo de poder visualizar de manera rápida y sencilla cuándo un conjunto de puntuaciones para una determinada localización en formato TSV están dentro de un área específica.</simpara>
+<simpara>En el presente proyecto, esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y viceversa.</simpara>
+<simpara>Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de <emphasis>drag&amp;drop</emphasis> para HTML5.</simpara>
+<simpara>El funcionamiento de la aplicación es realmente sencillo, a partir de un fichero TSV con el siguiente formato:</simpara>
 <screen>[puntuacion_llr]  latitud  longitud  contenido_del_tuit</screen>
-<simpara>Se debe arrastrar sobre la zona de drag&amp;drop superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y Google Maps, las zonas cubiertas por los tuits contenidos en el fichero.</simpara>
+<simpara>Se debe arrastrar sobre la zona de <emphasis>drag&amp;drop</emphasis> superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y la API de Google Maps, las zonas cubiertas por los tuits contenidos en dicho fichero.</simpara>
 <figure>
 <title>Pantalla de inicio de la aplicación TweetHeat</title>
 <mediaobject>

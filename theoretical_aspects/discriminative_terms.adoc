@@ -39,7 +39,7 @@ Como se puede observar, la generación de bigramas para cada tuit provoca una ex
 
 Keywords::
 
-Las keywords son unigramas formandos, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).
+Las keywords son unigramas formados, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).
 
 Keywords en el campo de Localización::
 

@@ -1,6 +1,6 @@
 == Experimentos y resultados
 
-Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.
+Para comprobar la validez de los algoritmos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.
 
 La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.
 
@@ -52,7 +52,7 @@ Como se puede observar, términos vinculados al fallecimiento del seleccionador 
 
 Por ejemplo, es habitual que durante los meses de verano en el hemisferio sur, términos relativos a la estación estival sean más habituales en países como Argentina, Chile, etc. que en España. Lo cual sería justamente al revés en épocas de verano en el hemisferio norte. Por tanto, es importante tener en cuenta que los términos y el vocabulario tienen una importancia temporal, y el hecho de obtener grandes volúmenes de datos no tiene porque beneficiar el entrenamiento de un modelo de aprendizaje automático para inferir la localización de un tuit.
 
-Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercursión de ciertos términos ante cualquier evento.
+Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercusión de ciertos términos ante cualquier evento.
 
 === Trabajando con diferentes niveles de granularidad
 

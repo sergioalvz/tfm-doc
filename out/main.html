@@ -1077,7 +1077,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </dd>
 <dt class="hdlist1">Keywords</dt>
 <dd>
-<p>Las keywords son unigramas formandos, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).</p>
+<p>Las keywords son unigramas formados, obviamente, por un único término, cuyo resultado se asemeja a realizar una tokenización sobre el tuit pero aplicando reglas que también se utilizaban en la extracción de bigramas (palabra vacía, longitud inferior a 2 caracteres, etc.).</p>
 </dd>
 <dt class="hdlist1">Keywords en el campo de Localización</dt>
 <dd>
@@ -1308,7 +1308,7 @@ reader.foreach({
 <h2 id="_experimentos_y_resultados">3. Experimentos y resultados</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Para comprobar la validez de los algortimos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.</p>
+<p>Para comprobar la validez de los algoritmos anteriores se plantearon una serie de experimentos que trabajasen sobre conjuntos de tuits escritos tanto en inglés como en español, con el objetivo de poder obtener resultados positivos a nivel de país, provincia, área metropolitana y barrio.</p>
 </div>
 <div class="paragraph">
 <p>La selección de los idiomas inglés y español como base para los experimentos se realizó a tenor de ser los dos lenguajes, a priori, más complejos de analizar debido a que son hablados en muchas partes del mundo. Por ejemplo, haber escogido como idioma el italiano, haría que las posibilidades de geolocalización se viesen reducidas prácticamente a Italia; ídem en el caso de haber utilizado alemán, que tan sólo es hablado en Alemania, Austria, Suiza y parte de Luxemburgo.</p>
@@ -1380,7 +1380,7 @@ reader.foreach({
 <p>Por ejemplo, es habitual que durante los meses de verano en el hemisferio sur, términos relativos a la estación estival sean más habituales en países como Argentina, Chile, etc. que en España. Lo cual sería justamente al revés en épocas de verano en el hemisferio norte. Por tanto, es importante tener en cuenta que los términos y el vocabulario tienen una importancia temporal, y el hecho de obtener grandes volúmenes de datos no tiene porque beneficiar el entrenamiento de un modelo de aprendizaje automático para inferir la localización de un tuit.</p>
 </div>
 <div class="paragraph">
-<p>Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercursión de ciertos términos ante cualquier evento.</p>
+<p>Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en periodos de 24 horas, para evaluarlos contra colecciones de tuits que se recogerían en las 24 horas siguientes. De esta manera se puede aprovechar la repercusión de ciertos términos ante cualquier evento.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1935,7 +1935,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <b>(5)</b></pre>
 <p><strong>Git</strong> es un <strong>sistema de control de versiones distribuido</strong> desarrollado originalmente por Linus Torvalds para desarrollar el kernel de Linux en 2005. La diferencia con sistemas de control de versiones más tradicionales como SVN, es que en un proyecto con Git, cada desarrollador tiene una copia del proyecto entero en su máquina local, mientras que en SVN todo se basa en un repositorio central donde cada programador puede ir añadiendo o modificando ficheros.</p>
 </div>
 <div class="paragraph">
-<p>Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar <em>merges</em> de manera sencilla (habitualmnente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).</p>
+<p>Entre las características que hacen de Git un SCVD muy popular son: su velocidad, su capacidad para trabajar con diferentes ramas de manera sencilla, su eficiencia para trabajar con proyectos muy grandes (como queda demostrado en su uso por parte de Linux) y un buen soporte para realizar <em>merges</em> de manera sencilla (habitualmente, debido a la gran información que almacena cada nodo, Git es capaz de realizar los merges de manera automática).</p>
 </div>
 <div class="paragraph">
 <p>En este proyecto, el uso de Git se une a los beneficios de poder trabajar con servicios de hosting como <strong>Github</strong> (<a href="http://www.github.com">http://www.github.com</a>), el cual permite tener un respaldo del código 100% asegurado. De la misma manera que aporta la flexibilidad necesaria para poder seguir trabajando en el proyecto desde diferentes máquinas y ubicaciones.</p>
@@ -2242,7 +2242,7 @@ Usage: Falcon [options]
 <h2 id="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">Appendix E: B2pick, aplicación web para seleccionar <em>bounding boxes</em></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de bounding boxes para aplicar filtros sobre el Streaming de Twitter. Un bounding box, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</p>
+<p>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de <em>bounding boxes</em> para aplicar filtros sobre el Streaming de Twitter. Un <em>bounding box</em>, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</p>
 </div>
 <div class="paragraph">
 <p><strong>B2pick</strong> (<a href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</a>), viene a cubrir la necesidad de poder automatizar el proceso mediante una sencilla aplicación web escrita puramente en JavaScript en la capa de cliente, que mediante la utilización de la API de Google Maps permita dibujar al usuario rectángulos sobre las zonas geográficas que desee.</p>
@@ -2251,10 +2251,10 @@ Usage: Falcon [options]
 <p>Actualmente, no se conoce ninguna herramienta que ofrezca un servicio similar.</p>
 </div>
 <div class="paragraph">
-<p>Una vez el usuario ha seleccionado los bounding boxes que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.</p>
+<p>Una vez el usuario ha seleccionado los <em>bounding boxes</em> que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.</p>
 </div>
 <div class="listingblock">
-<div class="title">Ejemplo de salida XML para un conjunto de Bounding Boxes</div>
+<div class="title">Ejemplo de salida XML para un conjunto de <em>Bounding Boxes</em></div>
 <div class="content">
 <pre class="highlight"><code class="xml language-xml">&lt;boundingBoxes&gt;
   &lt;boundingBox&gt;
@@ -2300,7 +2300,7 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 10. Ejemplo del lightbox de salida con los bounding boxes seleccionados</div>
+<div class="title">Figure 10. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -2308,16 +2308,16 @@ Usage: Falcon [options]
 <h2 id="_tweetheat_mapas_de_calor_sobre_ficheros_tsv_de_puntuación">Appendix F: TweetHeat, mapas de calor sobre ficheros TSV de puntuación</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>TweetHeat</strong> (<a href="http://sergioalvarezsuarez.com/utilities/tweetheat/">http://sergioalvarezsuarez.com/utilities/tweetheat/</a>) es una aplicación web desarrollada con la idea de poder visualizar de manera rápida cuándo un conjunto de resultados en formato TSV con las puntuaciones para una determinada localización están dentro de un área específica.</p>
+<p><strong>TweetHeat</strong> (<a href="http://sergioalvarezsuarez.com/utilities/tweetheat/">http://sergioalvarezsuarez.com/utilities/tweetheat/</a>) es una aplicación web desarrollada con el objetivo de poder visualizar de manera rápida y sencilla cuándo un conjunto de puntuaciones para una determinada localización en formato TSV están dentro de un área específica.</p>
 </div>
 <div class="paragraph">
-<p>Esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y vicerversa.</p>
+<p>En el presente proyecto, esta aplicación fue realmente útil en el proceso de refinamiento de datos, en donde se quería entrenar al clasificador con datos 100% válidos, eliminando aquellos tuits con puntuación positiva que se encontrasen fuera del área local y viceversa.</p>
 </div>
 <div class="paragraph">
-<p>Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de drag&amp;drop para HTML5.</p>
+<p>Para su desarrollo se utilizaron únicamente tecnologías front-end como HTML5, CSS3 y JavaScript, con algunas de las nuevas características como la API de JavaScript para la gestión de ficheros y la API de <em>drag&amp;drop</em> para HTML5.</p>
 </div>
 <div class="paragraph">
-<p>El funcionamiento es realmente sencillo, a partir de un fichero TSV con el siguiente formato:</p>
+<p>El funcionamiento de la aplicación es realmente sencillo, a partir de un fichero TSV con el siguiente formato:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2325,7 +2325,7 @@ Usage: Falcon [options]
 </div>
 </div>
 <div class="paragraph">
-<p>Se debe arrastrar sobre la zona de drag&amp;drop superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y Google Maps, las zonas cubiertas por los tuits contenidos en el fichero.</p>
+<p>Se debe arrastrar sobre la zona de <em>drag&amp;drop</em> superior y automáticamente la aplicación mostrará, utilizando un mapa de calor y la API de Google Maps, las zonas cubiertas por los tuits contenidos en dicho fichero.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
