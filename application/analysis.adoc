@@ -46,6 +46,10 @@ El _back-end_ de la aplicación deberá utilizar la experiencia de los experimen
 |R1.7
 |Acceso a histórico de proyectos
 |El usuario debe tener acceso a su historial de proyectos a través de la aplicación web. Deberá ser capaz de reevaluar un proyecto anterior o consultar su información.
+
+|R1.8
+|Cerrar sesión
+|El usuario deberá poder cerrar su sesión en la aplicación de manera sencilla a través de la interfaz web.
 |===
 
 .Requisitos a nivel de Proyecto - R2.x
@@ -156,6 +160,34 @@ El _back-end_ de la aplicación deberá utilizar la experiencia de los experimen
 |RNF3.4
 |Mercurial
 |Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre *Bitbucket* como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: `pull`, `push`, `merge`, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento _similar_ mediante el uso de *bookmarks*.
+|===
+
+==== Análisis de casos de uso y escenarios
+
+.CU Usuario - Sistema 1.1 Crear cuenta
+[cols="1s,4", id="cu-user-system-1-1"]
+|===
+|Precondiciones
+|
+
+|Postcondiciones
+|
+
+|Actores
+|
+
+|Descripción
+|
+
+|Variaciones
+|
+
+|Excepciones
+|
+
+|Notas
+|
+
 |===
 
 ==== Diseño de _mockups_ para interfaces de usuario

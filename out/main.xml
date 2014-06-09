@@ -1127,6 +1127,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>Acceso a histórico de proyectos</simpara></entry>
 <entry align="left" valign="top"><simpara>El usuario debe tener acceso a su historial de proyectos a través de la aplicación web. Deberá ser capaz de reevaluar un proyecto anterior o consultar su información.</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara>R1.8</simpara></entry>
+<entry align="left" valign="top"><simpara>Cerrar sesión</simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario deberá poder cerrar su sesión en la aplicación de manera sencilla a través de la interfaz web.</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </table>
@@ -1304,6 +1309,46 @@ reader.foreach({
 </tgroup>
 </table>
 </section>
+</section>
+<section xml:id="_análisis_de_casos_de_uso_y_escenarios">
+<title>Análisis de casos de uso y escenarios</title>
+<table xml:id="cu-user-system-1-1" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Sistema 1.1 Crear cuenta</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="80*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
 <section xml:id="_diseño_de_emphasis_mockups_emphasis_para_interfaces_de_usuario">
 <title>Diseño de <emphasis>mockups</emphasis> para interfaces de usuario</title>
