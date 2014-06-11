@@ -2052,6 +2052,33 @@ reader.foreach({
 </tr>
 </tbody>
 </table>
+<table id="storage-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 19. Requisitos de Almacenamiento - RNF4.x</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 33%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Código</th>
+<th class="tableblock halign-left valign-top">Nombre del Requisito</th>
+<th class="tableblock halign-left valign-top">Descripción del Requisito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF4.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">48h de tuits.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debido a que los experimentos realizados han funcionado bien con datos recogidos en periodos de 24 horas, se almacenarán datos únicamente sobre periodos de 48h. eliminando todos aquellos más antiguos con el objetivo de minimizar el tamaño de disco utilizado.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF4.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Máximo número de tuits por ejecución.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para prevenir un abuso de la capacidad de disco, que podría llegar a almacenar ficheros de cientos de megabytes en resultados, es necesario limitar el número máximo de tuits que se podrán guardar por ejecución para generar los ficheros XML y JSON. Este valor se deberá calcular de manera experimental, pero el fichero de resultados no debería ser superior a <strong>~200MB</strong>.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -2063,7 +2090,7 @@ reader.foreach({
 <div class="title">Figure 3. Casos de Uso para la Gestión de Usuarios</div>
 </div>
 <table id="cu-user-system-1-1" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 19. CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema</caption>
+<caption class="title">Table 20. CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2104,7 +2131,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-system-1-2" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 20. CU Usuario - Gestión Usuarios 1.2 Identificarse en el sistema</caption>
+<caption class="title">Table 21. CU Usuario - Gestión Usuarios 1.2 Identificarse en el sistema</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2145,7 +2172,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-system-1-3" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 21. CU Usuario - Gestión Usuarios 1.3 Cerrar sesión en el sistema</caption>
+<caption class="title">Table 22. CU Usuario - Gestión Usuarios 1.3 Cerrar sesión en el sistema</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2169,7 +2196,7 @@ reader.foreach({
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
@@ -2192,7 +2219,7 @@ reader.foreach({
 <div class="title">Figure 4. Casos de Uso para la Gestión de Proyectos</div>
 </div>
 <table id="cu-user-project-2-1" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 22. CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto</caption>
+<caption class="title">Table 23. CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2233,7 +2260,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-project-2-1-1" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 23. CU Usuario - Gestión de Proyectos 2.1.1 Seleccionar idioma</caption>
+<caption class="title">Table 24. CU Usuario - Gestión de Proyectos 2.1.1 Seleccionar idioma</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2274,7 +2301,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-project-2-1-2" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 24. CU Usuario - Gestión de Proyectos 2.1.2 Añadir términos a monitorizar</caption>
+<caption class="title">Table 25. CU Usuario - Gestión de Proyectos 2.1.2 Añadir términos a monitorizar</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2315,7 +2342,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-project-2-1-3" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 25. CU Usuario - Gestión de Proyectos 2.1.3 Seleccionar área local</caption>
+<caption class="title">Table 26. CU Usuario - Gestión de Proyectos 2.1.3 Seleccionar área local</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2356,7 +2383,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-project-2-1-4" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 26. CU Usuario - Gestión de Proyectos 2.1.4 Seleccionar área global</caption>
+<caption class="title">Table 27. CU Usuario - Gestión de Proyectos 2.1.4 Seleccionar área global</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2397,7 +2424,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="cu-user-project-2-1-5" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 27. CU Usuario - Gestión de Proyectos 2.1.5 Establecer fecha de ejecución</caption>
+<caption class="title">Table 28. CU Usuario - Gestión de Proyectos 2.1.5 Establecer fecha de ejecución</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
@@ -2437,6 +2464,217 @@ reader.foreach({
 </tr>
 </tbody>
 </table>
+<table id="cu-user-project-2-2" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 29. CU Usuario - Gestión de Proyectos 2.2 Acceder al histórico de proyectos</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario está indentificado correctamente en el sistema.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario es capaz de visualizar el histórico de proyectos.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desde la página del <strong>dashboard</strong> principal del usuario se debe poder acceder a una sección de <strong>Proyectos</strong> donde se recojan todos los proyectos realizados por el usuario así como una breve descripción de sus características.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.7</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-2-2-1" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 30. CU Usuario - Gestión de Proyectos 2.2.1 Consultar proyecto anterior</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario está visualizando el histórico de Proyectos.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario está visualizando la vista en detalle de un proyecto anterior.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe tener un enlace en la página del histórico de proyectos que le permita consultar los detalles del Proyecto así como realizar alguna modificación o reevaluación.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.7; R2.6</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/application/use-cases/execution-management.png" alt="execution management">
+</div>
+<div class="title">Figure 5. Casos de Uso para la Gestión de Ejecuciones</div>
+</div>
+<table id="cu-user-project-3-1" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 31. CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en la vista detallada de un proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá realizado una ejecución con éxito.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario deberá poder ejecutar un proyecto para las fechas indicadas en el momento de su creación. Para ello, se deberá de indicar de manera gráfica cuando una ejecución es posible y los dos mecanismos para empezar y detener dicha ejecución.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Será posible también iniciar la ejecución de un proyecto directamente desde el <strong>dashboard</strong> de proyectos mediante un enlace en la zona del resumen de características.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preferiblemente, la ejecución de un proyecto se deberá realizar en una vista independiente de la vista detallada del proyecto donde se origine.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.5</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-3-2" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 32. CU Usuario - Gestión de Ejecuciones 3.2 Consultar resultados de ejecución</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario ha realizado una ejecución de manera satisfactoria y se encuentra en el <strong>dashboard</strong> de ejecuciones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario ha podido descargar satisfactoriamente los resultados de la ejecución.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desde el conjunto de ejecuciones realizadas, se deberá poder acceder a sus resultados obtenidos mediante un enlace para descargar el fichero de resultados en formato <strong>XML</strong> o <strong>JSON</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.6; R3.2</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-3-3" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 33. CU Usuario - Gestión de Ejecuciones 3.3 Reevaluar proyecto</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se debe de encontrar en la vista del histórico de proyectos.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá sido capaz de reevaluar un proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para reevaluar un proyecto que ya ha sido evaluado anteriormente, será necesario modificar su fecha de evaluación para la nueva fecha sobre la que se desea realizar. En ese momento el sistema volverá a recopilar los datos necesarios para poder realizar una reevaluación. En cuanto los datos estén disponibles, se deberá seguir el mismo escenar presentado para <a href="#cu-user-project-3-1">CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.6</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_diseño_de_em_mockups_em_para_interfaces_de_usuario">4.1.4. Diseño de <em>mockups</em> para interfaces de usuario</h4>
@@ -2444,31 +2682,31 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
 </div>
-<div class="title">Figure 5. Pantalla de login de la aplicación.</div>
+<div class="title">Figure 6. Pantalla de login de la aplicación.</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-projects.png" alt="dashboard projects">
 </div>
-<div class="title">Figure 6. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
+<div class="title">Figure 7. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-executions.png" alt="dashboard executions">
 </div>
-<div class="title">Figure 7. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
+<div class="title">Figure 8. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/new-project.png" alt="new project" height="650px">
 </div>
-<div class="title">Figure 8. Lightboxes de creación de un nuevo proyecto</div>
+<div class="title">Figure 9. Lightboxes de creación de un nuevo proyecto</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/execution.png" alt="execution">
 </div>
-<div class="title">Figure 9. Pantalla de ejecución de un proyecto en tiempo real</div>
+<div class="title">Figure 10. Pantalla de ejecución de un proyecto en tiempo real</div>
 </div>
 </div>
 </div>
@@ -2716,7 +2954,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 10. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
+<div class="title">Figure 11. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -2926,13 +3164,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 11. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 12. Imagen de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 12. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
+<div class="title">Figure 13. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -2963,13 +3201,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/tweetheat-home.png" alt="Pantalla de inicio de la aplicación TweetHeat">
 </div>
-<div class="title">Figure 13. Pantalla de inicio de la aplicación TweetHeat</div>
+<div class="title">Figure 14. Pantalla de inicio de la aplicación TweetHeat</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
 </div>
-<div class="title">Figure 14. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+<div class="title">Figure 15. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
 </div>
 </div>
 </div>

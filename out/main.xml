@@ -1308,6 +1308,33 @@ reader.foreach({
 </tbody>
 </tgroup>
 </table>
+<table xml:id="storage-requirements" frame="all" rowsep="1" colsep="1">
+<title>Requisitos de Almacenamiento - RNF4.x</title>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="16*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Código</entry>
+<entry align="left" valign="top">Nombre del Requisito</entry>
+<entry align="left" valign="top">Descripción del Requisito</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>RNF4.1</simpara></entry>
+<entry align="left" valign="top"><simpara>48h de tuits.</simpara></entry>
+<entry align="left" valign="top"><simpara>Debido a que los experimentos realizados han funcionado bien con datos recogidos en periodos de 24 horas, se almacenarán datos únicamente sobre periodos de 48h. eliminando todos aquellos más antiguos con el objetivo de minimizar el tamaño de disco utilizado.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>RNF4.2</simpara></entry>
+<entry align="left" valign="top"><simpara>Máximo número de tuits por ejecución.</simpara></entry>
+<entry align="left" valign="top"><simpara>Para prevenir un abuso de la capacidad de disco, que podría llegar a almacenar ficheros de cientos de megabytes en resultados, es necesario limitar el número máximo de tuits que se podrán guardar por ejecución para generar los ficheros XML y JSON. Este valor se deberá calcular de manera experimental, pero el fichero de resultados no debería ser superior a <emphasis role="strong">~200MB</emphasis>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
 </section>
 <section xml:id="_análisis_de_casos_de_uso_y_escenarios">
@@ -1427,7 +1454,7 @@ reader.foreach({
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
@@ -1695,6 +1722,220 @@ reader.foreach({
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
 <entry align="left" valign="top"><simpara>R1.5; R2.1; R.6</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-2" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.2 Acceder al histórico de proyectos</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario está indentificado correctamente en el sistema.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario es capaz de visualizar el histórico de proyectos.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Desde la página del <emphasis role="strong">dashboard</emphasis> principal del usuario se debe poder acceder a una sección de <emphasis role="strong">Proyectos</emphasis> donde se recojan todos los proyectos realizados por el usuario así como una breve descripción de sus características.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.7</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-2-1" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.2.1 Consultar proyecto anterior</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario está visualizando el histórico de Proyectos.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario está visualizando la vista en detalle de un proyecto anterior.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario debe tener un enlace en la página del histórico de proyectos que le permita consultar los detalles del Proyecto así como realizar alguna modificación o reevaluación.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.7; R2.6</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<figure>
+<title>Casos de Uso para la Gestión de Ejecuciones</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/use-cases/execution-management.png" align="center"/>
+</imageobject>
+<textobject><phrase>execution management</phrase></textobject>
+</mediaobject>
+</figure>
+<table xml:id="cu-user-project-3-1" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en la vista detallada de un proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá realizado una ejecución con éxito.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario deberá poder ejecutar un proyecto para las fechas indicadas en el momento de su creación. Para ello, se deberá de indicar de manera gráfica cuando una ejecución es posible y los dos mecanismos para empezar y detener dicha ejecución.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Será posible también iniciar la ejecución de un proyecto directamente desde el <emphasis role="strong">dashboard</emphasis> de proyectos mediante un enlace en la zona del resumen de características.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Preferiblemente, la ejecución de un proyecto se deberá realizar en una vista independiente de la vista detallada del proyecto donde se origine.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.5</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-3-2" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Ejecuciones 3.2 Consultar resultados de ejecución</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario ha realizado una ejecución de manera satisfactoria y se encuentra en el <emphasis role="strong">dashboard</emphasis> de ejecuciones.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario ha podido descargar satisfactoriamente los resultados de la ejecución.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Desde el conjunto de ejecuciones realizadas, se deberá poder acceder a sus resultados obtenidos mediante un enlace para descargar el fichero de resultados en formato <emphasis role="strong">XML</emphasis> o <emphasis role="strong">JSON</emphasis>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.6; R3.2</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-3-3" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Ejecuciones 3.3 Reevaluar proyecto</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se debe de encontrar en la vista del histórico de proyectos.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá sido capaz de reevaluar un proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Para reevaluar un proyecto que ya ha sido evaluado anteriormente, será necesario modificar su fecha de evaluación para la nueva fecha sobre la que se desea realizar. En ese momento el sistema volverá a recopilar los datos necesarios para poder realizar una reevaluación. En cuanto los datos estén disponibles, se deberá seguir el mismo escenar presentado para <xref linkend="cu-user-project-3-1"/></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R2.6</simpara></entry>
 </row>
 </tbody>
 </tgroup>

@@ -162,6 +162,22 @@ El _back-end_ de la aplicación deberá utilizar la experiencia de los experimen
 |Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre *Bitbucket* como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: `pull`, `push`, `merge`, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento _similar_ mediante el uso de *bookmarks*.
 |===
 
+.Requisitos de Almacenamiento - RNF4.x
+[cols="1,2,3" options="header", id="storage-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|RNF4.1
+|48h de tuits.
+|Debido a que los experimentos realizados han funcionado bien con datos recogidos en periodos de 24 horas, se almacenarán datos únicamente sobre periodos de 48h. eliminando todos aquellos más antiguos con el objetivo de minimizar el tamaño de disco utilizado.
+
+|RNF4.2
+|Máximo número de tuits por ejecución.
+|Para prevenir un abuso de la capacidad de disco, que podría llegar a almacenar ficheros de cientos de megabytes en resultados, es necesario limitar el número máximo de tuits que se podrán guardar por ejecución para generar los ficheros XML y JSON. Este valor se deberá calcular de manera experimental, pero el fichero de resultados no debería ser superior a *~200MB*.
+|===
+
 ==== Análisis de casos de uso y escenarios
 
 .Casos de Uso para la Gestión de Usuarios
@@ -239,7 +255,7 @@ image::application/use-cases/user-managements.png[align="center"]
 |Estando el usuario identificado en el sistema, y siendo la acción accesible desde cualquier punto de la aplicación a través de un menú superior o elemento gráfico permanente, se podrá seleccionar _Cerrar sesión_ sobre la sesión actual del usuario.
 
 |Variaciones
-|
+| -
 
 |Excepciones
 |En caso de no poder completar la acción, se deberá notificar al usuario de que ha existido un error a la hora de cerrar su sesión actual.
@@ -420,6 +436,149 @@ image::application/use-cases/projects-management.png[align="center"]
 
 |Requisitos contemplados
 |R1.5; R2.1; R.6
+|===
+
+.CU Usuario - Gestión de Proyectos 2.2 Acceder al histórico de proyectos
+[cols="1s,3", id="cu-user-project-2-2"]
+|===
+|Precondiciones
+|El usuario está indentificado correctamente en el sistema.
+
+|Postcondiciones
+|El usuario es capaz de visualizar el histórico de proyectos.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|Desde la página del *dashboard* principal del usuario se debe poder acceder a una sección de *Proyectos* donde se recojan todos los proyectos realizados por el usuario así como una breve descripción de sus características.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.7
+|===
+
+.CU Usuario - Gestión de Proyectos 2.2.1 Consultar proyecto anterior
+[cols="1s,3", id="cu-user-project-2-2-1"]
+|===
+|Precondiciones
+|El usuario está visualizando el histórico de Proyectos.
+
+|Postcondiciones
+|El usuario está visualizando la vista en detalle de un proyecto anterior.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|El usuario debe tener un enlace en la página del histórico de proyectos que le permita consultar los detalles del Proyecto así como realizar alguna modificación o reevaluación.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.7; R2.6
+|===
+
+.Casos de Uso para la Gestión de Ejecuciones
+image::application/use-cases/execution-management.png[align="center"]
+
+.CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto
+[cols="1s,3", id="cu-user-project-3-1"]
+|===
+|Precondiciones
+|El usuario se encuentra en la vista detallada de un proyecto.
+
+|Postcondiciones
+|El usuario habrá realizado una ejecución con éxito.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|El usuario deberá poder ejecutar un proyecto para las fechas indicadas en el momento de su creación. Para ello, se deberá de indicar de manera gráfica cuando una ejecución es posible y los dos mecanismos para empezar y detener dicha ejecución.
+
+|Variaciones
+|Será posible también iniciar la ejecución de un proyecto directamente desde el *dashboard* de proyectos mediante un enlace en la zona del resumen de características.
+
+|Excepciones
+| -
+
+|Notas
+|Preferiblemente, la ejecución de un proyecto se deberá realizar en una vista independiente de la vista detallada del proyecto donde se origine.
+
+|Requisitos contemplados
+|R1.5
+|===
+
+.CU Usuario - Gestión de Ejecuciones 3.2 Consultar resultados de ejecución
+[cols="1s,3", id="cu-user-project-3-2"]
+|===
+|Precondiciones
+|El usuario ha realizado una ejecución de manera satisfactoria y se encuentra en el *dashboard* de ejecuciones.
+
+|Postcondiciones
+|El usuario ha podido descargar satisfactoriamente los resultados de la ejecución.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|Desde el conjunto de ejecuciones realizadas, se deberá poder acceder a sus resultados obtenidos mediante un enlace para descargar el fichero de resultados en formato *XML* o *JSON*.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.6; R3.2
+|===
+
+.CU Usuario - Gestión de Ejecuciones 3.3 Reevaluar proyecto
+[cols="1s,3", id="cu-user-project-3-3"]
+|===
+|Precondiciones
+|El usuario se debe de encontrar en la vista del histórico de proyectos.
+
+|Postcondiciones
+|El usuario habrá sido capaz de reevaluar un proyecto.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|Para reevaluar un proyecto que ya ha sido evaluado anteriormente, será necesario modificar su fecha de evaluación para la nueva fecha sobre la que se desea realizar. En ese momento el sistema volverá a recopilar los datos necesarios para poder realizar una reevaluación. En cuanto los datos estén disponibles, se deberá seguir el mismo escenar presentado para <<cu-user-project-3-1>>
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R2.6
 |===
 
 ==== Diseño de _mockups_ para interfaces de usuario
