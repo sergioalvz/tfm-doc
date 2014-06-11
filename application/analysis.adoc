@@ -164,30 +164,262 @@ El _back-end_ de la aplicación deberá utilizar la experiencia de los experimen
 
 ==== Análisis de casos de uso y escenarios
 
-.CU Usuario - Sistema 1.1 Crear cuenta
-[cols="1s,4", id="cu-user-system-1-1"]
+.Casos de Uso para la Gestión de Usuarios
+image::application/use-cases/user-managements.png[align="center"]
+
+.CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema
+[cols="1s,3", id="cu-user-system-1-1"]
 |===
 |Precondiciones
-|
+|El usuario se encuentra en la página principal de la aplicación y no dispone de una cuenta de usuario en el sistema.
 
 |Postcondiciones
-|
+|El usuario habrá completado satisfactoriamente el proceso de creación de cuenta y podrá hacer _login_ en el sistema de manera satisfactoria.
 
 |Actores
-|
+|Un usuario.
 
 |Descripción
-|
+|Situándose en la pantalla de inicio de la aplicación, el usuario accederá al formulario de creación de cuenta mediante un enlace o cualquier otro componente de la interfaz de usuario que alerte gráficamente de que se puede crear una nueva cuenta de usuario. Una vez en el formulario, se pedirán datos básicos como: *e-mail*, *nombre* y *contraseña* (con su correspondiente confirmación). Al rellenar el formulario, el sistema deberá procesar la petición y notificar al usuario de que su cuenta se ha creado con éxito.
+
+|Variaciones
+|Si el usuario introduce valores incorrectos en algunos de los campos, el sistema deberá aportar un mecanismo que alerte del error y vuelva a mostrar el formulario de registro.
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.1
+|===
+
+.CU Usuario - Gestión Usuarios 1.2 Identificarse en el sistema
+[cols="1s,3", id="cu-user-system-1-2"]
+|===
+|Precondiciones
+|El usuario debe tener una cuenta ya creada en el sistema, no debe estar identificado y debe estar situado en la página de inicio de la aplicación.
+
+|Postcondiciones
+|El usuario habrá podido identificarse satisfactoriamente y acceder a su *dashboard* de proyectos y evaluaciones.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|Desde la pantalla principal de la aplicación, el usuario podrá acceder al formulario de identificación mediante un enlace o elemento identificativo a nivel gráfico en la interfaz web. La página de identificación constará de un pequeño formulario donde el usuario pueda insertar su *e-mail* y *contraseña*. Una vez identificado correctamente, el sistema redireccionará al usuario a su *dashboard* de proyectos y ejecuciones.
+
+|Variaciones
+|En caso de que las credenciales introducidas por el usuario sean incorrectas, el sistema mostrará sobre el mismo formulario de identificación que existe un problema con las credenciales indicando que no son válidas.
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.2
+|===
+
+.CU Usuario - Gestión Usuarios 1.3 Cerrar sesión en el sistema
+[cols="1s,3", id="cu-user-system-1-3"]
+|===
+|Precondiciones
+|El usuario se encuentra identificado en el sistema.
+
+|Postcondiciones
+|El usuario habrá conseguido cerrar su sesión actual en el sistema y estará situado en la página de inicio.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|Estando el usuario identificado en el sistema, y siendo la acción accesible desde cualquier punto de la aplicación a través de un menú superior o elemento gráfico permanente, se podrá seleccionar _Cerrar sesión_ sobre la sesión actual del usuario.
 
 |Variaciones
 |
 
 |Excepciones
-|
+|En caso de no poder completar la acción, se deberá notificar al usuario de que ha existido un error a la hora de cerrar su sesión actual.
 
 |Notas
-|
+| -
 
+|Requisitos contemplados
+|R1.8
+|===
+
+.Casos de Uso para la Gestión de Proyectos
+image::application/use-cases/projects-management.png[align="center"]
+
+.CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto
+[cols="1s,3", id="cu-user-project-2-1"]
+|===
+|Precondiciones
+|El usuario se encuentra identificado y situado en su *dashboard* de proyectos y ejecuciones.
+
+|Postcondiciones
+|El usuario tendrá un nuevo proyecto creado en su cuenta.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|Desde la pantalla de dashboard, el usuario podrá acceder a la creación de un nuevo proyecto mediante un elemento gráfico visible en la interfaz web que lo conducirá a un formulario de creación. En este formulario se deberá completar información básica como: *nombre*, *fecha*, *área local y global*, *términos a monitorizar* e *idioma* para el nuevo proyecto.
+
+|Variaciones
+|En caso de introducir valores incorrectos en el formulario de creación, el sistema deberá notificar sobre el mismo formulario qué errores existen y que no se ha podido completar el proceso de creación.
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.3
+|===
+
+.CU Usuario - Gestión de Proyectos 2.1.1 Seleccionar idioma
+[cols="1s,3", id="cu-user-project-2-1-1"]
+|===
+|Precondiciones
+|El usuario se encuentra en el formulario de creación de proyecto.
+
+|Postcondiciones
+|El usuario habrá seleccionado el idioma del proyecto satisfactoriamente.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|En el momento de la creación del proyecto, se deberá mostrar un componente visual que permita al usuario seleccionar el idioma del proyecto a partir de una lista de opciones predefinidas. Como mínimo, se deberán mostrar las opciones de *inglés* y *español*.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R2.2
+|===
+
+.CU Usuario - Gestión de Proyectos 2.1.2 Añadir términos a monitorizar
+[cols="1s,3", id="cu-user-project-2-1-2"]
+|===
+|Precondiciones
+|El usuario se encuentra en el formulario de creación de proyecto.
+
+|Postcondiciones
+|El usuario habrá seleccionado una lista de términos a monitorizar.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|El usuario dispone de un campo en el formulario de creación de proyectos en el que puede seleccionar un fichero de su disco duro para introducir las palabras o términos que desea monitorizar.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+|Preferiblemente, se debería realizar un análisis del fichero en el momento en que el usuario realiza la subida del mismo para asegurar que cumpla con el formato establecido. En caso de no hacerlo, habría que realizar la notificación en el punto de ejecución del proyecto.
+
+|Requisitos contemplados
+|R2.3
+|===
+
+.CU Usuario - Gestión de Proyectos 2.1.3 Seleccionar área local
+[cols="1s,3", id="cu-user-project-2-1-3"]
+|===
+|Precondiciones
+|El usuario se encuentra en el formulario de creación de proyecto.
+
+|Postcondiciones
+|El usuario habrá seleccionado la localización local sobre la que desea realizar la ejecución.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|En el formulario de creación de un nuevo proyecto, el usuario podrá seleccionar de manera gráfica a través de un mapa, las localizaciones sobre las que desea realizar la monitorización.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+| -
+
+|Requisitos contemplados
+|R1.4; R2.4
+|===
+
+.CU Usuario - Gestión de Proyectos 2.1.4 Seleccionar área global
+[cols="1s,3", id="cu-user-project-2-1-4"]
+|===
+|Precondiciones
+|El usuario se encuentra en el formulario de creación de proyecto.
+
+|Postcondiciones
+|El usuario habrá seleccionado las localizaciones globales que ayudarán a identificar términos del área local.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|En el formulario de creación de un nuevo proyecto, el usuario podrá seleccionar de manera gráfica a través de un mapa, las localizaciones globales que ayudarán a reforzar el conocimiento sobre las áreas locales.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+|Aunque no exista ninguna restricción a la hora de señalar las localizaciones globales, se debería indicar al usuario que las localizaciones globales deben ser territorios donde se hable el mismo idioma que en los territorios seleccionados para el área local.
+
+|Requisitos contemplados
+|R1.4; R2.5
+|===
+
+.CU Usuario - Gestión de Proyectos 2.1.5 Establecer fecha de ejecución
+[cols="1s,3", id="cu-user-project-2-1-5"]
+|===
+|Precondiciones
+|El usuario se encuentra en el formulario de creación de proyecto.
+
+|Postcondiciones
+|El usuario habrá establecido una fecha para la ejecución del proyecto.
+
+|Actores
+|Un usuario.
+
+|Descripción
+|En el formulario de creación de un nuevo proyecto el usuario deberá seleccionar, a través de un componente diseñado para tal fin (un calendario o similar), la fecha para realizar la ejecución del proyecto.
+
+|Variaciones
+| -
+
+|Excepciones
+| -
+
+|Notas
+|Se deberá utilizar algún mecanismo que indique al usuario que no debe seleccionar fechas anteriores al momento actual en el que realiza la creación (por ejemplo, deshabilitando los días anteriores, en caso de tratarse de un componente de tipo Calendario).
+
+|Requisitos contemplados
+|R1.5; R2.1; R.6
 |===
 
 ==== Diseño de _mockups_ para interfaces de usuario
@@ -195,14 +427,14 @@ El _back-end_ de la aplicación deberá utilizar la experiencia de los experimen
 .Pantalla de login de la aplicación.
 image::application/mockup/home.png[align="center"]
 
-.Pantalla que muestra el dashboard del usuario en la sección de proyectos.
+.Pantalla que muestra el dashboard del usuario en la sección de proyectos
 image::application/mockup/dashboard-projects.png[align="center"]
 
-.Pantalla que muestra el dashboard del usuario en la sección de ejecuciones.
+.Pantalla que muestra el dashboard del usuario en la sección de ejecuciones
 image::application/mockup/dashboard-executions.png[align="center"]
 
-.Lightboxes de creación de un nuevo proyecto.
+.Lightboxes de creación de un nuevo proyecto
 image::application/mockup/new-project.png[height="650px",align="center"]
 
-.Pantalla de ejecución de un proyecto en tiempo real.
+.Pantalla de ejecución de un proyecto en tiempo real
 image::application/mockup/execution.png[align="center"]

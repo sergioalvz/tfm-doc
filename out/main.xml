@@ -1312,27 +1312,118 @@ reader.foreach({
 </section>
 <section xml:id="_análisis_de_casos_de_uso_y_escenarios">
 <title>Análisis de casos de uso y escenarios</title>
+<figure>
+<title>Casos de Uso para la Gestión de Usuarios</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/use-cases/user-managements.png" align="center"/>
+</imageobject>
+<textobject><phrase>user managements</phrase></textobject>
+</mediaobject>
+</figure>
 <table xml:id="cu-user-system-1-1" frame="all" rowsep="1" colsep="1">
-<title>CU Usuario - Sistema 1.1 Crear cuenta</title>
+<title>CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema</title>
 <tgroup cols="2">
-<colspec colname="col_1" colwidth="20*"/>
-<colspec colname="col_2" colwidth="80*"/>
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
 <tbody>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en la página principal de la aplicación y no dispone de una cuenta de usuario en el sistema.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá completado satisfactoriamente el proceso de creación de cuenta y podrá hacer <emphasis>login</emphasis> en el sistema de manera satisfactoria.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>Situándose en la pantalla de inicio de la aplicación, el usuario accederá al formulario de creación de cuenta mediante un enlace o cualquier otro componente de la interfaz de usuario que alerte gráficamente de que se puede crear una nueva cuenta de usuario. Una vez en el formulario, se pedirán datos básicos como: <emphasis role="strong">e-mail</emphasis>, <emphasis role="strong">nombre</emphasis> y <emphasis role="strong">contraseña</emphasis> (con su correspondiente confirmación). Al rellenar el formulario, el sistema deberá procesar la petición y notificar al usuario de que su cuenta se ha creado con éxito.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Si el usuario introduce valores incorrectos en algunos de los campos, el sistema deberá aportar un mecanismo que alerte del error y vuelva a mostrar el formulario de registro.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.1</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-system-1-2" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión Usuarios 1.2 Identificarse en el sistema</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario debe tener una cuenta ya creada en el sistema, no debe estar identificado y debe estar situado en la página de inicio de la aplicación.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá podido identificarse satisfactoriamente y acceder a su <emphasis role="strong">dashboard</emphasis> de proyectos y evaluaciones.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Desde la pantalla principal de la aplicación, el usuario podrá acceder al formulario de identificación mediante un enlace o elemento identificativo a nivel gráfico en la interfaz web. La página de identificación constará de un pequeño formulario donde el usuario pueda insertar su <emphasis role="strong">e-mail</emphasis> y <emphasis role="strong">contraseña</emphasis>. Una vez identificado correctamente, el sistema redireccionará al usuario a su <emphasis role="strong">dashboard</emphasis> de proyectos y ejecuciones.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>En caso de que las credenciales introducidas por el usuario sean incorrectas, el sistema mostrará sobre el mismo formulario de identificación que existe un problema con las credenciales indicando que no son válidas.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.2</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-system-1-3" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión Usuarios 1.3 Cerrar sesión en el sistema</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra identificado en el sistema.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá conseguido cerrar su sesión actual en el sistema y estará situado en la página de inicio.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Estando el usuario identificado en el sistema, y siendo la acción accesible desde cualquier punto de la aplicación a través de un menú superior o elemento gráfico permanente, se podrá seleccionar <emphasis>Cerrar sesión</emphasis> sobre la sesión actual del usuario.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
@@ -1340,11 +1431,270 @@ reader.foreach({
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>En caso de no poder completar la acción, se deberá notificar al usuario de que ha existido un error a la hora de cerrar su sesión actual.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.8</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<figure>
+<title>Casos de Uso para la Gestión de Proyectos</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/use-cases/projects-management.png" align="center"/>
+</imageobject>
+<textobject><phrase>projects management</phrase></textobject>
+</mediaobject>
+</figure>
+<table xml:id="cu-user-project-2-1" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra identificado y situado en su <emphasis role="strong">dashboard</emphasis> de proyectos y ejecuciones.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario tendrá un nuevo proyecto creado en su cuenta.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Desde la pantalla de dashboard, el usuario podrá acceder a la creación de un nuevo proyecto mediante un elemento gráfico visible en la interfaz web que lo conducirá a un formulario de creación. En este formulario se deberá completar información básica como: <emphasis role="strong">nombre</emphasis>, <emphasis role="strong">fecha</emphasis>, <emphasis role="strong">área local y global</emphasis>, <emphasis role="strong">términos a monitorizar</emphasis> e <emphasis role="strong">idioma</emphasis> para el nuevo proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>En caso de introducir valores incorrectos en el formulario de creación, el sistema deberá notificar sobre el mismo formulario qué errores existen y que no se ha podido completar el proceso de creación.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.3</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-1-1" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.1.1 Seleccionar idioma</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en el formulario de creación de proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá seleccionado el idioma del proyecto satisfactoriamente.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>En el momento de la creación del proyecto, se deberá mostrar un componente visual que permita al usuario seleccionar el idioma del proyecto a partir de una lista de opciones predefinidas. Como mínimo, se deberán mostrar las opciones de <emphasis role="strong">inglés</emphasis> y <emphasis role="strong">español</emphasis>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R2.2</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-1-2" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.1.2 Añadir términos a monitorizar</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en el formulario de creación de proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá seleccionado una lista de términos a monitorizar.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario dispone de un campo en el formulario de creación de proyectos en el que puede seleccionar un fichero de su disco duro para introducir las palabras o términos que desea monitorizar.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Preferiblemente, se debería realizar un análisis del fichero en el momento en que el usuario realiza la subida del mismo para asegurar que cumpla con el formato establecido. En caso de no hacerlo, habría que realizar la notificación en el punto de ejecución del proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R2.3</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-1-3" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.1.3 Seleccionar área local</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en el formulario de creación de proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá seleccionado la localización local sobre la que desea realizar la ejecución.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>En el formulario de creación de un nuevo proyecto, el usuario podrá seleccionar de manera gráfica a través de un mapa, las localizaciones sobre las que desea realizar la monitorización.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.4; R2.4</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-1-4" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.1.4 Seleccionar área global</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en el formulario de creación de proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá seleccionado las localizaciones globales que ayudarán a identificar términos del área local.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>En el formulario de creación de un nuevo proyecto, el usuario podrá seleccionar de manera gráfica a través de un mapa, las localizaciones globales que ayudarán a reforzar el conocimiento sobre las áreas locales.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Aunque no exista ninguna restricción a la hora de señalar las localizaciones globales, se debería indicar al usuario que las localizaciones globales deben ser territorios donde se hable el mismo idioma que en los territorios seleccionados para el área local.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.4; R2.5</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<table xml:id="cu-user-project-2-1-5" frame="all" rowsep="1" colsep="1">
+<title>CU Usuario - Gestión de Proyectos 2.1.5 Establecer fecha de ejecución</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario se encuentra en el formulario de creación de proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario habrá establecido una fecha para la ejecución del proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Actores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Un usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>En el formulario de creación de un nuevo proyecto el usuario deberá seleccionar, a través de un componente diseñado para tal fin (un calendario o similar), la fecha para realizar la ejecución del proyecto.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Excepciones</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Notas</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Se deberá utilizar algún mecanismo que indique al usuario que no debe seleccionar fechas anteriores al momento actual en el que realiza la creación (por ejemplo, deshabilitando los días anteriores, en caso de tratarse de un componente de tipo Calendario).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Requisitos contemplados</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>R1.5; R2.1; R.6</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1362,7 +1712,7 @@ reader.foreach({
 </mediaobject>
 </figure>
 <figure>
-<title>Pantalla que muestra el dashboard del usuario en la sección de proyectos.</title>
+<title>Pantalla que muestra el dashboard del usuario en la sección de proyectos</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="../assets/application/mockup/dashboard-projects.png" align="center"/>
@@ -1371,7 +1721,7 @@ reader.foreach({
 </mediaobject>
 </figure>
 <figure>
-<title>Pantalla que muestra el dashboard del usuario en la sección de ejecuciones.</title>
+<title>Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="../assets/application/mockup/dashboard-executions.png" align="center"/>
@@ -1380,7 +1730,7 @@ reader.foreach({
 </mediaobject>
 </figure>
 <figure>
-<title>Lightboxes de creación de un nuevo proyecto.</title>
+<title>Lightboxes de creación de un nuevo proyecto</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="../assets/application/mockup/new-project.png" contentdepth="650px" align="center"/>
@@ -1389,7 +1739,7 @@ reader.foreach({
 </mediaobject>
 </figure>
 <figure>
-<title>Pantalla de ejecución de un proyecto en tiempo real.</title>
+<title>Pantalla de ejecución de un proyecto en tiempo real</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="../assets/application/mockup/execution.png" align="center"/>

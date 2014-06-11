@@ -2056,28 +2056,116 @@ reader.foreach({
 </div>
 <div class="sect3">
 <h4 id="_análisis_de_casos_de_uso_y_escenarios">4.1.3. Análisis de casos de uso y escenarios</h4>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/application/use-cases/user-managements.png" alt="user managements">
+</div>
+<div class="title">Figure 3. Casos de Uso para la Gestión de Usuarios</div>
+</div>
 <table id="cu-user-system-1-1" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 19. CU Usuario - Sistema 1.1 Crear cuenta</caption>
+<caption class="title">Table 19. CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 80%;">
+<col style="width: 25%;">
+<col style="width: 75%;">
 </colgroup>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en la página principal de la aplicación y no dispone de una cuenta de usuario en el sistema.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá completado satisfactoriamente el proceso de creación de cuenta y podrá hacer <em>login</em> en el sistema de manera satisfactoria.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Situándose en la pantalla de inicio de la aplicación, el usuario accederá al formulario de creación de cuenta mediante un enlace o cualquier otro componente de la interfaz de usuario que alerte gráficamente de que se puede crear una nueva cuenta de usuario. Una vez en el formulario, se pedirán datos básicos como: <strong>e-mail</strong>, <strong>nombre</strong> y <strong>contraseña</strong> (con su correspondiente confirmación). Al rellenar el formulario, el sistema deberá procesar la petición y notificar al usuario de que su cuenta se ha creado con éxito.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si el usuario introduce valores incorrectos en algunos de los campos, el sistema deberá aportar un mecanismo que alerte del error y vuelva a mostrar el formulario de registro.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.1</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-system-1-2" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 20. CU Usuario - Gestión Usuarios 1.2 Identificarse en el sistema</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario debe tener una cuenta ya creada en el sistema, no debe estar identificado y debe estar situado en la página de inicio de la aplicación.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá podido identificarse satisfactoriamente y acceder a su <strong>dashboard</strong> de proyectos y evaluaciones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desde la pantalla principal de la aplicación, el usuario podrá acceder al formulario de identificación mediante un enlace o elemento identificativo a nivel gráfico en la interfaz web. La página de identificación constará de un pequeño formulario donde el usuario pueda insertar su <strong>e-mail</strong> y <strong>contraseña</strong>. Una vez identificado correctamente, el sistema redireccionará al usuario a su <strong>dashboard</strong> de proyectos y ejecuciones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En caso de que las credenciales introducidas por el usuario sean incorrectas, el sistema mostrará sobre el mismo formulario de identificación que existe un problema con las credenciales indicando que no son válidas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.2</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-system-1-3" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 21. CU Usuario - Gestión Usuarios 1.3 Cerrar sesión en el sistema</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra identificado en el sistema.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá conseguido cerrar su sesión actual en el sistema y estará situado en la página de inicio.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estando el usuario identificado en el sistema, y siendo la acción accesible desde cualquier punto de la aplicación a través de un menú superior o elemento gráfico permanente, se podrá seleccionar <em>Cerrar sesión</em> sobre la sesión actual del usuario.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
@@ -2085,11 +2173,267 @@ reader.foreach({
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En caso de no poder completar la acción, se deberá notificar al usuario de que ha existido un error a la hora de cerrar su sesión actual.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.8</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/application/use-cases/projects-management.png" alt="projects management">
+</div>
+<div class="title">Figure 4. Casos de Uso para la Gestión de Proyectos</div>
+</div>
+<table id="cu-user-project-2-1" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 22. CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra identificado y situado en su <strong>dashboard</strong> de proyectos y ejecuciones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario tendrá un nuevo proyecto creado en su cuenta.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desde la pantalla de dashboard, el usuario podrá acceder a la creación de un nuevo proyecto mediante un elemento gráfico visible en la interfaz web que lo conducirá a un formulario de creación. En este formulario se deberá completar información básica como: <strong>nombre</strong>, <strong>fecha</strong>, <strong>área local y global</strong>, <strong>términos a monitorizar</strong> e <strong>idioma</strong> para el nuevo proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En caso de introducir valores incorrectos en el formulario de creación, el sistema deberá notificar sobre el mismo formulario qué errores existen y que no se ha podido completar el proceso de creación.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.3</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-2-1-1" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 23. CU Usuario - Gestión de Proyectos 2.1.1 Seleccionar idioma</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en el formulario de creación de proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá seleccionado el idioma del proyecto satisfactoriamente.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En el momento de la creación del proyecto, se deberá mostrar un componente visual que permita al usuario seleccionar el idioma del proyecto a partir de una lista de opciones predefinidas. Como mínimo, se deberán mostrar las opciones de <strong>inglés</strong> y <strong>español</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.2</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-2-1-2" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 24. CU Usuario - Gestión de Proyectos 2.1.2 Añadir términos a monitorizar</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en el formulario de creación de proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá seleccionado una lista de términos a monitorizar.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario dispone de un campo en el formulario de creación de proyectos en el que puede seleccionar un fichero de su disco duro para introducir las palabras o términos que desea monitorizar.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preferiblemente, se debería realizar un análisis del fichero en el momento en que el usuario realiza la subida del mismo para asegurar que cumpla con el formato establecido. En caso de no hacerlo, habría que realizar la notificación en el punto de ejecución del proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2.3</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-2-1-3" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 25. CU Usuario - Gestión de Proyectos 2.1.3 Seleccionar área local</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en el formulario de creación de proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá seleccionado la localización local sobre la que desea realizar la ejecución.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En el formulario de creación de un nuevo proyecto, el usuario podrá seleccionar de manera gráfica a través de un mapa, las localizaciones sobre las que desea realizar la monitorización.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.4; R2.4</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-2-1-4" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 26. CU Usuario - Gestión de Proyectos 2.1.4 Seleccionar área global</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en el formulario de creación de proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá seleccionado las localizaciones globales que ayudarán a identificar términos del área local.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En el formulario de creación de un nuevo proyecto, el usuario podrá seleccionar de manera gráfica a través de un mapa, las localizaciones globales que ayudarán a reforzar el conocimiento sobre las áreas locales.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aunque no exista ninguna restricción a la hora de señalar las localizaciones globales, se debería indicar al usuario que las localizaciones globales deben ser territorios donde se hable el mismo idioma que en los territorios seleccionados para el área local.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.4; R2.5</p></td>
+</tr>
+</tbody>
+</table>
+<table id="cu-user-project-2-1-5" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 27. CU Usuario - Gestión de Proyectos 2.1.5 Establecer fecha de ejecución</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario se encuentra en el formulario de creación de proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario habrá establecido una fecha para la ejecución del proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Actores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">En el formulario de creación de un nuevo proyecto el usuario deberá seleccionar, a través de un componente diseñado para tal fin (un calendario o similar), la fecha para realizar la ejecución del proyecto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Variaciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Notas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se deberá utilizar algún mecanismo que indique al usuario que no debe seleccionar fechas anteriores al momento actual en el que realiza la creación (por ejemplo, deshabilitando los días anteriores, en caso de tratarse de un componente de tipo Calendario).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requisitos contemplados</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1.5; R2.1; R.6</p></td>
 </tr>
 </tbody>
 </table>
@@ -2100,31 +2444,31 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
 </div>
-<div class="title">Figure 3. Pantalla de login de la aplicación.</div>
+<div class="title">Figure 5. Pantalla de login de la aplicación.</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-projects.png" alt="dashboard projects">
 </div>
-<div class="title">Figure 4. Pantalla que muestra el dashboard del usuario en la sección de proyectos.</div>
+<div class="title">Figure 6. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-executions.png" alt="dashboard executions">
 </div>
-<div class="title">Figure 5. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones.</div>
+<div class="title">Figure 7. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/new-project.png" alt="new project" height="650px">
 </div>
-<div class="title">Figure 6. Lightboxes de creación de un nuevo proyecto.</div>
+<div class="title">Figure 8. Lightboxes de creación de un nuevo proyecto</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/execution.png" alt="execution">
 </div>
-<div class="title">Figure 7. Pantalla de ejecución de un proyecto en tiempo real.</div>
+<div class="title">Figure 9. Pantalla de ejecución de un proyecto en tiempo real</div>
 </div>
 </div>
 </div>
@@ -2372,7 +2716,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 8. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
+<div class="title">Figure 10. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -2582,13 +2926,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 9. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 11. Imagen de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 10. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
+<div class="title">Figure 12. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -2619,13 +2963,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/tweetheat-home.png" alt="Pantalla de inicio de la aplicación TweetHeat">
 </div>
-<div class="title">Figure 11. Pantalla de inicio de la aplicación TweetHeat</div>
+<div class="title">Figure 13. Pantalla de inicio de la aplicación TweetHeat</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
 </div>
-<div class="title">Figure 12. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+<div class="title">Figure 14. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
 </div>
 </div>
 </div>
