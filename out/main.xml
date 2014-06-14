@@ -1325,7 +1325,7 @@ reader.foreach({
 <row>
 <entry align="left" valign="top"><simpara>RNF4.1</simpara></entry>
 <entry align="left" valign="top"><simpara>48h de tuits.</simpara></entry>
-<entry align="left" valign="top"><simpara>Debido a que los experimentos realizados han funcionado bien con datos recogidos en periodos de 24 horas, se almacenarán datos únicamente sobre periodos de 48h. eliminando todos aquellos más antiguos con el objetivo de minimizar el tamaño de disco utilizado.</simpara></entry>
+<entry align="left" valign="top"><simpara>Debido a que los experimentos realizados han funcionado bien con datos recogidos en periodos de 24 horas, se almacenarán datos únicamente sobre periodos de 48h. eliminando todos aquellos tuits más antiguos con el objetivo de minimizar el tamaño de disco utilizado.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>RNF4.2</simpara></entry>
@@ -1919,7 +1919,7 @@ reader.foreach({
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Descripción</emphasis></simpara></entry>
-<entry align="left" valign="top"><simpara>Para reevaluar un proyecto que ya ha sido evaluado anteriormente, será necesario modificar su fecha de evaluación para la nueva fecha sobre la que se desea realizar. En ese momento el sistema volverá a recopilar los datos necesarios para poder realizar una reevaluación. En cuanto los datos estén disponibles, se deberá seguir el mismo escenar presentado para <xref linkend="cu-user-project-3-1"/></simpara></entry>
+<entry align="left" valign="top"><simpara>Para reevaluar un proyecto que ya ha sido evaluado anteriormente, será necesario modificar su fecha de evaluación para la nueva fecha sobre la que se desea realizar. En ese momento el sistema volverá a recopilar los datos necesarios para poder realizar una reevaluación. En cuanto los datos estén disponibles, se deberá seguir el mismo escenario presentado para <xref linkend="cu-user-project-3-1"/></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Variaciones</emphasis></simpara></entry>
@@ -1940,6 +1940,17 @@ reader.foreach({
 </tbody>
 </tgroup>
 </table>
+</section>
+<section xml:id="_diseño_e_identificación_preliminar_de_sistemas_y_clases">
+<title>Diseño e Identificación preliminar de Sistemas y Clases</title>
+<section xml:id="_identificación_de_sistemas">
+<title>Identificación de Sistemas</title>
+
+</section>
+<section xml:id="_diseño_de_clases">
+<title>Diseño de Clases</title>
+
+</section>
 </section>
 <section xml:id="_diseño_de_emphasis_mockups_emphasis_para_interfaces_de_usuario">
 <title>Diseño de <emphasis>mockups</emphasis> para interfaces de usuario</title>

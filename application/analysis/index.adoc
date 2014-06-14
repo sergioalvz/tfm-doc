@@ -1,0 +1,17 @@
+=== Análisis del sistema
+
+==== Definición y alcance del Sistema
+
+A partir de las tecnologías y experimentos desarrollados en las secciones anteriores, las próximas páginas recogen el análisis y diseño de una posible aplicación web que, basándose en los trabajos anteriores, sirva para ofrecer un servicio de geolocalización de tuits en base a su contenido.
+
+El sistema deberá ser capaz de permitir a los usuarios la creación de *proyectos* en los que identificar sobre qué idioma, localización y términos desean realizar la monitorización. Y ofrecer una interfaz web sencilla en la que puedan consultar los resultados y recuperar la información para poder trabajar posteriormente con ella (es decir, se debe brindar la capacidad de descargar los datos en algún tipo de fichero con información estructurada como CSV, JSON o XML).
+
+El _back-end_ de la aplicación deberá utilizar la experiencia de los experimentos anteriores para poder repetir los resultados obtenidos. Por tanto, deberá ser capaz de recuperar tuits de manera ininterrumpida a partir de algún streaming de datos con el objetivo de tener constantemente la información necesaria para poder ejecutar los proyectos de los usuarios. Además, debe ser capaz de comunicarse con software de aprendizaje automático y crear (o reutilizar) modelos de clasificación _al vuelo_ para cada uno de los proyectos generados.
+
+include::requirements.adoc[]
+
+include::use-cases.adoc[]
+
+include::systems.adoc[]
+
+include::ui.adoc[]

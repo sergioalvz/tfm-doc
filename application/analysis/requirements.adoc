@@ -1,0 +1,169 @@
+==== Requisitos del Sistema
+
+===== Requisitos Funcionales
+
+.Requisitos de Usuario - R1.x
+[cols="1,2,3" options="header", id="user-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|R1.1
+|Crear cuenta en el Sistema
+|El usuario debe ser capaz de crear una cuenta en el sistema mediante la inserción de información básica como: *e-mail*, *nombre* y *contraseña* a través de un formulario de registro disponible en la aplicación web.
+
+|R1.2
+|Identificarse
+|Todo aquel usuario con una cuenta creada en el sistema, deberá ser capaz de identificarse a través de un formulario de _login_ accesible desde la aplicación web.
+
+|R1.3
+|Crear proyecto
+|El usuario debe ser capaz de crear un proyecto sobre el que obtener datos geolocalizados aportando de manera sencilla toda la información necesaria para su evaluación: idioma, palabras a monitorizar, área local y global y fecha de evaluación.
+
+|R1.4
+|Selección de _bounding boxes_ de manera gráfica
+|El usuario debe ser capaz de seleccionar _bounding boxes_ de manera gráfica a través de un mapa.
+
+|R1.5
+|Evaluar un proyecto
+|El usuario debe ser capaz de evaluar un proyecto para las fechas seleccionadas en el momento de su creación.
+
+|R1.6
+|Descargar resultados de ejecución
+|El usuario debe disponer de un mecanismo para descargar los datos de cada ejecución en, al menos, formato XML y JSON.
+
+|R1.7
+|Acceso a histórico de proyectos
+|El usuario debe tener acceso a su historial de proyectos a través de la aplicación web. Deberá ser capaz de reevaluar un proyecto anterior o consultar su información.
+
+|R1.8
+|Cerrar sesión
+|El usuario deberá poder cerrar su sesión en la aplicación de manera sencilla a través de la interfaz web.
+|===
+
+.Requisitos a nivel de Proyecto - R2.x
+[cols="1,2,3" options="header", id="project-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|R2.1
+|Fechas de ejecución
+|Los proyectos deben tener asignada una fecha sobre la que se desea realizar la ejecución. Esta fecha siempre tiene que ser igual o posterior al día de creación del proyecto (en función de si se quiere trabajar con datos ya almacenados en el sistema o con datos futuros respectivamente).
+
+|R2.2
+|Múltiples idiomas
+|Los proyectos deben poder trabajar con múltiples idiomas. Cómo mínimo se debe ofrecer la posibilidad de trabajar con *inglés* y *español*.
+
+|R2.3
+|Términos a monitorizar personalizables
+|Los proyectos deben poder trabajar sobre una lista de términos propuesta por el usuario y encontrar y geolocalizar aquellos tuits que los contengan. Estos términos se deberán añadir en el momento de la creación del proyecto y deberán cumplir unas condiciones concretas: se debe incluir una fila por cada término que se desee monitorizar.
+
+|R2.4
+|Localización local
+|Los proyectos deben ser capaces de trabajar sobre un área local de la que obtener tuits.
+
+|R2.5
+|Localización global
+|De manera análoga al requisito de localización local, los proyectos debe ser capaces también de trabajar con otras áreas en los que se puedan encontrar tuits escritos en el mismo idioma seleccionado. De esta manera se aportará al sistema de los mecanismos adecuados para poder buscar términos discriminativos.
+
+|R2.6
+|Reevaluar un proyecto
+|El sistema debe ofrecer la posibilidad de reevaluar un proyecto a partir de una nueva fecha de ejecución que cumpla las mismas condiciones que las establecidas en el momento de su creación (se debe seleccionar una fecha igual o posterior a la del momento de la reevaluación).
+|===
+
+.Requisitos a nivel de Ejecución - R3.x
+[cols="1,2,3" options="header", id="execution-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|R3.1
+|Exhaustividad variable
+|Las ejecuciones deben poder trabajar con diferentes niveles de exhaustividad con el objetivo de procesar más o menos tuits a distintos niveles de confianza.
+
+|R3.2
+|Exportar resultados
+|Los resultados de una ejecución deben poder ser exportados a *XML* y *JSON*.
+|===
+
+===== Requisitos No Funcionales
+
+.Requisitos de acceso a la información - RNF1.x
+[cols="1,2,3" options="header", id="information-retrival-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|RNF1.1
+|Recolección de datos de manera ininterrumpida
+|El sistema deberá de crear un flujo de comunicación constante que abastezca de información ininterrumpidamente.
+
+|RNF1.2
+|Recolección de datos parametrizable
+|Se deberá de trabajar con un sistema de _streaming_ de datos que acepte parámetros para devolver información de manera selectiva.
+
+|RNF1.3
+|Utilización de un sistema de _streaming_ que aporte más de un 1% de los datos disponibles
+|Con el objetivo de poder ofrecer el mejor servicio posible, será necesario trabajar con un sistema de _streaming_ que sea capaz ofrecer el mayor número de datos posibles, es decir, que no limite como en el caso de la API Streaming de Twitter, su flujo a únicamente un 1% del total del _streaming_ público.
+|===
+
+.Requisitos de Seguridad - RNF2.x
+[cols="1,2,3" options="header", id="security-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|RNF2.1
+|SSL
+|La aplicación deberá funcionar sobre *HTTPS* y *SSL* mediante un certificado válido que asegure que la información no pueda ser interceptada por terceras partes.
+
+|RNF2.2
+|Hashing para las contraseñas de usuario
+|Las contraseñas de los usuarios deberán ser _hasheadas_ mediante el algoritmo *bcrypt*.
+|===
+
+.Requisitos Tecnológicos - RNF3.x
+[cols="1,2,3" options="header", id="technologies-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|RNF3.1
+|Scala
+|Se utilizará el lenguaje de programación *Scala* con el objetivo de aprovechar la experiencia previa de la etapa de experimentación y prototipado. Su soporte para programación funcional dará al sistema la flexibilidad necesaria en materia de escalabilidad y concurrencia de cara al futuro.
+
+|RNF3.2
+|Play! Framework
+|Play! será el framework web utilizado para desarrollar la aplicación. Su soporte nativo para Scala, desarrollo de trabajos asíncronos e imposición de la arquitectura *Modelo-Vista-Controlador* encaja a la perfección con los requisitos del sistema.
+
+|RNF3.3
+|Vowpal Wabbit
+|Vowpal Wabbit y su ejecución como _daemon_ del sistema, velocidad y buenos resultados en la etapa de prototipado, será el software de aprendizaje automático utilizado.
+
+|RNF3.4
+|Mercurial
+|Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre *Bitbucket* como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: `pull`, `push`, `merge`, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento _similar_ mediante el uso de *bookmarks*.
+|===
+
+.Requisitos de Almacenamiento - RNF4.x
+[cols="1,2,3" options="header", id="storage-requirements"]
+|===
+|Código
+|Nombre del Requisito
+|Descripción del Requisito
+
+|RNF4.1
+|48h de tuits.
+|Debido a que los experimentos realizados han funcionado bien con datos recogidos en periodos de 24 horas, se almacenarán datos únicamente sobre periodos de 48h. eliminando todos aquellos tuits más antiguos con el objetivo de minimizar el tamaño de disco utilizado.
+
+|RNF4.2
+|Máximo número de tuits por ejecución.
+|Para prevenir un abuso de la capacidad de disco, que podría llegar a almacenar ficheros de cientos de megabytes en resultados, es necesario limitar el número máximo de tuits que se podrán guardar por ejecución para generar los ficheros XML y JSON. Este valor se deberá calcular de manera experimental, pero el fichero de resultados no debería ser superior a *~200MB*.
+|===

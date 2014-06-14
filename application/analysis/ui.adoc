@@ -1,0 +1,16 @@
+==== Diseño de _mockups_ para interfaces de usuario
+
+.Pantalla de login de la aplicación.
+image::application/mockup/home.png[align="center"]
+
+.Pantalla que muestra el dashboard del usuario en la sección de proyectos
+image::application/mockup/dashboard-projects.png[align="center"]
+
+.Pantalla que muestra el dashboard del usuario en la sección de ejecuciones
+image::application/mockup/dashboard-executions.png[align="center"]
+
+.Lightboxes de creación de un nuevo proyecto
+image::application/mockup/new-project.png[height="650px",align="center"]
+
+.Pantalla de ejecución de un proyecto en tiempo real
+image::application/mockup/execution.png[align="center"]
