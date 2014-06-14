@@ -2,4 +2,29 @@
 
 ===== Identificación de Sistemas
 
+A continuación se realiza una separación del proyecto en varios sistemas y subsistemas. A pesar de que el proyecto será construido en su gran mayoría sobre una única aplicación web, se puede dividir conceptualmente en grupos de clases que trabajarán sobre un objetivo común, como por ejemplo el grupo de clases encargadas de tareas de administración, evaluación, etc.
+
+====== Sistema de Administración
+
+.Sistema de Administración
+image::application/systems/administration.png[align="center"]
+
+El *Sistema de Administración* se encarga de implementar las tareas básicas para la gestión de *usuarios*, *proyectos* y *ejecuciones*. Entre estas tareas, se encuentran las de creación, actualización y borrado; así como el control de las relaciones que se establecen entre los modelos.
+
+====== Sistema de Evaluación
+
+.Sistema de Evaluación
+image::application/systems/evaluation.png[align="center"]
+
+En el *Sistema de Evaluación* nos encontramos antes una situación diferente al apartado anterior. Este sistema deberá trabajar conjuntamente con clases propias de la aplicación así como también con un sistema externo que actuará como _wrapper_ sobre el software de aprendizaje automático Vowpal Wabbit. La comunicación entre ambos sistemas se realizará a través de un servicio web RESTful implementado por el _wrapper_ de Vowpal Wabbit.
+
+Por otro lado, el Sistema de Evaluación trabajará en base a Proyectos que recibirá a través de su interfaz pública y contendrá a su vez los subsistemas encargados de procesar los datos del proyecto y generar los ficheros de puntuación para entrenar al modelo de aprendizaje automático.
+
+Por último, también agrupa el sistema encargado de realizar las ejecuciones sobre los proyectos.
+
+====== Sistema de Streaming
+
+.Sistema de Streaming
+image::application/systems/streaming.png[align="center"]
+
 ===== Diseño de Clases

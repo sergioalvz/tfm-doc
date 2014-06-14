@@ -3,17 +3,18 @@
 :toc:
 :toc-title: Tabla de Contenidos
 :lang: es
+:imagesdir: ../assets
 
-include::front-end/index.adoc[]
+// include::front-end/index.adoc[]
 
 :numbered:
 
-include::introduction/index.adoc[]
+// include::introduction/index.adoc[]
 
-include::theoretical_aspects/index.adoc[]
+// include::theoretical_aspects/index.adoc[]
 
-include::experiments-and-results/index.adoc[]
+// include::experiments-and-results/index.adoc[]
 
 include::application/index.adoc[]
 
-include::appendixes/index.adoc[]
+// include::appendixes/index.adoc[]
