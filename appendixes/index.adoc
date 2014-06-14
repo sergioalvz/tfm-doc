@@ -11,3 +11,5 @@ include::retrieve_data.adoc[]
 include::b2pick.adoc[]
 
 include::tweetheat.adoc[]
+
+include::scrum.adoc[]

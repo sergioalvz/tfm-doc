@@ -16,15 +16,26 @@ El *Sistema de Administración* se encarga de implementar las tareas básicas pa
 .Sistema de Evaluación
 image::application/systems/evaluation.png[align="center"]
 
-En el *Sistema de Evaluación* nos encontramos antes una situación diferente al apartado anterior. Este sistema deberá trabajar conjuntamente con clases propias de la aplicación así como también con un sistema externo que actuará como _wrapper_ sobre el software de aprendizaje automático Vowpal Wabbit. La comunicación entre ambos sistemas se realizará a través de un servicio web RESTful implementado por el _wrapper_ de Vowpal Wabbit.
+En el *Sistema de Evaluación* nos encontramos antes una situación diferente al apartado anterior. Este sistema deberá trabajar conjuntamente con clases propias de la aplicación así como también con un sistema externo que actuará como _wrapper_ sobre el software de aprendizaje automático *Vowpal Wabbit*. La comunicación entre ambos sistemas se realizará a través de un servicio web *RESTful* implementado por el _wrapper_ de Vowpal Wabbit.
 
-Por otro lado, el Sistema de Evaluación trabajará en base a Proyectos que recibirá a través de su interfaz pública y contendrá a su vez los subsistemas encargados de procesar los datos del proyecto y generar los ficheros de puntuación para entrenar al modelo de aprendizaje automático.
+Por otro lado, el Sistema de Evaluación trabajará en base a *Proyectos* que recibirá a través de su interfaz pública y contendrá a su vez los subsistemas encargados de procesar los datos del proyecto y generar los ficheros de puntuación para entrenar al modelo de aprendizaje automático.
 
-Por último, también agrupa el sistema encargado de realizar las ejecuciones sobre los proyectos.
+Por último, también agrupa el sistema encargado de realizar las ejecuciones sobre los proyectos para obtener el conjunto de resultados geolocalizados en el área de interés. Este sistema se comunicará directamente con el subsistema de aprendizaje automático (*Learning system*) y con el Sistema de Streaming, el cual le proporcionará acceso a un flujo de datos en tiempo real.
 
 ====== Sistema de Streaming
 
 .Sistema de Streaming
-image::application/systems/streaming.png[align="center"]
+image::application/systems/streaming.png[height="250px",align="center"]
+
+El *Sistema de Streaming* será el encargado de implementar la lógica para comunicarse con el Streaming de Twitter y ofrecer tuits al resto de la aplicación. Sus dos principales misiones serán:
+
+. Guardar cada tuit recibido en la base de datos.
+. Hacer a su vez de streaming para otros componentes del sistema que necesiten acceso a un streaming de tuits (por ejemplo el sistema de ejecuciones de proyectos necesitará un flujo de datos real para inferir la localización de cada tuit).
+
+Dentro de este sistema, se encuentra un último componente denominado *Cleaner* y cuya principal misión será ejecutarse de manera periódica para eliminar todos aquellos tuits de la base de datos recogidos en un plazo mayor de 48h.
+
+La interfaz común entre ambos subsistemas será la base de datos en la que se almacenen los tuits obtenidos.
 
 ===== Diseño de Clases
+
+
