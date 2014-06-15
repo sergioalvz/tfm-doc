@@ -36,6 +36,40 @@ Dentro de este sistema, se encuentra un último componente denominado *Cleaner* 
 
 La interfaz común entre ambos subsistemas será la base de datos en la que se almacenen los tuits obtenidos.
 
-===== Diseño de Clases
+===== Diseño de Clases de Análisis
 
+====== Sistema de Administración
 
+.Clases del Sistema de Administración
+image::application/systems/administration-classes.png[align="center"]
+
+El diagrama de clases para el Sistema de Administración muestra únicamente tres entidades que intentan reflejar lo señalado anteriormente respecto a este mismo sistema. Su única misión será realizar tareas de administración, como por ejemplo la creación de nuevos usuarios y proyectos, agregar a un usuario un proyecto o agregar una ejecución a un proyecto ya existente.
+
+Lo más significativo de este diagrama es la representación de las asociaciones entre modelos y su cardinalidad.
+
+====== Sistema de Evaluación
+
+.Clases del Sistema de Evaluación
+image::application/systems/evaluation-classes.png[align="center"]
+
+En el Sistema de Evaluación nos encontramos con el siguiente conjunto de clases:
+
+`ProjectDataProcessor`::
+
+Esta clase se ejecutará de manera asíncrona y recogerá la lógica para obtener los datos necesarios para la evaluación de un Proyecto. Para ello, utilizará las clases `TermFrequencyExtractor` para extraer la frecuencia por término de un conjunto de tuits. `LogLikelihoodRatioGenerator`, que trabajará con dos conjuntos de Término-Frecuencia para tuits pertenecientes al área global y tuits perteneciente al área local; y `TweetScoreCalculator`, que a partir de las puntuaciones LLR generadas, calculará la puntuación total de un nuevo conjunto de tuits mezcla de área local y global.
+
+`MachineLearningManager`::
+
+Esta clase se utilizará como interfaz común para trabajar con sistemas software de aprendizaje automático. En ella, se recogen los métodos básicos que toda implementación debe definir para poder trabajar correctamente con el sistema:
+* `create_training_data`: transforma un conjunto de tuits con su puntuación LLR asociada a un input válido para el software de aprendizaje automático que se quiera utilizar. Devolverá una instancia de la clase `MachineLearningData`.
+* `create_model`: a partir de un objeto de tipo `MachineLearningData`, creará un modelo de evaluación en el clasificador de tipo `MachineLearningModel`.
+* `evaluate`: utilizando un objeto de tipo `MachineLearningModel` y una cadena que represente el tuit a evaluar, devolverá un objeto de tipo `MachineLearningPrediction` con la predicción devuelta por el clasificador.
+
+`ProjectExecutionService`::
+
+A partir de un objeto Project, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real.
+
+====== Sistema de Streaming
+
+.Clases del Sistema de Streaming
+image::application/systems/streaming-classes.png[align="center"]

@@ -2000,9 +2000,78 @@ reader.foreach({
 <simpara>La interfaz común entre ambos subsistemas será la base de datos en la que se almacenen los tuits obtenidos.</simpara>
 </section>
 </section>
-<section xml:id="_diseño_de_clases">
-<title>Diseño de Clases</title>
-
+<section xml:id="_diseño_de_clases_de_análisis">
+<title>Diseño de Clases de Análisis</title>
+<section xml:id="_sistema_de_administración_2">
+<title>Sistema de Administración</title>
+<figure>
+<title>Clases del Sistema de Administración</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/systems/administration-classes.png" align="center"/>
+</imageobject>
+<textobject><phrase>administration classes</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>El diagrama de clases para el Sistema de Administración muestra únicamente tres entidades que intentan reflejar lo señalado anteriormente respecto a este mismo sistema. Su única misión será realizar tareas de administración, como por ejemplo la creación de nuevos usuarios y proyectos, agregar a un usuario un proyecto o agregar una ejecución a un proyecto ya existente.</simpara>
+<simpara>Lo más significativo de este diagrama es la representación de las asociaciones entre modelos y su cardinalidad.</simpara>
+</section>
+<section xml:id="_sistema_de_evaluación_2">
+<title>Sistema de Evaluación</title>
+<figure>
+<title>Clases del Sistema de Evaluación</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/systems/evaluation-classes.png" align="center"/>
+</imageobject>
+<textobject><phrase>evaluation classes</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>En el Sistema de Evaluación nos encontramos con el siguiente conjunto de clases:</simpara>
+<variablelist>
+<varlistentry>
+<term><literal>ProjectDataProcessor</literal></term>
+<listitem>
+<simpara>Esta clase se ejecutará de manera asíncrona y recogerá la lógica para obtener los datos necesarios para la evaluación de un Proyecto. Para ello, utilizará las clases <literal>TermFrequencyExtractor</literal> para extraer la frecuencia por término de un conjunto de tuits. <literal>LogLikelihoodRatioGenerator</literal>, que trabajará con dos conjuntos de Término-Frecuencia para tuits pertenecientes al área global y tuits perteneciente al área local; y <literal>TweetScoreCalculator</literal>, que a partir de las puntuaciones LLR generadas, calculará la puntuación total de un nuevo conjunto de tuits mezcla de área local y global.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>MachineLearningManager</literal></term>
+<listitem>
+<simpara>Esta clase se utilizará como interfaz común para trabajar con sistemas software de aprendizaje automático. En ella, se recogen los métodos básicos que toda implementación debe definir para poder trabajar correctamente con el sistema:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>create_training_data</literal>: transforma un conjunto de tuits con su puntuación LLR asociada a un input válido para el software de aprendizaje automático que se quiera utilizar. Devolverá una instancia de la clase <literal>MachineLearningData</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>create_model</literal>: a partir de un objeto de tipo <literal>MachineLearningData</literal>, creará un modelo de evaluación en el clasificador de tipo <literal>MachineLearningModel</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>evaluate</literal>: utilizando un objeto de tipo <literal>MachineLearningModel</literal> y una cadena que represente el tuit a evaluar, devolverá un objeto de tipo <literal>MachineLearningPrediction</literal> con la predicción devuelta por el clasificador.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>ProjectExecutionService</literal></term>
+<listitem>
+<simpara>A partir de un objeto Project, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</section>
+<section xml:id="_sistema_de_streaming_2">
+<title>Sistema de Streaming</title>
+<figure>
+<title>Clases del Sistema de Streaming</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/systems/streaming-classes.png" align="center"/>
+</imageobject>
+<textobject><phrase>streaming classes</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
 </section>
 </section>
 <section xml:id="_diseño_de_emphasis_mockups_emphasis_para_interfaces_de_usuario">
