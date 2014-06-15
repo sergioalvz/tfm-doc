@@ -2053,9 +2053,15 @@ reader.foreach({
 </listitem>
 </varlistentry>
 <varlistentry>
+<term><literal>VowpalWabbitManager</literal></term>
+<listitem>
+<simpara>Implementación de la interfaz anterior para trabajar con el software de aprendizaje automático Vowpal Wabbit. Puesto que Vowpal Wabbit se encontrará en un servicio web externo, será necesario utilizar una biblioteca que permite conectarse a un servicio RESTful para realizar las operaciones necesarias.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
 <term><literal>ProjectExecutionService</literal></term>
 <listitem>
-<simpara>A partir de un objeto Project, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real.</simpara>
+<simpara>A partir de una instancia de la clase <emphasis role="strong">Project</emphasis>, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real sobre el que realizar la ejecución.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -2071,6 +2077,9 @@ reader.foreach({
 <textobject><phrase>streaming classes</phrase></textobject>
 </mediaobject>
 </figure>
+<simpara>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <emphasis role="strong">Observer</emphasis>, en donde la clase <literal>TwitterStreamingService</literal> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, cualquier clase que necesite de un flujo de datos, únicamente tendría que suscribirise como <emphasis>listener</emphasis> de la clase <literal>TwitterStreamingService</literal>, implementar la interfaz <literal>TwitterStreamingListener</literal> y redefinir su método <literal>on_tweet_received</literal> para trabajar con el nuevo tuit recibido.</simpara>
+<simpara>La clase <literal>RecollectionService</literal>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Esta clase se debería ejecutar de manera asíncrona y continúa a todo el ciclo de vida de la aplicación.</simpara>
+<simpara><literal>Cleaner</literal> es una clase que se ejecutará como <emphasis role="strong">cron</emphasis> de la aplicación de manera periódica en plazos de 24 horas. Su misión será eliminar tuits más antiguos de 48 horas.</simpara>
 </section>
 </section>
 </section>
