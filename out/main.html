@@ -2833,11 +2833,37 @@ reader.foreach({
 </div>
 <div class="sect3">
 <h4 id="_diseño_de_em_mockups_em_para_interfaces_de_usuario">4.1.5. Diseño de <em>mockups</em> para interfaces de usuario</h4>
+<div class="paragraph">
+<p>Con el objetivo de crear una interfaz completamente funcional y sencilla de utilizar para el usuario, se han generado una serie de <em>mockups</em> que podrían ayudar en el diseño final de la aplicación.</p>
+</div>
+<div class="paragraph">
+<p>La idea principal es mantener una interfaz de usuario con poco ruido, que muestre únicamente aquellas opciones básicas que el usuario pueda necesitar para realizar cada acción y teniendo en mete que en el futuro se podrían ofrecer operaciones más avanzadas para usuarios especializados utilizando para ello mecanismos más sofisticados.</p>
+</div>
+<div class="paragraph">
+<p>A continuación se muestran un conjunto de <em>mockups</em> para las páginas con una mayor importancia para los usuarios.</p>
+</div>
+<div class="sect4">
+<h5 id="_pantalla_de_inicio_y_login_de_la_aplicación">Pantalla de inicio y login de la aplicación</h5>
+<div class="paragraph">
+<p>La pantalla de inicio de la aplicación consta de un formulario central donde el usuario deberá introducir sus credenciales si desea poder acceder a su panel de administración.</p>
+</div>
+<div class="paragraph">
+<p>En caso de no tener una cuenta de usuario, se le informa del mecanismo que debe seguir si desea crear una (en este caso, hacer <em>click</em> sobre el enlace informativo).</p>
+</div>
+<div class="paragraph">
+<p>Esta pantalla se mostrará tanto en la página raíz del sitio web para aquellos usuarios sin identificación en el sistema, como cada vez que se intente acceder a una página interior sin haberse identificado previamente.</p>
+</div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
 </div>
 <div class="title">Figure 12. Pantalla de login de la aplicación.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_pantalla_del_dashboard_de_proyectos">Pantalla del dashboard de Proyectos</h5>
+<div class="paragraph">
+<p>La pantalla de administración para gestionar el conjunto de proyectos de un usuario se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -2845,11 +2871,57 @@ reader.foreach({
 </div>
 <div class="title">Figure 13. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
 </div>
+<div class="paragraph">
+<p>La sección que muestra la información sobre cada proyecto, aglutina también un pequeño resumen con sus características principales:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Nombre</p>
+</li>
+<li>
+<p>Fecha de ejecución</p>
+</li>
+<li>
+<p>Idioma</p>
+</li>
+<li>
+<p>Localización global</p>
+</li>
+<li>
+<p>Localización local</p>
+</li>
+<li>
+<p>Términos a monitorizar</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para <strong>ejecutar ahora</strong>) o si su fecha de ejecución ya ha pasado (color de fondo rojo).</p>
+</div>
+<div class="paragraph">
+<p>En la parte superior derecha de cada Proyecto, se presenta un acceso rápido para realizar una edición de sus características.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_pantalla_del_dashboard_de_ejecuciones">Pantalla del dashboard de Ejecuciones</h5>
+<div class="paragraph">
+<p>En el caso del panel de administración de las Ejecuciones de usuario, se muestra una tabla paginada a modo de histórico desde la que es posible consultar los detalles generales de la ejecución así como obtener un enlace a su fichero de resultados.</p>
+</div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/dashboard-executions.png" alt="dashboard executions">
 </div>
 <div class="title">Figure 14. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_pantallas_para_la_creación_de_un_nuevo_proyecto">Pantallas para la creación de un nuevo Proyecto</h5>
+<div class="paragraph">
+<p>Las siguientes imágenes muestran un conjunto de <em>lightboxes</em> que contienen el <em>wizard</em> propuesto para la creación de un nuevo proyecto. La primera imagen contiene el paso número uno, en donde se insertan las características principales del proyecto como su <strong>nombre</strong>, <strong>idioma</strong> o <strong>términos a monitorizar</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <em>bounding boxes</em> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web B2pick (ver <a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">B2pick, aplicación web para seleccionar <em>bounding boxes</em></a>).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -2857,11 +2929,21 @@ reader.foreach({
 </div>
 <div class="title">Figure 15. Lightboxes de creación de un nuevo proyecto</div>
 </div>
+</div>
+<div class="sect4">
+<h5 id="_pantalla_de_ejecución">Pantalla de Ejecución</h5>
+<div class="paragraph">
+<p>Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue rescatar. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (<strong>Dentro</strong> y <strong>Fuera</strong>) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de <strong>Dentro</strong> aquellos tuits que el clasificador considere que pertenecen al <strong>área local</strong> y viceversa).</p>
+</div>
+<div class="paragraph">
+<p>Los controles centrales permitirán iniciar y detener la ejecución, y el <em>spinner</em> inferior permitirá al usuario establecer el nivel de confianza que requiere por parte del sistema para etiquetar un tuit como local. Si se indica que el sistema deba tener un grado de confianza muy alto, los resultados para la columna de <strong>Dentro</strong> serán muchos menos, pero su precisión será mucho más elevada.</p>
+</div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/mockup/execution.png" alt="execution">
 </div>
 <div class="title">Figure 16. Pantalla de ejecución de un proyecto en tiempo real</div>
+</div>
 </div>
 </div>
 </div>

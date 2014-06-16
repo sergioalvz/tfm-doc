@@ -2085,6 +2085,14 @@ reader.foreach({
 </section>
 <section xml:id="_diseño_de_emphasis_mockups_emphasis_para_interfaces_de_usuario">
 <title>Diseño de <emphasis>mockups</emphasis> para interfaces de usuario</title>
+<simpara>Con el objetivo de crear una interfaz completamente funcional y sencilla de utilizar para el usuario, se han generado una serie de <emphasis>mockups</emphasis> que podrían ayudar en el diseño final de la aplicación.</simpara>
+<simpara>La idea principal es mantener una interfaz de usuario con poco ruido, que muestre únicamente aquellas opciones básicas que el usuario pueda necesitar para realizar cada acción y teniendo en mete que en el futuro se podrían ofrecer operaciones más avanzadas para usuarios especializados utilizando para ello mecanismos más sofisticados.</simpara>
+<simpara>A continuación se muestran un conjunto de <emphasis>mockups</emphasis> para las páginas con una mayor importancia para los usuarios.</simpara>
+<section xml:id="_pantalla_de_inicio_y_login_de_la_aplicación">
+<title>Pantalla de inicio y login de la aplicación</title>
+<simpara>La pantalla de inicio de la aplicación consta de un formulario central donde el usuario deberá introducir sus credenciales si desea poder acceder a su panel de administración.</simpara>
+<simpara>En caso de no tener una cuenta de usuario, se le informa del mecanismo que debe seguir si desea crear una (en este caso, hacer <emphasis>click</emphasis> sobre el enlace informativo).</simpara>
+<simpara>Esta pantalla se mostrará tanto en la página raíz del sitio web para aquellos usuarios sin identificación en el sistema, como cada vez que se intente acceder a una página interior sin haberse identificado previamente.</simpara>
 <figure>
 <title>Pantalla de login de la aplicación.</title>
 <mediaobject>
@@ -2094,6 +2102,10 @@ reader.foreach({
 <textobject><phrase>home</phrase></textobject>
 </mediaobject>
 </figure>
+</section>
+<section xml:id="_pantalla_del_dashboard_de_proyectos">
+<title>Pantalla del dashboard de Proyectos</title>
+<simpara>La pantalla de administración para gestionar el conjunto de proyectos de un usuario se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.</simpara>
 <figure>
 <title>Pantalla que muestra el dashboard del usuario en la sección de proyectos</title>
 <mediaobject>
@@ -2103,6 +2115,33 @@ reader.foreach({
 <textobject><phrase>dashboard projects</phrase></textobject>
 </mediaobject>
 </figure>
+<simpara>La sección que muestra la información sobre cada proyecto, aglutina también un pequeño resumen con sus características principales:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Nombre</simpara>
+</listitem>
+<listitem>
+<simpara>Fecha de ejecución</simpara>
+</listitem>
+<listitem>
+<simpara>Idioma</simpara>
+</listitem>
+<listitem>
+<simpara>Localización global</simpara>
+</listitem>
+<listitem>
+<simpara>Localización local</simpara>
+</listitem>
+<listitem>
+<simpara>Términos a monitorizar</simpara>
+</listitem>
+</orderedlist>
+<simpara>Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para <emphasis role="strong">ejecutar ahora</emphasis>) o si su fecha de ejecución ya ha pasado (color de fondo rojo).</simpara>
+<simpara>En la parte superior derecha de cada Proyecto, se presenta un acceso rápido para realizar una edición de sus características.</simpara>
+</section>
+<section xml:id="_pantalla_del_dashboard_de_ejecuciones">
+<title>Pantalla del dashboard de Ejecuciones</title>
+<simpara>En el caso del panel de administración de las Ejecuciones de usuario, se muestra una tabla paginada a modo de histórico desde la que es posible consultar los detalles generales de la ejecución así como obtener un enlace a su fichero de resultados.</simpara>
 <figure>
 <title>Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</title>
 <mediaobject>
@@ -2112,6 +2151,11 @@ reader.foreach({
 <textobject><phrase>dashboard executions</phrase></textobject>
 </mediaobject>
 </figure>
+</section>
+<section xml:id="_pantallas_para_la_creación_de_un_nuevo_proyecto">
+<title>Pantallas para la creación de un nuevo Proyecto</title>
+<simpara>Las siguientes imágenes muestran un conjunto de <emphasis>lightboxes</emphasis> que contienen el <emphasis>wizard</emphasis> propuesto para la creación de un nuevo proyecto. La primera imagen contiene el paso número uno, en donde se insertan las características principales del proyecto como su <emphasis role="strong">nombre</emphasis>, <emphasis role="strong">idioma</emphasis> o <emphasis role="strong">términos a monitorizar</emphasis>.</simpara>
+<simpara>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <emphasis>bounding boxes</emphasis> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web B2pick (ver <xref linkend="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em"/>).</simpara>
 <figure>
 <title>Lightboxes de creación de un nuevo proyecto</title>
 <mediaobject>
@@ -2121,6 +2165,11 @@ reader.foreach({
 <textobject><phrase>new project</phrase></textobject>
 </mediaobject>
 </figure>
+</section>
+<section xml:id="_pantalla_de_ejecución">
+<title>Pantalla de Ejecución</title>
+<simpara>Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue rescatar. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (<emphasis role="strong">Dentro</emphasis> y <emphasis role="strong">Fuera</emphasis>) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de <emphasis role="strong">Dentro</emphasis> aquellos tuits que el clasificador considere que pertenecen al <emphasis role="strong">área local</emphasis> y viceversa).</simpara>
+<simpara>Los controles centrales permitirán iniciar y detener la ejecución, y el <emphasis>spinner</emphasis> inferior permitirá al usuario establecer el nivel de confianza que requiere por parte del sistema para etiquetar un tuit como local. Si se indica que el sistema deba tener un grado de confianza muy alto, los resultados para la columna de <emphasis role="strong">Dentro</emphasis> serán muchos menos, pero su precisión será mucho más elevada.</simpara>
 <figure>
 <title>Pantalla de ejecución de un proyecto en tiempo real</title>
 <mediaobject>
@@ -2130,6 +2179,7 @@ reader.foreach({
 <textobject><phrase>execution</phrase></textobject>
 </mediaobject>
 </figure>
+</section>
 </section>
 </section>
 </chapter>
