@@ -150,6 +150,10 @@
 |RNF3.4
 |Mercurial
 |Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre *Bitbucket* como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: `pull`, `push`, `merge`, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento _similar_ mediante el uso de *bookmarks*.
+
+|RNF3.5
+|Cola de mensajes con características TTL
+|La implementación del estándar AMQP seleccionada, deberá ofrecer la capacidad de seleccionar el *Time To Live* tanto a nivel de cola como a nivel de mensaje, para evitar que se acumulen excesivos tuits en el sistema de colas. Para ello, lo ideal es que cada mensaje expire en el mismo momento de llegar a la cola a no ser que algún consumidor este disponible para procesarlo.
 |===
 
 .Requisitos de Almacenamiento - RNF4.x

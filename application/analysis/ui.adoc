@@ -19,7 +19,7 @@ image::application/mockup/home.png[align="center"]
 
 ===== Pantalla del dashboard de Proyectos
 
-La pantalla de administración para gestionar el conjunto de proyectos de un usuario se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.
+La pantalla de administración, cuyo objetivo es gestionar el conjunto de proyectos de un usuario, se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.
 
 .Pantalla que muestra el dashboard del usuario en la sección de proyectos
 image::application/mockup/dashboard-projects.png[align="center"]
@@ -33,7 +33,7 @@ La sección que muestra la información sobre cada proyecto, aglutina también u
 . Localización local
 . Términos a monitorizar
 
-Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para *ejecutar ahora*) o si su fecha de ejecución ya ha pasado (color de fondo rojo).
+Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para *Comenzar ejecución en tiempo real*) o si su fecha de ejecución ya ha pasado (color de fondo rojo).
 
 En la parte superior derecha de cada Proyecto, se presenta un acceso rápido para realizar una edición de sus características.
 
@@ -48,14 +48,14 @@ image::application/mockup/dashboard-executions.png[align="center"]
 
 Las siguientes imágenes muestran un conjunto de _lightboxes_ que contienen el _wizard_ propuesto para la creación de un nuevo proyecto. La primera imagen contiene el paso número uno, en donde se insertan las características principales del proyecto como su *nombre*, *idioma* o *términos a monitorizar*.
 
-Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como _bounding boxes_ para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web B2pick (ver <<_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em>>).
+Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como _bounding boxes_ para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web *B2pick* (ver <<_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em>>).
 
 .Lightboxes de creación de un nuevo proyecto
 image::application/mockup/new-project.png[height="650px",align="center"]
 
 ===== Pantalla de Ejecución
 
-Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue rescatar. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (*Dentro* y *Fuera*) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de *Dentro* aquellos tuits que el clasificador considere que pertenecen al *área local* y viceversa).
+Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue obtener. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (*Dentro* y *Fuera*) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de *Dentro* aquellos tuits que el clasificador considere que pertenecen al *área local* y viceversa).
 
 Los controles centrales permitirán iniciar y detener la ejecución, y el _spinner_ inferior permitirá al usuario establecer el nivel de confianza que requiere por parte del sistema para etiquetar un tuit como local. Si se indica que el sistema deba tener un grado de confianza muy alto, los resultados para la columna de *Dentro* serán muchos menos, pero su precisión será mucho más elevada.
 

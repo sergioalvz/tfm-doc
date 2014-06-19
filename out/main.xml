@@ -1307,6 +1307,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>Mercurial</simpara></entry>
 <entry align="left" valign="top"><simpara>Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre <emphasis role="strong">Bitbucket</emphasis> como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: <literal>pull</literal>, <literal>push</literal>, <literal>merge</literal>, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento <emphasis>similar</emphasis> mediante el uso de <emphasis role="strong">bookmarks</emphasis>.</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara>RNF3.5</simpara></entry>
+<entry align="left" valign="top"><simpara>Cola de mensajes con características TTL</simpara></entry>
+<entry align="left" valign="top"><simpara>La implementación del estándar AMQP seleccionada, deberá ofrecer la capacidad de seleccionar el <emphasis role="strong">Time To Live</emphasis> tanto a nivel de cola como a nivel de mensaje, para evitar que se acumulen excesivos tuits en el sistema de colas. Para ello, lo ideal es que cada mensaje expire en el mismo momento de llegar a la cola a no ser que algún consumidor este disponible para procesarlo.</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </table>
@@ -2077,8 +2082,10 @@ reader.foreach({
 <textobject><phrase>streaming classes</phrase></textobject>
 </mediaobject>
 </figure>
-<simpara>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <emphasis role="strong">Observer</emphasis>, en donde la clase <literal>TwitterStreamingService</literal> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, cualquier clase que necesite de un flujo de datos, únicamente tendría que suscribirise como <emphasis>listener</emphasis> de la clase <literal>TwitterStreamingService</literal>, implementar la interfaz <literal>TwitterStreamingListener</literal> y redefinir su método <literal>on_tweet_received</literal> para trabajar con el nuevo tuit recibido.</simpara>
-<simpara>La clase <literal>RecollectionService</literal>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Esta clase se debería ejecutar de manera asíncrona y continúa a todo el ciclo de vida de la aplicación.</simpara>
+<simpara>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <emphasis role="strong">Observer</emphasis>, en donde la clase <literal>TwitterStreamingService</literal> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como <emphasis>listener</emphasis> de la clase <literal>TwitterStreamingService</literal>, implementar la interfaz <literal>TwitterStreamingListener</literal> y redefinir su método <literal>on_tweet_received</literal> para trabajar con el nuevo tuit recibido.</simpara>
+<simpara>La clase <literal>RecollectionService</literal>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Por otro lado, la clase <literal>PublicationService</literal> realizará una implementación para publicar cada tuit recibido al resto del sistema.</simpara>
+<simpara>Con el objetivo de poder realizar un sistema escalable, el sistema de streaming se ejecutará como un componente externo de la aplicación, puesto que podría presentar problemas a la hora de ejecutar dos instancias de la aplicación con el sistema de streaming integrado (produciendo resultados duplicados en la base de datos por acceder de manera concurrente al mismo flujo de datos).</simpara>
+<simpara>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <emphasis role="strong">RabbitMQ<footnote><simpara><link xlink:href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</link></simpara></footnote></emphasis>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</simpara>
 <simpara><literal>Cleaner</literal> es una clase que se ejecutará como <emphasis role="strong">cron</emphasis> de la aplicación de manera periódica en plazos de 24 horas. Su misión será eliminar tuits más antiguos de 48 horas.</simpara>
 </section>
 </section>
@@ -2105,7 +2112,7 @@ reader.foreach({
 </section>
 <section xml:id="_pantalla_del_dashboard_de_proyectos">
 <title>Pantalla del dashboard de Proyectos</title>
-<simpara>La pantalla de administración para gestionar el conjunto de proyectos de un usuario se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.</simpara>
+<simpara>La pantalla de administración, cuyo objetivo es gestionar el conjunto de proyectos de un usuario, se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.</simpara>
 <figure>
 <title>Pantalla que muestra el dashboard del usuario en la sección de proyectos</title>
 <mediaobject>
@@ -2136,7 +2143,7 @@ reader.foreach({
 <simpara>Términos a monitorizar</simpara>
 </listitem>
 </orderedlist>
-<simpara>Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para <emphasis role="strong">ejecutar ahora</emphasis>) o si su fecha de ejecución ya ha pasado (color de fondo rojo).</simpara>
+<simpara>Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para <emphasis role="strong">Comenzar ejecución en tiempo real</emphasis>) o si su fecha de ejecución ya ha pasado (color de fondo rojo).</simpara>
 <simpara>En la parte superior derecha de cada Proyecto, se presenta un acceso rápido para realizar una edición de sus características.</simpara>
 </section>
 <section xml:id="_pantalla_del_dashboard_de_ejecuciones">
@@ -2155,7 +2162,7 @@ reader.foreach({
 <section xml:id="_pantallas_para_la_creación_de_un_nuevo_proyecto">
 <title>Pantallas para la creación de un nuevo Proyecto</title>
 <simpara>Las siguientes imágenes muestran un conjunto de <emphasis>lightboxes</emphasis> que contienen el <emphasis>wizard</emphasis> propuesto para la creación de un nuevo proyecto. La primera imagen contiene el paso número uno, en donde se insertan las características principales del proyecto como su <emphasis role="strong">nombre</emphasis>, <emphasis role="strong">idioma</emphasis> o <emphasis role="strong">términos a monitorizar</emphasis>.</simpara>
-<simpara>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <emphasis>bounding boxes</emphasis> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web B2pick (ver <xref linkend="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em"/>).</simpara>
+<simpara>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <emphasis>bounding boxes</emphasis> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web <emphasis role="strong">B2pick</emphasis> (ver <xref linkend="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em"/>).</simpara>
 <figure>
 <title>Lightboxes de creación de un nuevo proyecto</title>
 <mediaobject>
@@ -2168,7 +2175,7 @@ reader.foreach({
 </section>
 <section xml:id="_pantalla_de_ejecución">
 <title>Pantalla de Ejecución</title>
-<simpara>Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue rescatar. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (<emphasis role="strong">Dentro</emphasis> y <emphasis role="strong">Fuera</emphasis>) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de <emphasis role="strong">Dentro</emphasis> aquellos tuits que el clasificador considere que pertenecen al <emphasis role="strong">área local</emphasis> y viceversa).</simpara>
+<simpara>Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue obtener. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (<emphasis role="strong">Dentro</emphasis> y <emphasis role="strong">Fuera</emphasis>) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de <emphasis role="strong">Dentro</emphasis> aquellos tuits que el clasificador considere que pertenecen al <emphasis role="strong">área local</emphasis> y viceversa).</simpara>
 <simpara>Los controles centrales permitirán iniciar y detener la ejecución, y el <emphasis>spinner</emphasis> inferior permitirá al usuario establecer el nivel de confianza que requiere por parte del sistema para etiquetar un tuit como local. Si se indica que el sistema deba tener un grado de confianza muy alto, los resultados para la columna de <emphasis role="strong">Dentro</emphasis> serán muchos menos, pero su precisión será mucho más elevada.</simpara>
 <figure>
 <title>Pantalla de ejecución de un proyecto en tiempo real</title>

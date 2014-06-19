@@ -2057,6 +2057,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mercurial</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará Mercurial como sistema de control de versiones distribuido apoyado sobre <strong>Bitbucket</strong> como hosting del proyecto. Mercurial es un SCVD similar a Git, pero que simplifica varias de las acciones habituales en el flujo de trabajo de un desarrollador: <code>pull</code>, <code>push</code>, <code>merge</code>, etc. A pesar de no tener un sistema de ramas tan potente como Git, permite un funcionamiento <em>similar</em> mediante el uso de <strong>bookmarks</strong>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RNF3.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cola de mensajes con características TTL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La implementación del estándar AMQP seleccionada, deberá ofrecer la capacidad de seleccionar el <strong>Time To Live</strong> tanto a nivel de cola como a nivel de mensaje, para evitar que se acumulen excesivos tuits en el sistema de colas. Para ello, lo ideal es que cada mensaje expire en el mismo momento de llegar a la cola a no ser que algún consumidor este disponible para procesarlo.</p></td>
+</tr>
 </tbody>
 </table>
 <table id="storage-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
@@ -2820,10 +2825,16 @@ reader.foreach({
 <div class="title">Figure 11. Clases del Sistema de Streaming</div>
 </div>
 <div class="paragraph">
-<p>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <strong>Observer</strong>, en donde la clase <code>TwitterStreamingService</code> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, cualquier clase que necesite de un flujo de datos, únicamente tendría que suscribirise como <em>listener</em> de la clase <code>TwitterStreamingService</code>, implementar la interfaz <code>TwitterStreamingListener</code> y redefinir su método <code>on_tweet_received</code> para trabajar con el nuevo tuit recibido.</p>
+<p>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <strong>Observer</strong>, en donde la clase <code>TwitterStreamingService</code> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como <em>listener</em> de la clase <code>TwitterStreamingService</code>, implementar la interfaz <code>TwitterStreamingListener</code> y redefinir su método <code>on_tweet_received</code> para trabajar con el nuevo tuit recibido.</p>
 </div>
 <div class="paragraph">
-<p>La clase <code>RecollectionService</code>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Esta clase se debería ejecutar de manera asíncrona y continúa a todo el ciclo de vida de la aplicación.</p>
+<p>La clase <code>RecollectionService</code>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Por otro lado, la clase <code>PublicationService</code> realizará una implementación para publicar cada tuit recibido al resto del sistema.</p>
+</div>
+<div class="paragraph">
+<p>Con el objetivo de poder realizar un sistema escalable, el sistema de streaming se ejecutará como un componente externo de la aplicación, puesto que podría presentar problemas a la hora de ejecutar dos instancias de la aplicación con el sistema de streaming integrado (produciendo resultados duplicados en la base de datos por acceder de manera concurrente al mismo flujo de datos).</p>
+</div>
+<div class="paragraph">
+<p>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <strong>RabbitMQ<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</p>
 </div>
 <div class="paragraph">
 <p><code>Cleaner</code> es una clase que se ejecutará como <strong>cron</strong> de la aplicación de manera periódica en plazos de 24 horas. Su misión será eliminar tuits más antiguos de 48 horas.</p>
@@ -2863,7 +2874,7 @@ reader.foreach({
 <div class="sect4">
 <h5 id="_pantalla_del_dashboard_de_proyectos">Pantalla del dashboard de Proyectos</h5>
 <div class="paragraph">
-<p>La pantalla de administración para gestionar el conjunto de proyectos de un usuario se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.</p>
+<p>La pantalla de administración, cuyo objetivo es gestionar el conjunto de proyectos de un usuario, se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -2897,7 +2908,7 @@ reader.foreach({
 </ol>
 </div>
 <div class="paragraph">
-<p>Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para <strong>ejecutar ahora</strong>) o si su fecha de ejecución ya ha pasado (color de fondo rojo).</p>
+<p>Además, el color de fondo que acompaña cada sección informa de si el proyecto se puede ejecutar en ese momento (fondo verde y botón para <strong>Comenzar ejecución en tiempo real</strong>) o si su fecha de ejecución ya ha pasado (color de fondo rojo).</p>
 </div>
 <div class="paragraph">
 <p>En la parte superior derecha de cada Proyecto, se presenta un acceso rápido para realizar una edición de sus características.</p>
@@ -2921,7 +2932,7 @@ reader.foreach({
 <p>Las siguientes imágenes muestran un conjunto de <em>lightboxes</em> que contienen el <em>wizard</em> propuesto para la creación de un nuevo proyecto. La primera imagen contiene el paso número uno, en donde se insertan las características principales del proyecto como su <strong>nombre</strong>, <strong>idioma</strong> o <strong>términos a monitorizar</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <em>bounding boxes</em> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web B2pick (ver <a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">B2pick, aplicación web para seleccionar <em>bounding boxes</em></a>).</p>
+<p>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <em>bounding boxes</em> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web <strong>B2pick</strong> (ver <a href="#_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em">B2pick, aplicación web para seleccionar <em>bounding boxes</em></a>).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -2933,7 +2944,7 @@ reader.foreach({
 <div class="sect4">
 <h5 id="_pantalla_de_ejecución">Pantalla de Ejecución</h5>
 <div class="paragraph">
-<p>Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue rescatar. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (<strong>Dentro</strong> y <strong>Fuera</strong>) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de <strong>Dentro</strong> aquellos tuits que el clasificador considere que pertenecen al <strong>área local</strong> y viceversa).</p>
+<p>Por último, la pantalla de ejecución será el lugar en el que el usuario podrá ejecutar en tiempo real un proyecto y observar qué resultados consigue obtener. Su objetivo principal es ser lo más dinámica y flexible posible para permitir al usuario obtener información inmediata de los resultados de la ejecución. Por tanto, se establecen dos columnas a los laterales de la pantalla (<strong>Dentro</strong> y <strong>Fuera</strong>) donde se irán colocando los tuits que se reciban en función de la localización inferida por el clasificador (se colocarán en la columna de <strong>Dentro</strong> aquellos tuits que el clasificador considere que pertenecen al <strong>área local</strong> y viceversa).</p>
 </div>
 <div class="paragraph">
 <p>Los controles centrales permitirán iniciar y detener la ejecución, y el <em>spinner</em> inferior permitirá al usuario establecer el nivel de confianza que requiere por parte del sistema para etiquetar un tuit como local. Si se indica que el sistema deba tener un grado de confianza muy alto, los resultados para la columna de <strong>Dentro</strong> serán muchos menos, pero su precisión será mucho más elevada.</p>
@@ -3081,7 +3092,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <b>(5)</b></pre>
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -3191,7 +3202,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 17. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
+<div class="title">Figure 17. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -3473,10 +3484,13 @@ Usage: Falcon [options]
 <a href="#_footnoteref_5">5</a>. <a href="http://www.xmlpull.org/">http://www.xmlpull.org/</a>
 </div>
 <div class="footnote" id="_footnote_6">
-<a href="#_footnoteref_6">6</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_6">6</a>. <a href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>
 </div>
 <div class="footnote" id="_footnote_7">
-<a href="#_footnoteref_7">7</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_7">7</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+</div>
+<div class="footnote" id="_footnote_8">
+<a href="#_footnoteref_8">8</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">
