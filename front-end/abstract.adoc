@@ -1,4 +1,10 @@
 [preface]
 == Resumen
 
-Aquí el resumen.
+El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter haciendo uso de investigaciones previas realizadas por diversos investigadores a lo largo de los últimos años. A partir de estos estudios, se ha desarrollado un algoritmo capaz de obtener términos fuertemente discriminativos capaces de identificar la localización de una publicación en base a los términos que contiene.
+
+Para demostrar su efectividad, se han realizado experimentos a distintos niveles de granularidad (país, provincia, área metropolitana y barrio) y con dos idiomas diferentes (inglés y español). El algoritmo ha mostrado niveles de precisión bastante altos (prácticamente siempre superiores al 90%) y un grado de exhaustividad (especialmente para las granularidades de más alto nivel) muy aceptable, identificando aproximadamente un 70% ~ 80% del total de tuits locales recibidos.
+
+Para realizar el desarrollo del sistema, el proyecto ha hecho uso de métodos estadísticos como Log-Likelihood Ratio y el software de aprendizaje automático Vowpal Wabbit.
+
+Por último, el proyecto recoge el diseño de una aplicación web que utilizaría la tecnología previamente desarrollada para ofrecer un servicio de geolocalización de publicaciones en redes sociales (en este caso, centrado únicamente en Twitter) mediante análisis de contenidos.

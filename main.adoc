@@ -4,6 +4,7 @@
 :toc-title: Tabla de Contenidos
 :lang: es
 :imagesdir: ../assets
+:icons: font
 
 include::front-end/index.adoc[]
 

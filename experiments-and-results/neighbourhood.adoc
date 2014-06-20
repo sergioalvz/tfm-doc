@@ -5,47 +5,47 @@ Por último, se realizó un experimento a nivel de barrio, siendo la granularida
 .Resultados de la ejecución para detectar tuits procedentes de Wandsworth.
 [cols="3,1", id="experiment-london-wandsworth"]
 |===
-|Acierto
+|Precisión
 |99.54%
 
 |Exhaustividad
 |18.18%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |100.0%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |99.54%
 |===
 
 .Resultados de la ejecución para detectar tuits procedentes de Lambeth.
 [cols="3,1", id="experiment-london-lambeth"]
 |===
-|Acierto
+|Precisión
 |99.20%
 
 |Exhaustividad
 |24.13%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |87.5%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |99.23%
 |===
 
 .Resultados de la ejecución para detectar tuits procedentes de Southwark.
 [cols="3,1", id="experiment-london-southwark"]
 |===
-|Acierto
+|Precisión
 |98.98%
 
 |Exhaustividad
 |25.0%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |90.0%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |99.01%
 |===

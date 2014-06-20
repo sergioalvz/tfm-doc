@@ -14,48 +14,48 @@ Las tablas <<experiment-spain-asturias>>, <<experiment-spain-madrid>> y <<experi
 .Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.
 [cols="3,1", id="experiment-spain-asturias"]
 |===
-|Acierto
+|Precisión
 |98.89%
 
 |Exhaustividad
 |53.53%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |89.83%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |99.00%
 |===
 
 .Resultados de la ejecución para detectar tuits procedentes de Madrid.
 [cols="3,1", id="experiment-spain-madrid"]
 |===
-|Acierto
+|Precisión
 |92.27%
 
 |Exhaustividad
 |72.70%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |86.78%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |93.39%
 |===
 
 .Resultados de la ejecución para detectar tuits procedentes de Barcelona.
 [cols="3,1", id="experiment-spain-barcelona"]
 |===
-|Acierto
+|Precisión
 |98.25%
 
 |Exhaustividad
 |65.73%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |97.09%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |98.29%
 |===
 

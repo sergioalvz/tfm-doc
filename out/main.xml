@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-14</date>
+<date>2014-06-20</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -17,32 +17,76 @@
 </info>
 <preface xml:id="_resumen">
 <title>Resumen</title>
-<simpara>Aquí el resumen.</simpara>
+<simpara>El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter haciendo uso de investigaciones previas realizadas por diversos investigadores a lo largo de los últimos años. A partir de estos estudios, se ha desarrollado un algoritmo capaz de obtener términos fuertemente discriminativos capaces de identificar la localización de una publicación en base a los términos que contiene.</simpara>
+<simpara>Para demostrar su efectividad, se han realizado experimentos a distintos niveles de granularidad (país, provincia, área metropolitana y barrio) y con dos idiomas diferentes (inglés y español). El algoritmo ha mostrado niveles de precisión bastante altos (prácticamente siempre superiores al 90%) y un grado de exhaustividad (especialmente para las granularidades de más alto nivel) muy aceptable, identificando aproximadamente un 70% ~ 80% del total de tuits locales recibidos.</simpara>
+<simpara>Para realizar el desarrollo del sistema, el proyecto ha hecho uso de métodos estadísticos como Log-Likelihood Ratio y el software de aprendizaje automático Vowpal Wabbit.</simpara>
+<simpara>Por último, el proyecto recoge el diseño de una aplicación web que utilizaría la tecnología previamente desarrollada para ofrecer un servicio de geolocalización de publicaciones en redes sociales (en este caso, centrado únicamente en Twitter) mediante análisis de contenidos.</simpara>
 </preface>
 <acknowledgements xml:id="_agradecimientos">
 <title>Agradecimientos</title>
 <simpara>Aquí los agradecimientos.</simpara>
 </acknowledgements>
+<preface xml:id="_keywords">
+<title>Keywords</title>
+<simpara>twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework</simpara>
+</preface>
 <chapter xml:id="_introducción">
 <title>Introducción</title>
 <section xml:id="_motivación_del_proyecto">
 <title>Motivación del proyecto</title>
-<simpara>Aquí la motivación del proyecto</simpara>
+<simpara>El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.</simpara>
+<simpara>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</simpara>
+<simpara>El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados emitidos por diversos investigadores.</simpara>
+<simpara>La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas de manera teórica pueden ser aceptadas como válidas.</simpara>
 </section>
 <section xml:id="_alcance">
 <title>Alcance</title>
-<simpara>Aquí el alcance del proyecto.</simpara>
+<simpara>El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios teóricos llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.</simpara>
+<simpara>El sistema deberá ser capaz de trabajar sobre diversas granularidades (país, provincia, área metropolitana y barrio) y utilizar tuits escritos en diversos idiomas (como mínimo, deberá funcionar satisfactoriamente con inglés y español). Para inferir la gelocalización de un tuit se basará únicamente en el contenido de la publicación, evitando la comunicación con sistemas de geolocalización externos y siendo capaz de detectar términos discriminativos que ayuden a identificar un tuit como perteneciente a un área geográfica en concreto.</simpara>
+<simpara>Finalmente, el proyecto deberá plantear un sistema que pueda ser integrable en una aplicación web que se aproveche de sus capacidades para ofrecer un servicio de geolocalización de tuits basado en su contenido.</simpara>
 </section>
 <section xml:id="_estado_del_arte">
 <title>Estado del arte</title>
-<simpara>El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.</simpara>
-<simpara>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</simpara>
-<simpara>El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.</simpara>
-<simpara>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto.</simpara>
+<simpara>Desde la aparición de Twitter en 2006 y su irrupción como servicio de masas en torno al año 2008, han ido apareciendo de manera exponencial diferentes servicios y vías de investigación centradas en estudiar el comportamiento de los usuarios en la red social en base a sus publicaciones, con el objetivo de poder extraer conclusiones acerca de su tendencia política, opiniones personales y otras características individuales.</simpara>
+<note>
+<title>Twitter</title>
+<simpara>Twitter es una red social (también clasificada como servicio de <emphasis>microblogging</emphasis>) creada en 2006 por Jack Dorsey. Su principal característica es el envío de posts de 140 caracteres por parte de los usuarios y la capacidad de que estos mismos formen su propio <emphasis>timeline</emphasis> suscribiéndose a las publicaciones realizadas por el resto de usuarios.</simpara>
+</note>
+<simpara>Sin embargo, un problema habitual a la hora de trabajar con datos extraídos de Twitter es su falta de estructuración. Si bien es habitual que los usuarios en redes sociales como Facebook mantengan un perfil completo y actualizado con datos reales (en parte gracias al buen hacer de dicha red social por conseguir que así sea), en Twitter lo más habitual es carecer de dicha información. Por tanto, muchos de los esfuerzos realizados en el análisis de contenidos en Twitter vienen para cubrir esa necesidad de obtener información real acerca de los usuarios que realizan las publicaciones.</simpara>
+<simpara>Por poner un ejemplo, la figura <xref linkend="fb-profile"/> muestra una captura del perfil del autor en Facebook. En ella, se puede observar como aparece una gran cantidad de información perfectamente estructurada: centros de estudio, lugar de nacimiento, lugar de residencia actual, fecha de nacimiento, sexo e incluso campos que, aunque en este caso no estén completos, podrían aportar muchísima más información sobre el usuario: relación sentimental, ideología política o religiosa, etc.</simpara>
+<figure xml:id="fb-profile">
+<title>Captura del perfil del autor en Facebook.</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/introduction/fb_profile.png" align="center"/>
+</imageobject>
+<textobject><phrase>fb profile</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <xref linkend="twitter-profile"/> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.</simpara>
+<figure xml:id="twitter-profile">
+<title>Captura del perfil del autor en Twitter.</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/introduction/twitter_profile.png" contentdepth="200px" align="center"/>
+</imageobject>
+<textobject><phrase>twitter profile</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>En el caso de la geolocalización de usuarios, Bren Hercht <emphasis>et al.</emphasis> en su artículo <emphasis role="strong">Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</emphasis>, centrado en estudiar el campo de <emphasis role="strong">Localización</emphasis> de los perfiles de usuario, realiza la siguiente afirmación acerca de la cantidad de tuits geoposicionados (es decir, con información geográfica adjunta como latitud y longitud) que contenían en su dataset de ejemplo:</simpara>
+<blockquote>
+<simpara>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. <emphasis role="strong">Second, we found that only 0.77% of our 62 million tweets contained this embedded location information</emphasis>.</simpara>
+</blockquote>
+<simpara>De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta. Como se puede deducir de esta afirmación, el problema para geolocalizar usuarios en Twitter es real y su solución sería de gran interés para poder contribuir a un mejor estudio de las publicaciones de los usuarios en la red social, obteniendo la capacidad de situarlos en un espacio geográfico concreto.</simpara>
+<simpara>A continuación, se recogen una serie de artículos de investigación que abordan la problemática anterior y proponen mecanismos para inferir la localización de un usuario en base al contenido de sus publicaciones.</simpara>
 <section xml:id="_estudios_y_artículos_de_investigación">
 <title>Estudios y artículos de investigación</title>
-<simpara>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer<footnote><simpara>Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres</simpara></footnote> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <emphasis>timeline</emphasis> del usuario son aquellas más próximas a su localización real.</simpara>
+<simpara>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <emphasis>timeline</emphasis> del usuario son aquellas más próximas a su localización real.</simpara>
 <simpara>Por otro lado, grupos de investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</simpara>
+<note>
+<title>Gazetteer</title>
+<simpara>Un gazetteer (o <emphasis role="strong">nomenclátor</emphasis> en español) es un diccionario geográfico que contiene los nombres de varias localizaciones geográficas referentes a un lugar. Por lo general, es habitual disponer de gazetteers a nivel de país para indicar el conjunto de sus ciudades, comunidades autónomas o provincias. Así como para casi cualquier otra unidad administrativa.</simpara>
+</note>
 <simpara>Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el <emphasis>timeline</emphasis> del usuario y además adjuntar información geolocalizada (<emphasis role="strong">Foursquare</emphasis> sería un claro ejemplo de este tipo de servicios).</simpara>
 <section xml:id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">
 <title>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</title>
@@ -94,17 +138,16 @@
 </tgroup>
 </table>
 <simpara>Como alternativa a los resultados anteriores, y buscando una manera de automatizar el proceso y encontrar resultados más fiables y exhaustivos, se propusieron hacer un primer experimento para comprobar si el estudio de los contenidos publicados por un usuario pueden aportar la información necesaria para permitir inferir su ubicación geográfica.</simpara>
-<simpara>Para ello, utilizaron un software de aprendizaje automático y un clasificador Bayesiano multinomial que en base a un conjunto de datos obtenidos a partir de aplicar el algoritmo <emphasis>CALGARI</emphasis> (de implementación propia), fuese capaz de predecir a qué área (País y Estado) pertenece un tuit en base a su contenido.</simpara>
+<note>
+<title>Clasificador Bayesiano</title>
+<simpara>De manera simplificada, se podría definir un <emphasis role="strong">clasificador Bayesiano</emphasis> como un clasificador probabilístico basado en el teorema de Bayes, que permite trabajar con una serie de características de manera independiente, sin asumir que la ausencia o presencia de cada una influya en el valor que se otorga a las demás para calcular la predicción final.</simpara>
+</note>
+<simpara>Para ello, utilizaron un software de aprendizaje automático y un <emphasis role="strong">clasificador Bayesiano</emphasis> multinomial que en base a un conjunto de datos obtenidos a partir de aplicar el algoritmo <emphasis>CALGARI</emphasis> (de implementación propia), fuese capaz de predecir a qué área (País y Estado) pertenece un tuit en base a su contenido.</simpara>
 <note>
 <title>CALGARI</title>
 <simpara>El algoritmo CALGARI tiene como objetivo normalizar la frecuencia con la que un término ha aparecido dentro de un dataset de tuits para priorizar aquellos que son más específicas de un área (ciudad o estado) en concreto, penalizando palabras comunes como <emphasis>ya, hola, adiós, etc.</emphasis></simpara>
 </note>
-<simpara>Entre los resultados ofrecidos por el estudio destacan un <emphasis role="strong">72.7% de acierto para inferir el país</emphasis> de un usuario pero tan <emphasis role="strong">sólo un 30% de acierto a nivel de estado</emphasis>.</simpara>
-<simpara>Como apunte adicional, es interesante una afirmación que se enuncia en el artículo cuando se hace referencia al nuevo campo de localización que la API Streaming de Twitter ofrece para adjuntar información geolocalizada (siempre que el usuario lo permita):</simpara>
-<blockquote>
-<simpara>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. <emphasis role="strong">Second, we found that only 0.77% of our 62 million tweets contained this embedded location information</emphasis>.</simpara>
-</blockquote>
-<simpara>De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta.</simpara>
+<simpara>Entre los resultados ofrecidos por el estudio destacan un <emphasis role="strong">72.7% de precisión para inferir el país</emphasis> de un usuario pero tan <emphasis role="strong">sólo un 30% de precisión a nivel de estado</emphasis>.</simpara>
 </section>
 <section xml:id="_where_is_this_tweet_from_inferring_home_locations_of_twitter_users">
 <title>Where Is This Tweet From? Inferring Home Locations of Twitter Users</title>
@@ -142,7 +185,7 @@
 <simpara>En este estudio, Yi-Shin Chen diseña un sistema que a través de diferentes etapas y aglutinando varios procesos es capaz de inferir la localización de un usuario en Twitter en función del contenido de sus tuits.</simpara>
 <variablelist>
 <varlistentry>
-<term>Baseline Classification</term>
+<term>Clasificación base</term>
 <listitem>
 <simpara>A partir de un gran dataset de usuarios de Twitter, en esta fase se realiza un análisis para comprobar qué perfiles puede ser potencialmente válidos para realizar un análisis de contenidos, eliminando aquellos que puedan pertenecer a <emphasis>bots</emphasis> automáticos o sean perfiles de spam. Una vez se obtiene una masa de usuarios válidos se procede, dentro aún de esta etapa, a analizar todos sus tuits (a excepción de aquellos con información de geolocalización asociada) para volver a categorizarlos en 3 tipos:</simpara>
 <itemizedlist>
@@ -159,13 +202,13 @@
 </listitem>
 </varlistentry>
 <varlistentry>
-<term>Rule Generation</term>
+<term>Generación de reglas</term>
 <listitem>
 <simpara>Una vez todos los tuits anteriores han sido analizados semánticamente se realiza una normalización de los mismos aplicando técnicas de análisis de texto (utilizando un tokenizador y un stemmer) para luego poder formar n-gramas como los mismos. Durante esta etapa, se intentan inferir reglas que permitan asociar términos comunes a localizaciones específicas como aeropuertos, parques, estaciones de tren, etc.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term>Location Discovery</term>
+<term>Descubrimiento de localizaciones</term>
 <listitem>
 <simpara>A partir de los términos de cada tuit, se generan trigramas, bigramas y unigramas y se comparan sobre un gazetteer y las reglas generadas en el paso anterior, obteniendo localizaciones que se pueden agrupar en:</simpara>
 <itemizedlist>
@@ -182,19 +225,19 @@
 </listitem>
 </varlistentry>
 <varlistentry>
-<term>Toponym Removal</term>
+<term>Eliminación de topónimos</term>
 <listitem>
 <simpara>Mediante la utilización de un clúster, y partiendo de la premisa de que un usuario nombrará con mayor frecuencia lugares cercanos a su lugar de origen, en esta fase se analizan las menciones realizadas por el usuario sobre ciudades, lugares, países y se refinarán los datos para obtener su lugar de origen.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term>Timeline Sorting</term>
+<term>Ordenación temporal</term>
 <listitem>
 <simpara>Es el último paso en el refinamiento de los datos. En esta fase se intenta minimizar la aparición de ruido detectando aquellas ocasiones en las que el usuario hace referencia a una localización geográfica sin aportar una información real acerca de su posición. Por ejemplo, es habitual que alguien situado en Asturias pueda nombrar la ciudad de Nueva York para hablar de alguna noticia o para mostrar sus ganas por conocer la ciudad, sin que esa mención indique que se encuentre realmente allí. Para resolver este problema, y aceptando que en algunos casos sólo se podrían resolver dichas inconsistencias de manera manual mediante la intervención humana, se diseñó un sistema que a partir de dos tuits con contenido geolocalizado consecutivos (del mismo usuario) compruebe si su diferencia en el tiempo es acorde a la posibilidad de haberse movido entre ambos puntos a una velocidad normal de transporte.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term>Location Inferred</term>
+<term>Localización inferida</term>
 <listitem>
 <simpara>De acuerdo a los resultados obtenidos en todas las fases anteriores y de acuerdo al nivel sobre que el que se haya podido inferir su localización, los usuarios son clasificados en los siguientes grupos:</simpara>
 <itemizedlist>
@@ -214,7 +257,7 @@
 </listitem>
 </varlistentry>
 </variablelist>
-<simpara>En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de acierto cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.</simpara>
+<simpara>En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de precisión cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.</simpara>
 </section>
 <section xml:id="_a_multi_indicator_approach_for_geolocalization_of_tweets">
 <title>A Multi-Indicator Approach for Geolocalization of Tweets</title>
@@ -256,7 +299,7 @@
 </listitem>
 </varlistentry>
 </variablelist>
-<simpara>Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de <emphasis role="strong">múltiples indicadores</emphasis> con un 37% de acierto con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.</simpara>
+<simpara>Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de <emphasis role="strong">múltiples indicadores</emphasis> con un 37% de precisión con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.</simpara>
 </section>
 <section xml:id="_inferring_the_origin_locations_of_tweets_with_quantitative_confidence">
 <title>Inferring the Origin Locations of Tweets with Quantitative Confidence</title>
@@ -285,7 +328,7 @@
 </listitem>
 </itemizedlist>
 <simpara>Todos ellos con una alta dosis de componente algorítmico y matemático.</simpara>
-<simpara>Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.</simpara>
+<simpara>Los resultados del estudio revelaron un precisión del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de precisión sobre tuits sin información geográfica.</simpara>
 </section>
 <section xml:id="_you_are_where_you_tweet_a_content_based_approach_to_geo_locating_twitter_users">
 <title>You Are Where You Tweet: A Content-Based Approach to Geo-locating Twitter Users</title>
@@ -304,8 +347,9 @@
 </orderedlist>
 <simpara>Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).</simpara>
 </section>
-<section xml:id="_otros_emphasis_papers_emphasis_de_interés">
-<title>Otros <emphasis>papers</emphasis> de interés</title>
+<section xml:id="_otros_artículos_de_interés">
+<title>Otros artículos de interés</title>
+<simpara>Los artículos anteriores han sido seleccionados como los más representativos de las principales vías de investigación para inferir la localización de un usuario en redes sociales en base al contenido de sus publicaciones. A continuación, se enumeran otros artículos de interés que pueden ayudar a conocer vías alternativas sobre las investigaciones propuestas así como nuevos resultados.</simpara>
 <itemizedlist>
 <listitem>
 <simpara><emphasis role="strong">Location Type Classification Using Tweet Content</emphasis> <emphasis>por Haibin Liu et al. The Pennsylvania State University</emphasis></simpara>
@@ -411,7 +455,6 @@
 </para>
 </formalpara>
 <simpara>Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: <emphasis>oviedo</emphasis>, <emphasis>gijón</emphasis> y <emphasis>asturias</emphasis>; mientras que se favorecen otros más específicos como <emphasis>sidra</emphasis>, <emphasis>presta</emphasis> o <emphasis>celebralos</emphasis> (escrito como se pronunciaría en asturiano).</simpara>
-<simpara>La implementación de ambos algoritmos Root Log Likelihood-Ratio fue desarrollada por el doctor Daniel Gayo Avello.</simpara>
 </section>
 </section>
 <section xml:id="_términos_discriminativos">
@@ -711,21 +754,21 @@ reader.foreach({
 <title>Trabajando con diferentes niveles de granularidad</title>
 <section xml:id="_conceptos_previos">
 <title>Conceptos previos</title>
-<section xml:id="_acierto_y_exhaustividad">
-<title>Acierto y exhaustividad</title>
-<simpara>Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de <emphasis role="strong">acierto</emphasis> se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.</simpara>
-<simpara>Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de acierto sería:</simpara>
-<screen>(18/20) * 100 = 90% de acierto</screen>
+<section xml:id="_precisión_y_exhaustividad">
+<title>Precisión y exhaustividad</title>
+<simpara>Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de <emphasis role="strong">precisión</emphasis> se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.</simpara>
+<simpara>Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de precisión sería:</simpara>
+<screen>(18/20) * 100 = 90% de precisión</screen>
 <simpara>El concepto <emphasis role="strong">exhaustividad</emphasis> se explica como el porcentaje de tuits locales que se han identificado sobre el conjunto de tuits locales reales. En este caso, partiendo de un ejemplo en el que se hubiesen etiquetado 25 tuits como locales de manera correcta y sabiendo que en el conjunto a evaluar existían 30 tuits locales, el porcentaje de exhaustividad de nuestro modelo sería de:</simpara>
 <screen>(25/30) * 100 = 83.33%</screen>
 <simpara>Entendiendo este porcentaje como que para cada 100 tuits que sabemos son locales, nuestro modelo es capaz de detectar ~ 83 satisfactoriamente.</simpara>
 </section>
-<section xml:id="_umbral_de_acierto">
-<title>Umbral de acierto</title>
-<simpara>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <emphasis role="strong">umbral de acierto</emphasis>.</simpara>
+<section xml:id="_umbral_de_precisión">
+<title>Umbral de precisión</title>
+<simpara>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <emphasis role="strong">umbral de precisión</emphasis>.</simpara>
 <simpara>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <emphasis role="strong">sí</emphasis> pertenece al conjunto local y 0 como que <emphasis role="strong">no</emphasis>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <emphasis>0.5, 0.6, 0.7, etc.</emphasis></simpara>
-<simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
-<simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.</simpara>
+<simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de precisión, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
+<simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación precisión - exhaustividad.</simpara>
 </section>
 </section>
 <section xml:id="_resultados_a_nivel_de_país">
@@ -740,7 +783,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>93.16%</simpara></entry>
 </row>
 <row>
@@ -748,11 +791,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>89.48%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>96.13%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>90.35%</simpara></entry>
 </row>
 </tbody>
@@ -765,7 +808,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>98.17%</simpara></entry>
 </row>
 <row>
@@ -773,11 +816,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>71.17%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>97.56%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>98.20%</simpara></entry>
 </row>
 </tbody>
@@ -805,7 +848,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>98.89%</simpara></entry>
 </row>
 <row>
@@ -813,11 +856,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>53.53%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>89.83%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>99.00%</simpara></entry>
 </row>
 </tbody>
@@ -830,7 +873,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>92.27%</simpara></entry>
 </row>
 <row>
@@ -838,11 +881,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>72.70%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>86.78%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>93.39%</simpara></entry>
 </row>
 </tbody>
@@ -855,7 +898,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>98.25%</simpara></entry>
 </row>
 <row>
@@ -863,11 +906,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>65.73%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>97.09%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>98.29%</simpara></entry>
 </row>
 </tbody>
@@ -905,7 +948,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>91.69%</simpara></entry>
 </row>
 <row>
@@ -913,11 +956,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>70.98%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>86.43%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>92.77%</simpara></entry>
 </row>
 </tbody>
@@ -930,7 +973,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>96.68%</simpara></entry>
 </row>
 <row>
@@ -938,11 +981,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>51.10%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>88.53%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>96.97%</simpara></entry>
 </row>
 </tbody>
@@ -955,7 +998,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>97.22%</simpara></entry>
 </row>
 <row>
@@ -963,11 +1006,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>47.05%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>97.95%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>97.20%</simpara></entry>
 </row>
 </tbody>
@@ -984,7 +1027,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>99.54%</simpara></entry>
 </row>
 <row>
@@ -992,11 +1035,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>18.18%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>100.0%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>99.54%</simpara></entry>
 </row>
 </tbody>
@@ -1009,7 +1052,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>99.20%</simpara></entry>
 </row>
 <row>
@@ -1017,11 +1060,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>24.13%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>87.5%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>99.23%</simpara></entry>
 </row>
 </tbody>
@@ -1034,7 +1077,7 @@ reader.foreach({
 <colspec colname="col_2" colwidth="25*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>Acierto</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión</simpara></entry>
 <entry align="left" valign="top"><simpara>98.98%</simpara></entry>
 </row>
 <row>
@@ -1042,11 +1085,11 @@ reader.foreach({
 <entry align="left" valign="top"><simpara>25.0%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones locales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones locales</simpara></entry>
 <entry align="left" valign="top"><simpara>90.0%</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>Acierto en predicciones globales</simpara></entry>
+<entry align="left" valign="top"><simpara>Precisión en predicciones globales</simpara></entry>
 <entry align="left" valign="top"><simpara>99.01%</simpara></entry>
 </row>
 </tbody>
@@ -1056,8 +1099,8 @@ reader.foreach({
 </section>
 <section xml:id="_conclusiones_del_sistema_de_geolocalización">
 <title>Conclusiones del sistema de geolocalización</title>
-<simpara>A raíz de las tablas resumen mostradas en <xref linkend="_experimentos_y_resultados"/> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de acierto y precisión (para todos los niveles de granularidad el porcentaje de aciertos es superior al 90%).</simpara>
-<simpara>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión siempre que se coloque el umbral de aciertos por debajo de 0.5.</simpara>
+<simpara>A raíz de las tablas resumen mostradas en <xref linkend="_experimentos_y_resultados"/> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de precisión (para todos los niveles de granularidad el porcentaje de precisión es superior al 90%).</simpara>
+<simpara>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión colocando el umbral por debajo de 0.5.</simpara>
 <simpara>Los diferentes prototipos que se han desarrollado utilizando los algoritmos anteriores, prueban como no es necesario recurrir a agentes externos para obtener información geográfica para geolocalizar a un usuario. En muchos de los artículos de investigación comentados en el <emphasis role="strong">Estado del arte</emphasis> era habitual que se hiciera referencia a <emphasis role="strong">gazetteers</emphasis> y sistemas de terceros como <emphasis>Foursquare</emphasis>, para obtener información geográfica en base al reconocimiento de entidades. Este proyecto se ha centrado en desarrollar un proceso automático que permita inferir qué términos son más o menos discriminativos para identificar la localidad de un usuario, partiendo de una premisa que ha sido corroborada en base a los resultados anteriores:</simpara>
 <blockquote>
 <simpara>Existen términos con una alta frecuencia para un determinado área geográfica y una muy baja dispersión que sirven para inferir la localización de casi cualquier tuit que los contenga.</simpara>

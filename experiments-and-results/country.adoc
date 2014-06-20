@@ -9,31 +9,31 @@ Los resultados para ambos experimentos se pueden observar en las tablas <<experi
 .Resultados de la ejecución para detectar tuits procedentes España
 [cols="3,1", id="experiment-spain-global"]
 |===
-|Acierto
+|Precisión
 |93.16%
 
 |Exhaustividad
 |89.48%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |96.13%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |90.35%
 |===
 
 .Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.
 [cols="3,1", id="experiment-uk-ireland"]
 |===
-|Acierto
+|Precisión
 |98.17%
 
 |Exhaustividad
 |71.17%
 
-|Acierto en predicciones locales
+|Precisión en predicciones locales
 |97.56%
 
-|Acierto en predicciones globales
+|Precisión en predicciones globales
 |98.20%
 |===

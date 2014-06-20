@@ -380,6 +380,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 #toc.toc2 { background: white; }
 .literalblock > .content > pre, .listingblock > .content > pre { -webkit-border-radius: 0; border-radius: 0; }
 </style>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
 </head>
 <body class="article">
 <div id="header">
@@ -390,6 +391,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <ul class="sectlevel1">
 <li><a href="#_resumen">Resumen</a></li>
 <li><a href="#_agradecimientos">Agradecimientos</a></li>
+<li><a href="#_keywords">Keywords</a></li>
 <li><a href="#_introducción">1. Introducción</a></li>
 <li>
 <ul class="sectlevel2">
@@ -455,7 +457,16 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <h2 id="_resumen">Resumen</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Aquí el resumen.</p>
+<p>El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter haciendo uso de investigaciones previas realizadas por diversos investigadores a lo largo de los últimos años. A partir de estos estudios, se ha desarrollado un algoritmo capaz de obtener términos fuertemente discriminativos capaces de identificar la localización de una publicación en base a los términos que contiene.</p>
+</div>
+<div class="paragraph">
+<p>Para demostrar su efectividad, se han realizado experimentos a distintos niveles de granularidad (país, provincia, área metropolitana y barrio) y con dos idiomas diferentes (inglés y español). El algoritmo ha mostrado niveles de precisión bastante altos (prácticamente siempre superiores al 90%) y un grado de exhaustividad (especialmente para las granularidades de más alto nivel) muy aceptable, identificando aproximadamente un 70% ~ 80% del total de tuits locales recibidos.</p>
+</div>
+<div class="paragraph">
+<p>Para realizar el desarrollo del sistema, el proyecto ha hecho uso de métodos estadísticos como Log-Likelihood Ratio y el software de aprendizaje automático Vowpal Wabbit.</p>
+</div>
+<div class="paragraph">
+<p>Por último, el proyecto recoge el diseño de una aplicación web que utilizaría la tecnología previamente desarrollada para ofrecer un servicio de geolocalización de publicaciones en redes sociales (en este caso, centrado únicamente en Twitter) mediante análisis de contenidos.</p>
 </div>
 </div>
 </div>
@@ -468,22 +479,18 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="sect1">
+<h2 id="_keywords">Keywords</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_introducción">1. Introducción</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_motivación_del_proyecto">1.1. Motivación del proyecto</h3>
-<div class="paragraph">
-<p>Aquí la motivación del proyecto</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_alcance">1.2. Alcance</h3>
-<div class="paragraph">
-<p>Aquí el alcance del proyecto.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_estado_del_arte">1.3. Estado del arte</h3>
 <div class="paragraph">
 <p>El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.</p>
 </div>
@@ -491,18 +498,103 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</p>
 </div>
 <div class="paragraph">
-<p>El estudio de la geolocalización de un usuario a partir de su contenido, sin embargo, es una de las pocas áreas que <em>tan sólo</em> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados teóricos emitidos por diversos investigadores.</p>
+<p>El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que <em>tan sólo</em> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados emitidos por diversos investigadores.</p>
 </div>
 <div class="paragraph">
-<p>Por ello, en este capítulo se recopilan algunos estudios teóricos y artículos de investigación que han servido como punto de arranque para este proyecto.</p>
+<p>La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas de manera teórica pueden ser aceptadas como válidas.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alcance">1.2. Alcance</h3>
+<div class="paragraph">
+<p>El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios teóricos llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.</p>
+</div>
+<div class="paragraph">
+<p>El sistema deberá ser capaz de trabajar sobre diversas granularidades (país, provincia, área metropolitana y barrio) y utilizar tuits escritos en diversos idiomas (como mínimo, deberá funcionar satisfactoriamente con inglés y español). Para inferir la gelocalización de un tuit se basará únicamente en el contenido de la publicación, evitando la comunicación con sistemas de geolocalización externos y siendo capaz de detectar términos discriminativos que ayuden a identificar un tuit como perteneciente a un área geográfica en concreto.</p>
+</div>
+<div class="paragraph">
+<p>Finalmente, el proyecto deberá plantear un sistema que pueda ser integrable en una aplicación web que se aproveche de sus capacidades para ofrecer un servicio de geolocalización de tuits basado en su contenido.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estado_del_arte">1.3. Estado del arte</h3>
+<div class="paragraph">
+<p>Desde la aparición de Twitter en 2006 y su irrupción como servicio de masas en torno al año 2008, han ido apareciendo de manera exponencial diferentes servicios y vías de investigación centradas en estudiar el comportamiento de los usuarios en la red social en base a sus publicaciones, con el objetivo de poder extraer conclusiones acerca de su tendencia política, opiniones personales y otras características individuales.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Twitter</div>
+<div class="paragraph">
+<p>Twitter es una red social (también clasificada como servicio de <em>microblogging</em>) creada en 2006 por Jack Dorsey. Su principal característica es el envío de posts de 140 caracteres por parte de los usuarios y la capacidad de que estos mismos formen su propio <em>timeline</em> suscribiéndose a las publicaciones realizadas por el resto de usuarios.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Sin embargo, un problema habitual a la hora de trabajar con datos extraídos de Twitter es su falta de estructuración. Si bien es habitual que los usuarios en redes sociales como Facebook mantengan un perfil completo y actualizado con datos reales (en parte gracias al buen hacer de dicha red social por conseguir que así sea), en Twitter lo más habitual es carecer de dicha información. Por tanto, muchos de los esfuerzos realizados en el análisis de contenidos en Twitter vienen para cubrir esa necesidad de obtener información real acerca de los usuarios que realizan las publicaciones.</p>
+</div>
+<div class="paragraph">
+<p>Por poner un ejemplo, la figura <a href="#fb-profile">Captura del perfil del autor en Facebook.</a> muestra una captura del perfil del autor en Facebook. En ella, se puede observar como aparece una gran cantidad de información perfectamente estructurada: centros de estudio, lugar de nacimiento, lugar de residencia actual, fecha de nacimiento, sexo e incluso campos que, aunque en este caso no estén completos, podrían aportar muchísima más información sobre el usuario: relación sentimental, ideología política o religiosa, etc.</p>
+</div>
+<div id="fb-profile" class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/introduction/fb_profile.png" alt="fb profile">
+</div>
+<div class="title">Figure 1. Captura del perfil del autor en Facebook.</div>
+</div>
+<div class="paragraph">
+<p>Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <a href="#twitter-profile">Captura del perfil del autor en Twitter.</a> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.</p>
+</div>
+<div id="twitter-profile" class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/introduction/twitter_profile.png" alt="twitter profile" height="200px">
+</div>
+<div class="title">Figure 2. Captura del perfil del autor en Twitter.</div>
+</div>
+<div class="paragraph">
+<p>En el caso de la geolocalización de usuarios, Bren Hercht <em>et al.</em> en su artículo <strong>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</strong>, centrado en estudiar el campo de <strong>Localización</strong> de los perfiles de usuario, realiza la siguiente afirmación acerca de la cantidad de tuits geoposicionados (es decir, con información geográfica adjunta como latitud y longitud) que contenían en su dataset de ejemplo:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. <strong>Second, we found that only 0.77% of our 62 million tweets contained this embedded location information</strong>.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta. Como se puede deducir de esta afirmación, el problema para geolocalizar usuarios en Twitter es real y su solución sería de gran interés para poder contribuir a un mejor estudio de las publicaciones de los usuarios en la red social, obteniendo la capacidad de situarlos en un espacio geográfico concreto.</p>
+</div>
+<div class="paragraph">
+<p>A continuación, se recogen una serie de artículos de investigación que abordan la problemática anterior y proponen mecanismos para inferir la localización de un usuario en base al contenido de sus publicaciones.</p>
 </div>
 <div class="sect3">
 <h4 id="_estudios_y_artículos_de_investigación">1.3.1. Estudios y artículos de investigación</h4>
 <div class="paragraph">
-<p>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <em>timeline</em> del usuario son aquellas más próximas a su localización real.</p>
+<p>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <em>timeline</em> del usuario son aquellas más próximas a su localización real.</p>
 </div>
 <div class="paragraph">
 <p>Por otro lado, grupos de investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Gazetteer</div>
+<div class="paragraph">
+<p>Un gazetteer (o <strong>nomenclátor</strong> en español) es un diccionario geográfico que contiene los nombres de varias localizaciones geográficas referentes a un lugar. Por lo general, es habitual disponer de gazetteers a nivel de país para indicar el conjunto de sus ciudades, comunidades autónomas o provincias. Así como para casi cualquier otra unidad administrativa.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el <em>timeline</em> del usuario y además adjuntar información geolocalizada (<strong>Foursquare</strong> sería un claro ejemplo de este tipo de servicios).</p>
@@ -567,14 +659,29 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="paragraph">
 <p>Como alternativa a los resultados anteriores, y buscando una manera de automatizar el proceso y encontrar resultados más fiables y exhaustivos, se propusieron hacer un primer experimento para comprobar si el estudio de los contenidos publicados por un usuario pueden aportar la información necesaria para permitir inferir su ubicación geográfica.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Clasificador Bayesiano</div>
 <div class="paragraph">
-<p>Para ello, utilizaron un software de aprendizaje automático y un clasificador Bayesiano multinomial que en base a un conjunto de datos obtenidos a partir de aplicar el algoritmo <em>CALGARI</em> (de implementación propia), fuese capaz de predecir a qué área (País y Estado) pertenece un tuit en base a su contenido.</p>
+<p>De manera simplificada, se podría definir un <strong>clasificador Bayesiano</strong> como un clasificador probabilístico basado en el teorema de Bayes, que permite trabajar con una serie de características de manera independiente, sin asumir que la ausencia o presencia de cada una influya en el valor que se otorga a las demás para calcular la predicción final.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Para ello, utilizaron un software de aprendizaje automático y un <strong>clasificador Bayesiano</strong> multinomial que en base a un conjunto de datos obtenidos a partir de aplicar el algoritmo <em>CALGARI</em> (de implementación propia), fuese capaz de predecir a qué área (País y Estado) pertenece un tuit en base a su contenido.</p>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="title">CALGARI</div>
@@ -586,20 +693,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </table>
 </div>
 <div class="paragraph">
-<p>Entre los resultados ofrecidos por el estudio destacan un <strong>72.7% de acierto para inferir el país</strong> de un usuario pero tan <strong>sólo un 30% de acierto a nivel de estado</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Como apunte adicional, es interesante una afirmación que se enuncia en el artículo cuando se hace referencia al nuevo campo de localización que la API Streaming de Twitter ofrece para adjuntar información geolocalizada (siempre que el usuario lo permita):</p>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>First, our focus is on the geographic information revealed in the “location” field of user profiles, a type of geographic information that is prevalent across the Web 2.0 world. <strong>Second, we found that only 0.77% of our 62 million tweets contained this embedded location information</strong>.</p>
-</div>
-</blockquote>
-</div>
-<div class="paragraph">
-<p>De 62 millones de tuits, únicamente un 0.77% (~= 477.400) contenían información geográfica adjunta.</p>
+<p>Entre los resultados ofrecidos por el estudio destacan un <strong>72.7% de precisión para inferir el país</strong> de un usuario pero tan <strong>sólo un 30% de precisión a nivel de estado</strong>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -662,7 +756,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Baseline Classification</dt>
+<dt class="hdlist1">Clasificación base</dt>
 <dd>
 <p>A partir de un gran dataset de usuarios de Twitter, en esta fase se realiza un análisis para comprobar qué perfiles puede ser potencialmente válidos para realizar un análisis de contenidos, eliminando aquellos que puedan pertenecer a <em>bots</em> automáticos o sean perfiles de spam. Una vez se obtiene una masa de usuarios válidos se procede, dentro aún de esta etapa, a analizar todos sus tuits (a excepción de aquellos con información de geolocalización asociada) para volver a categorizarlos en 3 tipos:</p>
 <div class="ulist">
@@ -679,11 +773,11 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">Rule Generation</dt>
+<dt class="hdlist1">Generación de reglas</dt>
 <dd>
 <p>Una vez todos los tuits anteriores han sido analizados semánticamente se realiza una normalización de los mismos aplicando técnicas de análisis de texto (utilizando un tokenizador y un stemmer) para luego poder formar n-gramas como los mismos. Durante esta etapa, se intentan inferir reglas que permitan asociar términos comunes a localizaciones específicas como aeropuertos, parques, estaciones de tren, etc.</p>
 </dd>
-<dt class="hdlist1">Location Discovery</dt>
+<dt class="hdlist1">Descubrimiento de localizaciones</dt>
 <dd>
 <p>A partir de los términos de cada tuit, se generan trigramas, bigramas y unigramas y se comparan sobre un gazetteer y las reglas generadas en el paso anterior, obteniendo localizaciones que se pueden agrupar en:</p>
 <div class="ulist">
@@ -700,15 +794,15 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </ul>
 </div>
 </dd>
-<dt class="hdlist1">Toponym Removal</dt>
+<dt class="hdlist1">Eliminación de topónimos</dt>
 <dd>
 <p>Mediante la utilización de un clúster, y partiendo de la premisa de que un usuario nombrará con mayor frecuencia lugares cercanos a su lugar de origen, en esta fase se analizan las menciones realizadas por el usuario sobre ciudades, lugares, países y se refinarán los datos para obtener su lugar de origen.</p>
 </dd>
-<dt class="hdlist1">Timeline Sorting</dt>
+<dt class="hdlist1">Ordenación temporal</dt>
 <dd>
 <p>Es el último paso en el refinamiento de los datos. En esta fase se intenta minimizar la aparición de ruido detectando aquellas ocasiones en las que el usuario hace referencia a una localización geográfica sin aportar una información real acerca de su posición. Por ejemplo, es habitual que alguien situado en Asturias pueda nombrar la ciudad de Nueva York para hablar de alguna noticia o para mostrar sus ganas por conocer la ciudad, sin que esa mención indique que se encuentre realmente allí. Para resolver este problema, y aceptando que en algunos casos sólo se podrían resolver dichas inconsistencias de manera manual mediante la intervención humana, se diseñó un sistema que a partir de dos tuits con contenido geolocalizado consecutivos (del mismo usuario) compruebe si su diferencia en el tiempo es acorde a la posibilidad de haberse movido entre ambos puntos a una velocidad normal de transporte.</p>
 </dd>
-<dt class="hdlist1">Location Inferred</dt>
+<dt class="hdlist1">Localización inferida</dt>
 <dd>
 <p>De acuerdo a los resultados obtenidos en todas las fases anteriores y de acuerdo al nivel sobre que el que se haya podido inferir su localización, los usuarios son clasificados en los siguientes grupos:</p>
 <div class="ulist">
@@ -731,7 +825,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </dl>
 </div>
 <div class="paragraph">
-<p>En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de acierto cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.</p>
+<p>En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de precisión cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.</p>
 </div>
 </div>
 <div class="sect4">
@@ -779,7 +873,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </dl>
 </div>
 <div class="paragraph">
-<p>Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de <strong>múltiples indicadores</strong> con un 37% de acierto con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.</p>
+<p>Los resultados de este estudio presentan mejorías respecto a otras investigaciones basadas en inferir la localidad de un usuario mediante el uso de <strong>múltiples indicadores</strong> con un 37% de precisión con una distancia de error de 10km y un 48% para 25km; así como un 54% cuando el margen se amplía a 50km.</p>
 </div>
 </div>
 <div class="sect4">
@@ -836,7 +930,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Todos ellos con una alta dosis de componente algorítmico y matemático.</p>
 </div>
 <div class="paragraph">
-<p>Los resultados del estudio revelaron un acierto del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de acierto sobre tuits sin información geográfica.</p>
+<p>Los resultados del estudio revelaron un precisión del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de precisión sobre tuits sin información geográfica.</p>
 </div>
 </div>
 <div class="sect4">
@@ -865,7 +959,10 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="sect4">
-<h5 id="_otros_em_papers_em_de_interés">Otros <em>papers</em> de interés</h5>
+<h5 id="_otros_artículos_de_interés">Otros artículos de interés</h5>
+<div class="paragraph">
+<p>Los artículos anteriores han sido seleccionados como los más representativos de las principales vías de investigación para inferir la localización de un usuario en redes sociales en base al contenido de sus publicaciones. A continuación, se enumeran otros artículos de interés que pueden ayudar a conocer vías alternativas sobre las investigaciones propuestas así como nuevos resultados.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -916,7 +1013,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="sect3">
 <h4 id="_log_likelihood_ratio_test_normalizado">2.1.1. Log Likelihood-Ratio test normalizado</h4>
 <div class="paragraph">
-<p>La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span></p>
+<p>La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span></p>
 </div>
 <div class="paragraph">
 <p>Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discriminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación <em>normalizada</em> sobre el algoritmo anterior, basada en la siguiente sospecha:</p>
@@ -1003,9 +1100,6 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="paragraph">
 <p>Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: <em>oviedo</em>, <em>gijón</em> y <em>asturias</em>; mientras que se favorecen otros más específicos como <em>sidra</em>, <em>presta</em> o <em>celebralos</em> (escrito como se pronunciaría en asturiano).</p>
 </div>
-<div class="paragraph">
-<p>La implementación de ambos algoritmos Root Log Likelihood-Ratio fue desarrollada por el doctor Daniel Gayo Avello.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1089,13 +1183,13 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="sect3">
 <h4 id="_sistema_de_filtros">2.2.1. Sistema de filtros</h4>
 <div class="paragraph">
-<p>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</p>
+<p>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros">
 </div>
-<div class="title">Figure 1. Representación del patrón Decorator que ilustra el sistema de filtros</div>
+<div class="title">Figure 3. Representación del patrón Decorator que ilustra el sistema de filtros</div>
 </div>
 </div>
 <div class="sect3">
@@ -1107,7 +1201,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="title">Algoritmos de Streaming</div>
@@ -1232,7 +1326,7 @@ end</pre>
 <p>Debido al intenso uso que se hace en el proyecto de datos en XML (ver <a href="#_almacenamiento_de_datos">Almacenamiento de datos</a>), fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</p>
 </div>
 <div class="paragraph">
-<p>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <strong>Simple API XML (o SAX)<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span></strong> y <strong>pulling parsing<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></strong>.</p>
+<p>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <strong>Simple API XML (o SAX)<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span></strong> y <strong>pulling parsing<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span></strong>.</p>
 </div>
 <div class="paragraph">
 <p>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete <code>xml.pull</code>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <em>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</em>. Cada uno de estos eventos, puede tener asignado un <em>listener</em> que contenga la lógica a ejecutar.</p>
@@ -1300,7 +1394,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/theoretical-aspects/training_vw_process.png" alt="Flujo de trabajo para procesar los datos y entrenar al clasificador automático">
 </div>
-<div class="title">Figure 2. Flujo de trabajo para procesar los datos y entrenar al clasificador automático</div>
+<div class="title">Figure 4. Flujo de trabajo para procesar los datos y entrenar al clasificador automático</div>
 </div>
 </div>
 </div>
@@ -1389,16 +1483,16 @@ reader.foreach({
 <div class="sect3">
 <h4 id="_conceptos_previos">3.2.1. Conceptos previos</h4>
 <div class="sect4">
-<h5 id="_acierto_y_exhaustividad">Acierto y exhaustividad</h5>
+<h5 id="_precisión_y_exhaustividad">Precisión y exhaustividad</h5>
 <div class="paragraph">
-<p>Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de <strong>acierto</strong> se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.</p>
+<p>Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de <strong>precisión</strong> se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.</p>
 </div>
 <div class="paragraph">
-<p>Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de acierto sería:</p>
+<p>Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de precisión sería:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>(18/20) * 100 = 90% de acierto</pre>
+<pre>(18/20) * 100 = 90% de precisión</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1414,18 +1508,18 @@ reader.foreach({
 </div>
 </div>
 <div class="sect4">
-<h5 id="_umbral_de_acierto">Umbral de acierto</h5>
+<h5 id="_umbral_de_precisión">Umbral de precisión</h5>
 <div class="paragraph">
-<p>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <strong>umbral de acierto</strong>.</p>
+<p>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <strong>umbral de precisión</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <strong>sí</strong> pertenece al conjunto local y 0 como que <strong>no</strong>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <em>0.5, 0.6, 0.7, etc.</em></p>
 </div>
 <div class="paragraph">
-<p>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</p>
+<p>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de precisión, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</p>
 </div>
 <div class="paragraph">
-<p>Para los siguientes ejemplos se ha tomado como umbral el valor <strong>0.5</strong>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.</p>
+<p>Para los siguientes ejemplos se ha tomado como umbral el valor <strong>0.5</strong>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación precisión - exhaustividad.</p>
 </div>
 </div>
 </div>
@@ -1448,7 +1542,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">93.16%</p></td>
 </tr>
 <tr>
@@ -1456,11 +1550,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">89.48%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96.13%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">90.35%</p></td>
 </tr>
 </tbody>
@@ -1473,7 +1567,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">98.17%</p></td>
 </tr>
 <tr>
@@ -1481,11 +1575,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">71.17%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">97.56%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">98.20%</p></td>
 </tr>
 </tbody>
@@ -1523,7 +1617,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">98.89%</p></td>
 </tr>
 <tr>
@@ -1531,11 +1625,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">53.53%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">89.83%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">99.00%</p></td>
 </tr>
 </tbody>
@@ -1548,7 +1642,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">92.27%</p></td>
 </tr>
 <tr>
@@ -1556,11 +1650,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">72.70%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">86.78%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">93.39%</p></td>
 </tr>
 </tbody>
@@ -1573,7 +1667,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">98.25%</p></td>
 </tr>
 <tr>
@@ -1581,11 +1675,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">65.73%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">97.09%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">98.29%</p></td>
 </tr>
 </tbody>
@@ -1631,7 +1725,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">91.69%</p></td>
 </tr>
 <tr>
@@ -1639,11 +1733,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">70.98%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">86.43%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">92.77%</p></td>
 </tr>
 </tbody>
@@ -1656,7 +1750,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96.68%</p></td>
 </tr>
 <tr>
@@ -1664,11 +1758,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">51.10%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">88.53%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96.97%</p></td>
 </tr>
 </tbody>
@@ -1681,7 +1775,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">97.22%</p></td>
 </tr>
 <tr>
@@ -1689,11 +1783,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">47.05%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">97.95%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">97.20%</p></td>
 </tr>
 </tbody>
@@ -1712,7 +1806,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">99.54%</p></td>
 </tr>
 <tr>
@@ -1720,11 +1814,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">18.18%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">100.0%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">99.54%</p></td>
 </tr>
 </tbody>
@@ -1737,7 +1831,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">99.20%</p></td>
 </tr>
 <tr>
@@ -1745,11 +1839,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">24.13%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">87.5%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">99.23%</p></td>
 </tr>
 </tbody>
@@ -1762,7 +1856,7 @@ reader.foreach({
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">98.98%</p></td>
 </tr>
 <tr>
@@ -1770,11 +1864,11 @@ reader.foreach({
 <td class="tableblock halign-left valign-top"><p class="tableblock">25.0%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones locales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones locales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">90.0%</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acierto en predicciones globales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precisión en predicciones globales</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">99.01%</p></td>
 </tr>
 </tbody>
@@ -1784,10 +1878,10 @@ reader.foreach({
 <div class="sect2">
 <h3 id="_conclusiones_del_sistema_de_geolocalización">3.3. Conclusiones del sistema de geolocalización</h3>
 <div class="paragraph">
-<p>A raíz de las tablas resumen mostradas en <a href="#_experimentos_y_resultados">Experimentos y resultados</a> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de acierto y precisión (para todos los niveles de granularidad el porcentaje de aciertos es superior al 90%).</p>
+<p>A raíz de las tablas resumen mostradas en <a href="#_experimentos_y_resultados">Experimentos y resultados</a> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de precisión (para todos los niveles de granularidad el porcentaje de precisión es superior al 90%).</p>
 </div>
 <div class="paragraph">
-<p>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión siempre que se coloque el umbral de aciertos por debajo de 0.5.</p>
+<p>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión colocando el umbral por debajo de 0.5.</p>
 </div>
 <div class="paragraph">
 <p>Los diferentes prototipos que se han desarrollado utilizando los algoritmos anteriores, prueban como no es necesario recurrir a agentes externos para obtener información geográfica para geolocalizar a un usuario. En muchos de los artículos de investigación comentados en el <strong>Estado del arte</strong> era habitual que se hiciera referencia a <strong>gazetteers</strong> y sistemas de terceros como <em>Foursquare</em>, para obtener información geográfica en base al reconocimiento de entidades. Este proyecto se ha centrado en desarrollar un proceso automático que permita inferir qué términos son más o menos discriminativos para identificar la localidad de un usuario, partiendo de una premisa que ha sido corroborada en base a los resultados anteriores:</p>
@@ -2099,7 +2193,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/use-cases/user-managements.png" alt="user managements">
 </div>
-<div class="title">Figure 3. Casos de Uso para la Gestión de Usuarios</div>
+<div class="title">Figure 5. Casos de Uso para la Gestión de Usuarios</div>
 </div>
 <table id="cu-user-system-1-1" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 20. CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema</caption>
@@ -2228,7 +2322,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/use-cases/projects-management.png" alt="projects management">
 </div>
-<div class="title">Figure 4. Casos de Uso para la Gestión de Proyectos</div>
+<div class="title">Figure 6. Casos de Uso para la Gestión de Proyectos</div>
 </div>
 <table id="cu-user-project-2-1" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 23. CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto</caption>
@@ -2562,7 +2656,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/use-cases/execution-management.png" alt="execution management">
 </div>
-<div class="title">Figure 5. Casos de Uso para la Gestión de Ejecuciones</div>
+<div class="title">Figure 7. Casos de Uso para la Gestión de Ejecuciones</div>
 </div>
 <table id="cu-user-project-3-1" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 31. CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto</caption>
@@ -2701,7 +2795,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/administration.png" alt="administration">
 </div>
-<div class="title">Figure 6. Sistema de Administración</div>
+<div class="title">Figure 8. Sistema de Administración</div>
 </div>
 <div class="paragraph">
 <p>El <strong>Sistema de Administración</strong> se encarga de implementar las tareas básicas para la gestión de <strong>usuarios</strong>, <strong>proyectos</strong> y <strong>ejecuciones</strong>. Entre estas tareas, se encuentran las de creación, actualización y borrado; así como el control de las relaciones que se establecen entre los modelos.</p>
@@ -2713,7 +2807,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/evaluation.png" alt="evaluation">
 </div>
-<div class="title">Figure 7. Sistema de Evaluación</div>
+<div class="title">Figure 9. Sistema de Evaluación</div>
 </div>
 <div class="paragraph">
 <p>En el <strong>Sistema de Evaluación</strong> nos encontramos antes una situación diferente al apartado anterior. Este sistema deberá trabajar conjuntamente con clases propias de la aplicación así como también con un sistema externo que actuará como <em>wrapper</em> sobre el software de aprendizaje automático <strong>Vowpal Wabbit</strong>. La comunicación entre ambos sistemas se realizará a través de un servicio web <strong>RESTful</strong> implementado por el <em>wrapper</em> de Vowpal Wabbit.</p>
@@ -2731,7 +2825,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/streaming.png" alt="streaming" height="250px">
 </div>
-<div class="title">Figure 8. Sistema de Streaming</div>
+<div class="title">Figure 10. Sistema de Streaming</div>
 </div>
 <div class="paragraph">
 <p>El <strong>Sistema de Streaming</strong> será el encargado de implementar la lógica para comunicarse con el Streaming de Twitter y ofrecer tuits al resto de la aplicación. Sus dos principales misiones serán:</p>
@@ -2762,7 +2856,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/administration-classes.png" alt="administration classes">
 </div>
-<div class="title">Figure 9. Clases del Sistema de Administración</div>
+<div class="title">Figure 11. Clases del Sistema de Administración</div>
 </div>
 <div class="paragraph">
 <p>El diagrama de clases para el Sistema de Administración muestra únicamente tres entidades que intentan reflejar lo señalado anteriormente respecto a este mismo sistema. Su única misión será realizar tareas de administración, como por ejemplo la creación de nuevos usuarios y proyectos, agregar a un usuario un proyecto o agregar una ejecución a un proyecto ya existente.</p>
@@ -2777,7 +2871,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/evaluation-classes.png" alt="evaluation classes">
 </div>
-<div class="title">Figure 10. Clases del Sistema de Evaluación</div>
+<div class="title">Figure 12. Clases del Sistema de Evaluación</div>
 </div>
 <div class="paragraph">
 <p>En el Sistema de Evaluación nos encontramos con el siguiente conjunto de clases:</p>
@@ -2822,7 +2916,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/streaming-classes.png" alt="streaming classes">
 </div>
-<div class="title">Figure 11. Clases del Sistema de Streaming</div>
+<div class="title">Figure 13. Clases del Sistema de Streaming</div>
 </div>
 <div class="paragraph">
 <p>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <strong>Observer</strong>, en donde la clase <code>TwitterStreamingService</code> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como <em>listener</em> de la clase <code>TwitterStreamingService</code>, implementar la interfaz <code>TwitterStreamingListener</code> y redefinir su método <code>on_tweet_received</code> para trabajar con el nuevo tuit recibido.</p>
@@ -2834,7 +2928,7 @@ reader.foreach({
 <p>Con el objetivo de poder realizar un sistema escalable, el sistema de streaming se ejecutará como un componente externo de la aplicación, puesto que podría presentar problemas a la hora de ejecutar dos instancias de la aplicación con el sistema de streaming integrado (produciendo resultados duplicados en la base de datos por acceder de manera concurrente al mismo flujo de datos).</p>
 </div>
 <div class="paragraph">
-<p>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <strong>RabbitMQ<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</p>
+<p>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <strong>RabbitMQ<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></strong>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</p>
 </div>
 <div class="paragraph">
 <p><code>Cleaner</code> es una clase que se ejecutará como <strong>cron</strong> de la aplicación de manera periódica en plazos de 24 horas. Su misión será eliminar tuits más antiguos de 48 horas.</p>
@@ -2868,7 +2962,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
 </div>
-<div class="title">Figure 12. Pantalla de login de la aplicación.</div>
+<div class="title">Figure 14. Pantalla de login de la aplicación.</div>
 </div>
 </div>
 <div class="sect4">
@@ -2880,7 +2974,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/dashboard-projects.png" alt="dashboard projects">
 </div>
-<div class="title">Figure 13. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
+<div class="title">Figure 15. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
 </div>
 <div class="paragraph">
 <p>La sección que muestra la información sobre cada proyecto, aglutina también un pequeño resumen con sus características principales:</p>
@@ -2923,7 +3017,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/dashboard-executions.png" alt="dashboard executions">
 </div>
-<div class="title">Figure 14. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
+<div class="title">Figure 16. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
 </div>
 </div>
 <div class="sect4">
@@ -2938,7 +3032,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/new-project.png" alt="new project" height="650px">
 </div>
-<div class="title">Figure 15. Lightboxes de creación de un nuevo proyecto</div>
+<div class="title">Figure 17. Lightboxes de creación de un nuevo proyecto</div>
 </div>
 </div>
 <div class="sect4">
@@ -2953,7 +3047,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/execution.png" alt="execution">
 </div>
-<div class="title">Figure 16. Pantalla de ejecución de un proyecto en tiempo real</div>
+<div class="title">Figure 18. Pantalla de ejecución de un proyecto en tiempo real</div>
 </div>
 </div>
 </div>
@@ -3005,11 +3099,11 @@ reader.foreach({
 <div class="listingblock">
 <div class="title">Ejemplo del fichero build.sbt para el sistema de análisis <strong>Puma</strong></div>
 <div class="content">
-<pre>name := "Puma" <b>(1)</b>
+<pre>name := "Puma" <i class="conum" data-value="1"></i><b>(1)</b>
 
-version := "1.0" <b>(2)</b>
+version := "1.0" <i class="conum" data-value="2"></i><b>(2)</b>
 
-scalaVersion := "2.11.0" <b>(3)</b>
+scalaVersion := "2.11.0" <i class="conum" data-value="3"></i><b>(3)</b>
 
 libraryDependencies ++= List(
   "org.scala-lang.modules" %% "scala-xml" % "1.0.1",
@@ -3019,29 +3113,34 @@ libraryDependencies ++= List(
   "org.apache.logging.log4j" % "log4j-api" % "2.0-rc1",
   "org.apache.logging.log4j" % "log4j-core" % "2.0-rc1",
   "com.github.scopt" %% "scopt" % "3.2.0"
-) <b>(4)</b>
+) <i class="conum" data-value="4"></i><b>(4)</b>
 
-scalacOptions ++= Seq("-unchecked", "-deprecation") <b>(5)</b></pre>
+scalacOptions ++= Seq("-unchecked", "-deprecation") <i class="conum" data-value="5"></i><b>(5)</b></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Nombre del proyecto que se está desarrollando</p>
-</li>
-<li>
-<p>Versión actual del proyecto</p>
-</li>
-<li>
-<p>Versión de Scala que se desea utilizar para compilar el proyecto</p>
-</li>
-<li>
-<p>Lista de dependencias que se desea que sean gestionadas por sbt</p>
-</li>
-<li>
-<p>Opciones de compilación para el compilador de Scala</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Nombre del proyecto que se está desarrollando</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Versión actual del proyecto</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Versión de Scala que se desea utilizar para compilar el proyecto</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Lista de dependencias que se desea que sean gestionadas por sbt</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Opciones de compilación para el compilador de Scala</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -3092,7 +3191,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <b>(5)</b></pre>
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -3104,15 +3203,16 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <b>(5)</b></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <b>(1)</b></pre>
+<pre>[Label] [Importance [Tag]]|Namespace Features |Namespace Features ... |Namespace Features <i class="conum" data-value="1"></i><b>(1)</b></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p><a href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</a></p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><a href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format">https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format</a></td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>En el presente proyecto, esta estructura generaría datos de la siguiente manera:</p>
@@ -3202,7 +3302,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 17. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span></div>
+<div class="title">Figure 19. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -3412,13 +3512,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 18. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 20. Imagen de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 19. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
+<div class="title">Figure 21. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -3449,13 +3549,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/tweetheat-home.png" alt="Pantalla de inicio de la aplicación TweetHeat">
 </div>
-<div class="title">Figure 20. Pantalla de inicio de la aplicación TweetHeat</div>
+<div class="title">Figure 22. Pantalla de inicio de la aplicación TweetHeat</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
 </div>
-<div class="title">Figure 21. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+<div class="title">Figure 23. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
 </div>
 </div>
 </div>
@@ -3469,33 +3569,30 @@ Usage: Falcon [options]
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a>. Conjunto de nombres geográficos que, junto con un mapa, constituye una importante referencia sobre lugares y sus nombres
+<a href="#_footnoteref_1">1</a>. Disponible en: <a href="http://aisl.umbc.edu/resources/369.pdf">http://aisl.umbc.edu/resources/369.pdf</a> (ver tablas y ecuaciones en la página 7)
 </div>
 <div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a>. Disponible en: <a href="http://aisl.umbc.edu/resources/369.pdf">http://aisl.umbc.edu/resources/369.pdf</a> (ver tablas y ecuaciones en la página 7)
+<a href="#_footnoteref_2">2</a>. <a href="http://perldesignpatterns.com/?word=decorator+pattern">http://perldesignpatterns.com/?word=decorator+pattern</a>
 </div>
 <div class="footnote" id="_footnote_3">
-<a href="#_footnoteref_3">3</a>. <a href="http://perldesignpatterns.com/?word=decorator+pattern">http://perldesignpatterns.com/?word=decorator+pattern</a>
+<a href="#_footnoteref_3">3</a>. <a href="http://www.saxproject.org/">http://www.saxproject.org/</a>
 </div>
 <div class="footnote" id="_footnote_4">
-<a href="#_footnoteref_4">4</a>. <a href="http://www.saxproject.org/">http://www.saxproject.org/</a>
+<a href="#_footnoteref_4">4</a>. <a href="http://www.xmlpull.org/">http://www.xmlpull.org/</a>
 </div>
 <div class="footnote" id="_footnote_5">
-<a href="#_footnoteref_5">5</a>. <a href="http://www.xmlpull.org/">http://www.xmlpull.org/</a>
+<a href="#_footnoteref_5">5</a>. <a href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>
 </div>
 <div class="footnote" id="_footnote_6">
-<a href="#_footnoteref_6">6</a>. <a href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>
+<a href="#_footnoteref_6">6</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
 </div>
 <div class="footnote" id="_footnote_7">
-<a href="#_footnoteref_7">7</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
-</div>
-<div class="footnote" id="_footnote_8">
-<a href="#_footnoteref_8">8</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_7">7</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-06-14 21:25:07 CEST
+Last updated 2014-06-20 22:44:21 CEST
 </div>
 </div>
 </body>

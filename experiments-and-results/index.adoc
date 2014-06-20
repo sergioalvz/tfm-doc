@@ -58,14 +58,14 @@ Por ello, se optó por trabajar siempre con conjuntos de datos recogidos en peri
 
 ==== Conceptos previos
 
-===== Acierto y exhaustividad
+===== Precisión y exhaustividad
 
-Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de *acierto* se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.
+Para entender los siguientes resultados, será necesario explicar dos conceptos clave que se repetirán a lo largo de las diferentes tablas resumen. El concepto de *precisión* se puede entender como el número de predicciones que coinciden con los resultados reales sobre el total de las predicciones realizadas.
 
-Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de acierto sería:
+Por tanto, si tenemos un total de 20 predicciones y 18 de las mismas han coincidido con su valor real, se consideraría que el porcentaje de precisión sería:
 
 ----
-(18/20) * 100 = 90% de acierto
+(18/20) * 100 = 90% de precisión
 ----
 
 El concepto *exhaustividad* se explica como el porcentaje de tuits locales que se han identificado sobre el conjunto de tuits locales reales. En este caso, partiendo de un ejemplo en el que se hubiesen etiquetado 25 tuits como locales de manera correcta y sabiendo que en el conjunto a evaluar existían 30 tuits locales, el porcentaje de exhaustividad de nuestro modelo sería de:
@@ -76,15 +76,15 @@ El concepto *exhaustividad* se explica como el porcentaje de tuits locales que s
 
 Entendiendo este porcentaje como que para cada 100 tuits que sabemos son locales, nuestro modelo es capaz de detectar ~ 83 satisfactoriamente.
 
-===== Umbral de acierto
+===== Umbral de precisión
 
-Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como *umbral de acierto*.
+Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como *umbral de precisión*.
 
 Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que *sí* pertenece al conjunto local y 0 como que *no*).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: _0.5, 0.6, 0.7, etc._
 
-Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de acierto, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.
+Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de precisión, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.
 
-Para los siguientes ejemplos se ha tomado como umbral el valor *0.5*, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación acierto - exhaustividad.
+Para los siguientes ejemplos se ha tomado como umbral el valor *0.5*, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación precisión - exhaustividad.
 
 include::country.adoc[]
 

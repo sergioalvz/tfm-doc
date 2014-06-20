@@ -79,5 +79,3 @@ A continuación, se muestran los 10 resultados más discriminativos tras aplicar
 ----
 
 Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: _oviedo_, _gijón_ y _asturias_; mientras que se favorecen otros más específicos como _sidra_, _presta_ o _celebralos_ (escrito como se pronunciaría en asturiano).
-
-La implementación de ambos algoritmos Root Log Likelihood-Ratio fue desarrollada por el doctor Daniel Gayo Avello.
