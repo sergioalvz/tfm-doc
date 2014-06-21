@@ -248,8 +248,9 @@ Una vez con toda esta información almacenada, se utilizó una técnica de estim
 [NOTE]
 .Gaussian mixture models
 ====
-"Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus datos fueron generados a partir de la unión de un número finito de distribuciones Gaussianas con parámetros desconocidos."
--- http://scikit-learn.org/stable/modules/mixture.html
+Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus datos fueron generados a partir de la unión de un número finito de distribuciones Gaussianas con parámetros desconocidos.
+
+— http://scikit-learn.org/stable/modules/mixture.html
 ====
 
 

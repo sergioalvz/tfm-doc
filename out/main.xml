@@ -350,12 +350,8 @@
 <simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</simpara>
 <note>
 <title>Gaussian mixture models</title>
-<blockquote>
-<attribution>
-http://scikit-learn.org/stable/modules/mixture.html
-</attribution>
 <simpara>Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus datos fueron generados a partir de la unión de un número finito de distribuciones Gaussianas con parámetros desconocidos.</simpara>
-</blockquote>
+<simpara>— <link xlink:href="http://scikit-learn.org/stable/modules/mixture.html">http://scikit-learn.org/stable/modules/mixture.html</link></simpara>
 </note>
 <simpara>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
 <itemizedlist>
