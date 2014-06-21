@@ -1,5 +1,5 @@
 [appendix]
-== B2pick, aplicación web para seleccionar _bounding boxes_
+== B2pick, aplicación web para seleccionar Bounding Boxes
 
 Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de _bounding boxes_ para aplicar filtros sobre el Streaming de Twitter. Un _bounding box_, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.
 

@@ -34,6 +34,12 @@ A continuación, se recogen una serie de artículos de investigación que aborda
 
 Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el _timeline_ del usuario son aquellas más próximas a su localización real.
 
+[NOTE]
+.Timeline de Twitter
+====
+El timeline de un usuario en Twitter se puede entender como la vista principal del usuario en la que puede observar, en tiempo real, las publicaciones realizadas por aquellos usuarios a los que está suscrito (o a los que _sigue_, si se prefiere utilizar la terminología propuesta por Twitter).
+====
+
 Por otro lado, grupos de investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.
 
 [NOTE]
@@ -43,6 +49,12 @@ Un gazetteer (o *nomenclátor* en español) es un diccionario geográfico que co
 ====
 
 Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el _timeline_ del usuario y además adjuntar información geolocalizada (*Foursquare* sería un claro ejemplo de este tipo de servicios).
+
+[NOTE]
+.Foursquare
+====
+Foursquare es una aplicación desarrollada originalmente para dispositivos móviles, que funciona en parte con las características propias de cualquier red social, permitiendo a cada usuario publicar su ubicación actual al resto de sus contactos. A diferencia de otras redes sociales más generales (como Facebook o Twitter), Foursquare tiene como objetivo compartir localizaciones concretas que tienen adjunta información geográfica. Su explosión como servicio se basó en su interoperabilidad con el resto de servicios como Facebook, Twitter o Google+ permitiendo que las publicaciones en Foursquare se pueden observar desde el resto de redes sociales del usuario.
+====
 
 ===== Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles
 _Por Brent Hecht et al. Northwestern University y Palo Alto Research Center_
@@ -106,11 +118,23 @@ Con el objetivo de poder identificar un tuit a diferentes granularidades: ciudad
 . *Hashtags*
 . *Nombres de lugares* (utilizando un gazetteer geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería _Red Sox_ para referirse a la ciudad de Boston).
 
+[NOTE]
+.Hashtag
+====
+Un hashtag es un término que comienza con el literal `#` y sirve para categorizar el contenido de un tuit.
+====
+
 Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.
 
 Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como `#` para indicar _hashtags_) y palabras vacías.
 
 También se hace mención a la utilización de un *software de aprendizaje automático*, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.
+
+[NOTE]
+.WEKA
+====
+WEKA es una implementación de software de aprendizaje automático realizada en Java por la Universidad de Waikato en Nueva Zelanda. Es uno de los sistemas más utilizados debido a su soporte para aplicar un gran número de algoritmos de aprendizaje automático.
+====
 
 La estrategia propuesta en este trabajo para inferir la localización de un usuario en Twitter fue:
 
@@ -199,19 +223,36 @@ El artículo parte de la premisa de que no es posible obtener la localización d
 
 Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.
 
-Un ejemplo de la extracción de bigramas sería:
+[NOTE]
+.Twitter Streaming API
+====
+Conjunto de APIs ofrecidas por Twitter que permiten acceder al streaming real de tuits que gestiona la aplicación. Se ofrecen 3 tipos de streaming en función del contenido que se desee analizar:
 
-____
-Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.
-____
+[cols="2,4"]
+|===
+|*Stream público*
+|Ofrece un 1% del total de tuits públicos gestionados por la aplicación. Se suele utilizar principalmente para tareas de _data mining_ donde no se requiere establecer ningún filtro en concreto en base a ningún usuario.
 
-Que se traduciría a:
+|*Stream de usuarios*
+|Permite obtener información en tiempo real acerca de los eventos recibidos por un único usuario de Twitter.
 
-____
-Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.
-____
+|*Stream de _Sites_*
+|Ofrece la capacidad de obtener información en tiempo real de los eventos recibidos por un conjunto de usuarios. Está pensado para aplicación web o móviles que requieren monitorizar la actividad en Twitter de un conjunto de sus usuarios.
+|===
+
+La página web de documentación en Twitter acerca de las APIs de Streaming contiene una mayor información acerca de sus capacidades y la manera de interactuar con ellas: https://dev.twitter.com/docs/api/streaming
+====
 
 Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.
+
+[NOTE]
+.Gaussian mixture models
+====
+"Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus datos fueron generados a partir de la unión de un número finito de distribuciones Gaussianas con parámetros desconocidos."
+-- http://scikit-learn.org/stable/modules/mixture.html
+====
+
+
 
 Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:
 
@@ -220,6 +261,25 @@ Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Rei
 * Peso por optimización
 
 Todos ellos con una alta dosis de componente algorítmico y matemático.
+
+[NOTE]
+.N-Grama
+====
+En este contexto, un n-grama es una combinación de *n* palabras contenidas en un tuit. A lo largo del proyecto se hará referencia a dos tipos de n-gramas: *unigramas* (combinaciones de 1 palabra) y *bigramas* (combinaciones de 2 palabras).
+
+Un ejemplo de la extracción de bigramas sobre el contenido de un tuit sería:
+
+«Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.»
+
+Que se traduciría a:
+
+----
+Obviamente todo, todo esto, esto se, se hace,
+hace para, para acabar, acabar con, con la,
+la costumbre, costumbre de, de nuestra, nuestra infancia,
+infancia de, de los, los álbumes, álbumes de, de cromos
+----
+====
 
 Los resultados del estudio revelaron un precisión del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de precisión sobre tuits sin información geográfica.
 
@@ -230,9 +290,15 @@ En este estudio, Zhiyuan Cheng y su equipo aportan datos interesantes en la inve
 
 1. Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.
 
-2. El test Likelihood ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.
+2. El test Likelihood Ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.
 
 3. Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.
+
+[NOTE]
+.Likelihood Ratio test
+====
+El test Likelihood-Ratio es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos. En <<_log_likelihood_ratio_test>> se exponen de manera detallada sus principales características y su aplicación en el proyecto actual.
+====
 
 Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).
 

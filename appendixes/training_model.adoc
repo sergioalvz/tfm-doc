@@ -3,6 +3,21 @@
 
 === Software de aprendizaje automático
 
+Se denomina software de aprendizaje automático a aquellos sistemas que son capaces de _aprender_ a identificar ciertos modelos a partir de un conjunto de características y métodos de entrenamiento.
+
+Su uso es bastante habitual en los campos de investigación más actuales y en los ámbitos de la Inteligencia Artificial. Son muy útiles en una amplia colección de problemas de diferente índole. Por ejemplo, algunas de sus aplicaciones más importantes son:
+
+* Análisis del mercado de valores.
+* Inteligencia Artificial en el mundo de los videojuegos.
+* Análisis de sentimientos.
+* Fraudes de tarjetas de crédito.
+* Diagnóstico médico.
+* Motores de búsqueda.
+
+El software de aprendizaje automático está siempre supeditado al algoritmo de aprendizaje que utilice por debajo. Es habitual que este tipo de sistemas puedan funcionar con diferentes tipos de algoritmos y permitan a los desarrolladores elegir cual se debe ejecutar para solucionar cada problema. El siguiente enlace contiene una explicación muy interesante acerca de los algoritmos más habituales que se pueden encontrar a la hora de trabajar con software de aprendizaje automático: http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/
+
+En el siguiente apartado se explicará el software de aprendizaje automático utilizado en el presente proyecto: Vowpal Wabbit. A diferencia de la mayoría del software de aprendizaje automático disponible, Vowpal Wabbit utiliza un nuevo algoritmo de aprendizaje automático implementado por ellos mismos.
+
 === Vowpal Wabbit
 
 *Vowpal Wabbitfootnote:[http://hunch.net/~vw/]* es un proyecto creado originalmente por _Yahoo! Research_ que fue posteriormente continuado por _Microsoft Research_, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.

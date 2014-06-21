@@ -82,12 +82,20 @@
 <section xml:id="_estudios_y_artículos_de_investigación">
 <title>Estudios y artículos de investigación</title>
 <simpara>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <emphasis>timeline</emphasis> del usuario son aquellas más próximas a su localización real.</simpara>
+<note>
+<title>Timeline de Twitter</title>
+<simpara>El timeline de un usuario en Twitter se puede entender como la vista principal del usuario en la que puede observar, en tiempo real, las publicaciones realizadas por aquellos usuarios a los que está suscrito (o a los que <emphasis>sigue</emphasis>, si se prefiere utilizar la terminología propuesta por Twitter).</simpara>
+</note>
 <simpara>Por otro lado, grupos de investigadores han optado por estudiar únicamente el contenido de un tuit con el objetivo de encontrar aquellas palabras más características de un lugar y que puedan ser lo suficientemente discriminativas. En estos casos, se suele tender a buscar aquellos términos con una alta frecuencia y una baja dispersión geográfica.</simpara>
 <note>
 <title>Gazetteer</title>
 <simpara>Un gazetteer (o <emphasis role="strong">nomenclátor</emphasis> en español) es un diccionario geográfico que contiene los nombres de varias localizaciones geográficas referentes a un lugar. Por lo general, es habitual disponer de gazetteers a nivel de país para indicar el conjunto de sus ciudades, comunidades autónomas o provincias. Así como para casi cualquier otra unidad administrativa.</simpara>
 </note>
 <simpara>Existen también enfoques donde se ha optado por una estrategia basada en estudiar el comportamiento de un usuario, utilizando técnicas de los dos métodos anteriores y combinándola con la información obtenida a través de servicios de terceros que puedan realizar publicaciones en el <emphasis>timeline</emphasis> del usuario y además adjuntar información geolocalizada (<emphasis role="strong">Foursquare</emphasis> sería un claro ejemplo de este tipo de servicios).</simpara>
+<note>
+<title>Foursquare</title>
+<simpara>Foursquare es una aplicación desarrollada originalmente para dispositivos móviles, que funciona en parte con las características propias de cualquier red social, permitiendo a cada usuario publicar su ubicación actual al resto de sus contactos. A diferencia de otras redes sociales más generales (como Facebook o Twitter), Foursquare tiene como objetivo compartir localizaciones concretas que tienen adjunta información geográfica. Su explosión como servicio se basó en su interoperabilidad con el resto de servicios como Facebook, Twitter o Google+ permitiendo que las publicaciones en Foursquare se pueden observar desde el resto de redes sociales del usuario.</simpara>
+</note>
 <section xml:id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">
 <title>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</title>
 <simpara><emphasis>Por Brent Hecht et al. Northwestern University y Palo Alto Research Center</emphasis></simpara>
@@ -164,9 +172,17 @@
 <simpara><emphasis role="strong">Nombres de lugares</emphasis> (utilizando un gazetteer geográfico). Puesto que estos términos podía estar compuestos por más de una palabra, se utilizaron bigramas y trigamas, así como un heurístico especializado en reconocer nombres de lugares expresados mediante vocabulario común (un ejemplo sería <emphasis>Red Sox</emphasis> para referirse a la ciudad de Boston).</simpara>
 </listitem>
 </orderedlist>
+<note>
+<title>Hashtag</title>
+<simpara>Un hashtag es un término que comienza con el literal <literal>#</literal> y sirve para categorizar el contenido de un tuit.</simpara>
+</note>
 <simpara>Es interesante observar como empiezan a aparecer pequeñas diferencias entre términos, considerando que en función de su categoría, pueden ofrecer más o menos información geográfica. Esta misma estrategia será también utilizada en el presente proyecto, mediante la extracción de Hashtags, Menciones y N-gramas.</simpara>
 <simpara>Con el objetivo de minimizar la aparición de ruido, normalizaron el contenido de cada tuit eliminando signos de puntuación (a excepción de aquellos que indican una entidad propia cuando se encuentran al principio de una palabra, como <literal>#</literal> para indicar <emphasis>hashtags</emphasis>) y palabras vacías.</simpara>
 <simpara>También se hace mención a la utilización de un <emphasis role="strong">software de aprendizaje automático</emphasis>, en este caso WEKA, y su conjunción con un modelo estadístico que realice los cálculos necesarios para el clasificador. El modelo que seleccionaron de manera empírica fue un clasificador Bayesiano multinomial.</simpara>
+<note>
+<title>WEKA</title>
+<simpara>WEKA es una implementación de software de aprendizaje automático realizada en Java por la Universidad de Waikato en Nueva Zelanda. Es uno de los sistemas más utilizados debido a su soporte para aplicar un gran número de algoritmos de aprendizaje automático.</simpara>
+</note>
 <simpara>La estrategia propuesta en este trabajo para inferir la localización de un usuario en Twitter fue:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -306,15 +322,41 @@
 <simpara><emphasis>Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University</emphasis></simpara>
 <simpara>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</simpara>
 <simpara>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</simpara>
-<simpara>Un ejemplo de la extracción de bigramas sería:</simpara>
-<blockquote>
-<simpara>Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.</simpara>
-</blockquote>
-<simpara>Que se traduciría a:</simpara>
-<blockquote>
-<simpara>Obviamente todo, todo esto, esto se, se hace, hace para, para acabar, acabar con, con la, la costumbre, costumbre de, de nuestra, nuestra infancia, infancia de, de los, los álbumes, álbumes de, de cromos.</simpara>
-</blockquote>
+<note>
+<title>Twitter Streaming API</title>
+<simpara>Conjunto de APIs ofrecidas por Twitter que permiten acceder al streaming real de tuits que gestiona la aplicación. Se ofrecen 3 tipos de streaming en función del contenido que se desee analizar:</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="66*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Stream público</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Ofrece un 1% del total de tuits públicos gestionados por la aplicación. Se suele utilizar principalmente para tareas de <emphasis>data mining</emphasis> donde no se requiere establecer ningún filtro en concreto en base a ningún usuario.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Stream de usuarios</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Permite obtener información en tiempo real acerca de los eventos recibidos por un único usuario de Twitter.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Stream de <emphasis>Sites</emphasis></emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Ofrece la capacidad de obtener información en tiempo real de los eventos recibidos por un conjunto de usuarios. Está pensado para aplicación web o móviles que requieren monitorizar la actividad en Twitter de un conjunto de sus usuarios.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>La página web de documentación en Twitter acerca de las APIs de Streaming contiene una mayor información acerca de sus capacidades y la manera de interactuar con ellas: <link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link></simpara>
+</note>
 <simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</simpara>
+<note>
+<title>Gaussian mixture models</title>
+<blockquote>
+<attribution>
+http://scikit-learn.org/stable/modules/mixture.html
+</attribution>
+<simpara>Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus datos fueron generados a partir de la unión de un número finito de distribuciones Gaussianas con parámetros desconocidos.</simpara>
+</blockquote>
+</note>
 <simpara>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
 <itemizedlist>
 <listitem>
@@ -328,6 +370,17 @@
 </listitem>
 </itemizedlist>
 <simpara>Todos ellos con una alta dosis de componente algorítmico y matemático.</simpara>
+<note>
+<title>N-Grama</title>
+<simpara>En este contexto, un n-grama es una combinación de <emphasis role="strong">n</emphasis> palabras contenidas en un tuit. A lo largo del proyecto se hará referencia a dos tipos de n-gramas: <emphasis role="strong">unigramas</emphasis> (combinaciones de 1 palabra) y <emphasis role="strong">bigramas</emphasis> (combinaciones de 2 palabras).</simpara>
+<simpara>Un ejemplo de la extracción de bigramas sobre el contenido de un tuit sería:</simpara>
+<simpara>«Obviamente todo esto se hace para acabar con la costumbre de nuestra infancia de los álbumes de cromos.»</simpara>
+<simpara>Que se traduciría a:</simpara>
+<screen>Obviamente todo, todo esto, esto se, se hace,
+hace para, para acabar, acabar con, con la,
+la costumbre, costumbre de, de nuestra, nuestra infancia,
+infancia de, de los, los álbumes, álbumes de, de cromos</screen>
+</note>
 <simpara>Los resultados del estudio revelaron un precisión del 83% para aquellos tuits que contenían bigramas con contenido explícitamente localizable (nombres de lugares) frente a un 57% de precisión sobre tuits sin información geográfica.</simpara>
 </section>
 <section xml:id="_you_are_where_you_tweet_a_content_based_approach_to_geo_locating_twitter_users">
@@ -339,12 +392,16 @@
 <simpara>Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.</simpara>
 </listitem>
 <listitem>
-<simpara>El test Likelihood ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.</simpara>
+<simpara>El test Likelihood Ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.</simpara>
 </listitem>
 <listitem>
 <simpara>Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.</simpara>
 </listitem>
 </orderedlist>
+<note>
+<title>Likelihood Ratio test</title>
+<simpara>El test Likelihood-Ratio es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos. En <xref linkend="_log_likelihood_ratio_test"/> se exponen de manera detallada sus principales características y su aplicación en el proyecto actual.</simpara>
+</note>
 <simpara>Entre los resultados que presentaron, afirman ser capaces de localizar correctamente el 51% de los tuits dentro de un radio de error de 100 millas (~= 161 km.).</simpara>
 </section>
 <section xml:id="_otros_artículos_de_interés">
@@ -2205,7 +2262,7 @@ reader.foreach({
 <section xml:id="_pantallas_para_la_creación_de_un_nuevo_proyecto">
 <title>Pantallas para la creación de un nuevo Proyecto</title>
 <simpara>Las siguientes imágenes muestran un conjunto de <emphasis>lightboxes</emphasis> que contienen el <emphasis>wizard</emphasis> propuesto para la creación de un nuevo proyecto. La primera imagen contiene el paso número uno, en donde se insertan las características principales del proyecto como su <emphasis role="strong">nombre</emphasis>, <emphasis role="strong">idioma</emphasis> o <emphasis role="strong">términos a monitorizar</emphasis>.</simpara>
-<simpara>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <emphasis>bounding boxes</emphasis> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web <emphasis role="strong">B2pick</emphasis> (ver <xref linkend="_b2pick_aplicación_web_para_seleccionar_em_bounding_boxes_em"/>).</simpara>
+<simpara>Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como <emphasis>bounding boxes</emphasis> para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web <emphasis role="strong">B2pick</emphasis> (ver <xref linkend="_b2pick_aplicación_web_para_seleccionar_bounding_boxes"/>).</simpara>
 <figure>
 <title>Lightboxes de creación de un nuevo proyecto</title>
 <mediaobject>
@@ -2327,7 +2384,30 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <co xml:id="CO1-5"/></screen
 <title>Software de aprendizaje automático y Vowpal Wabbit</title>
 <section xml:id="_software_de_aprendizaje_automático">
 <title>Software de aprendizaje automático</title>
-
+<simpara>Se denomina software de aprendizaje automático a aquellos sistemas que son capaces de <emphasis>aprender</emphasis> a identificar ciertos modelos a partir de un conjunto de características y métodos de entrenamiento.</simpara>
+<simpara>Su uso es bastante habitual en los campos de investigación más actuales y en los ámbitos de la Inteligencia Artificial. Son muy útiles en una amplia colección de problemas de diferente índole. Por ejemplo, algunas de sus aplicaciones más importantes son:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Análisis del mercado de valores.</simpara>
+</listitem>
+<listitem>
+<simpara>Inteligencia Artificial en el mundo de los videojuegos.</simpara>
+</listitem>
+<listitem>
+<simpara>Análisis de sentimientos.</simpara>
+</listitem>
+<listitem>
+<simpara>Fraudes de tarjetas de crédito.</simpara>
+</listitem>
+<listitem>
+<simpara>Diagnóstico médico.</simpara>
+</listitem>
+<listitem>
+<simpara>Motores de búsqueda.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>El software de aprendizaje automático está siempre supeditado al algoritmo de aprendizaje que utilice por debajo. Es habitual que este tipo de sistemas puedan funcionar con diferentes tipos de algoritmos y permitan a los desarrolladores elegir cual se debe ejecutar para solucionar cada problema. El siguiente enlace contiene una explicación muy interesante acerca de los algoritmos más habituales que se pueden encontrar a la hora de trabajar con software de aprendizaje automático: <link xlink:href="http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/">http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/</link></simpara>
+<simpara>En el siguiente apartado se explicará el software de aprendizaje automático utilizado en el presente proyecto: Vowpal Wabbit. A diferencia de la mayoría del software de aprendizaje automático disponible, Vowpal Wabbit utiliza un nuevo algoritmo de aprendizaje automático implementado por ellos mismos.</simpara>
 </section>
 <section xml:id="_vowpal_wabbit">
 <title>Vowpal Wabbit</title>
@@ -2520,8 +2600,8 @@ Usage: Falcon [options]
 &lt;/tweet&gt;</programlisting>
 </section>
 </appendix>
-<appendix xml:id="_b2pick_aplicación_web_para_seleccionar_emphasis_bounding_boxes_emphasis">
-<title>B2pick, aplicación web para seleccionar <emphasis>bounding boxes</emphasis></title>
+<appendix xml:id="_b2pick_aplicación_web_para_seleccionar_bounding_boxes">
+<title>B2pick, aplicación web para seleccionar Bounding Boxes</title>
 <simpara>Uno de los procesos más habituales durante el desarrollo del proyecto fue la selección de <emphasis>bounding boxes</emphasis> para aplicar filtros sobre el Streaming de Twitter. Un <emphasis>bounding box</emphasis>, se puede definir como un rectángulo que abarca un área geográfica en concreto que queda definida por sus coordenadas suroeste y noreste.</simpara>
 <simpara><emphasis role="strong">B2pick</emphasis> (<link xlink:href="https://github.com/sergio-alvarez/b2pick">https://github.com/sergio-alvarez/b2pick</link>), viene a cubrir la necesidad de poder automatizar el proceso mediante una sencilla aplicación web escrita puramente en JavaScript en la capa de cliente, que mediante la utilización de la API de Google Maps permita dibujar al usuario rectángulos sobre las zonas geográficas que desee.</simpara>
 <simpara>Actualmente, no se conoce ninguna herramienta que ofrezca un servicio similar.</simpara>
