@@ -45,6 +45,32 @@ Keywords en el campo de Localización::
 
 Son el resultado de aplicar la extracción anterior sobre el campo de Localización del perfil del usuario.
 
+A continuación se muestran dos ejemplos de tuits que reflejan como existen ciertos términos que pueden poseer información geográfica implícita a pesar de no estar relacionados a ningunas coordenadas concretas. Los tuits seleccionados pertenecen a un conjunto recogido entre los días 13 y 14 de mayo de 2014 para la ciudad de Madrid.
+
+El primer tuit contiene mucha información potencialmente geolocalizable. Nombra varias veces la ciudad de Madrid y, además, hace uso del término *champions* el cual fue, en conjunción con el término *madrid*, uno de los biagramas que localizaban con más fuerza los tuits procedentes de la capital española.
+
+[cols="2,4"]
+|===
+|Campo de Localización
+|*Madrid*
+
+|Contenido del tuit
+|Primera vez que dos equipos *Madrileños*, se erigen como finalistas de la  *Champions*!! Gane quién gane, *Madrid* gana!! La Copa se queda aquí.
+|===
+
+El siguiente tuit, se podría considerar como un claro ejemplo de tuit dificilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:
+
+[cols="2,4"]
+|===
+|Campo de Localización
+|Skateboarding saved my life.
+
+|Contenido del tuit
+|Que *Ana Botella* cobre 100.000€ al año en bruto y no sepa hablar inglés no tiene derecho.
+|===
+
+Sin embargo, la presencia del bigrama *ana botella* puede aportar alguna pista para identificar que el tuit procede de Madrid. De hecho, los experimentos realizados sobre este mismo conjunto de datos, detectaron que el bigrama *ana botella* efectivamente era bastante significativo para identificar tuits procedentes de Madrid sobre aquellos procedentes del resto de España.footnote:[*ana botella* obtuvo una puntuación LLR de 134.13897 sobre un máximo de 175.30144]
+
 ==== Sistema de filtros
 
 Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decoratorfootnote:[http://perldesignpatterns.com/?word=decorator+pattern], aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).

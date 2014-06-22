@@ -1151,10 +1151,10 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="sect2">
 <h3 id="_visión_general_del_sistema">2.1. Visión general del sistema</h3>
 <div class="paragraph">
-<p>Antes de empezar a detallar los conceptos y algoritmos utilizados, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</p>
+<p>Antes de empezar a detallar los conceptos y algoritmos utilizados a lo largo de todo el proceso, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</p>
 </div>
 <div class="paragraph">
-<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Likelihood Ratio. Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</p>
+<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la probabilidad de que un determinado término pertenezca al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1173,7 +1173,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="title">Figure 3. Visión simplificada del proceso de identificación de términos discriminativos</div>
 </div>
 <div class="paragraph">
-<p>Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. La figura <a href="#training-vw-process">Flujo de trabajo para procesar los datos y entrenar al clasificador automático</a> muestra el flujo necesario para calcular la puntuación y desarrollar el modelo de entrenamiento.</p>
+<p>Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. La figura <a href="#training-vw-process">Flujo de trabajo para procesar los datos y entrenar al clasificador automático</a> muestra el proceso necesario para calcular la puntuación de cada tuit y desarrollar el modelo de entrenamiento en base a un conjunto de datos para entrenamiento y test.</p>
 </div>
 <div id="training-vw-process" class="imageblock" style="text-align: center">
 <div class="content">
@@ -1182,7 +1182,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="title">Figure 4. Flujo de trabajo para procesar los datos y entrenar al clasificador automático</div>
 </div>
 <div class="paragraph">
-<p>Las siguientes secciones entrarán a explicar todos los puntos anteriores en profundidad, con el objetivo de clarificar las dudas que hayan podido surgir tras ver una primera visión general del sistema.</p>
+<p>Las siguientes secciones entrarán a explicar todos los puntos anteriores en un mayor grado de profundidad.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1372,10 +1372,54 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p>A continuación se muestran dos ejemplos de tuits que reflejan como existen ciertos términos que pueden poseer información geográfica implícita a pesar de no estar relacionados a ningunas coordenadas concretas. Los tuits seleccionados pertenecen a un conjunto recogido entre los días 13 y 14 de mayo de 2014 para la ciudad de Madrid.</p>
+</div>
+<div class="paragraph">
+<p>El primer tuit contiene mucha información potencialmente geolocalizable. Nombra varias veces la ciudad de Madrid y, además, hace uso del término <strong>champions</strong> el cual fue, en conjunción con el término <strong>madrid</strong>, uno de los biagramas que localizaban con más fuerza los tuits procedentes de la capital española.</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 100%;">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 66%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Campo de Localización</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Madrid</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contenido del tuit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primera vez que dos equipos <strong>Madrileños</strong>, se erigen como finalistas de la  <strong>Champions</strong>!! Gane quién gane, <strong>Madrid</strong> gana!! La Copa se queda aquí.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>El siguiente tuit, se podría considerar como un claro ejemplo de tuit dificilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 100%;">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 66%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Campo de Localización</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skateboarding saved my life.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contenido del tuit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Que <strong>Ana Botella</strong> cobre 100.000€ al año en bruto y no sepa hablar inglés no tiene derecho.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Sin embargo, la presencia del bigrama <strong>ana botella</strong> puede aportar alguna pista para identificar que el tuit procede de Madrid. De hecho, los experimentos realizados sobre este mismo conjunto de datos, detectaron que el bigrama <strong>ana botella</strong> efectivamente era bastante significativo para identificar tuits procedentes de Madrid sobre aquellos procedentes del resto de España.<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span></p>
+</div>
 <div class="sect3">
 <h4 id="_sistema_de_filtros">2.3.1. Sistema de filtros</h4>
 <div class="paragraph">
-<p>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</p>
+<p>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -1518,7 +1562,7 @@ end</pre>
 <p>Debido al intenso uso que se hace en el proyecto de datos en XML (ver <a href="#_almacenamiento_de_datos">Almacenamiento de datos</a>), fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</p>
 </div>
 <div class="paragraph">
-<p>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <strong>Simple API XML (o SAX)<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span></strong> y <strong>pulling parsing<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span></strong>.</p>
+<p>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <strong>Simple API XML (o SAX)<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span></strong> y <strong>pulling parsing<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></strong>.</p>
 </div>
 <div class="paragraph">
 <p>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete <code>xml.pull</code>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <em>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</em>. Cada uno de estos eventos, puede tener asignado un <em>listener</em> que contenga la lógica a ejecutar.</p>
@@ -3103,7 +3147,7 @@ reader.foreach({
 <p>Con el objetivo de poder realizar un sistema escalable, el sistema de streaming se ejecutará como un componente externo de la aplicación, puesto que podría presentar problemas a la hora de ejecutar dos instancias de la aplicación con el sistema de streaming integrado (produciendo resultados duplicados en la base de datos por acceder de manera concurrente al mismo flujo de datos).</p>
 </div>
 <div class="paragraph">
-<p>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <strong>RabbitMQ<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></strong>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</p>
+<p>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <strong>RabbitMQ<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</p>
 </div>
 <div class="paragraph">
 <p><code>Cleaner</code> es una clase que se ejecutará como <strong>cron</strong> de la aplicación de manera periódica en plazos de 24 horas. Su misión será eliminar tuits más antiguos de 48 horas.</p>
@@ -3399,7 +3443,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <i class="conum" data-value=
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -3510,7 +3554,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 20. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
+<div class="title">Figure 20. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -3780,22 +3824,25 @@ Usage: Falcon [options]
 <a href="#_footnoteref_1">1</a>. Disponible en: <a href="http://aisl.umbc.edu/resources/369.pdf">http://aisl.umbc.edu/resources/369.pdf</a> (ver tablas y ecuaciones en la página 7)
 </div>
 <div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a>. <a href="http://perldesignpatterns.com/?word=decorator+pattern">http://perldesignpatterns.com/?word=decorator+pattern</a>
+<a href="#_footnoteref_2">2</a>. <strong>ana botella</strong> obtuvo una puntuación LLR de 134.13897 sobre un máximo de 175.30144
 </div>
 <div class="footnote" id="_footnote_3">
-<a href="#_footnoteref_3">3</a>. <a href="http://www.saxproject.org/">http://www.saxproject.org/</a>
+<a href="#_footnoteref_3">3</a>. <a href="http://perldesignpatterns.com/?word=decorator+pattern">http://perldesignpatterns.com/?word=decorator+pattern</a>
 </div>
 <div class="footnote" id="_footnote_4">
-<a href="#_footnoteref_4">4</a>. <a href="http://www.xmlpull.org/">http://www.xmlpull.org/</a>
+<a href="#_footnoteref_4">4</a>. <a href="http://www.saxproject.org/">http://www.saxproject.org/</a>
 </div>
 <div class="footnote" id="_footnote_5">
-<a href="#_footnoteref_5">5</a>. <a href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>
+<a href="#_footnoteref_5">5</a>. <a href="http://www.xmlpull.org/">http://www.xmlpull.org/</a>
 </div>
 <div class="footnote" id="_footnote_6">
-<a href="#_footnoteref_6">6</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_6">6</a>. <a href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>
 </div>
 <div class="footnote" id="_footnote_7">
-<a href="#_footnoteref_7">7</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_7">7</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+</div>
+<div class="footnote" id="_footnote_8">
+<a href="#_footnoteref_8">8</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">
