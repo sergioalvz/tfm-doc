@@ -243,7 +243,7 @@ Conjunto de APIs ofrecidas por Twitter que permiten acceder al streaming real de
 La página web de documentación en Twitter acerca de las APIs de Streaming contiene una mayor información acerca de sus capacidades y la manera de interactuar con ellas: https://dev.twitter.com/docs/api/streaming
 ====
 
-Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.
+Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación va vinculada a un peso específico en función del bigrama y la suma de todos los pesos relativos a un mismo tuit resulta en la probabilidad total de que pertenezca a dichas coordenadas.
 
 [NOTE]
 .Gaussian mixture models
@@ -253,15 +253,15 @@ Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus d
 — http://scikit-learn.org/stable/modules/mixture.html
 ====
 
+Para calcular el peso total de un tuit a partir del peso de cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:
 
+Peso por propiedades de calidad:: Se realiza la suma de todos los pesos asignados para cada bigrama y se utiliza su total como el total del tuit.
 
-Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:
+Peso por error inverso:: Se calcula el error de cada bigrama utilizando el conjunto de datos de entrenamiento y se realiza la suma de todos los errores obtenidos. Después, se aplica el inverso sobre el error total, para obtener un valor que implique que cuanto mayor sea el error, menor sea el peso del tuit.
 
-* Peso por propiedades de calidad
-* Peso por error inverso
-* Peso por optimización
+Peso por optimización:: Aprovechando los dos casos anteriores, se plantea una nueva característica que pueda aportar el peso a cada bigrama utilizando la información que pueden dar tanto sus propiedades de calidad como su valor de error sobre el error total. De esta manera, se calcularía un nuevo valor para cada bigrama que, en conjunto con el del resto de bigramas que componen el tuit, resultaría en el peso total para dicho tuit.
 
-Todos ellos con una alta dosis de componente algorítmico y matemático.
+Todos los algoritmos anteriores contienen una alta dosis de componente matemático.
 
 [NOTE]
 .N-Grama

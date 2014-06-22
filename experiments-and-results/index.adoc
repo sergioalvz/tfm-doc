@@ -93,5 +93,3 @@ include::province.adoc[]
 include::metropolitan_area.adoc[]
 
 include::neighbourhood.adoc[]
-
-include::conclusions.adoc[]

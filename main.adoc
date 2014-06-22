@@ -16,6 +16,8 @@ include::theoretical_aspects/index.adoc[]
 
 include::experiments-and-results/index.adoc[]
 
+include::conclusions-future-work/index.adoc[]
+
 include::application/index.adoc[]
 
 include::appendixes/index.adoc[]

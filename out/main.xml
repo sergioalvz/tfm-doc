@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-20</date>
+<date>2014-06-22</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -26,8 +26,8 @@
 <title>Agradecimientos</title>
 <simpara>Aquí los agradecimientos.</simpara>
 </acknowledgements>
-<preface xml:id="_keywords">
-<title>Keywords</title>
+<preface xml:id="_palabras_clave">
+<title>Palabras clave</title>
 <simpara>twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework</simpara>
 </preface>
 <chapter xml:id="_introducción">
@@ -347,25 +347,34 @@
 </informaltable>
 <simpara>La página web de documentación en Twitter acerca de las APIs de Streaming contiene una mayor información acerca de sus capacidades y la manera de interactuar con ellas: <link xlink:href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</link></simpara>
 </note>
-<simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</simpara>
+<simpara>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación va vinculada a un peso específico en función del bigrama y la suma de todos los pesos relativos a un mismo tuit resulta en la probabilidad total de que pertenezca a dichas coordenadas.</simpara>
 <note>
 <title>Gaussian mixture models</title>
 <simpara>Un modelo Gaussiano mixto es un modelo probabilístico que asume que todos sus datos fueron generados a partir de la unión de un número finito de distribuciones Gaussianas con parámetros desconocidos.</simpara>
 <simpara>— <link xlink:href="http://scikit-learn.org/stable/modules/mixture.html">http://scikit-learn.org/stable/modules/mixture.html</link></simpara>
 </note>
-<simpara>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
-<itemizedlist>
+<simpara>Para calcular el peso total de un tuit a partir del peso de cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</simpara>
+<variablelist>
+<varlistentry>
+<term>Peso por propiedades de calidad</term>
 <listitem>
-<simpara>Peso por propiedades de calidad</simpara>
+<simpara>Se realiza la suma de todos los pesos asignados para cada bigrama y se utiliza su total como el total del tuit.</simpara>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term>Peso por error inverso</term>
 <listitem>
-<simpara>Peso por error inverso</simpara>
+<simpara>Se calcula el error de cada bigrama utilizando el conjunto de datos de entrenamiento y se realiza la suma de todos los errores obtenidos. Después, se aplica el inverso sobre el error total, para obtener un valor que implique que cuanto mayor sea el error, menor sea el peso del tuit.</simpara>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term>Peso por optimización</term>
 <listitem>
-<simpara>Peso por optimización</simpara>
+<simpara>Aprovechando los dos casos anteriores, se plantea una nueva característica que pueda aportar el peso a cada bigrama utilizando la información que pueden dar tanto sus propiedades de calidad como su valor de error sobre el error total. De esta manera, se calcularía un nuevo valor para cada bigrama que, en conjunto con el del resto de bigramas que componen el tuit, resultaría en el peso total para dicho tuit.</simpara>
 </listitem>
-</itemizedlist>
-<simpara>Todos ellos con una alta dosis de componente algorítmico y matemático.</simpara>
+</varlistentry>
+</variablelist>
+<simpara>Todos los algoritmos anteriores contienen una alta dosis de componente matemático.</simpara>
 <note>
 <title>N-Grama</title>
 <simpara>En este contexto, un n-grama es una combinación de <emphasis role="strong">n</emphasis> palabras contenidas en un tuit. A lo largo del proyecto se hará referencia a dos tipos de n-gramas: <emphasis role="strong">unigramas</emphasis> (combinaciones de 1 palabra) y <emphasis role="strong">bigramas</emphasis> (combinaciones de 2 palabras).</simpara>
@@ -429,6 +438,40 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 </chapter>
 <chapter xml:id="_algoritmos_y_aspectos_teóricos">
 <title>Algoritmos y aspectos teóricos</title>
+<simpara>Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis en profundidad de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.</simpara>
+<section xml:id="_visión_general_del_sistema">
+<title>Visión general del sistema</title>
+<simpara>Antes de empezar a detallar los conceptos y algoritmos utilizados, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</simpara>
+<simpara>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Likelihood Ratio. Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Un conjunto de tuits para un área global que utilice el mismo lenguaje que el área local que se quiere analizar.</simpara>
+</listitem>
+<listitem>
+<simpara>Un conjunto de tuits para el área local sobre el que se quiere realizar el análisis.</simpara>
+</listitem>
+</orderedlist>
+<figure>
+<title>Visión simplificada del proceso de identificación de términos discriminativos</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/theoretical-aspects/overview/identify-terms.png" align="center"/>
+</imageobject>
+<textobject><phrase>identify terms</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. La figura <xref linkend="training-vw-process"/> muestra el flujo necesario para calcular la puntuación y desarrollar el modelo de entrenamiento.</simpara>
+<figure xml:id="training-vw-process">
+<title>Flujo de trabajo para procesar los datos y entrenar al clasificador automático</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/theoretical-aspects/overview/training_vw_process.png" align="center"/>
+</imageobject>
+<textobject><phrase>training vw process</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Las siguientes secciones entrarán a explicar todos los puntos anteriores en profundidad, con el objetivo de clarificar las dudas que hayan podido surgir tras ver una primera visión general del sistema.</simpara>
+</section>
 <section xml:id="_log_likelihood_ratio_test">
 <title>Log Likelihood-Ratio test</title>
 <simpara>El test Log Likelihood-Ratio (<link xlink:href="http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm">http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm</link>) es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos.</simpara>
@@ -711,38 +754,8 @@ reader.foreach({
 <title>Entrenamiento del clasificador</title>
 <simpara>Después de todos los algoritmos y procesos anteriores, el último paso es entrenar al software de aprendizaje automático (ver <xref linkend="_software_de_aprendizaje_automático_y_vowpal_wabbit"/>) para proporcionarle la información necesaria para que pueda inferir la localización de un tuit de manera automática.</simpara>
 <simpara>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <xref linkend="_normalización_de_datos"/>.</simpara>
-<simpara>Una vez hecho esto, y como se explica también en <xref linkend="_división_de_datos_en_conjuntos_de_entrenamiento_y_test"/> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restante los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</simpara>
+<simpara>Una vez hecho esto, y como se explica también en <xref linkend="_división_de_datos_en_conjuntos_de_entrenamiento_y_test"/> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</simpara>
 <simpara>Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.</simpara>
-<simpara>A modo de resumen, los pasos necesarios para entrenar por tanto al software de aprendizaje automático serían los siguientes:</simpara>
-<orderedlist numeration="arabic">
-<listitem>
-<simpara>Obtención de puntuaciones LLR para los tuits de una colección de datos.</simpara>
-</listitem>
-<listitem>
-<simpara>Refinamiento de los resultados para entrenar únicamente con datos válidos.</simpara>
-</listitem>
-<listitem>
-<simpara>Traducción del fichero de puntuaciones a un <emphasis>input</emphasis> válido para Vowpal Wabbit.</simpara>
-</listitem>
-<listitem>
-<simpara>División del fichero de entrada en base a un 80% de usuarios para entrenamiento y un 20% para test.</simpara>
-</listitem>
-<listitem>
-<simpara>Creación de un modelo de clasificación utilizando Vowpal Wabbit y el conjunto de tuits de entrenamiento.</simpara>
-</listitem>
-<listitem>
-<simpara>Prueba del modelo creado anteriormente utilizando el 20% de tuits del conjunto de test.</simpara>
-</listitem>
-</orderedlist>
-<figure>
-<title>Flujo de trabajo para procesar los datos y entrenar al clasificador automático</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="../assets/theoretical-aspects/training_vw_process.png" align="center"/>
-</imageobject>
-<textobject><phrase>Flujo de trabajo para procesar los datos y entrenar al clasificador automático</phrase></textobject>
-</mediaobject>
-</figure>
 </section>
 </chapter>
 <chapter xml:id="_experimentos_y_resultados">
@@ -1150,14 +1163,20 @@ reader.foreach({
 </table>
 </section>
 </section>
-<section xml:id="_conclusiones_del_sistema_de_geolocalización">
-<title>Conclusiones del sistema de geolocalización</title>
+</chapter>
+<chapter xml:id="_conclusiones_y_trabajo_futuro_sobre_el_sistema_de_geolocalización">
+<title>Conclusiones y trabajo futuro sobre el sistema de geolocalización</title>
 <simpara>A raíz de las tablas resumen mostradas en <xref linkend="_experimentos_y_resultados"/> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de precisión (para todos los niveles de granularidad el porcentaje de precisión es superior al 90%).</simpara>
 <simpara>Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión colocando el umbral por debajo de 0.5.</simpara>
 <simpara>Los diferentes prototipos que se han desarrollado utilizando los algoritmos anteriores, prueban como no es necesario recurrir a agentes externos para obtener información geográfica para geolocalizar a un usuario. En muchos de los artículos de investigación comentados en el <emphasis role="strong">Estado del arte</emphasis> era habitual que se hiciera referencia a <emphasis role="strong">gazetteers</emphasis> y sistemas de terceros como <emphasis>Foursquare</emphasis>, para obtener información geográfica en base al reconocimiento de entidades. Este proyecto se ha centrado en desarrollar un proceso automático que permita inferir qué términos son más o menos discriminativos para identificar la localidad de un usuario, partiendo de una premisa que ha sido corroborada en base a los resultados anteriores:</simpara>
 <blockquote>
 <simpara>Existen términos con una alta frecuencia para un determinado área geográfica y una muy baja dispersión que sirven para inferir la localización de casi cualquier tuit que los contenga.</simpara>
 </blockquote>
+<section xml:id="_trabajo_futuro">
+<title>Trabajo futuro</title>
+<simpara>De cara al futuro, sería muy interesante realizar un mayor número de experimentos para mejorar los resultados a nivel de barrio, los cuales, aunque tienen unos buenos niveles de precisión, se quedan en porcentajes de exhaustividad muy limitados. Una opción sería recoger datos únicamente a nivel de área metropolitana, para obtener una cantidad de tuits muy elevada en su granularidad inmediatamente superior, y realizar los experimentos a nivel de barrio utilizando dicho conjunto.</simpara>
+<simpara>Otra vía de investigación interesante, podría ser utilizar algoritmos de aprendizaje automático multiclase. De esa manera, podríamos etiquetar cada tuit con distintos niveles de granularidad en función del número de decimales utilizados en sus coordenadas geográficas, pudiendo ofrecer predicciones con márgenes de error de 1, 10 ó 100 kilómetros. Aunque las últimas versiones de Vowpal Wabbit permiten la aplicación de este tipo de algoritmos, la manera en que se devolvían las predicciones no se ajustaba a las condiciones del experimento, puesto que no era capaz de retornar las probabilidades de que su predicción perteneciese a una clase u otra. Por tanto, este trabajo debería realizarse utilizando otro software de aprendizaje automático, como por ejemplo <emphasis role="strong">WEKA</emphasis>.</simpara>
+<simpara>Por último, sería necesario comprobar como evolucionan las puntuaciones LLR de cada término a lo largo del tiempo. Aunque se ha demostrado como el contexto temporal en el que se produce un experimento influye fuertemente en la identificación de los términos más discriminativos (como sucedió en el caso del fallecimiento de Luis Aragonés), no se ha podido investigar si, a la larga, los términos identificados en los primeros meses de ejecución de un sistema podrían mermar la precisión del mismo a la hora de realizar nuevas ejecuciones.</simpara>
 </section>
 </chapter>
 <chapter xml:id="_aplicación_web_de_geolocalización_como_servicio">

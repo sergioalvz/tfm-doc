@@ -1,0 +1,18 @@
+=== Visión general del sistema
+
+Antes de empezar a detallar los conceptos y algoritmos utilizados, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.
+
+El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Likelihood Ratio. Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:
+
+. Un conjunto de tuits para un área global que utilice el mismo lenguaje que el área local que se quiere analizar.
+. Un conjunto de tuits para el área local sobre el que se quiere realizar el análisis.
+
+.Visión simplificada del proceso de identificación de términos discriminativos
+image::theoretical-aspects/overview/identify-terms.png[align="center"]
+
+Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. La figura <<training-vw-process>> muestra el flujo necesario para calcular la puntuación y desarrollar el modelo de entrenamiento.
+
+.Flujo de trabajo para procesar los datos y entrenar al clasificador automático
+image::theoretical-aspects/overview/training_vw_process.png[id="training-vw-process", align="center"]
+
+Las siguientes secciones entrarán a explicar todos los puntos anteriores en profundidad, con el objetivo de clarificar las dudas que hayan podido surgir tras ver una primera visión general del sistema.

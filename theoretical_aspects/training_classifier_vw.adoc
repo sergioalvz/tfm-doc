@@ -4,18 +4,6 @@ Después de todos los algoritmos y procesos anteriores, el último paso es entre
 
 Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <<_normalización_de_datos>>.
 
-Una vez hecho esto, y como se explica también en <<_división_de_datos_en_conjuntos_de_entrenamiento_y_test>> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restante los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.
+Una vez hecho esto, y como se explica también en <<_división_de_datos_en_conjuntos_de_entrenamiento_y_test>> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.
 
 Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.
-
-A modo de resumen, los pasos necesarios para entrenar por tanto al software de aprendizaje automático serían los siguientes:
-
-. Obtención de puntuaciones LLR para los tuits de una colección de datos.
-. Refinamiento de los resultados para entrenar únicamente con datos válidos.
-. Traducción del fichero de puntuaciones a un _input_ válido para Vowpal Wabbit.
-. División del fichero de entrada en base a un 80% de usuarios para entrenamiento y un 20% para test.
-. Creación de un modelo de clasificación utilizando Vowpal Wabbit y el conjunto de tuits de entrenamiento.
-. Prueba del modelo creado anteriormente utilizando el 20% de tuits del conjunto de test.
-
-.Flujo de trabajo para procesar los datos y entrenar al clasificador automático
-image::theoretical-aspects/training_vw_process.png[Flujo de trabajo para procesar los datos y entrenar al clasificador automático, align="center"]

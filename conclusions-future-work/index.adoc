@@ -1,0 +1,19 @@
+== Conclusiones y trabajo futuro sobre el sistema de geolocalización
+
+A raíz de las tablas resumen mostradas en <<_experimentos_y_resultados>> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de precisión (para todos los niveles de granularidad el porcentaje de precisión es superior al 90%).
+
+Los niveles de exhaustividad se mantienen en un alto porcentaje para los casos de país (por encima del 70%) y empiezan a decaer a medida que se intentan estudiar granularidades más pequeñas y restrictivas. Lo cual, continúa suponiendo una notable mejoría sobre la situación actual, donde la falta de herramientas de este tipo para geolocalizar tuits que no contengan información geográfica adjunta hace que su grado de exhaustividad sea 0. Además, el sistema es lo suficientemente flexible como para poder aumentar el porcentaje de exhaustividad sacrificando los niveles de precisión colocando el umbral por debajo de 0.5.
+
+Los diferentes prototipos que se han desarrollado utilizando los algoritmos anteriores, prueban como no es necesario recurrir a agentes externos para obtener información geográfica para geolocalizar a un usuario. En muchos de los artículos de investigación comentados en el *Estado del arte* era habitual que se hiciera referencia a *gazetteers* y sistemas de terceros como _Foursquare_, para obtener información geográfica en base al reconocimiento de entidades. Este proyecto se ha centrado en desarrollar un proceso automático que permita inferir qué términos son más o menos discriminativos para identificar la localidad de un usuario, partiendo de una premisa que ha sido corroborada en base a los resultados anteriores:
+
+____
+Existen términos con una alta frecuencia para un determinado área geográfica y una muy baja dispersión que sirven para inferir la localización de casi cualquier tuit que los contenga.
+____
+
+=== Trabajo futuro
+
+De cara al futuro, sería muy interesante realizar un mayor número de experimentos para mejorar los resultados a nivel de barrio, los cuales, aunque tienen unos buenos niveles de precisión, se quedan en porcentajes de exhaustividad muy limitados. Una opción sería recoger datos únicamente a nivel de área metropolitana, para obtener una cantidad de tuits muy elevada en su granularidad inmediatamente superior, y realizar los experimentos a nivel de barrio utilizando dicho conjunto.
+
+Otra vía de investigación interesante, podría ser utilizar algoritmos de aprendizaje automático multiclase. De esa manera, podríamos etiquetar cada tuit con distintos niveles de granularidad en función del número de decimales utilizados en sus coordenadas geográficas, pudiendo ofrecer predicciones con márgenes de error de 1, 10 ó 100 kilómetros. Aunque las últimas versiones de Vowpal Wabbit permiten la aplicación de este tipo de algoritmos, la manera en que se devolvían las predicciones no se ajustaba a las condiciones del experimento, puesto que no era capaz de retornar las probabilidades de que su predicción perteneciese a una clase u otra. Por tanto, este trabajo debería realizarse utilizando otro software de aprendizaje automático, como por ejemplo *WEKA*.
+
+Por último, sería necesario comprobar como evolucionan las puntuaciones LLR de cada término a lo largo del tiempo. Aunque se ha demostrado como el contexto temporal en el que se produce un experimento influye fuertemente en la identificación de los términos más discriminativos (como sucedió en el caso del fallecimiento de Luis Aragonés), no se ha podido investigar si, a la larga, los términos identificados en los primeros meses de ejecución de un sistema podrían mermar la precisión del mismo a la hora de realizar nuevas ejecuciones.

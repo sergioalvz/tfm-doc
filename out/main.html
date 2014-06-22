@@ -391,7 +391,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <ul class="sectlevel1">
 <li><a href="#_resumen">Resumen</a></li>
 <li><a href="#_agradecimientos">Agradecimientos</a></li>
-<li><a href="#_keywords">Keywords</a></li>
+<li><a href="#_palabras_clave">Palabras clave</a></li>
 <li><a href="#_introducción">1. Introducción</a></li>
 <li>
 <ul class="sectlevel2">
@@ -403,11 +403,12 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_algoritmos_y_aspectos_teóricos">2. Algoritmos y aspectos teóricos</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#_log_likelihood_ratio_test">2.1. Log Likelihood-Ratio test</a></li>
-<li><a href="#_términos_discriminativos">2.2. Términos discriminativos</a></li>
-<li><a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.3. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a></li>
-<li><a href="#_procesando_xml_con_em_pull_parsing_em">2.4. Procesando XML con <em>pull parsing</em></a></li>
-<li><a href="#_entrenamiento_del_clasificador">2.5. Entrenamiento del clasificador</a></li>
+<li><a href="#_visión_general_del_sistema">2.1. Visión general del sistema</a></li>
+<li><a href="#_log_likelihood_ratio_test">2.2. Log Likelihood-Ratio test</a></li>
+<li><a href="#_términos_discriminativos">2.3. Términos discriminativos</a></li>
+<li><a href="#_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.4. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</a></li>
+<li><a href="#_procesando_xml_con_em_pull_parsing_em">2.5. Procesando XML con <em>pull parsing</em></a></li>
+<li><a href="#_entrenamiento_del_clasificador">2.6. Entrenamiento del clasificador</a></li>
 </ul>
 </li>
 <li><a href="#_experimentos_y_resultados">3. Experimentos y resultados</a></li>
@@ -415,13 +416,18 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <ul class="sectlevel2">
 <li><a href="#_primeros_experimentos_trabajando_con_grandes_volúmenes_de_datos">3.1. Primeros experimentos: trabajando con grandes volúmenes de datos</a></li>
 <li><a href="#_trabajando_con_diferentes_niveles_de_granularidad">3.2. Trabajando con diferentes niveles de granularidad</a></li>
-<li><a href="#_conclusiones_del_sistema_de_geolocalización">3.3. Conclusiones del sistema de geolocalización</a></li>
 </ul>
 </li>
-<li><a href="#_aplicación_web_de_geolocalización_como_servicio">4. Aplicación web de geolocalización como servicio</a></li>
+<li><a href="#_conclusiones_y_trabajo_futuro_sobre_el_sistema_de_geolocalización">4. Conclusiones y trabajo futuro sobre el sistema de geolocalización</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#_análisis_del_sistema">4.1. Análisis del sistema</a></li>
+<li><a href="#_trabajo_futuro">4.1. Trabajo futuro</a></li>
+</ul>
+</li>
+<li><a href="#_aplicación_web_de_geolocalización_como_servicio">5. Aplicación web de geolocalización como servicio</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_análisis_del_sistema">5.1. Análisis del sistema</a></li>
 </ul>
 </li>
 <li><a href="#_scala">Appendix A: Scala</a></li>
@@ -479,7 +485,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_keywords">Keywords</h2>
+<h2 id="_palabras_clave">Palabras clave</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework</p>
@@ -986,7 +992,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </table>
 </div>
 <div class="paragraph">
-<p>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación, va vinculada a un peso específico en función del bigrama y la suma de todos los pesos asociados a un tuit es su probabilidad total de pertenecer a esas coordenadas.</p>
+<p>Una vez con toda esta información almacenada, se utilizó una técnica de estimación denominada «gaussian mixture models» en donde cada bigrama que aparezca más de un mínimo número de veces se asocia a las coordenadas del tuit que lo contiene. Cada asociación va vinculada a un peso específico en función del bigrama y la suma de todos los pesos relativos a un mismo tuit resulta en la probabilidad total de que pertenezca a dichas coordenadas.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1007,23 +1013,26 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </table>
 </div>
 <div class="paragraph">
-<p>Para calcular el peso que se le debe dar a cada a cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</p>
+<p>Para calcular el peso total de un tuit a partir del peso de cada bigrama, el equipo de Reid Priedhorsky desarrolló tres métodos diferentes:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Peso por propiedades de calidad</p>
-</li>
-<li>
-<p>Peso por error inverso</p>
-</li>
-<li>
-<p>Peso por optimización</p>
-</li>
-</ul>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Peso por propiedades de calidad</dt>
+<dd>
+<p>Se realiza la suma de todos los pesos asignados para cada bigrama y se utiliza su total como el total del tuit.</p>
+</dd>
+<dt class="hdlist1">Peso por error inverso</dt>
+<dd>
+<p>Se calcula el error de cada bigrama utilizando el conjunto de datos de entrenamiento y se realiza la suma de todos los errores obtenidos. Después, se aplica el inverso sobre el error total, para obtener un valor que implique que cuanto mayor sea el error, menor sea el peso del tuit.</p>
+</dd>
+<dt class="hdlist1">Peso por optimización</dt>
+<dd>
+<p>Aprovechando los dos casos anteriores, se plantea una nueva característica que pueda aportar el peso a cada bigrama utilizando la información que pueden dar tanto sus propiedades de calidad como su valor de error sobre el error total. De esta manera, se calcularía un nuevo valor para cada bigrama que, en conjunto con el del resto de bigramas que componen el tuit, resultaría en el peso total para dicho tuit.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>Todos ellos con una alta dosis de componente algorítmico y matemático.</p>
+<p>Todos los algoritmos anteriores contienen una alta dosis de componente matemático.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1136,8 +1145,48 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="sect1">
 <h2 id="_algoritmos_y_aspectos_teóricos">2. Algoritmos y aspectos teóricos</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis en profundidad de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.</p>
+</div>
 <div class="sect2">
-<h3 id="_log_likelihood_ratio_test">2.1. Log Likelihood-Ratio test</h3>
+<h3 id="_visión_general_del_sistema">2.1. Visión general del sistema</h3>
+<div class="paragraph">
+<p>Antes de empezar a detallar los conceptos y algoritmos utilizados, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</p>
+</div>
+<div class="paragraph">
+<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Likelihood Ratio. Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Un conjunto de tuits para un área global que utilice el mismo lenguaje que el área local que se quiere analizar.</p>
+</li>
+<li>
+<p>Un conjunto de tuits para el área local sobre el que se quiere realizar el análisis.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/theoretical-aspects/overview/identify-terms.png" alt="identify terms">
+</div>
+<div class="title">Figure 3. Visión simplificada del proceso de identificación de términos discriminativos</div>
+</div>
+<div class="paragraph">
+<p>Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. La figura <a href="#training-vw-process">Flujo de trabajo para procesar los datos y entrenar al clasificador automático</a> muestra el flujo necesario para calcular la puntuación y desarrollar el modelo de entrenamiento.</p>
+</div>
+<div id="training-vw-process" class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/theoretical-aspects/overview/training_vw_process.png" alt="training vw process">
+</div>
+<div class="title">Figure 4. Flujo de trabajo para procesar los datos y entrenar al clasificador automático</div>
+</div>
+<div class="paragraph">
+<p>Las siguientes secciones entrarán a explicar todos los puntos anteriores en profundidad, con el objetivo de clarificar las dudas que hayan podido surgir tras ver una primera visión general del sistema.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_log_likelihood_ratio_test">2.2. Log Likelihood-Ratio test</h3>
 <div class="paragraph">
 <p>El test Log Likelihood-Ratio (<a href="http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm">http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm</a>) es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos.</p>
 </div>
@@ -1154,7 +1203,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <p>La consideración acerca de qué es un <strong>término</strong> se explica en <a href="#_términos_discriminativos">Términos discriminativos</a>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</p>
 </div>
 <div class="sect3">
-<h4 id="_log_likelihood_ratio_test_normalizado">2.1.1. Log Likelihood-Ratio test normalizado</h4>
+<h4 id="_log_likelihood_ratio_test_normalizado">2.2.1. Log Likelihood-Ratio test normalizado</h4>
 <div class="paragraph">
 <p>La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span></p>
 </div>
@@ -1246,7 +1295,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_términos_discriminativos">2.2. Términos discriminativos</h3>
+<h3 id="_términos_discriminativos">2.3. Términos discriminativos</h3>
 <div class="paragraph">
 <p>Se consideran términos discriminativos aquellos que son capaces de aportar información muy geolocalizable de manera implícita. Un ejemplo son aquellas palabras muy propias de una localización en concreto, como el caso del término <em>sidra</em> o <em>carbayu</em>, que con mucha probabilidad indican un contenido que ha sido generado en Asturias.</p>
 </div>
@@ -1324,7 +1373,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </dl>
 </div>
 <div class="sect3">
-<h4 id="_sistema_de_filtros">2.2.1. Sistema de filtros</h4>
+<h4 id="_sistema_de_filtros">2.3.1. Sistema de filtros</h4>
 <div class="paragraph">
 <p>Con el objetivo de poder realizar las extracciones de los términos anteriores de forma flexible, se diseñó un pequeño sistema de filtros que ayudara a combinar varios filtros en una misma ejecución. La implementación de este sistema está basada en el patrón de diseño Decorator<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>, aunque con la diferencia de que en este caso, la extracción de cada filtro se realiza sobre el tuit original y no sobre el resultado de las extracciones de filtros anteriores (una «decoración» incremental no tendría sentido dado el dominio del problema).</p>
 </div>
@@ -1332,11 +1381,11 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="content">
 <img src="../assets/appendixes/extractor-filter.png" alt="Representación del patrón Decorator que ilustra el sistema de filtros">
 </div>
-<div class="title">Figure 3. Representación del patrón Decorator que ilustra el sistema de filtros</div>
+<div class="title">Figure 5. Representación del patrón Decorator que ilustra el sistema de filtros</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_utilización_de_algoritmos_de_streaming">2.2.2. Utilización de algoritmos de Streaming</h4>
+<h4 id="_utilización_de_algoritmos_de_streaming">2.3.2. Utilización de algoritmos de Streaming</h4>
 <div class="paragraph">
 <p>Como se ha visto en secciones anteriores, el proceso de extracción de términos genera una gran cantidad de datos que será necesario gestionar en memoria. Para solucionar este problema, se hizo uso de técnicas propias de los algoritmos de Streaming, los cuales tienen varios puntos en común con el problema actual.</p>
 </div>
@@ -1383,7 +1432,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.3. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</h3>
+<h3 id="_pseudocódigo_para_ilustrar_el_proceso_completo_de_análisis_de_tuits">2.4. Pseudocódigo para ilustrar el proceso completo de análisis de tuits</h3>
 <div class="paragraph">
 <p>Los siguientes fragmentos de <em>pseudocódigo</em> muestran los diferentes algoritmos que se han utilizado para obtener la frecuencia de términos en los diferentes datasets, así como el proceso para realizar el cálculo de su Log Likelihood-Ratio asociado y la manera de computar la puntuación total de cada tuit en función de la puntuación de cada uno de los términos que contiene.</p>
 </div>
@@ -1464,7 +1513,7 @@ end</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_procesando_xml_con_em_pull_parsing_em">2.4. Procesando XML con <em>pull parsing</em></h3>
+<h3 id="_procesando_xml_con_em_pull_parsing_em">2.5. Procesando XML con <em>pull parsing</em></h3>
 <div class="paragraph">
 <p>Debido al intenso uso que se hace en el proyecto de datos en XML (ver <a href="#_almacenamiento_de_datos">Almacenamiento de datos</a>), fue necesario desarrollar un sistema de análisis basado en estrategias que evitasen tener que cargar el contenido completo del XML en memoria.</p>
 </div>
@@ -1495,7 +1544,7 @@ reader.foreach({
 </div>
 </div>
 <div class="sect2">
-<h3 id="_entrenamiento_del_clasificador">2.5. Entrenamiento del clasificador</h3>
+<h3 id="_entrenamiento_del_clasificador">2.6. Entrenamiento del clasificador</h3>
 <div class="paragraph">
 <p>Después de todos los algoritmos y procesos anteriores, el último paso es entrenar al software de aprendizaje automático (ver <a href="#_software_de_aprendizaje_automático_y_vowpal_wabbit">Software de aprendizaje automático y Vowpal Wabbit</a>) para proporcionarle la información necesaria para que pueda inferir la localización de un tuit de manera automática.</p>
 </div>
@@ -1503,41 +1552,10 @@ reader.foreach({
 <p>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <a href="#_normalización_de_datos">Normalización de datos</a>.</p>
 </div>
 <div class="paragraph">
-<p>Una vez hecho esto, y como se explica también en <a href="#_división_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restante los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</p>
+<p>Una vez hecho esto, y como se explica también en <a href="#_división_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</p>
 </div>
 <div class="paragraph">
 <p>Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.</p>
-</div>
-<div class="paragraph">
-<p>A modo de resumen, los pasos necesarios para entrenar por tanto al software de aprendizaje automático serían los siguientes:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Obtención de puntuaciones LLR para los tuits de una colección de datos.</p>
-</li>
-<li>
-<p>Refinamiento de los resultados para entrenar únicamente con datos válidos.</p>
-</li>
-<li>
-<p>Traducción del fichero de puntuaciones a un <em>input</em> válido para Vowpal Wabbit.</p>
-</li>
-<li>
-<p>División del fichero de entrada en base a un 80% de usuarios para entrenamiento y un 20% para test.</p>
-</li>
-<li>
-<p>Creación de un modelo de clasificación utilizando Vowpal Wabbit y el conjunto de tuits de entrenamiento.</p>
-</li>
-<li>
-<p>Prueba del modelo creado anteriormente utilizando el 20% de tuits del conjunto de test.</p>
-</li>
-</ol>
-</div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="../assets/theoretical-aspects/training_vw_process.png" alt="Flujo de trabajo para procesar los datos y entrenar al clasificador automático">
-</div>
-<div class="title">Figure 4. Flujo de trabajo para procesar los datos y entrenar al clasificador automático</div>
 </div>
 </div>
 </div>
@@ -2018,8 +2036,11 @@ reader.foreach({
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_conclusiones_del_sistema_de_geolocalización">3.3. Conclusiones del sistema de geolocalización</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusiones_y_trabajo_futuro_sobre_el_sistema_de_geolocalización">4. Conclusiones y trabajo futuro sobre el sistema de geolocalización</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>A raíz de las tablas resumen mostradas en <a href="#_experimentos_y_resultados">Experimentos y resultados</a> se puede concluir que la geolocalización de usuarios en base a sus contenidos es realmente posible y, además, con un alto grado de precisión (para todos los niveles de granularidad el porcentaje de precisión es superior al 90%).</p>
 </div>
@@ -2036,11 +2057,22 @@ reader.foreach({
 </div>
 </blockquote>
 </div>
+<div class="sect2">
+<h3 id="_trabajo_futuro">4.1. Trabajo futuro</h3>
+<div class="paragraph">
+<p>De cara al futuro, sería muy interesante realizar un mayor número de experimentos para mejorar los resultados a nivel de barrio, los cuales, aunque tienen unos buenos niveles de precisión, se quedan en porcentajes de exhaustividad muy limitados. Una opción sería recoger datos únicamente a nivel de área metropolitana, para obtener una cantidad de tuits muy elevada en su granularidad inmediatamente superior, y realizar los experimentos a nivel de barrio utilizando dicho conjunto.</p>
+</div>
+<div class="paragraph">
+<p>Otra vía de investigación interesante, podría ser utilizar algoritmos de aprendizaje automático multiclase. De esa manera, podríamos etiquetar cada tuit con distintos niveles de granularidad en función del número de decimales utilizados en sus coordenadas geográficas, pudiendo ofrecer predicciones con márgenes de error de 1, 10 ó 100 kilómetros. Aunque las últimas versiones de Vowpal Wabbit permiten la aplicación de este tipo de algoritmos, la manera en que se devolvían las predicciones no se ajustaba a las condiciones del experimento, puesto que no era capaz de retornar las probabilidades de que su predicción perteneciese a una clase u otra. Por tanto, este trabajo debería realizarse utilizando otro software de aprendizaje automático, como por ejemplo <strong>WEKA</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Por último, sería necesario comprobar como evolucionan las puntuaciones LLR de cada término a lo largo del tiempo. Aunque se ha demostrado como el contexto temporal en el que se produce un experimento influye fuertemente en la identificación de los términos más discriminativos (como sucedió en el caso del fallecimiento de Luis Aragonés), no se ha podido investigar si, a la larga, los términos identificados en los primeros meses de ejecución de un sistema podrían mermar la precisión del mismo a la hora de realizar nuevas ejecuciones.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_aplicación_web_de_geolocalización_como_servicio">4. Aplicación web de geolocalización como servicio</h2>
+<h2 id="_aplicación_web_de_geolocalización_como_servicio">5. Aplicación web de geolocalización como servicio</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A continuación se muestran una serie de secciones que explicarán de manera aproximada la manera de implementar una aplicación web que ofrezca un servicio de geolocalización de tuits en base a su contenido utilizando la tecnología explorada en los prototipos y experimentos anteriores.</p>
@@ -2049,9 +2081,9 @@ reader.foreach({
 <p>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <em>en cascada</em> si no que se utilizaría una metodología ágil basada en iteraciones (ver <a href="#_scrum">Scrum</a>), donde se irían añadiendo <strong>user stories</strong> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</p>
 </div>
 <div class="sect2">
-<h3 id="_análisis_del_sistema">4.1. Análisis del sistema</h3>
+<h3 id="_análisis_del_sistema">5.1. Análisis del sistema</h3>
 <div class="sect3">
-<h4 id="_definición_y_alcance_del_sistema">4.1.1. Definición y alcance del Sistema</h4>
+<h4 id="_definición_y_alcance_del_sistema">5.1.1. Definición y alcance del Sistema</h4>
 <div class="paragraph">
 <p>A partir de las tecnologías y experimentos desarrollados en las secciones anteriores, las próximas páginas recogen el análisis y diseño de una posible aplicación web que, basándose en los trabajos anteriores, sirva para ofrecer un servicio de geolocalización de tuits en base a su contenido.</p>
 </div>
@@ -2063,7 +2095,7 @@ reader.foreach({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_requisitos_del_sistema">4.1.2. Requisitos del Sistema</h4>
+<h4 id="_requisitos_del_sistema">5.1.2. Requisitos del Sistema</h4>
 <div class="sect4">
 <h5 id="_requisitos_funcionales">Requisitos Funcionales</h5>
 <table id="user-requirements" class="tableblock frame-all grid-all" style="width: 100%;">
@@ -2331,12 +2363,12 @@ reader.foreach({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_análisis_de_casos_de_uso_y_escenarios">4.1.3. Análisis de casos de uso y escenarios</h4>
+<h4 id="_análisis_de_casos_de_uso_y_escenarios">5.1.3. Análisis de casos de uso y escenarios</h4>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/use-cases/user-managements.png" alt="user managements">
 </div>
-<div class="title">Figure 5. Casos de Uso para la Gestión de Usuarios</div>
+<div class="title">Figure 6. Casos de Uso para la Gestión de Usuarios</div>
 </div>
 <table id="cu-user-system-1-1" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 20. CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema</caption>
@@ -2465,7 +2497,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/use-cases/projects-management.png" alt="projects management">
 </div>
-<div class="title">Figure 6. Casos de Uso para la Gestión de Proyectos</div>
+<div class="title">Figure 7. Casos de Uso para la Gestión de Proyectos</div>
 </div>
 <table id="cu-user-project-2-1" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 23. CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto</caption>
@@ -2799,7 +2831,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/use-cases/execution-management.png" alt="execution management">
 </div>
-<div class="title">Figure 7. Casos de Uso para la Gestión de Ejecuciones</div>
+<div class="title">Figure 8. Casos de Uso para la Gestión de Ejecuciones</div>
 </div>
 <table id="cu-user-project-3-1" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 31. CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto</caption>
@@ -2926,7 +2958,7 @@ reader.foreach({
 </table>
 </div>
 <div class="sect3">
-<h4 id="_diseño_e_identificación_preliminar_de_sistemas_y_clases">4.1.4. Diseño e Identificación preliminar de Sistemas y Clases</h4>
+<h4 id="_diseño_e_identificación_preliminar_de_sistemas_y_clases">5.1.4. Diseño e Identificación preliminar de Sistemas y Clases</h4>
 <div class="sect4">
 <h5 id="_identificación_de_sistemas">Identificación de Sistemas</h5>
 <div class="paragraph">
@@ -2938,7 +2970,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/administration.png" alt="administration">
 </div>
-<div class="title">Figure 8. Sistema de Administración</div>
+<div class="title">Figure 9. Sistema de Administración</div>
 </div>
 <div class="paragraph">
 <p>El <strong>Sistema de Administración</strong> se encarga de implementar las tareas básicas para la gestión de <strong>usuarios</strong>, <strong>proyectos</strong> y <strong>ejecuciones</strong>. Entre estas tareas, se encuentran las de creación, actualización y borrado; así como el control de las relaciones que se establecen entre los modelos.</p>
@@ -2950,7 +2982,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/evaluation.png" alt="evaluation">
 </div>
-<div class="title">Figure 9. Sistema de Evaluación</div>
+<div class="title">Figure 10. Sistema de Evaluación</div>
 </div>
 <div class="paragraph">
 <p>En el <strong>Sistema de Evaluación</strong> nos encontramos antes una situación diferente al apartado anterior. Este sistema deberá trabajar conjuntamente con clases propias de la aplicación así como también con un sistema externo que actuará como <em>wrapper</em> sobre el software de aprendizaje automático <strong>Vowpal Wabbit</strong>. La comunicación entre ambos sistemas se realizará a través de un servicio web <strong>RESTful</strong> implementado por el <em>wrapper</em> de Vowpal Wabbit.</p>
@@ -2968,7 +3000,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/streaming.png" alt="streaming" height="250px">
 </div>
-<div class="title">Figure 10. Sistema de Streaming</div>
+<div class="title">Figure 11. Sistema de Streaming</div>
 </div>
 <div class="paragraph">
 <p>El <strong>Sistema de Streaming</strong> será el encargado de implementar la lógica para comunicarse con el Streaming de Twitter y ofrecer tuits al resto de la aplicación. Sus dos principales misiones serán:</p>
@@ -2999,7 +3031,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/administration-classes.png" alt="administration classes">
 </div>
-<div class="title">Figure 11. Clases del Sistema de Administración</div>
+<div class="title">Figure 12. Clases del Sistema de Administración</div>
 </div>
 <div class="paragraph">
 <p>El diagrama de clases para el Sistema de Administración muestra únicamente tres entidades que intentan reflejar lo señalado anteriormente respecto a este mismo sistema. Su única misión será realizar tareas de administración, como por ejemplo la creación de nuevos usuarios y proyectos, agregar a un usuario un proyecto o agregar una ejecución a un proyecto ya existente.</p>
@@ -3014,7 +3046,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/evaluation-classes.png" alt="evaluation classes">
 </div>
-<div class="title">Figure 12. Clases del Sistema de Evaluación</div>
+<div class="title">Figure 13. Clases del Sistema de Evaluación</div>
 </div>
 <div class="paragraph">
 <p>En el Sistema de Evaluación nos encontramos con el siguiente conjunto de clases:</p>
@@ -3059,7 +3091,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/systems/streaming-classes.png" alt="streaming classes">
 </div>
-<div class="title">Figure 13. Clases del Sistema de Streaming</div>
+<div class="title">Figure 14. Clases del Sistema de Streaming</div>
 </div>
 <div class="paragraph">
 <p>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <strong>Observer</strong>, en donde la clase <code>TwitterStreamingService</code> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como <em>listener</em> de la clase <code>TwitterStreamingService</code>, implementar la interfaz <code>TwitterStreamingListener</code> y redefinir su método <code>on_tweet_received</code> para trabajar con el nuevo tuit recibido.</p>
@@ -3080,7 +3112,7 @@ reader.foreach({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_diseño_de_em_mockups_em_para_interfaces_de_usuario">4.1.5. Diseño de <em>mockups</em> para interfaces de usuario</h4>
+<h4 id="_diseño_de_em_mockups_em_para_interfaces_de_usuario">5.1.5. Diseño de <em>mockups</em> para interfaces de usuario</h4>
 <div class="paragraph">
 <p>Con el objetivo de crear una interfaz completamente funcional y sencilla de utilizar para el usuario, se han generado una serie de <em>mockups</em> que podrían ayudar en el diseño final de la aplicación.</p>
 </div>
@@ -3105,7 +3137,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/home.png" alt="home">
 </div>
-<div class="title">Figure 14. Pantalla de login de la aplicación.</div>
+<div class="title">Figure 15. Pantalla de login de la aplicación.</div>
 </div>
 </div>
 <div class="sect4">
@@ -3117,7 +3149,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/dashboard-projects.png" alt="dashboard projects">
 </div>
-<div class="title">Figure 15. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
+<div class="title">Figure 16. Pantalla que muestra el dashboard del usuario en la sección de proyectos</div>
 </div>
 <div class="paragraph">
 <p>La sección que muestra la información sobre cada proyecto, aglutina también un pequeño resumen con sus características principales:</p>
@@ -3160,7 +3192,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/dashboard-executions.png" alt="dashboard executions">
 </div>
-<div class="title">Figure 16. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
+<div class="title">Figure 17. Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</div>
 </div>
 </div>
 <div class="sect4">
@@ -3175,7 +3207,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/new-project.png" alt="new project" height="650px">
 </div>
-<div class="title">Figure 17. Lightboxes de creación de un nuevo proyecto</div>
+<div class="title">Figure 18. Lightboxes de creación de un nuevo proyecto</div>
 </div>
 </div>
 <div class="sect4">
@@ -3190,7 +3222,7 @@ reader.foreach({
 <div class="content">
 <img src="../assets/application/mockup/execution.png" alt="execution">
 </div>
-<div class="title">Figure 18. Pantalla de ejecución de un proyecto en tiempo real</div>
+<div class="title">Figure 19. Pantalla de ejecución de un proyecto en tiempo real</div>
 </div>
 </div>
 </div>
@@ -3478,7 +3510,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 19. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
+<div class="title">Figure 20. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -3688,13 +3720,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 20. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 21. Imagen de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 21. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
+<div class="title">Figure 22. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -3725,13 +3757,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/tweetheat-home.png" alt="Pantalla de inicio de la aplicación TweetHeat">
 </div>
-<div class="title">Figure 22. Pantalla de inicio de la aplicación TweetHeat</div>
+<div class="title">Figure 23. Pantalla de inicio de la aplicación TweetHeat</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
 </div>
-<div class="title">Figure 23. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+<div class="title">Figure 24. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
 </div>
 </div>
 </div>
@@ -3768,7 +3800,7 @@ Usage: Falcon [options]
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-06-20 22:44:21 CEST
+Last updated 2014-06-22 10:10:36 CEST
 </div>
 </div>
 </body>
