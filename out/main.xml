@@ -2342,9 +2342,48 @@ reader.foreach({
 </section>
 <section xml:id="_diseño_del_sistema">
 <title>Diseño del sistema</title>
-<simpara>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web.</simpara>
+<simpara>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web <emphasis role="strong">Play!</emphasis> y el lenguaje de programación <emphasis role="strong">Scala</emphasis>.</simpara>
+<simpara>Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.</simpara>
+<simpara>A pesar de ello, Play! tiene una serie de características propias que será necesario remarcar para conseguir una mejor comprensión del diseño posterior:</simpara>
+<variablelist>
+<varlistentry>
+<term>MVC</term>
+<listitem>
+<simpara>Play! adopta de manera muy estricta el patrón de diseño <emphasis role="strong">Modelo-Vista-Controlador</emphasis>. Por tanto la aplicación se estructura, de manera general, en un conjunto de acciones recogidas en un controlador que se encargan de vincular vistas con modelos de la aplicación. En los siguientes diagramas, los ficheros y clases que representarían las vistas y controladores se han omitido, puesto que el objetivo de esta sección es mostrar como podría ser aplicable e integrable en una aplicación web la tecnología propuesta en los prototipos y experimentos anteriores.</simpara>
+<simpara>La filosofía de Play! sigue la estela de otros frameworks de desarrollo web muy populares como <emphasis>Ruby on Rails</emphasis> o <emphasis>Django</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Tareas asíncronas</term>
+<listitem>
+<simpara>A lo largo de los diferentes diagramas se verá la notación <literal>«async»</literal> acompañando a algunas de las clases. Esto es debido a que Play! tiene soporte nativo para el desarrollo de tareas y trabajos asíncronos como parte de la aplicación web y, por tanto, debido a que en algunos casos las tareas realizadas por el sistema podrían ocupar varias horas, se ha decidido aprovechar esta característica para representar aquellas tareas que se deberían de ejecutar de manera asíncrona para evitar un bloqueo en la interacción del usuario con la aplicación web.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>trait</literal>, <literal>object</literal> y <literal>Unit</literal></term>
+<listitem>
+<simpara>Puesto que la aplicación se desarrollaría utilizando el lenguaje de programación Scala, se ha intentado mantener su propia notación para referirse a aspectos clave del sistema. Con el objetivo de facilitar el seguimiento de los diagramas y evitando que esta notación pueda provocar una falta de entendimiento de los mismos, se recogen de manera breve algunas definiciones de los términos más frecuentes:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>trait</literal>: De manera simplificada, se podría entender como un concepto equivalemtne a las <emphasis role="strong">interfaces</emphasis> en Java.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>object</literal>: Cualquier clase acompañada de esta notación, se ejecutará como un <emphasis role="strong">Singleton</emphasis> por parte del sistema.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>Unit</literal>: Equivalente al concepto de <literal>void</literal> en Java.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+</variablelist>
 <section xml:id="_diagrama_de_paquetes">
 <title>Diagrama de paquetes</title>
+<simpara>El siguiente diagrama de paquetes muestra de manera general la relación entre los diferentes grupos de clases de la aplicación web ordenadas de manera conceptual en función de sus responsabilidades.</simpara>
+<simpara>El paquete de <emphasis role="strong">models</emphasis> recoge las clases que representan los modelos de la aplicación. En él podremos encontrar las clases <emphasis role="strong">User</emphasis>, <emphasis role="strong">Project</emphasis>, <emphasis role="strong">Execution</emphasis>, <emphasis role="strong">Tweet</emphasis> o <emphasis role="strong">BoundingBox</emphasis>.</simpara>
+<simpara>En <emphasis role="strong">evaluation</emphasis> se agrupan las clases encargadas de realizar la lógica de evaluación de un proyecto: obtención de datos de entrenamiento, cálculo e implementación de los algoritmos de geolocalización o ejecución de un proyecto.</simpara>
+<simpara>El paquete <emphasis role="strong">learning</emphasis> contiene las clases encargadas de realizar la comunicación con el software de aprendizaje automático.</simpara>
+<simpara>En <emphasis role="strong">streaming</emphasis> se recogen las clases encargadas de suscribirse a la cola de mensajes para recuperar los tuits recibidos por el sistema externo de Streaming y hacerlos accesibles para el resto de la aplicación.</simpara>
 <figure>
 <title>Diagrama de paquetes</title>
 <mediaobject>
@@ -2355,21 +2394,11 @@ reader.foreach({
 </mediaobject>
 </figure>
 </section>
-<section xml:id="_diagrama_de_despliegue">
-<title>Diagrama de despliegue</title>
-<figure>
-<title>Diagrama de despliegue</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="../assets/application/design/deployment.png" align="center"/>
-</imageobject>
-<textobject><phrase>deployment</phrase></textobject>
-</mediaobject>
-</figure>
-</section>
 <section xml:id="_diagramas_de_clases">
 <title>Diagramas de clases</title>
-<figure>
+<simpara>A continuación, se muestran una serie de diagramas que reflejan la organización de las clases para poder implementar los aspectos más interesantes de la aplicación web.</simpara>
+<simpara>En primer lugar, la figura <xref linkend="streaming-system-diagram"/> muestra el sistema externo (implementado en Scala) encargado de comunicarse con el <emphasis>firehose</emphasis> de Twitter. El paquete <literal>com.bonobo.streaming.retriever</literal> contiene las clases encargadas de comunicarse con el servicio de streaming y hacer accesibles al resto de la aplicación los tuits obtenidos. Como se comentó en la sección de Análisis, se hace uso del patrón de diseño <emphasis role="strong">Observer</emphasis> para permitir que múltiples instancias puedan hacer uso del mismo flujo de datos.</simpara>
+<figure xml:id="streaming-system-diagram">
 <title>Diagrama de clases del servicio externo de Streaming</title>
 <mediaobject>
 <imageobject>
@@ -2378,7 +2407,10 @@ reader.foreach({
 <textobject><phrase>streaming system</phrase></textobject>
 </mediaobject>
 </figure>
-<figure>
+<simpara>En cuanto al diseño de la aplicación web, el primer paso será comentar el paquete encargado de gestionar los modelos que contienen la lógica de negocio de la aplicación. En <xref linkend="models-package-diagram"/> muestra las relaciones entre todos los modelos, pudiendo observar como la clase Project ocupa una posición central en el diseño, manteniendo una relación <emphasis role="strong">1..</emphasis>* con la clase <emphasis role="strong">User</emphasis>, lo que indica que todos los proyectos deben pertenecer a un único usuario, pero un usuario puede disponer de múltiples proyectos.</simpara>
+<simpara>Además, todos los proyectos tendrán una relación <emphasis role="strong">1..</emphasis>* con la clase <emphasis role="strong">BoundingBox</emphasis>, puesto que los proyectos vienen definidos por un conjunto de bounding boxes que definen tanto sus localizaciones globales o locales. La clase <emphasis role="strong">BoundingBox</emphasis> contiene la información relativa a las coordenadas del área que representan, así como una operación que será de gran utilidad (en base a la experiencia en el desarrollo de prototipos) para determinar cuando un par de coordenadas se encuentran contenidas en el bounding box actual.</simpara>
+<simpara>La case <emphasis role="strong">Execution</emphasis> también mantiene una relación con la clase Project, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). La clase Execution, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.</simpara>
+<figure xml:id="models-package-diagram">
 <title>Diagrama de clases del paquete de modelos</title>
 <mediaobject>
 <imageobject>
@@ -2418,6 +2450,20 @@ reader.foreach({
 <section xml:id="_diagramas_de_secuencia_y_actividad">
 <title>Diagramas de secuencia y actividad</title>
 
+</section>
+<section xml:id="_diagrama_de_despliegue">
+<title>Diagrama de despliegue</title>
+<simpara>El diagrama de despliegue en <xref linkend="deployment-diagram"/> muestra la propuesta para desplegar el sistema presentado en los diagramas previos en un conjunto de servidores alojados, principalmente, en un proveedor de servicios Cloud. Puesto que lo habitual en este tipo de servicios es ofrecer unidades de procesamiento individuales<footnote><simpara>Denominados <emphasis>Dynos</emphasis> en Heroku (<link xlink:href="https://www.heroku.com/features">https://www.heroku.com/features</link>) o <emphasis>Gears</emphasis> en OpenShift (<link xlink:href="https://www.openshift.com/products/pricing">https://www.openshift.com/products/pricing</link>)</simpara></footnote> (de diversos tamaños y características) se ha intentado representar cada pieza independiente del sistema en un servidor que se instalaría en cada una de las unidades de procesamiento adquiridas.</simpara>
+<figure xml:id="deployment-diagram">
+<title>Diagrama de despliegue</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/deployment.png" align="center"/>
+</imageobject>
+<textobject><phrase>deployment</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>El servidor web <emphasis role="strong">Apache</emphasis> serviría a su vez como balanceador de carga sobre el conjunto de aplicaciones web que podrían estar instaladas en varios servidores independientes. El proceso para configurar Apache como servidor <emphasis>front end</emphasis> de la aplicación podría seguir los pasos propuestos en la propia documentación del framework Play!: <link xlink:href="http://www.playframework.com/documentation/2.4.x/HTTPServer">http://www.playframework.com/documentation/2.4.x/HTTPServer</link>.</simpara>
 </section>
 <section xml:id="_diseño_del_plan_de_pruebas">
 <title>Diseño del plan de pruebas</title>

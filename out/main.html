@@ -3275,10 +3275,63 @@ reader.foreach({
 <div class="sect2">
 <h3 id="_diseño_del_sistema">5.2. Diseño del sistema</h3>
 <div class="paragraph">
-<p>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web.</p>
+<p>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web <strong>Play!</strong> y el lenguaje de programación <strong>Scala</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.</p>
+</div>
+<div class="paragraph">
+<p>A pesar de ello, Play! tiene una serie de características propias que será necesario remarcar para conseguir una mejor comprensión del diseño posterior:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">MVC</dt>
+<dd>
+<p>Play! adopta de manera muy estricta el patrón de diseño <strong>Modelo-Vista-Controlador</strong>. Por tanto la aplicación se estructura, de manera general, en un conjunto de acciones recogidas en un controlador que se encargan de vincular vistas con modelos de la aplicación. En los siguientes diagramas, los ficheros y clases que representarían las vistas y controladores se han omitido, puesto que el objetivo de esta sección es mostrar como podría ser aplicable e integrable en una aplicación web la tecnología propuesta en los prototipos y experimentos anteriores.</p>
+<div class="paragraph">
+<p>La filosofía de Play! sigue la estela de otros frameworks de desarrollo web muy populares como <em>Ruby on Rails</em> o <em>Django</em>.</p>
+</div>
+</dd>
+<dt class="hdlist1">Tareas asíncronas</dt>
+<dd>
+<p>A lo largo de los diferentes diagramas se verá la notación <code>«async»</code> acompañando a algunas de las clases. Esto es debido a que Play! tiene soporte nativo para el desarrollo de tareas y trabajos asíncronos como parte de la aplicación web y, por tanto, debido a que en algunos casos las tareas realizadas por el sistema podrían ocupar varias horas, se ha decidido aprovechar esta característica para representar aquellas tareas que se deberían de ejecutar de manera asíncrona para evitar un bloqueo en la interacción del usuario con la aplicación web.</p>
+</dd>
+<dt class="hdlist1"><code>trait</code>, <code>object</code> y <code>Unit</code></dt>
+<dd>
+<p>Puesto que la aplicación se desarrollaría utilizando el lenguaje de programación Scala, se ha intentado mantener su propia notación para referirse a aspectos clave del sistema. Con el objetivo de facilitar el seguimiento de los diagramas y evitando que esta notación pueda provocar una falta de entendimiento de los mismos, se recogen de manera breve algunas definiciones de los términos más frecuentes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>trait</code>: De manera simplificada, se podría entender como un concepto equivalemtne a las <strong>interfaces</strong> en Java.</p>
+</li>
+<li>
+<p><code>object</code>: Cualquier clase acompañada de esta notación, se ejecutará como un <strong>Singleton</strong> por parte del sistema.</p>
+</li>
+<li>
+<p><code>Unit</code>: Equivalente al concepto de <code>void</code> en Java.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
 </div>
 <div class="sect3">
 <h4 id="_diagrama_de_paquetes">5.2.1. Diagrama de paquetes</h4>
+<div class="paragraph">
+<p>El siguiente diagrama de paquetes muestra de manera general la relación entre los diferentes grupos de clases de la aplicación web ordenadas de manera conceptual en función de sus responsabilidades.</p>
+</div>
+<div class="paragraph">
+<p>El paquete de <strong>models</strong> recoge las clases que representan los modelos de la aplicación. En él podremos encontrar las clases <strong>User</strong>, <strong>Project</strong>, <strong>Execution</strong>, <strong>Tweet</strong> o <strong>BoundingBox</strong>.</p>
+</div>
+<div class="paragraph">
+<p>En <strong>evaluation</strong> se agrupan las clases encargadas de realizar la lógica de evaluación de un proyecto: obtención de datos de entrenamiento, cálculo e implementación de los algoritmos de geolocalización o ejecución de un proyecto.</p>
+</div>
+<div class="paragraph">
+<p>El paquete <strong>learning</strong> contiene las clases encargadas de realizar la comunicación con el software de aprendizaje automático.</p>
+</div>
+<div class="paragraph">
+<p>En <strong>streaming</strong> se recogen las clases encargadas de suscribirse a la cola de mensajes para recuperar los tuits recibidos por el sistema externo de Streaming y hacerlos accesibles para el resto de la aplicación.</p>
+</div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/design/packages.png" alt="packages">
@@ -3287,50 +3340,71 @@ reader.foreach({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_diagrama_de_despliegue">5.2.2. Diagrama de despliegue</h4>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="../assets/application/design/deployment.png" alt="deployment">
+<h4 id="_diagramas_de_clases">5.2.2. Diagramas de clases</h4>
+<div class="paragraph">
+<p>A continuación, se muestran una serie de diagramas que reflejan la organización de las clases para poder implementar los aspectos más interesantes de la aplicación web.</p>
 </div>
-<div class="title">Figure 21. Diagrama de despliegue</div>
+<div class="paragraph">
+<p>En primer lugar, la figura <a href="#streaming-system-diagram">Diagrama de clases del servicio externo de Streaming</a> muestra el sistema externo (implementado en Scala) encargado de comunicarse con el <em>firehose</em> de Twitter. El paquete <code>com.bonobo.streaming.retriever</code> contiene las clases encargadas de comunicarse con el servicio de streaming y hacer accesibles al resto de la aplicación los tuits obtenidos. Como se comentó en la sección de Análisis, se hace uso del patrón de diseño <strong>Observer</strong> para permitir que múltiples instancias puedan hacer uso del mismo flujo de datos.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_diagramas_de_clases">5.2.3. Diagramas de clases</h4>
-<div class="imageblock" style="text-align: center">
+<div id="streaming-system-diagram" class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/design/streaming-system.png" alt="streaming system">
 </div>
-<div class="title">Figure 22. Diagrama de clases del servicio externo de Streaming</div>
+<div class="title">Figure 21. Diagrama de clases del servicio externo de Streaming</div>
 </div>
-<div class="imageblock" style="text-align: center">
+<div class="paragraph">
+<p>En cuanto al diseño de la aplicación web, el primer paso será comentar el paquete encargado de gestionar los modelos que contienen la lógica de negocio de la aplicación. En <a href="#models-package-diagram">Diagrama de clases del paquete de modelos</a> muestra las relaciones entre todos los modelos, pudiendo observar como la clase Project ocupa una posición central en el diseño, manteniendo una relación <strong>1..</strong>* con la clase <strong>User</strong>, lo que indica que todos los proyectos deben pertenecer a un único usuario, pero un usuario puede disponer de múltiples proyectos.</p>
+</div>
+<div class="paragraph">
+<p>Además, todos los proyectos tendrán una relación <strong>1..</strong>* con la clase <strong>BoundingBox</strong>, puesto que los proyectos vienen definidos por un conjunto de bounding boxes que definen tanto sus localizaciones globales o locales. La clase <strong>BoundingBox</strong> contiene la información relativa a las coordenadas del área que representan, así como una operación que será de gran utilidad (en base a la experiencia en el desarrollo de prototipos) para determinar cuando un par de coordenadas se encuentran contenidas en el bounding box actual.</p>
+</div>
+<div class="paragraph">
+<p>La case <strong>Execution</strong> también mantiene una relación con la clase Project, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). La clase Execution, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.</p>
+</div>
+<div id="models-package-diagram" class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/design/models-package.png" alt="models package">
 </div>
-<div class="title">Figure 23. Diagrama de clases del paquete de modelos</div>
+<div class="title">Figure 22. Diagrama de clases del paquete de modelos</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/design/evaluation-package.png" alt="evaluation package">
 </div>
-<div class="title">Figure 24. Diagrama de clases del paquete de evaluación</div>
+<div class="title">Figure 23. Diagrama de clases del paquete de evaluación</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/design/learning-package.png" alt="learning package">
 </div>
-<div class="title">Figure 25. Diagrama de clases del paquete de aprendizaje automático</div>
+<div class="title">Figure 24. Diagrama de clases del paquete de aprendizaje automático</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/application/design/streaming-package.png" alt="streaming package">
 </div>
-<div class="title">Figure 26. Diagrama de clases del paquete de Streaming</div>
+<div class="title">Figure 25. Diagrama de clases del paquete de Streaming</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_diagramas_de_secuencia_y_actividad">5.2.4. Diagramas de secuencia y actividad</h4>
+<h4 id="_diagramas_de_secuencia_y_actividad">5.2.3. Diagramas de secuencia y actividad</h4>
 
+</div>
+<div class="sect3">
+<h4 id="_diagrama_de_despliegue">5.2.4. Diagrama de despliegue</h4>
+<div class="paragraph">
+<p>El diagrama de despliegue en <a href="#deployment-diagram">Diagrama de despliegue</a> muestra la propuesta para desplegar el sistema presentado en los diagramas previos en un conjunto de servidores alojados, principalmente, en un proveedor de servicios Cloud. Puesto que lo habitual en este tipo de servicios es ofrecer unidades de procesamiento individuales<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span> (de diversos tamaños y características) se ha intentado representar cada pieza independiente del sistema en un servidor que se instalaría en cada una de las unidades de procesamiento adquiridas.</p>
+</div>
+<div id="deployment-diagram" class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/application/design/deployment.png" alt="deployment">
+</div>
+<div class="title">Figure 26. Diagrama de despliegue</div>
+</div>
+<div class="paragraph">
+<p>El servidor web <strong>Apache</strong> serviría a su vez como balanceador de carga sobre el conjunto de aplicaciones web que podrían estar instaladas en varios servidores independientes. El proceso para configurar Apache como servidor <em>front end</em> de la aplicación podría seguir los pasos propuestos en la propia documentación del framework Play!: <a href="http://www.playframework.com/documentation/2.4.x/HTTPServer">http://www.playframework.com/documentation/2.4.x/HTTPServer</a>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_diseño_del_plan_de_pruebas">5.2.5. Diseño del plan de pruebas</h4>
@@ -3509,7 +3583,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <i class="conum" data-value=
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -3620,7 +3694,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 27. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span></div>
+<div class="title">Figure 27. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -3905,10 +3979,13 @@ Usage: Falcon [options]
 <a href="#_footnoteref_6">6</a>. <a href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>
 </div>
 <div class="footnote" id="_footnote_7">
-<a href="#_footnoteref_7">7</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_7">7</a>. Denominados <em>Dynos</em> en Heroku (<a href="https://www.heroku.com/features">https://www.heroku.com/features</a>) o <em>Gears</em> en OpenShift (<a href="https://www.openshift.com/products/pricing">https://www.openshift.com/products/pricing</a>)
 </div>
 <div class="footnote" id="_footnote_8">
-<a href="#_footnoteref_8">8</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_8">8</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+</div>
+<div class="footnote" id="_footnote_9">
+<a href="#_footnoteref_9">9</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">

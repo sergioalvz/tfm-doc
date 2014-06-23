@@ -1,24 +1,61 @@
 === Diseño del sistema
 
-Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web.
+Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web *Play!* y el lenguaje de programación *Scala*.
+
+Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.
+
+A pesar de ello, Play! tiene una serie de características propias que será necesario remarcar para conseguir una mejor comprensión del diseño posterior:
+
+MVC::
+
+Play! adopta de manera muy estricta el patrón de diseño *Modelo-Vista-Controlador*. Por tanto la aplicación se estructura, de manera general, en un conjunto de acciones recogidas en un controlador que se encargan de vincular vistas con modelos de la aplicación. En los siguientes diagramas, los ficheros y clases que representarían las vistas y controladores se han omitido, puesto que el objetivo de esta sección es mostrar como podría ser aplicable e integrable en una aplicación web la tecnología propuesta en los prototipos y experimentos anteriores.
++
+La filosofía de Play! sigue la estela de otros frameworks de desarrollo web muy populares como _Ruby on Rails_ o _Django_.
+
+Tareas asíncronas::
+
+A lo largo de los diferentes diagramas se verá la notación `«async»` acompañando a algunas de las clases. Esto es debido a que Play! tiene soporte nativo para el desarrollo de tareas y trabajos asíncronos como parte de la aplicación web y, por tanto, debido a que en algunos casos las tareas realizadas por el sistema podrían ocupar varias horas, se ha decidido aprovechar esta característica para representar aquellas tareas que se deberían de ejecutar de manera asíncrona para evitar un bloqueo en la interacción del usuario con la aplicación web.
+
+`trait`, `object` y `Unit`::
+
+Puesto que la aplicación se desarrollaría utilizando el lenguaje de programación Scala, se ha intentado mantener su propia notación para referirse a aspectos clave del sistema. Con el objetivo de facilitar el seguimiento de los diagramas y evitando que esta notación pueda provocar una falta de entendimiento de los mismos, se recogen de manera breve algunas definiciones de los términos más frecuentes:
++
+* `trait`: De manera simplificada, se podría entender como un concepto equivalemtne a las *interfaces* en Java.
+* `object`: Cualquier clase acompañada de esta notación, se ejecutará como un *Singleton* por parte del sistema.
+* `Unit`: Equivalente al concepto de `void` en Java.
 
 ==== Diagrama de paquetes
+
+El siguiente diagrama de paquetes muestra de manera general la relación entre los diferentes grupos de clases de la aplicación web ordenadas de manera conceptual en función de sus responsabilidades.
+
+El paquete de *models* recoge las clases que representan los modelos de la aplicación. En él podremos encontrar las clases *User*, *Project*, *Execution*, *Tweet* o *BoundingBox*.
+
+En *evaluation* se agrupan las clases encargadas de realizar la lógica de evaluación de un proyecto: obtención de datos de entrenamiento, cálculo e implementación de los algoritmos de geolocalización o ejecución de un proyecto.
+
+El paquete *learning* contiene las clases encargadas de realizar la comunicación con el software de aprendizaje automático.
+
+En *streaming* se recogen las clases encargadas de suscribirse a la cola de mensajes para recuperar los tuits recibidos por el sistema externo de Streaming y hacerlos accesibles para el resto de la aplicación.
 
 .Diagrama de paquetes
 image::application/design/packages.png[align="center"]
 
-==== Diagrama de despliegue
-
-.Diagrama de despliegue
-image::application/design/deployment.png[align="center"]
-
 ==== Diagramas de clases
 
+A continuación, se muestran una serie de diagramas que reflejan la organización de las clases para poder implementar los aspectos más interesantes de la aplicación web.
+
+En primer lugar, la figura <<streaming-system-diagram>> muestra el sistema externo (implementado en Scala) encargado de comunicarse con el _firehose_ de Twitter. El paquete `com.bonobo.streaming.retriever` contiene las clases encargadas de comunicarse con el servicio de streaming y hacer accesibles al resto de la aplicación los tuits obtenidos. Como se comentó en la sección de Análisis, se hace uso del patrón de diseño *Observer* para permitir que múltiples instancias puedan hacer uso del mismo flujo de datos.
+
 .Diagrama de clases del servicio externo de Streaming
-image::application/design/streaming-system.png[align="center"]
+image::application/design/streaming-system.png[id="streaming-system-diagram",align="center"]
+
+En cuanto al diseño de la aplicación web, el primer paso será comentar el paquete encargado de gestionar los modelos que contienen la lógica de negocio de la aplicación. En <<models-package-diagram>> muestra las relaciones entre todos los modelos, pudiendo observar como la clase Project ocupa una posición central en el diseño, manteniendo una relación *1..** con la clase *User*, lo que indica que todos los proyectos deben pertenecer a un único usuario, pero un usuario puede disponer de múltiples proyectos.
+
+Además, todos los proyectos tendrán una relación *1..** con la clase *BoundingBox*, puesto que los proyectos vienen definidos por un conjunto de bounding boxes que definen tanto sus localizaciones globales o locales. La clase *BoundingBox* contiene la información relativa a las coordenadas del área que representan, así como una operación que será de gran utilidad (en base a la experiencia en el desarrollo de prototipos) para determinar cuando un par de coordenadas se encuentran contenidas en el bounding box actual.
+
+La case *Execution* también mantiene una relación con la clase Project, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). La clase Execution, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.
 
 .Diagrama de clases del paquete de modelos
-image::application/design/models-package.png[align="center"]
+image::application/design/models-package.png[id="models-package-diagram",align="center"]
 
 .Diagrama de clases del paquete de evaluación
 image::application/design/evaluation-package.png[align="center"]
@@ -29,8 +66,16 @@ image::application/design/learning-package.png[align="center"]
 .Diagrama de clases del paquete de Streaming
 image::application/design/streaming-package.png[align="center"]
 
-
 ==== Diagramas de secuencia y actividad
+
+==== Diagrama de despliegue
+
+El diagrama de despliegue en <<deployment-diagram>> muestra la propuesta para desplegar el sistema presentado en los diagramas previos en un conjunto de servidores alojados, principalmente, en un proveedor de servicios Cloud. Puesto que lo habitual en este tipo de servicios es ofrecer unidades de procesamiento individualesfootnote:[Denominados _Dynos_ en Heroku (https://www.heroku.com/features) o _Gears_ en OpenShift (https://www.openshift.com/products/pricing)] (de diversos tamaños y características) se ha intentado representar cada pieza independiente del sistema en un servidor que se instalaría en cada una de las unidades de procesamiento adquiridas.
+
+.Diagrama de despliegue
+image::application/design/deployment.png[id="deployment-diagram",align="center"]
+
+El servidor web *Apache* serviría a su vez como balanceador de carga sobre el conjunto de aplicaciones web que podrían estar instaladas en varios servidores independientes. El proceso para configurar Apache como servidor _front end_ de la aplicación podría seguir los pasos propuestos en la propia documentación del framework Play!: http://www.playframework.com/documentation/2.4.x/HTTPServer.
 
 ==== Diseño del plan de pruebas
 
