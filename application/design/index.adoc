@@ -1,0 +1,36 @@
+=== Diseño del sistema
+
+Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web.
+
+==== Diagrama de paquetes
+
+.Diagrama de paquetes
+image::application/design/packages.png[align="center"]
+
+==== Diagrama de despliegue
+
+.Diagrama de despliegue
+image::application/design/deployment.png[align="center"]
+
+==== Diagramas de clases
+
+.Diagrama de clases del servicio externo de Streaming
+image::application/design/streaming-system.png[align="center"]
+
+.Diagrama de clases del paquete de modelos
+image::application/design/models-package.png[align="center"]
+
+.Diagrama de clases del paquete de evaluación
+image::application/design/evaluation-package.png[align="center"]
+
+.Diagrama de clases del paquete de aprendizaje automático
+image::application/design/learning-package.png[align="center"]
+
+.Diagrama de clases del paquete de Streaming
+image::application/design/streaming-package.png[align="center"]
+
+
+==== Diagramas de secuencia y actividad
+
+==== Diseño del plan de pruebas
+

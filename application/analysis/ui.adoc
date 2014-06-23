@@ -15,14 +15,14 @@ En caso de no tener una cuenta de usuario, se le informa del mecanismo que debe 
 Esta pantalla se mostrará tanto en la página raíz del sitio web para aquellos usuarios sin identificación en el sistema, como cada vez que se intente acceder a una página interior sin haberse identificado previamente.
 
 .Pantalla de login de la aplicación.
-image::application/mockup/home.png[align="center"]
+image::application/analysis/mockup/home.png[align="center"]
 
 ===== Pantalla del dashboard de Proyectos
 
 La pantalla de administración, cuyo objetivo es gestionar el conjunto de proyectos de un usuario, se ha diseñado de tal manera que permita navegar de manera sencilla sobre el histórico de Proyectos, así como disponer de un acceso rápido para crear uno nuevo.
 
 .Pantalla que muestra el dashboard del usuario en la sección de proyectos
-image::application/mockup/dashboard-projects.png[align="center"]
+image::application/analysis/mockup/dashboard-projects.png[align="center"]
 
 La sección que muestra la información sobre cada proyecto, aglutina también un pequeño resumen con sus características principales:
 
@@ -42,7 +42,7 @@ En la parte superior derecha de cada Proyecto, se presenta un acceso rápido par
 En el caso del panel de administración de las Ejecuciones de usuario, se muestra una tabla paginada a modo de histórico desde la que es posible consultar los detalles generales de la ejecución así como obtener un enlace a su fichero de resultados.
 
 .Pantalla que muestra el dashboard del usuario en la sección de ejecuciones
-image::application/mockup/dashboard-executions.png[align="center"]
+image::application/analysis/mockup/dashboard-executions.png[align="center"]
 
 ===== Pantallas para la creación de un nuevo Proyecto
 
@@ -51,7 +51,7 @@ Las siguientes imágenes muestran un conjunto de _lightboxes_ que contienen el _
 Los pasos dos y tres, muestran un mapa en el que el usuario podrá dibujar de manera guiada rectángulos que actuarán como _bounding boxes_ para indicar las áreas local y global sobre las que realizar la ejecución. Un ejemplo real con la interfaz propuesta se puede observar en la aplicación web *B2pick* (ver <<_b2pick_aplicación_web_para_seleccionar_bounding_boxes>>).
 
 .Lightboxes de creación de un nuevo proyecto
-image::application/mockup/new-project.png[height="650px",align="center"]
+image::application/analysis/mockup/new-project.png[height="650px",align="center"]
 
 ===== Pantalla de Ejecución
 
@@ -60,4 +60,4 @@ Por último, la pantalla de ejecución será el lugar en el que el usuario podr�
 Los controles centrales permitirán iniciar y detener la ejecución, y el _spinner_ inferior permitirá al usuario establecer el nivel de confianza que requiere por parte del sistema para etiquetar un tuit como local. Si se indica que el sistema deba tener un grado de confianza muy alto, los resultados para la columna de *Dentro* serán muchos menos, pero su precisión será mucho más elevada.
 
 .Pantalla de ejecución de un proyecto en tiempo real
-image::application/mockup/execution.png[align="center"]
+image::application/analysis/mockup/execution.png[align="center"]

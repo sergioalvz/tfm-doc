@@ -7,14 +7,14 @@ A continuación se realiza una separación del proyecto en varios sistemas y sub
 ====== Sistema de Administración
 
 .Sistema de Administración
-image::application/systems/administration.png[align="center"]
+image::application/analysis/systems/administration.png[align="center"]
 
 El *Sistema de Administración* se encarga de implementar las tareas básicas para la gestión de *usuarios*, *proyectos* y *ejecuciones*. Entre estas tareas, se encuentran las de creación, actualización y borrado; así como el control de las relaciones que se establecen entre los modelos.
 
 ====== Sistema de Evaluación
 
 .Sistema de Evaluación
-image::application/systems/evaluation.png[align="center"]
+image::application/analysis/systems/evaluation.png[align="center"]
 
 En el *Sistema de Evaluación* nos encontramos antes una situación diferente al apartado anterior. Este sistema deberá trabajar conjuntamente con clases propias de la aplicación así como también con un sistema externo que actuará como _wrapper_ sobre el software de aprendizaje automático *Vowpal Wabbit*. La comunicación entre ambos sistemas se realizará a través de un servicio web *RESTful* implementado por el _wrapper_ de Vowpal Wabbit.
 
@@ -25,7 +25,7 @@ Por último, también agrupa el sistema encargado de realizar las ejecuciones so
 ====== Sistema de Streaming
 
 .Sistema de Streaming
-image::application/systems/streaming.png[height="250px",align="center"]
+image::application/analysis/systems/streaming.png[height="250px",align="center"]
 
 El *Sistema de Streaming* será el encargado de implementar la lógica para comunicarse con el Streaming de Twitter y ofrecer tuits al resto de la aplicación. Sus dos principales misiones serán:
 
@@ -41,7 +41,7 @@ La interfaz común entre ambos subsistemas será la base de datos en la que se a
 ====== Sistema de Administración
 
 .Clases del Sistema de Administración
-image::application/systems/administration-classes.png[align="center"]
+image::application/analysis/systems/administration-classes.png[align="center"]
 
 El diagrama de clases para el Sistema de Administración muestra únicamente tres entidades que intentan reflejar lo señalado anteriormente respecto a este mismo sistema. Su única misión será realizar tareas de administración, como por ejemplo la creación de nuevos usuarios y proyectos, agregar a un usuario un proyecto o agregar una ejecución a un proyecto ya existente.
 
@@ -50,7 +50,7 @@ Lo más significativo de este diagrama es la representación de las asociaciones
 ====== Sistema de Evaluación
 
 .Clases del Sistema de Evaluación
-image::application/systems/evaluation-classes.png[align="center"]
+image::application/analysis/systems/evaluation-classes.png[align="center"]
 
 En el Sistema de Evaluación nos encontramos con el siguiente conjunto de clases:
 
@@ -76,7 +76,7 @@ A partir de una instancia de la clase *Project*, este objeto realizará una ejec
 ====== Sistema de Streaming
 
 .Clases del Sistema de Streaming
-image::application/systems/streaming-classes.png[align="center"]
+image::application/analysis/systems/streaming-classes.png[align="center"]
 
 El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño *Observer*, en donde la clase `TwitterStreamingService` realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como _listener_ de la clase `TwitterStreamingService`, implementar la interfaz `TwitterStreamingListener` y redefinir su método `on_tweet_received` para trabajar con el nuevo tuit recibido.
 

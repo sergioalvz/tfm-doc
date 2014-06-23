@@ -1501,7 +1501,7 @@ reader.foreach({
 <title>Casos de Uso para la Gestión de Usuarios</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/use-cases/user-managements.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/use-cases/user-managements.png" align="center"/>
 </imageobject>
 <textobject><phrase>user managements</phrase></textobject>
 </mediaobject>
@@ -1633,7 +1633,7 @@ reader.foreach({
 <title>Casos de Uso para la Gestión de Proyectos</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/use-cases/projects-management.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/use-cases/projects-management.png" align="center"/>
 </imageobject>
 <textobject><phrase>projects management</phrase></textobject>
 </mediaobject>
@@ -1970,7 +1970,7 @@ reader.foreach({
 <title>Casos de Uso para la Gestión de Ejecuciones</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/use-cases/execution-management.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/use-cases/execution-management.png" align="center"/>
 </imageobject>
 <textobject><phrase>execution management</phrase></textobject>
 </mediaobject>
@@ -2110,7 +2110,7 @@ reader.foreach({
 <title>Sistema de Administración</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/systems/administration.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/systems/administration.png" align="center"/>
 </imageobject>
 <textobject><phrase>administration</phrase></textobject>
 </mediaobject>
@@ -2123,7 +2123,7 @@ reader.foreach({
 <title>Sistema de Evaluación</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/systems/evaluation.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/systems/evaluation.png" align="center"/>
 </imageobject>
 <textobject><phrase>evaluation</phrase></textobject>
 </mediaobject>
@@ -2138,7 +2138,7 @@ reader.foreach({
 <title>Sistema de Streaming</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/systems/streaming.png" contentdepth="250px" align="center"/>
+<imagedata fileref="../assets/application/analysis/systems/streaming.png" contentdepth="250px" align="center"/>
 </imageobject>
 <textobject><phrase>streaming</phrase></textobject>
 </mediaobject>
@@ -2164,7 +2164,7 @@ reader.foreach({
 <title>Clases del Sistema de Administración</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/systems/administration-classes.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/systems/administration-classes.png" align="center"/>
 </imageobject>
 <textobject><phrase>administration classes</phrase></textobject>
 </mediaobject>
@@ -2178,7 +2178,7 @@ reader.foreach({
 <title>Clases del Sistema de Evaluación</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/systems/evaluation-classes.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/systems/evaluation-classes.png" align="center"/>
 </imageobject>
 <textobject><phrase>evaluation classes</phrase></textobject>
 </mediaobject>
@@ -2228,7 +2228,7 @@ reader.foreach({
 <title>Clases del Sistema de Streaming</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/systems/streaming-classes.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/systems/streaming-classes.png" align="center"/>
 </imageobject>
 <textobject><phrase>streaming classes</phrase></textobject>
 </mediaobject>
@@ -2255,7 +2255,7 @@ reader.foreach({
 <title>Pantalla de login de la aplicación.</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/mockup/home.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/mockup/home.png" align="center"/>
 </imageobject>
 <textobject><phrase>home</phrase></textobject>
 </mediaobject>
@@ -2268,7 +2268,7 @@ reader.foreach({
 <title>Pantalla que muestra el dashboard del usuario en la sección de proyectos</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/mockup/dashboard-projects.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/mockup/dashboard-projects.png" align="center"/>
 </imageobject>
 <textobject><phrase>dashboard projects</phrase></textobject>
 </mediaobject>
@@ -2304,7 +2304,7 @@ reader.foreach({
 <title>Pantalla que muestra el dashboard del usuario en la sección de ejecuciones</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/mockup/dashboard-executions.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/mockup/dashboard-executions.png" align="center"/>
 </imageobject>
 <textobject><phrase>dashboard executions</phrase></textobject>
 </mediaobject>
@@ -2318,7 +2318,7 @@ reader.foreach({
 <title>Lightboxes de creación de un nuevo proyecto</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/mockup/new-project.png" contentdepth="650px" align="center"/>
+<imagedata fileref="../assets/application/analysis/mockup/new-project.png" contentdepth="650px" align="center"/>
 </imageobject>
 <textobject><phrase>new project</phrase></textobject>
 </mediaobject>
@@ -2332,12 +2332,96 @@ reader.foreach({
 <title>Pantalla de ejecución de un proyecto en tiempo real</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="../assets/application/mockup/execution.png" align="center"/>
+<imagedata fileref="../assets/application/analysis/mockup/execution.png" align="center"/>
 </imageobject>
 <textobject><phrase>execution</phrase></textobject>
 </mediaobject>
 </figure>
 </section>
+</section>
+</section>
+<section xml:id="_diseño_del_sistema">
+<title>Diseño del sistema</title>
+<simpara>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web.</simpara>
+<section xml:id="_diagrama_de_paquetes">
+<title>Diagrama de paquetes</title>
+<figure>
+<title>Diagrama de paquetes</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/packages.png" align="center"/>
+</imageobject>
+<textobject><phrase>packages</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section xml:id="_diagrama_de_despliegue">
+<title>Diagrama de despliegue</title>
+<figure>
+<title>Diagrama de despliegue</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/deployment.png" align="center"/>
+</imageobject>
+<textobject><phrase>deployment</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section xml:id="_diagramas_de_clases">
+<title>Diagramas de clases</title>
+<figure>
+<title>Diagrama de clases del servicio externo de Streaming</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/streaming-system.png" align="center"/>
+</imageobject>
+<textobject><phrase>streaming system</phrase></textobject>
+</mediaobject>
+</figure>
+<figure>
+<title>Diagrama de clases del paquete de modelos</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/models-package.png" align="center"/>
+</imageobject>
+<textobject><phrase>models package</phrase></textobject>
+</mediaobject>
+</figure>
+<figure>
+<title>Diagrama de clases del paquete de evaluación</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/evaluation-package.png" align="center"/>
+</imageobject>
+<textobject><phrase>evaluation package</phrase></textobject>
+</mediaobject>
+</figure>
+<figure>
+<title>Diagrama de clases del paquete de aprendizaje automático</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/learning-package.png" align="center"/>
+</imageobject>
+<textobject><phrase>learning package</phrase></textobject>
+</mediaobject>
+</figure>
+<figure>
+<title>Diagrama de clases del paquete de Streaming</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/design/streaming-package.png" align="center"/>
+</imageobject>
+<textobject><phrase>streaming package</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section xml:id="_diagramas_de_secuencia_y_actividad">
+<title>Diagramas de secuencia y actividad</title>
+
+</section>
+<section xml:id="_diseño_del_plan_de_pruebas">
+<title>Diseño del plan de pruebas</title>
+
 </section>
 </section>
 </chapter>

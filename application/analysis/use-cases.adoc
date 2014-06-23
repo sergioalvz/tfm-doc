@@ -1,7 +1,7 @@
 ==== Análisis de casos de uso y escenarios
 
 .Casos de Uso para la Gestión de Usuarios
-image::application/use-cases/user-managements.png[align="center"]
+image::application/analysis/use-cases/user-managements.png[align="center"]
 
 .CU Usuario - Gestión Usuarios 1.1 Crear cuenta en el sistema
 [cols="1s,3", id="cu-user-system-1-1"]
@@ -88,7 +88,7 @@ image::application/use-cases/user-managements.png[align="center"]
 |===
 
 .Casos de Uso para la Gestión de Proyectos
-image::application/use-cases/projects-management.png[align="center"]
+image::application/analysis/use-cases/projects-management.png[align="center"]
 
 .CU Usuario - Gestión de Proyectos 2.1 Crear Proyecto
 [cols="1s,3", id="cu-user-project-2-1"]
@@ -315,7 +315,7 @@ image::application/use-cases/projects-management.png[align="center"]
 |===
 
 .Casos de Uso para la Gestión de Ejecuciones
-image::application/use-cases/execution-management.png[align="center"]
+image::application/analysis/use-cases/execution-management.png[align="center"]
 
 .CU Usuario - Gestión de Ejecuciones 3.1 Evaluar proyecto
 [cols="1s,3", id="cu-user-project-3-1"]
