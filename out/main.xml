@@ -2342,8 +2342,8 @@ reader.foreach({
 </section>
 <section xml:id="_diseño_del_sistema">
 <title>Diseño del sistema</title>
-<simpara>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web <emphasis role="strong">Play!</emphasis> y el lenguaje de programación <emphasis role="strong">Scala</emphasis>.</simpara>
-<simpara>Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.</simpara>
+<simpara>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Debido a que el objetivo de este capítulo es indicar como se podría integrar en una aplicación web <emphasis>convencional</emphasis> la tecnología estudiada en los capítulos anteriores, se han omitido los detalles acerca de subsistemas y conjuntos de clases que no están relacionados directamente con el problema en cuestión. Específicamente, se han dejado de lado las capas de acceso a datos y las capas de presentación.</simpara>
+<simpara>También es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web <emphasis role="strong">Play!</emphasis> y el lenguaje de programación <emphasis role="strong">Scala</emphasis>. Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.</simpara>
 <simpara>A pesar de ello, Play! tiene una serie de características propias que será necesario remarcar para conseguir una mejor comprensión del diseño posterior:</simpara>
 <variablelist>
 <varlistentry>
@@ -2398,6 +2398,21 @@ reader.foreach({
 <title>Diagramas de clases</title>
 <simpara>A continuación, se muestran una serie de diagramas que reflejan la organización de las clases para poder implementar los aspectos más interesantes de la aplicación web.</simpara>
 <simpara>En primer lugar, la figura <xref linkend="streaming-system-diagram"/> muestra el sistema externo (implementado en Scala) encargado de comunicarse con el <emphasis>firehose</emphasis> de Twitter. El paquete <literal>com.bonobo.streaming.retriever</literal> contiene las clases encargadas de comunicarse con el servicio de streaming y hacer accesibles al resto de la aplicación los tuits obtenidos. Como se comentó en la sección de Análisis, se hace uso del patrón de diseño <emphasis role="strong">Observer</emphasis> para permitir que múltiples instancias puedan hacer uso del mismo flujo de datos.</simpara>
+<simpara>El resto de paquetes representan la estructura convencional de cualquier sistema informático:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>com.bonobo.streaming.main</literal>: Contiene la clase que inicia la ejecución del sistema.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>com.bonobo.streaming.configuration</literal>: Contiene la clase de configuración que permite acceder a las credenciales de Twitter y la configuración de la base de datos.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>com.bonobo.streaming.db</literal>: Contiene la clase encargada de serializar los modelos a la base de datos.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>com.bonobo.streaming.model</literal>: Contiene el modelo de la aplicación: <emphasis role="strong">Tweet</emphasis>.</simpara>
+</listitem>
+</itemizedlist>
 <figure xml:id="streaming-system-diagram">
 <title>Diagrama de clases del servicio externo de Streaming</title>
 <mediaobject>
@@ -2485,9 +2500,11 @@ reader.foreach({
 </figure>
 <simpara>El servidor web <emphasis role="strong">Apache</emphasis> serviría a su vez como balanceador de carga sobre el conjunto de aplicaciones web que podrían estar instaladas en varios servidores independientes. El proceso para configurar Apache como servidor <emphasis>front end</emphasis> de la aplicación podría seguir los pasos propuestos en la propia documentación del framework Play!: <link xlink:href="http://www.playframework.com/documentation/2.4.x/HTTPServer">http://www.playframework.com/documentation/2.4.x/HTTPServer</link>.</simpara>
 </section>
-<section xml:id="_diseño_del_plan_de_pruebas">
-<title>Diseño del plan de pruebas</title>
-
+<section xml:id="_desarrollo_dirigido_por_pruebas">
+<title>Desarrollo dirigido por pruebas</title>
+<simpara>Aunque el objetivo de este capítulo es mostrar un diseño capaz de ofrecer la posibilidad de aplicar la tecnología estudiada en los capítulos anteriores dentro de la estructura de una aplicación web <emphasis>convencional</emphasis>, a continuación se muestra una reflexión acerca del proceso para desarrollar un sistema basado en el diseño anterior de manera que presente el mayor grado de fiabilidad.</simpara>
+<simpara>Existe mucha literatura acerca de los beneficios de realizar desarrollo dirigido por pruebas (conocido como <emphasis role="strong">Test Driven Development<footnote><simpara><link xlink:href="http://martinfowler.com/bliki/TestDrivenDevelopment.html">http://martinfowler.com/bliki/TestDrivenDevelopment.html</link></simpara></footnote></emphasis> en inglés). Principalmente, es un proceso que permite una mejor compresión del sistema que se va a implementar, puesto que es necesario conocer los requisitos en profundidad para poder establecer las pruebas antes de comenzar la implementación <emphasis>per se</emphasis>. Además, permite añadir un mayor número de capas de seguridad que facilitarán el desarrollo de un código más robusto (y, por supuesto, aporta el único mecanismo posible para realizar labores de <emphasis role="strong">Refactoring</emphasis> sin riesgo de introducir nuevos <emphasis>bugs</emphasis> en el sistema).</simpara>
+<simpara>A la hora de desarrollar la aplicación se recomendaría encarecidamente el uso de esta metodología, acompañada del framework <emphasis role="strong">ScalaTest<footnote><simpara><link xlink:href="http://www.scalatest.org/">http://www.scalatest.org/</link></simpara></footnote></emphasis>, para ejecutar pruebas unitarias de todos los modelos y clases anteriormente descritas de manera automática.</simpara>
 </section>
 </section>
 </chapter>

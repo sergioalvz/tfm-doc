@@ -3275,10 +3275,10 @@ reader.foreach({
 <div class="sect2">
 <h3 id="_diseño_del_sistema">5.2. Diseño del sistema</h3>
 <div class="paragraph">
-<p>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web <strong>Play!</strong> y el lenguaje de programación <strong>Scala</strong>.</p>
+<p>Las siguientes páginas muestran el diseño propuesto para realizar la aplicación web de geolocalización como servicio. Debido a que el objetivo de este capítulo es indicar como se podría integrar en una aplicación web <em>convencional</em> la tecnología estudiada en los capítulos anteriores, se han omitido los detalles acerca de subsistemas y conjuntos de clases que no están relacionados directamente con el problema en cuestión. Específicamente, se han dejado de lado las capas de acceso a datos y las capas de presentación.</p>
 </div>
 <div class="paragraph">
-<p>Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.</p>
+<p>También es importante señalar que el diseño está pensado para ser implementado utilizando el framework de desarrollo web <strong>Play!</strong> y el lenguaje de programación <strong>Scala</strong>. Las razones de dicha elección, que ya figura como requisito del sistema en la sección de análisis, es que Scala ha sido el lenguaje utilizado para desarrollar los prototipos y experimentos para obtener un algoritmo capaz de inferir la localización de una publicación en medios sociales y su eficacia para tratar con un problema de este tipo, por tanto, ya ha sido probada con anterioridad. Play! es el framework de referencia para realizar aplicaciones web sobre dicho lenguaje, por lo que prácticamente es un requisito implícito al hecho de utilizar Scala como lenguaje principal.</p>
 </div>
 <div class="paragraph">
 <p>A pesar de ello, Play! tiene una serie de características propias que será necesario remarcar para conseguir una mejor comprensión del diseño posterior:</p>
@@ -3346,6 +3346,25 @@ reader.foreach({
 </div>
 <div class="paragraph">
 <p>En primer lugar, la figura <a href="#streaming-system-diagram">Diagrama de clases del servicio externo de Streaming</a> muestra el sistema externo (implementado en Scala) encargado de comunicarse con el <em>firehose</em> de Twitter. El paquete <code>com.bonobo.streaming.retriever</code> contiene las clases encargadas de comunicarse con el servicio de streaming y hacer accesibles al resto de la aplicación los tuits obtenidos. Como se comentó en la sección de Análisis, se hace uso del patrón de diseño <strong>Observer</strong> para permitir que múltiples instancias puedan hacer uso del mismo flujo de datos.</p>
+</div>
+<div class="paragraph">
+<p>El resto de paquetes representan la estructura convencional de cualquier sistema informático:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>com.bonobo.streaming.main</code>: Contiene la clase que inicia la ejecución del sistema.</p>
+</li>
+<li>
+<p><code>com.bonobo.streaming.configuration</code>: Contiene la clase de configuración que permite acceder a las credenciales de Twitter y la configuración de la base de datos.</p>
+</li>
+<li>
+<p><code>com.bonobo.streaming.db</code>: Contiene la clase encargada de serializar los modelos a la base de datos.</p>
+</li>
+<li>
+<p><code>com.bonobo.streaming.model</code>: Contiene el modelo de la aplicación: <strong>Tweet</strong>.</p>
+</li>
+</ul>
 </div>
 <div id="streaming-system-diagram" class="imageblock" style="text-align: center">
 <div class="content">
@@ -3455,8 +3474,16 @@ reader.foreach({
 </div>
 </div>
 <div class="sect3">
-<h4 id="_diseño_del_plan_de_pruebas">5.2.4. Diseño del plan de pruebas</h4>
-
+<h4 id="_desarrollo_dirigido_por_pruebas">5.2.4. Desarrollo dirigido por pruebas</h4>
+<div class="paragraph">
+<p>Aunque el objetivo de este capítulo es mostrar un diseño capaz de ofrecer la posibilidad de aplicar la tecnología estudiada en los capítulos anteriores dentro de la estructura de una aplicación web <em>convencional</em>, a continuación se muestra una reflexión acerca del proceso para desarrollar un sistema basado en el diseño anterior de manera que presente el mayor grado de fiabilidad.</p>
+</div>
+<div class="paragraph">
+<p>Existe mucha literatura acerca de los beneficios de realizar desarrollo dirigido por pruebas (conocido como <strong>Test Driven Development<span class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</span></strong> en inglés). Principalmente, es un proceso que permite una mejor compresión del sistema que se va a implementar, puesto que es necesario conocer los requisitos en profundidad para poder establecer las pruebas antes de comenzar la implementación <em>per se</em>. Además, permite añadir un mayor número de capas de seguridad que facilitarán el desarrollo de un código más robusto (y, por supuesto, aporta el único mecanismo posible para realizar labores de <strong>Refactoring</strong> sin riesgo de introducir nuevos <em>bugs</em> en el sistema).</p>
+</div>
+<div class="paragraph">
+<p>A la hora de desarrollar la aplicación se recomendaría encarecidamente el uso de esta metodología, acompañada del framework <strong>ScalaTest<span class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</span></strong>, para ejecutar pruebas unitarias de todos los modelos y clases anteriormente descritas de manera automática.</p>
+</div>
 </div>
 </div>
 </div>
@@ -3631,7 +3658,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <i class="conum" data-value=
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -3742,7 +3769,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 27. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</span></div>
+<div class="title">Figure 27. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnote_12" title="View footnote.">12</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -4033,10 +4060,16 @@ Usage: Falcon [options]
 <a href="#_footnoteref_8">8</a>. Denominados <em>Dynos</em> en Heroku (<a href="https://www.heroku.com/features">https://www.heroku.com/features</a>) o <em>Gears</em> en OpenShift (<a href="https://www.openshift.com/products/pricing">https://www.openshift.com/products/pricing</a>)
 </div>
 <div class="footnote" id="_footnote_9">
-<a href="#_footnoteref_9">9</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_9">9</a>. <a href="http://martinfowler.com/bliki/TestDrivenDevelopment.html">http://martinfowler.com/bliki/TestDrivenDevelopment.html</a>
 </div>
 <div class="footnote" id="_footnote_10">
-<a href="#_footnoteref_10">10</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_10">10</a>. <a href="http://www.scalatest.org/">http://www.scalatest.org/</a>
+</div>
+<div class="footnote" id="_footnote_11">
+<a href="#_footnoteref_11">11</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+</div>
+<div class="footnote" id="_footnote_12">
+<a href="#_footnoteref_12">12</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">
