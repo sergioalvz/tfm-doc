@@ -429,8 +429,10 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <ul class="sectlevel2">
 <li><a href="#_análisis_del_sistema">5.1. Análisis del sistema</a></li>
 <li><a href="#_diseño_del_sistema">5.2. Diseño del sistema</a></li>
+<li><a href="#_planificación_y_presupuesto">5.3. Planificación y presupuesto</a></li>
 </ul>
 </li>
+<li><a href="#_herramientas_utilizadas">6. Herramientas utilizadas</a></li>
 <li><a href="#_scala">Appendix A: Scala</a></li>
 <li>
 <ul class="sectlevel2">
@@ -2125,6 +2127,7 @@ reader.foreach({
 <div class="paragraph">
 <p>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <em>en cascada</em> si no que se utilizaría una metodología ágil basada en iteraciones (ver <a href="#_scrum">Scrum</a>), donde se irían añadiendo <strong>user stories</strong> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="sect2">
 <h3 id="_análisis_del_sistema">5.1. Análisis del sistema</h3>
 <div class="sect3">
@@ -3269,6 +3272,7 @@ reader.foreach({
 </div>
 <div class="title">Figure 19. Pantalla de ejecución de un proyecto en tiempo real</div>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -3484,8 +3488,77 @@ reader.foreach({
 <div class="paragraph">
 <p>A la hora de desarrollar la aplicación se recomendaría encarecidamente el uso de esta metodología, acompañada del framework <strong>ScalaTest<span class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</span></strong>, para ejecutar pruebas unitarias de todos los modelos y clases anteriormente descritas de manera automática.</p>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_planificación_y_presupuesto">5.3. Planificación y presupuesto</h3>
+<div class="paragraph">
+<p>Con el objetivo de aportar un estimación acerca del tiempo necesario para realizar un sistema basado en el diseño anterior, a continuación se ofrece una planificación basada en los siguientes supuestos:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Debido a que el desarrollo de una aplicación web de estas características siempre estaría sujeta a una mejora continua del producto (para poder captar nuevos usuarios así como mantener a los más antiguos mediante la adición de nuevas funcionalidades), la siguiente planificación muestra los tiempos estimados para desarrollar únicamente los diseños mostrados en la sección anterior (lo que resultaría en el desarrollo del núcleo de la aplicación).</p>
+</li>
+<li>
+<p>Para asegurar un escenario más real que el ofrecido en un Trabajo Fin de Máster, se supondrá que el desarrollo de la aplicación web será realizado por el equipo de I+D+i de una empresa del sector informático. El grupo estará formado por 3 Ingenieros Informáticos, en donde 2 de ellos serán los encargados de llevar el peso del desarrollo, mientras que el tercero hará las funciones de líder del proyecto y tareas de supervisión y diseño generales.</p>
+<div class="paragraph">
+<p>Los costes por hora para la empresa de los 3 ingenieros están recogidos en <a href="#workers-costs">Costes para la empresa de cada trabajador</a>.</p>
+</div>
+</li>
+<li>
+<p>Todos los participantes en el proyecto, habrán sido los encargados de realizar los experimentos y prototipos previos explicados en los puntos anteriores de este proyecto, por lo que se supone que todos ellos tienen un conocimiento en profundidad del problema y sus posibles soluciones.</p>
+</li>
+</ul>
+</div>
+<table id="workers-costs" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 34. Costes para la empresa de cada trabajador</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Trabajador</th>
+<th class="tableblock halign-left valign-top">Coste</th>
+<th class="tableblock halign-left valign-top">Años de experiencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ingeniero Informático 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 euros / hora</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ingeniero Informático 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 euros / hora</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ingeniero Informático 3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20 euros / hora</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_planificación">5.3.1. Planificación</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_presupuesto">5.3.2. Presupuesto</h4>
+
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_herramientas_utilizadas">6. Herramientas utilizadas</h2>
+<div class="sectionbody">
+
 </div>
 </div>
 <div class="sect1">
@@ -4074,7 +4147,7 @@ Usage: Falcon [options]
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-06-22 10:10:36 CEST
+Last updated 2014-06-25 23:29:57 CEST
 </div>
 </div>
 </body>

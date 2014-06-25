@@ -4,6 +4,14 @@ A continuación se muestran una serie de secciones que explicarán de manera apr
 
 Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque _en cascada_ si no que se utilizaría una metodología ágil basada en iteraciones (ver <<_scrum>>), donde se irían añadiendo *user stories* con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.
 
+<<<
+
 include::analysis/index.adoc[]
 
+<<<
+
 include::design/index.adoc[]
+
+<<<
+
+include::planning-budget/index.adoc[]

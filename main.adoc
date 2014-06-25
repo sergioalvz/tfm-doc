@@ -20,4 +20,6 @@ include::conclusions-future-work/index.adoc[]
 
 include::application/index.adoc[]
 
+include::used-tools/index.adoc[]
+
 include::appendixes/index.adoc[]

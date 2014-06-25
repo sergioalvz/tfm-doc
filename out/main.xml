@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-22</date>
+<date>2014-06-25</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -1219,6 +1219,7 @@ reader.foreach({
 <title>Aplicación web de geolocalización como servicio</title>
 <simpara>A continuación se muestran una serie de secciones que explicarán de manera aproximada la manera de implementar una aplicación web que ofrezca un servicio de geolocalización de tuits en base a su contenido utilizando la tecnología explorada en los prototipos y experimentos anteriores.</simpara>
 <simpara>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <emphasis>en cascada</emphasis> si no que se utilizaría una metodología ágil basada en iteraciones (ver <xref linkend="_scrum"/>), donde se irían añadiendo <emphasis role="strong">user stories</emphasis> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</simpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 <section xml:id="_análisis_del_sistema">
 <title>Análisis del sistema</title>
 <section xml:id="_definición_y_alcance_del_sistema">
@@ -2337,6 +2338,7 @@ reader.foreach({
 <textobject><phrase>execution</phrase></textobject>
 </mediaobject>
 </figure>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 </section>
 </section>
@@ -2505,8 +2507,69 @@ reader.foreach({
 <simpara>Aunque el objetivo de este capítulo es mostrar un diseño capaz de ofrecer la posibilidad de aplicar la tecnología estudiada en los capítulos anteriores dentro de la estructura de una aplicación web <emphasis>convencional</emphasis>, a continuación se muestra una reflexión acerca del proceso para desarrollar un sistema basado en el diseño anterior de manera que presente el mayor grado de fiabilidad.</simpara>
 <simpara>Existe mucha literatura acerca de los beneficios de realizar desarrollo dirigido por pruebas (conocido como <emphasis role="strong">Test Driven Development<footnote><simpara><link xlink:href="http://martinfowler.com/bliki/TestDrivenDevelopment.html">http://martinfowler.com/bliki/TestDrivenDevelopment.html</link></simpara></footnote></emphasis> en inglés). Principalmente, es un proceso que permite una mejor compresión del sistema que se va a implementar, puesto que es necesario conocer los requisitos en profundidad para poder establecer las pruebas antes de comenzar la implementación <emphasis>per se</emphasis>. Además, permite añadir un mayor número de capas de seguridad que facilitarán el desarrollo de un código más robusto (y, por supuesto, aporta el único mecanismo posible para realizar labores de <emphasis role="strong">Refactoring</emphasis> sin riesgo de introducir nuevos <emphasis>bugs</emphasis> en el sistema).</simpara>
 <simpara>A la hora de desarrollar la aplicación se recomendaría encarecidamente el uso de esta metodología, acompañada del framework <emphasis role="strong">ScalaTest<footnote><simpara><link xlink:href="http://www.scalatest.org/">http://www.scalatest.org/</link></simpara></footnote></emphasis>, para ejecutar pruebas unitarias de todos los modelos y clases anteriormente descritas de manera automática.</simpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 </section>
+<section xml:id="_planificación_y_presupuesto">
+<title>Planificación y presupuesto</title>
+<simpara>Con el objetivo de aportar un estimación acerca del tiempo necesario para realizar un sistema basado en el diseño anterior, a continuación se ofrece una planificación basada en los siguientes supuestos:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Debido a que el desarrollo de una aplicación web de estas características siempre estaría sujeta a una mejora continua del producto (para poder captar nuevos usuarios así como mantener a los más antiguos mediante la adición de nuevas funcionalidades), la siguiente planificación muestra los tiempos estimados para desarrollar únicamente los diseños mostrados en la sección anterior (lo que resultaría en el desarrollo del núcleo de la aplicación).</simpara>
+</listitem>
+<listitem>
+<simpara>Para asegurar un escenario más real que el ofrecido en un Trabajo Fin de Máster, se supondrá que el desarrollo de la aplicación web será realizado por el equipo de I+D+i de una empresa del sector informático. El grupo estará formado por 3 Ingenieros Informáticos, en donde 2 de ellos serán los encargados de llevar el peso del desarrollo, mientras que el tercero hará las funciones de líder del proyecto y tareas de supervisión y diseño generales.</simpara>
+<simpara>Los costes por hora para la empresa de los 3 ingenieros están recogidos en <xref linkend="workers-costs"/>.</simpara>
+</listitem>
+<listitem>
+<simpara>Todos los participantes en el proyecto, habrán sido los encargados de realizar los experimentos y prototipos previos explicados en los puntos anteriores de este proyecto, por lo que se supone que todos ellos tienen un conocimiento en profundidad del problema y sus posibles soluciones.</simpara>
+</listitem>
+</itemizedlist>
+<table xml:id="workers-costs" frame="all" rowsep="1" colsep="1">
+<title>Costes para la empresa de cada trabajador</title>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Trabajador</entry>
+<entry align="left" valign="top">Coste</entry>
+<entry align="left" valign="top">Años de experiencia</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Ingeniero Informático 1</simpara></entry>
+<entry align="left" valign="top"><simpara>12 euros / hora</simpara></entry>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Ingeniero Informático 2</simpara></entry>
+<entry align="left" valign="top"><simpara>12 euros / hora</simpara></entry>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Ingeniero Informático 3</simpara></entry>
+<entry align="left" valign="top"><simpara>20 euros / hora</simpara></entry>
+<entry align="left" valign="top"><simpara>10</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<section xml:id="_planificación">
+<title>Planificación</title>
+
+</section>
+<section xml:id="_presupuesto">
+<title>Presupuesto</title>
+
+</section>
+</section>
+</chapter>
+<chapter xml:id="_herramientas_utilizadas">
+<title>Herramientas utilizadas</title>
+
 </chapter>
 <appendix xml:id="_scala">
 <title>Scala</title>
