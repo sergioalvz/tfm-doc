@@ -1,0 +1,36 @@
+=== Planificación y presupuesto
+
+Con el objetivo de aportar un estimación acerca del tiempo necesario para realizar un sistema basado en el diseño anterior, a continuación se ofrece una planificación basada en los siguientes supuestos:
+
+* Debido a que el desarrollo de una aplicación web de estas características siempre estaría sujeta a una mejora continua del producto (para poder captar nuevos usuarios así como mantener a los más antiguos mediante la adición de nuevas funcionalidades), la siguiente planificación muestra los tiempos estimados para desarrollar únicamente los diseños mostrados en la sección anterior (lo que resultaría en el desarrollo del núcleo de la aplicación).
+
+* Para asegurar un escenario más real que el ofrecido en un Trabajo Fin de Máster, se supondrá que el desarrollo de la aplicación web será realizado por el equipo de I+D+i de una empresa del sector informático. El grupo estará formado por 3 Ingenieros Informáticos, en donde 2 de ellos serán los encargados de llevar el peso del desarrollo, mientras que el tercero hará las funciones de líder del proyecto y tareas de supervisión y diseño generales.
++
+Los costes por hora para la empresa de los 3 ingenieros están recogidos en <<workers-costs>>.
+
+* Todos los participantes en el proyecto, habrán sido los encargados de realizar los experimentos y prototipos previos explicados en los puntos anteriores de este proyecto, por lo que se supone que todos ellos tienen un conocimiento en profundidad del problema y sus posibles soluciones.
+
+.Costes para la empresa de cada trabajador
+[id="workers-costs",cols="3*",options="header"]
+|===
+|Trabajador
+|Coste
+|Años de experiencia
+
+|Ingeniero Informático 1
+|12 euros / hora
+|5
+
+|Ingeniero Informático 2
+|12 euros / hora
+|5
+
+|Ingeniero Informático 3
+|20 euros / hora
+|10
+|===
+
+==== Planificación
+
+==== Presupuesto
+
