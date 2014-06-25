@@ -3321,16 +3321,16 @@ reader.foreach({
 <p>El siguiente diagrama de paquetes muestra de manera general la relación entre los diferentes grupos de clases de la aplicación web ordenadas de manera conceptual en función de sus responsabilidades.</p>
 </div>
 <div class="paragraph">
-<p>El paquete de <strong>models</strong> recoge las clases que representan los modelos de la aplicación. En él podremos encontrar las clases <strong>User</strong>, <strong>Project</strong>, <strong>Execution</strong>, <strong>Tweet</strong> o <strong>BoundingBox</strong>.</p>
+<p>El paquete de <code>models</code> recoge las clases que representan los modelos de la aplicación. En él podremos encontrar las clases <code>User</code>, <code>Project</code>, <code>Execution</code>, <code>Tweet</code> o <code>BoundingBox</code>.</p>
 </div>
 <div class="paragraph">
-<p>En <strong>evaluation</strong> se agrupan las clases encargadas de realizar la lógica de evaluación de un proyecto: obtención de datos de entrenamiento, cálculo e implementación de los algoritmos de geolocalización o ejecución de un proyecto.</p>
+<p>En <code>evaluation</code> se agrupan las clases encargadas de realizar la lógica de evaluación de un proyecto: obtención de datos de entrenamiento, cálculo e implementación de los algoritmos de geolocalización o ejecución de un proyecto.</p>
 </div>
 <div class="paragraph">
-<p>El paquete <strong>learning</strong> contiene las clases encargadas de realizar la comunicación con el software de aprendizaje automático.</p>
+<p>El paquete <code>learning</code> contiene las clases encargadas de realizar la comunicación con el software de aprendizaje automático.</p>
 </div>
 <div class="paragraph">
-<p>En <strong>streaming</strong> se recogen las clases encargadas de suscribirse a la cola de mensajes para recuperar los tuits recibidos por el sistema externo de Streaming y hacerlos accesibles para el resto de la aplicación.</p>
+<p>En <code>streaming</code> se recogen las clases encargadas de suscribirse a la cola de mensajes para recuperar los tuits recibidos por el sistema externo de Streaming y hacerlos accesibles para el resto de la aplicación.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -3362,7 +3362,7 @@ reader.foreach({
 <p><code>com.bonobo.streaming.db</code>: Contiene la clase encargada de serializar los modelos a la base de datos.</p>
 </li>
 <li>
-<p><code>com.bonobo.streaming.model</code>: Contiene el modelo de la aplicación: <strong>Tweet</strong>.</p>
+<p><code>com.bonobo.streaming.model</code>: Contiene el modelo de la aplicación: <code>Tweet</code>.</p>
 </li>
 </ul>
 </div>
@@ -3373,19 +3373,19 @@ reader.foreach({
 <div class="title">Figure 21. Diagrama de clases del servicio externo de Streaming</div>
 </div>
 <div class="paragraph">
-<p>En cuanto al diseño de la aplicación web, el primer paso será comentar el paquete encargado de gestionar los modelos que contienen la lógica de negocio de la aplicación. En <a href="#models-package-diagram">Diagrama de clases del paquete de modelos</a> se muestran las relaciones entre todos los modelos, pudiendo observar como la clase Project ocupa una posición central en el diseño, manteniendo una relación <strong>1..</strong>* con la clase <strong>User</strong>, lo que indica que todos los proyectos deben pertenecer a un único usuario, pero un usuario puede disponer de múltiples proyectos.</p>
+<p>En cuanto al diseño de la aplicación web, el primer paso será comentar el paquete encargado de gestionar los modelos que contienen la lógica de negocio de la aplicación. En <a href="#models-package-diagram">Diagrama de clases del paquete de modelos</a> se muestran las relaciones entre todos los modelos, pudiendo observar como la clase <code>Project</code> ocupa una posición central en el diseño, manteniendo una relación <strong>1..</strong>* con la clase <code>User</code>, lo que indica que todos los proyectos deben pertenecer a un único usuario, pero un usuario puede disponer de múltiples proyectos.</p>
 </div>
 <div class="paragraph">
-<p>Además, todos los proyectos tendrán una relación <strong>1..</strong>* con la clase <strong>BoundingBox</strong>, puesto que los proyectos vienen definidos por un conjunto de bounding boxes que definen tanto sus localizaciones globales o locales. La clase <strong>BoundingBox</strong> contiene la información relativa a las coordenadas del área que representan, así como una operación que será de gran utilidad (en base a la experiencia en el desarrollo de prototipos) para determinar cuando un par de coordenadas se encuentran contenidas en el bounding box actual.</p>
+<p>Además, todos los proyectos tendrán una relación <strong>1..</strong>* con la clase <code>BoundingBox</code>, puesto que los proyectos vienen definidos por un conjunto de bounding boxes que definen tanto sus localizaciones globales o locales. La clase <code>BoundingBox</code> contiene la información relativa a las coordenadas del área que representan, así como una operación que será de gran utilidad (en base a la experiencia en el desarrollo de prototipos) para determinar cuando un par de coordenadas se encuentran contenidas en el bounding box actual.</p>
 </div>
 <div class="paragraph">
-<p>La case <strong>Execution</strong> también mantiene una relación con la clase Project, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). Execution, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.</p>
+<p>La clase <code>Execution</code> también mantiene una relación con la clase Project, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). Execution, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.</p>
 </div>
 <div class="paragraph">
-<p>La clase <strong>Tweet</strong> se utilizará como entidad para el intercambio de la información recogida a partir del servicio de Streaming. Contiene los atributos necesarios para trabajar con un tuit y realizar las operaciones necesarias.</p>
+<p>La clase <code>Tweet</code> se utilizará como entidad para el intercambio de la información recogida a partir del servicio de Streaming. Contiene los atributos necesarios para trabajar con un tuit y realizar las operaciones necesarias.</p>
 </div>
 <div class="paragraph">
-<p>Por último, <strong>Term</strong> es una representación de los términos que se extraerán más adelante en las tareas de evaluación. En un principio, es un modelo muy sencillo que únicamente sirve como abstracción sobre la cadena en plano que contiene el término extraído. Se decidió su diseño debido a que es una entidad propensa a gozar de un mayor número de responsabilidades en el futuro en caso de que aparezcan nuevos tipos de términos, o se deban realizar operaciones más complejas sobre ellos que una mera comparación de cadenas.</p>
+<p>Por último, <code>Term</code> es una representación de los términos que se extraerán más adelante en las tareas de evaluación. En un principio, es un modelo muy sencillo que únicamente sirve como abstracción sobre la cadena en plano que contiene el término extraído. Se decidió su diseño debido a que es una entidad propensa a gozar de un mayor número de responsabilidades en el futuro en caso de que aparezcan nuevos tipos de términos, o se deban realizar operaciones más complejas sobre ellos que una mera comparación de cadenas.</p>
 </div>
 <div id="models-package-diagram" class="imageblock" style="text-align: center">
 <div class="content">
@@ -3394,10 +3394,10 @@ reader.foreach({
 <div class="title">Figure 22. Diagrama de clases del paquete de modelos</div>
 </div>
 <div class="paragraph">
-<p>El paquete <strong>evaluation</strong> recoge las clases implicadas en el proceso de generación de los algoritmos de inferencia así como la clase encargada de realizar las ejecuciones de los proyectos.</p>
+<p>El paquete <code>evaluation</code> recoge las clases implicadas en el proceso de generación de los algoritmos de inferencia así como la clase encargada de realizar las ejecuciones de los proyectos.</p>
 </div>
 <div class="paragraph">
-<p><strong>ProjectDataProcessor</strong> se sitúa como la pieza central en el proceso de evaluación, se ejecutará de manera asíncrona y será la encargada de invocar al resto de clases encargadas de construir los modelos de clasificación. <strong>TermFrequencyExtractor</strong> será la clase encargada de extraer la frecuencia de apariciones de cada término para un conjunto de tuits definidos por un objeto <strong>QueryBuilder</strong>. Este tipo de objetos serán capaces de construir una sentencia SQL para recuperar tuits de la base de datos. El tipo de <em>query</em> que deberán de construir se basa en el tipo de proyecto a evaluar y las localizaciones sobre las que se quieren recuperar (<em>bounding boxes</em> locales o globales) tuits. La razón para diseñar esta clase es la aplicación del <strong>principio de responsabilidad única<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong>, donde se establece que, idealmente, cada clase debe ser diseñada para ocuparse de una única responsabilidad.</p>
+<p><code>ProjectDataProcessor</code> se sitúa como la pieza central en el proceso de evaluación, se ejecutará de manera asíncrona y será la encargada de invocar al resto de clases encargadas de construir los modelos de clasificación. <code>TermFrequencyExtractor</code> será la clase encargada de extraer la frecuencia de apariciones de cada término para un conjunto de tuits definidos por un objeto <code>QueryBuilder</code>. Este tipo de objetos serán capaces de construir una sentencia SQL para recuperar tuits de la base de datos. El tipo de <em>query</em> que deberán de construir se basa en el tipo de proyecto a evaluar y las localizaciones sobre las que se quieren recuperar (<em>bounding boxes</em> locales o globales) tuits. La razón para diseñar esta clase es la aplicación del <strong>principio de responsabilidad única<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong>, donde se establece que, idealmente, cada clase debe ser diseñada para ocuparse de una única responsabilidad.</p>
 </div>
 <div class="paragraph">
 <p>En TermFrequencyExtractor, con el objetivo de no recuperar una cantidad de objetos en memoria demasiado elevada, se realizará un procesamiento por lotes, analizando de cada vez una cantidad <code>n</code> de tuits. Esta clase devolverá como resultado de la extracción un Hash que relacione una instancia de Term (que actúa como clave) con una frecuencia (representada por un número entero).</p>
@@ -3409,30 +3409,30 @@ reader.foreach({
 <div class="title">Figure 23. Diagrama de clases del paquete de evaluación</div>
 </div>
 <div class="paragraph">
-<p>A partir de los mapas de término-frecuencia obtenidos por TermFrequencyExtractor, se hará uso de la clase <strong>LikelihoodRatioGenerator</strong> para calcular la puntuación de cada término utilizando el método estadístico Log Likelihood Ratio. El resultado de su ejecución, será un mapa que asocie cada término con su puntuación LLR obtenida (representada por un objeto <code>Double</code>).</p>
+<p>A partir de los mapas de término-frecuencia obtenidos por TermFrequencyExtractor, se hará uso de la clase <code>LikelihoodRatioGenerator</code> para calcular la puntuación de cada término utilizando el método estadístico Log Likelihood Ratio. El resultado de su ejecución, será un mapa que asocie cada término con su puntuación LLR obtenida (representada por un objeto <code>Double</code>).</p>
 </div>
 <div class="paragraph">
-<p>En <strong>TweetsScoreGenerator</strong>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto QueryBuilder que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <strong>ExtractionFilter</strong>, el cual se implementará utilizando un patrón de diseño <strong>Decorator</strong> que permita reflejar el mismo diseño explicado en <a href="#_sistema_de_filtros">Sistema de filtros</a>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<strong>TweetScoreContainer</strong>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto Double y una referencia al proyecto sobre el que se está realizando la evaluación.</p>
+<p>En <code>TweetsScoreGenerator</code>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto QueryBuilder que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <code>ExtractionFilter</code>, el cual se implementará utilizando un patrón de diseño <strong>Decorator</strong> que permita reflejar el mismo diseño explicado en <a href="#_sistema_de_filtros">Sistema de filtros</a>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<code>TweetScoreContainer</code>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto Double y una referencia al proyecto sobre el que se está realizando la evaluación.</p>
 </div>
 <div class="paragraph">
-<p>Las últimas clases pertenecientes al paquete de evaluación son: <strong>ProjectExecutionService</strong> y <strong>ProjectExecutionResultContainer</strong>. La primera, se trata de una clase que se ejecutará de manera asíncrona e implementará la lógica necesaria para realizar la ejecución de un proyecto en base a las evaluaciones realizadas en los pasos anteriores. Así pues, a partir de un objeto Project y utilizando el paquete de <strong>streaming</strong>, realizará la evaluación de cada tuit recibido sobre el modelo de clasificación vinculado al proyecto e implementado como parte del paquete de <strong>learning</strong>.</p>
+<p>Las últimas clases pertenecientes al paquete de evaluación son: <code>ProjectExecutionService</code> y <code>ProjectExecutionResultContainer</code>. La primera, se trata de una clase que se ejecutará de manera asíncrona e implementará la lógica necesaria para realizar la ejecución de un proyecto en base a las evaluaciones realizadas en los pasos anteriores. Así pues, a partir de un objeto Project y utilizando el paquete de <code>streaming</code>, realizará la evaluación de cada tuit recibido sobre el modelo de clasificación vinculado al proyecto e implementado como parte del paquete de <code>learning</code>.</p>
 </div>
 <div class="paragraph">
-<p>Cada tuit positivamente evaluado se almacenará, junto con su <strong>Execution</strong> asociada, en el objeto ProjectExecutionResultContainer. Los objetos Execution serán instanciados una vez comenzado el proceso de ejecución en ProjectExecutionService y se irán actualizando con los datos de la ejecución en curso.</p>
+<p>Cada tuit positivamente evaluado se almacenará, junto con su <code>Execution</code> asociada, en el objeto ProjectExecutionResultContainer. Los objetos Execution serán instanciados una vez comenzado el proceso de ejecución en ProjectExecutionService y se irán actualizando con los datos de la ejecución en curso.</p>
 </div>
 <div class="paragraph">
-<p>En el paquete de <strong>learning</strong> se agrupan las clases que tienen como misión comunicarse con el software de aprendizaje automático y recoger toda la lógica referente a la creación y evaluación de nuevos modelos. La clase <strong>MachineLearningManager</strong> sirve como interfaz pública y como la fachada a utilizar por el resto de la aplicación, relegando la implementación de cada método sobre la propia clase <code>...Manager</code> de cada software de aprendizaje automático que se pueda utilizar como parte del sistema. Los métodos recogidos por esta clase son:</p>
+<p>En el paquete de <code>learning</code> se agrupan las clases que tienen como misión comunicarse con el software de aprendizaje automático y recoger toda la lógica referente a la creación y evaluación de nuevos modelos. La clase <code>MachineLearningManager</code> sirve como interfaz pública y como la fachada a utilizar por el resto de la aplicación, relegando la implementación de cada método sobre la propia clase <code>...Manager</code> de cada software de aprendizaje automático que se pueda utilizar como parte del sistema. Los métodos recogidos por esta clase son:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>createModel</code>: creará un modelo de evaluación para el proyecto pasado como parámetro. La clase <strong>MachineLearningModel</strong> representa la entidad de un modelo de aprendizaje automático y únicamente contiene un <code>id</code> que permita identificar al modelo y el proyecto al que pertenece. Su misión es crear una entidad común para representar los modelos de cualquier software de aprendizaje automático.</p>
+<p><code>createModel</code>: creará un modelo de evaluación para el proyecto pasado como parámetro. La clase <code>MachineLearningModel</code> representa la entidad de un modelo de aprendizaje automático y únicamente contiene un <code>id</code> que permita identificar al modelo y el proyecto al que pertenece. Su misión es crear una entidad común para representar los modelos de cualquier software de aprendizaje automático.</p>
 </li>
 <li>
 <p><code>addTrainingData</code>: añadirá la un nuevo ejemplo al modelo de aprendizaje automático.</p>
 </li>
 <li>
-<p><code>evaluate</code>: evaluará el tuit recibido sobre el modelo asociado al proyecto que se pasa como parámetro. Se devolverá una instancia de <strong>MachineLearningPrediction</strong> que utilizará la propiedad <code>isPositive</code> para indicar si el tuit pertenece o no al área de estudio.</p>
+<p><code>evaluate</code>: evaluará el tuit recibido sobre el modelo asociado al proyecto que se pasa como parámetro. Se devolverá una instancia de <code>MachineLearningPrediction</code> que utilizará la propiedad <code>isPositive</code> para indicar si el tuit pertenece o no al área de estudio.</p>
 </li>
 </ul>
 </div>
@@ -3449,7 +3449,7 @@ reader.foreach({
 <p>El paquete de <code>streaming</code> contiene las clases que esperan comunicarse con el sistema de cola de mensajes utilizado para transferir los tuits del sistema externo a la aplicación web. Además, su segunda responsabilidad es proveer un mecanismo que permita hacer accesibles esos mismos tuits al resto de clases de la aplicación. Para ello, el sistema propuesto se basa en una implementación del patrón de diseño <strong>Observer</strong> muy similar a lo propuesto también en el servicio externo de recolección de tuits.</p>
 </div>
 <div class="paragraph">
-<p>En este caso, la clase <strong>TwitterStreamingSubscriber</strong> se ejecutará de manera asíncrona y estará suscrita a la cola de mensajes esperando recibir nuevos mensajes. Cada vez que recibe un nuevo mensaje, recorrerá la lista de listeners que tenga suscritos e invocará al método <code>onTweetReceived</code> con el nuevo tuit recibido. Todos los listeners de la clase TwitterStreamingSubscriber deberán implementar el <em>trait</em> <strong>TwitterStreamingListener</strong>. En este caso, un ejemplo podría ser la clase <strong>ProjectExecutionListener</strong>, que se podría utilizar a la hora de ejecutar un nuevo proyecto, y en donde su método <code>onTweetReceived</code> realizaría la comunicación con el software de aprendizaje automático que evaluaría el nuevo tuit recibido en directo.</p>
+<p>En este caso, la clase <code>TwitterStreamingSubscriber</code> se ejecutará de manera asíncrona y estará suscrita a la cola de mensajes esperando recibir nuevos mensajes. Cada vez que recibe un nuevo mensaje, recorrerá la lista de listeners que tenga suscritos e invocará al método <code>onTweetReceived</code> con el nuevo tuit recibido. Todos los listeners de la clase TwitterStreamingSubscriber deberán implementar el <em>trait</em> <code>TwitterStreamingListener</code>. En este caso, un ejemplo podría ser la clase <code>ProjectExecutionListener</code>, que se podría utilizar a la hora de ejecutar un nuevo proyecto, y en donde su método <code>onTweetReceived</code> realizaría la comunicación con el software de aprendizaje automático que evaluaría el nuevo tuit recibido en directo.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
