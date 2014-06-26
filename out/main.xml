@@ -2559,17 +2559,260 @@ reader.foreach({
 </table>
 <section xml:id="_planificación">
 <title>Planificación</title>
-
+<simpara>En <xref linkend="tasks-table"/> se recogen el conjunto de tareas de desarrollo planificadas para realizar la implementación del sistema propuesto. Además, en <xref linkend="gantt"/> se muestra un diagrama de Gantt donde se puede observar la distribución temporal de las tareas, así como una expresión gráfica de su longitud.</simpara>
+<table xml:id="tasks-table" frame="all" rowsep="1" colsep="1">
+<title>Tareas propuestas para el desarrollo del sistema propuesto</title>
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="16*"/>
+<colspec colname="col_3" colwidth="16*"/>
+<colspec colname="col_4" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Tarea</entry>
+<entry align="left" valign="top">Duración</entry>
+<entry align="left" valign="top">Predecesora</entry>
+<entry align="left" valign="top">Recursos</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Iteración 1</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">10,13 días</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Preparación del entorno de desarrollo</simpara></entry>
+<entry align="left" valign="top"><simpara>5 horas</simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Configuración y diseño de base de datos</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 3</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Comunicación con el servicio de Firehose</simpara></entry>
+<entry align="left" valign="top"><simpara>5 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementación del sistema de recolección</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Integración con RabbitMQ</simpara></entry>
+<entry align="left" valign="top"><simpara>5 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Creación del modelo de Proyecto</simpara></entry>
+<entry align="left" valign="top"><simpara>2 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>6</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementación de TermFrequencyExtractor</simpara></entry>
+<entry align="left" valign="top"><simpara>20 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>7</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementación de LikelihoodRatioGenerator</simpara></entry>
+<entry align="left" valign="top"><simpara>20 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>7</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementación de TweetScoreCalculator</simpara></entry>
+<entry align="left" valign="top"><simpara>20 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>8</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Configuración inicial de controladores, vistas y modelos</simpara></entry>
+<entry align="left" valign="top"><simpara>5 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>9</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Versión inicial de pantalla de home</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>11</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Retrospectiva y planificación de la siguiente iteración</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>12;10</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2;Ing. Informático 3</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Iteración 2</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">10,5 días</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Creación del formulario de registro de usuarios</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>13</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Creación del formulario de login</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>15</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Lógica front-end para el dashboard de usuarios</simpara></entry>
+<entry align="left" valign="top"><simpara>24 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>16</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Formularios para la creación de nuevo Proyecto</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>17</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Instalación y configuración de Vowpal Wabbit</simpara></entry>
+<entry align="left" valign="top"><simpara>4 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>17</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Desarrollo del wrapper RESTful sobre Vowpal Wabbit</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>19</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Creación de la clase VowpalWabbitManager y comunicación con el sistema RESTful</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>20</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Comunicación con RabbitMQ para obtener tuits</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>18</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementación de TwitterStreamingService</simpara></entry>
+<entry align="left" valign="top"><simpara>4 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>22</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Retrospectiva y planificación de la siguiente iteración</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>23;20</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2;Ing. Informático 3</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Iteración 3</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">7 días</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementación de ProjectExecutionService y ProjectExecutionListener</simpara></entry>
+<entry align="left" valign="top"><simpara>32 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>24</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2[50%]</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Implementar interfaz para la presentación de resultados de la ejecución</simpara></entry>
+<entry align="left" valign="top"><simpara>24 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>24</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2[50%]</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Lógica para presentar los resultados de la ejecución en formato JSON</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>26;27</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Lógica para presentar los resultados de la ejecución en formato XML</simpara></entry>
+<entry align="left" valign="top"><simpara>8 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>26;27</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Pruebas de aceptación</simpara></entry>
+<entry align="left" valign="top"><simpara>16 horas</simpara></entry>
+<entry align="left" valign="top"><simpara>29</simpara></entry>
+<entry align="left" valign="top"><simpara>Ing. Informático 1;Ing. Informático 2;Ing. Informático 3</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>Para diseñar la planificación, se ha optado por una metodología basada en iteraciones donde se vayan completando historias de usuario independientes que puedan originar que en el fin de cada iteración el sistema se encuentre en un estado estable con la adición de las nuevas características.</simpara>
+<simpara>La planificación resultante, en base a los supuestos explicados al comienzo de esta sección, muestra un conjunto de tareas que abarca 27 días de desarrollo útiles, lo que acabaría resultando en, aproximadamente, mes y medio del calendario natural. Alcanzado ese periodo, el sistema desarrollado debería de cubrir la funcionalidad básica recogida a través de los diferentes diagramas del capítulo de Diseño.</simpara>
+<simpara>En la planificación, se ha procurado paralelizar al máximo el conjunto de tareas para potenciar que los dos ingenieros encargados del desarrollo pudieran realizar el máximo número de acciones de manera concurrente. En el caso del <emphasis role="strong">Ingeniero Informático 3</emphasis>, sus actuaciones se han reducido a las tareas más afines a aspectos de gestión y dirección de proyectos (retrospectiva de cada iteración, planificación de la iteración siguiente, pruebas de aceptación) así como a una de las tareas de desarrollo que podría necesitar de sus 10 años de experiencia en el desarrollo de software (<emphasis>Configuración y diseño de base de datos</emphasis>).</simpara>
+<figure xml:id="gantt">
+<title>Diagrama de Gantt para la planificación del diseño propuesto</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="../assets/application/planning/gantt.png" contentdepth="650px" align="center"/>
+</imageobject>
+<textobject><phrase>gantt</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>En <xref linkend="planning-overview"/> se recoge una visión general de la planificación, indicando también el coste total por parte de los trabajadores.</simpara>
+<table xml:id="planning-overview" frame="all" rowsep="1" colsep="1">
+<title>Estadísticas de la planificación del proyecto propuesta</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Fecha de inicio</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>lunes 30/06/2014</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Fecha de fin</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>miércoles 06/08/2014</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Duración</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>479 horas</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Coste total de los trabajadores</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>6.347,50 euros</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
 <section xml:id="_presupuesto">
 <title>Presupuesto</title>
-
+<simpara>Además del costo por horas de los trabajadores, será necesario tener en cuenta las siguientes variables a la hora de preparar un presupuesto para realizar el proyecto:</simpara>
+<variablelist>
+<varlistentry>
+<term>Firehose de Twitter</term>
+<term>Tecnologías OpenSource</term>
+<term>Proveedor de infraestructura Cloud</term>
+<listitem>
+<simpara>== Herramientas utilizadas</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </section>
 </section>
-</chapter>
-<chapter xml:id="_herramientas_utilizadas">
-<title>Herramientas utilizadas</title>
-
 </chapter>
 <appendix xml:id="_scala">
 <title>Scala</title>

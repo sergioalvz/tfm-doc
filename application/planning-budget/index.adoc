@@ -32,5 +32,103 @@ Los costes por hora para la empresa de los 3 ingenieros están recogidos en <<wo
 
 ==== Planificación
 
+En <<tasks-table>> se recogen el conjunto de tareas de desarrollo planificadas para realizar la implementación del sistema propuesto. Además, en <<gantt>> se muestra un diagrama de Gantt donde se puede observar la distribución temporal de las tareas, así como una expresión gráfica de su longitud.
+
+.Tareas propuestas para el desarrollo del sistema propuesto
+[id="tasks-table",cols="2,1,1,2",options="header"]
+|===
+|Tarea |Duración |Predecesora |Recursos
+
+|*Iteración 1* |*10,13 días* | |
+
+|Preparación del entorno de desarrollo |5 horas | |Ing. Informático 1;Ing. Informático 2
+
+|Configuración y diseño de base de datos |16 horas |2 |Ing. Informático 3
+
+|Comunicación con el servicio de Firehose |5 horas |2 |Ing. Informático 1;Ing. Informático 2
+
+|Implementación del sistema de recolección |16 horas |4 |Ing. Informático 1;Ing. Informático 2
+
+|Integración con RabbitMQ |5 horas |5 |Ing. Informático 1;Ing. Informático 2
+
+|Creación del modelo de Proyecto |2 horas|6 |Ing. Informático 1;Ing. Informático 2
+
+|Implementación de TermFrequencyExtractor |20 horas |7 |Ing. Informático 2
+
+|Implementación de LikelihoodRatioGenerator |20 horas |7 |Ing. Informático 1
+
+|Implementación de TweetScoreCalculator |20 horas |8 |Ing. Informático 2
+
+|Configuración inicial de controladores, vistas y modelos |5 horas |9 |Ing. Informático 1
+
+|Versión inicial de pantalla de home |8 horas |11 |Ing. Informático 1
+
+|Retrospectiva y planificación de la siguiente iteración |8 horas |12;10 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
+
+|*Iteración 2* |*10,5 días* | |
+
+|Creación del formulario de registro de usuarios |8 horas |13 |Ing. Informático 1;Ing. Informático 2
+
+|Creación del formulario de login |8 horas |15 |Ing. Informático 1;Ing. Informático 2
+
+|Lógica front-end para el dashboard de usuarios |24 horas |16 |Ing. Informático 1;Ing. Informático 2
+
+|Formularios para la creación de nuevo Proyecto |16 horas |17 |Ing. Informático 1
+
+|Instalación y configuración de Vowpal Wabbit |4 horas |17 |Ing. Informático 2
+
+|Desarrollo del wrapper RESTful sobre Vowpal Wabbit |16 horas |19 |Ing. Informático 2
+
+|Creación de la clase VowpalWabbitManager y comunicación con el sistema RESTful |16 horas |20 |Ing. Informático 2
+
+|Comunicación con RabbitMQ para obtener tuits |16 horas |18 |Ing. Informático 1
+
+|Implementación de TwitterStreamingService |4 horas |22 |Ing. Informático 1
+
+|Retrospectiva y planificación de la siguiente iteración |8 horas |23;20 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
+
+|*Iteración 3* |*7 días* | |
+
+|Implementación de ProjectExecutionService y ProjectExecutionListener |32 horas |24 |Ing. Informático 1;Ing. Informático 2[50%]
+
+|Implementar interfaz para la presentación de resultados de la ejecución |24 horas |24 |Ing. Informático 2[50%]
+
+|Lógica para presentar los resultados de la ejecución en formato JSON |8 horas |26;27 |Ing. Informático 1
+
+|Lógica para presentar los resultados de la ejecución en formato XML |8 horas |26;27 |Ing. Informático 2
+
+|Pruebas de aceptación |16 horas |29 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
+|===
+
+Para diseñar la planificación, se ha optado por una metodología basada en iteraciones donde se vayan completando historias de usuario independientes que puedan originar que en el fin de cada iteración el sistema se encuentre en un estado estable con la adición de las nuevas características.
+
+La planificación resultante, en base a los supuestos explicados al comienzo de esta sección, muestra un conjunto de tareas que abarca 27 días de desarrollo útiles, lo que acabaría resultando en, aproximadamente, mes y medio del calendario natural. Alcanzado ese periodo, el sistema desarrollado debería de cubrir la funcionalidad básica recogida a través de los diferentes diagramas del capítulo de Diseño.
+
+En la planificación, se ha procurado paralelizar al máximo el conjunto de tareas para potenciar que los dos ingenieros encargados del desarrollo pudieran realizar el máximo número de acciones de manera concurrente. En el caso del *Ingeniero Informático 3*, sus actuaciones se han reducido a las tareas más afines a aspectos de gestión y dirección de proyectos (retrospectiva de cada iteración, planificación de la iteración siguiente, pruebas de aceptación) así como a una de las tareas de desarrollo que podría necesitar de sus 10 años de experiencia en el desarrollo de software (_Configuración y diseño de base de datos_).
+
+.Diagrama de Gantt para la planificación del diseño propuesto
+image::application/planning/gantt.png[id="gantt",height="650px",align="center"]
+
+En <<planning-overview>> se recoge una visión general de la planificación, indicando también el coste total por parte de los trabajadores.
+
+.Estadísticas de la planificación del proyecto propuesta
+[id="planning-overview",cols="2*",options=""]
+|===
+|*Fecha de inicio* |lunes 30/06/2014
+
+|*Fecha de fin* | miércoles 06/08/2014
+
+|*Duración* | 479 horas
+
+|*Coste total de los trabajadores* | 6.347,50 euros
+|===
+
 ==== Presupuesto
 
+Además del costo por horas de los trabajadores, será necesario tener en cuenta las siguientes variables a la hora de preparar un presupuesto para realizar el proyecto:
+
+Firehose de Twitter::
+
+Tecnologías OpenSource::
+
+Proveedor de infraestructura Cloud::

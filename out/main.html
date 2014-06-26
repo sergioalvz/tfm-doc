@@ -432,7 +432,6 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_planificación_y_presupuesto">5.3. Planificación y presupuesto</a></li>
 </ul>
 </li>
-<li><a href="#_herramientas_utilizadas">6. Herramientas utilizadas</a></li>
 <li><a href="#_scala">Appendix A: Scala</a></li>
 <li>
 <ul class="sectlevel2">
@@ -3546,19 +3545,269 @@ reader.foreach({
 </table>
 <div class="sect3">
 <h4 id="_planificación">5.3.1. Planificación</h4>
-
+<div class="paragraph">
+<p>En <a href="#tasks-table">Tareas propuestas para el desarrollo del sistema propuesto</a> se recogen el conjunto de tareas de desarrollo planificadas para realizar la implementación del sistema propuesto. Además, en <a href="#gantt">Diagrama de Gantt para la planificación del diseño propuesto</a> se muestra un diagrama de Gantt donde se puede observar la distribución temporal de las tareas, así como una expresión gráfica de su longitud.</p>
+</div>
+<table id="tasks-table" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 35. Tareas propuestas para el desarrollo del sistema propuesto</caption>
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tarea</th>
+<th class="tableblock halign-left valign-top">Duración</th>
+<th class="tableblock halign-left valign-top">Predecesora</th>
+<th class="tableblock halign-left valign-top">Recursos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Iteración 1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>10,13 días</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preparación del entorno de desarrollo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 horas</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuración y diseño de base de datos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comunicación con el servicio de Firehose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación del sistema de recolección</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integración con RabbitMQ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creación del modelo de Proyecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación de TermFrequencyExtractor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación de LikelihoodRatioGenerator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación de TweetScoreCalculator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuración inicial de controladores, vistas y modelos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Versión inicial de pantalla de home</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrospectiva y planificación de la siguiente iteración</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12;10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2;Ing. Informático 3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Iteración 2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>10,5 días</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creación del formulario de registro de usuarios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creación del formulario de login</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lógica front-end para el dashboard de usuarios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formularios para la creación de nuevo Proyecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instalación y configuración de Vowpal Wabbit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desarrollo del wrapper RESTful sobre Vowpal Wabbit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creación de la clase VowpalWabbitManager y comunicación con el sistema RESTful</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comunicación con RabbitMQ para obtener tuits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación de TwitterStreamingService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrospectiva y planificación de la siguiente iteración</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23;20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2;Ing. Informático 3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Iteración 3</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>7 días</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación de ProjectExecutionService y ProjectExecutionListener</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2[50%]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementar interfaz para la presentación de resultados de la ejecución</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2[50%]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lógica para presentar los resultados de la ejecución en formato JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26;27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lógica para presentar los resultados de la ejecución en formato XML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26;27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pruebas de aceptación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 horas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ing. Informático 1;Ing. Informático 2;Ing. Informático 3</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Para diseñar la planificación, se ha optado por una metodología basada en iteraciones donde se vayan completando historias de usuario independientes que puedan originar que en el fin de cada iteración el sistema se encuentre en un estado estable con la adición de las nuevas características.</p>
+</div>
+<div class="paragraph">
+<p>La planificación resultante, en base a los supuestos explicados al comienzo de esta sección, muestra un conjunto de tareas que abarca 27 días de desarrollo útiles, lo que acabaría resultando en, aproximadamente, mes y medio del calendario natural. Alcanzado ese periodo, el sistema desarrollado debería de cubrir la funcionalidad básica recogida a través de los diferentes diagramas del capítulo de Diseño.</p>
+</div>
+<div class="paragraph">
+<p>En la planificación, se ha procurado paralelizar al máximo el conjunto de tareas para potenciar que los dos ingenieros encargados del desarrollo pudieran realizar el máximo número de acciones de manera concurrente. En el caso del <strong>Ingeniero Informático 3</strong>, sus actuaciones se han reducido a las tareas más afines a aspectos de gestión y dirección de proyectos (retrospectiva de cada iteración, planificación de la iteración siguiente, pruebas de aceptación) así como a una de las tareas de desarrollo que podría necesitar de sus 10 años de experiencia en el desarrollo de software (<em>Configuración y diseño de base de datos</em>).</p>
+</div>
+<div id="gantt" class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../assets/application/planning/gantt.png" alt="gantt" height="650px">
+</div>
+<div class="title">Figure 27. Diagrama de Gantt para la planificación del diseño propuesto</div>
+</div>
+<div class="paragraph">
+<p>En <a href="#planning-overview">Estadísticas de la planificación del proyecto propuesta</a> se recoge una visión general de la planificación, indicando también el coste total por parte de los trabajadores.</p>
+</div>
+<table id="planning-overview" class="tableblock frame-all grid-all" style="width: 100%;">
+<caption class="title">Table 36. Estadísticas de la planificación del proyecto propuesta</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fecha de inicio</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lunes 30/06/2014</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fecha de fin</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">miércoles 06/08/2014</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Duración</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">479 horas</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Coste total de los trabajadores</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.347,50 euros</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_presupuesto">5.3.2. Presupuesto</h4>
-
+<div class="paragraph">
+<p>Además del costo por horas de los trabajadores, será necesario tener en cuenta las siguientes variables a la hora de preparar un presupuesto para realizar el proyecto:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Firehose de Twitter</dt>
+<dt class="hdlist1">Tecnologías OpenSource</dt>
+<dt class="hdlist1">Proveedor de infraestructura Cloud</dt>
+<dd>
+<p>== Herramientas utilizadas</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_herramientas_utilizadas">6. Herramientas utilizadas</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 <div class="sect1">
@@ -3842,7 +4091,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 27. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnote_12" title="View footnote.">12</a>]</span></div>
+<div class="title">Figure 28. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnote_12" title="View footnote.">12</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -4052,13 +4301,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 28. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 29. Imagen de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 29. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
+<div class="title">Figure 30. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -4089,13 +4338,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/tweetheat-home.png" alt="Pantalla de inicio de la aplicación TweetHeat">
 </div>
-<div class="title">Figure 30. Pantalla de inicio de la aplicación TweetHeat</div>
+<div class="title">Figure 31. Pantalla de inicio de la aplicación TweetHeat</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
 </div>
-<div class="title">Figure 31. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+<div class="title">Figure 32. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
 </div>
 </div>
 </div>
