@@ -131,29 +131,39 @@ Además del costo por horas de los trabajadores, será necesario tener en cuenta
 
 Firehose de Twitter::
 
-Uno de los requisitos principales del proyecto es la obtención de un flujo de datos constante sobre el streaming público de Twitter. Para ello, las opciones pasan por contratar a un distribuidor oficial al que Twitter le haya dado permiso para realizar tareas de _firehosing_ comerciales a partir de su streaming público real (Twitter únicamente aporta un 1% de su flujo de datos público a través de su API de Streaming y el acceso a su servicio de Firehouse está restringido a un número muy reducido de clientes).
+Uno de los requisitos principales del proyecto es la obtención de un flujo de datos constante sobre el streaming público de Twitter. Para ello, las opciones pasan por contratar a un distribuidor oficial de Twitter con permiso para realizar tareas de _firehosing_ comerciales a partir de su streaming (Twitter únicamente aporta un 1% de su flujo de datos público a través de su API de Streaming y el acceso a su servicio de Firehose está restringido a un número muy reducido de clientesfootnote:[https://dev.twitter.com/discussions/2752]).
 +
-Los precios ofrecidos por este tipo de distribuidores son, aparentemente, bastante flexibles y ajustables a la cantidad de datos necesarios. Por ello, no ha sido posible obtener de manera oficial ninguna información acerca de los precios ofrecidos por los distribuidores más conocidos: *Gnipfootnote:[http://gnip.com/]* (adquirido por Twitter en Abril de 2014) y *DataSiftfootnote:[http://datasift.com/]*. En el caso de Gnip, se ha podido obtener cierta información mediante un búsqueda en la web:
+Los precios ofrecidos por este tipo de distribuidores son, aparentemente, bastante flexibles y ajustables a la cantidad de datos necesarios. Por ello, no ha sido posible obtener de manera oficial ninguna información acerca de los precios ofrecidos por los distribuidores más conocidos: *Gnipfootnote:[http://gnip.com/]* (adquirido por Twitter en Abril de 2014) y *DataSiftfootnote:[http://datasift.com/]*. En el caso de Gnip, se ha podido obtener cierta información investigando acerca de su modelo de negocio por Internet:
 +
 "Gnip will offer the Halfhose (50 percent of Tweets at a cost of *$30,000* per month), the Decahose (10 percent of Tweets for *$5,000* per month) and the Mentionhose (all mentions of a user including @replies and re-Tweets for *$20,000* per month). All feeds are available in original JSON and Activity Streams JSON formats."
 -- Gnip Becomes Twitter's First Authorized Data Reseller - November 2010, http://allthingsd.com/20101117/gnip-becomes-twitters-first-authorized-data-reseller/
 +
-Para el presente proyecto, es posible que la opción del *Decahose* fuese suficiente, por lo que se debería incluir un coste mensual de 5.000 $ (*~3.668 €*).
+Para el presente proyecto, es posible que la opción del *Decahose* sea suficiente, por lo que se debería incluir un coste mensual de 5.000 $ (*~3.668 €*).
 
 Tecnologías Open Source::
 
-Para el desarrollo del proyecto se ha propuesto un _stack_ tecnológico basado en tecnologías Open Source las cuales no conllevan ningún coste adicional.
+Para el desarrollo del proyecto se ha propuesto un _stack_ tecnológico basado en tecnologías Open Source las cuales no conllevan ningún coste adicional implícito.
 
 Proveedor de infraestructura Cloud::
 
 Los precios para este tipo de servicios varían mucho en función del tipo de requisitos necesarios para desplegar la aplicación. En el caso de escoger el servicio ofrecido por *Amazon Web Services*, y viendo que, a priori y en función del Diagrama de Despliegue diseñado, harían falta un mínimo de 6 máquinas de una potencia moderada pero con una alta capacidad de almacenamiento (especialmente para el caso de la base de datos y el requisito de almacenar 48 horas de tuits), se podría estimar un coste mensual de:
-* Servidor de base de datos: ~450 € (instancia de $0.853 por hora)
-* Servidor de servicio de streaming: ~73 € (instancia de $0.140 por hora)
-* Servidor para la cola de mensajes: ~221 € (instancia de $0.420 por hora)
-* Servidores para Apache y aplicación web: ~665 € (instancias de $0.420 por hora)
-* *Total*: 1.409 €
 
-En <<budget-costs>> se recoge el total presupuestado por cada mes que la aplicación se encuentre desplegada, así como los costes por mes de mantener a los trabajadores *Ingeniero Informático 1* e *Ingeniero Informático 2* realizando labores de desarrollo para añadir nuevas funcionalidades a la aplicación web.
+[cols="2,1,4",options="header"]
+|===
+|Nodo |Coste |Coste por hora de la instancia escogida
+
+|Servidor de base de datos | ~450 € |0.625 €
+
+|Servidor de servicio de streaming |~73 € |0.102 €
+
+|Servidor para la cola de mensajes |~221 € |0.308 €
+
+|Servidores para Apache y dos instancias de la aplicación web |~665 € |0.308 €
+
+|*Total* | *1.409 €*|
+|===
+
+En <<budget-costs>> se recoge el total presupuestado por cada mes que la aplicación se encuentre desplegada, así como los costes mensuales de mantener a los trabajadores *Ingeniero Informático 1* e *Ingeniero Informático 2* realizando labores de desarrollo para añadir nuevas funcionalidades a la aplicación web.
 
 .Costes mensuales de mantenimiento y desarrollo de la aplicación web
 [id="budget-costs",cols="2*",options=""]

@@ -2838,8 +2838,8 @@ reader.foreach({
 <varlistentry>
 <term>Firehose de Twitter</term>
 <listitem>
-<simpara>Uno de los requisitos principales del proyecto es la obtención de un flujo de datos constante sobre el streaming público de Twitter. Para ello, las opciones pasan por contratar a un distribuidor oficial al que Twitter le haya dado permiso para realizar tareas de <emphasis>firehosing</emphasis> comerciales a partir de su streaming público real (Twitter únicamente aporta un 1% de su flujo de datos público a través de su API de Streaming y el acceso a su servicio de Firehouse está restringido a un número muy reducido de clientes).</simpara>
-<simpara>Los precios ofrecidos por este tipo de distribuidores son, aparentemente, bastante flexibles y ajustables a la cantidad de datos necesarios. Por ello, no ha sido posible obtener de manera oficial ninguna información acerca de los precios ofrecidos por los distribuidores más conocidos: <emphasis role="strong">Gnip<footnote><simpara><link xlink:href="http://gnip.com/">http://gnip.com/</link></simpara></footnote></emphasis> (adquirido por Twitter en Abril de 2014) y <emphasis role="strong">DataSift<footnote><simpara><link xlink:href="http://datasift.com/">http://datasift.com/</link></simpara></footnote></emphasis>. En el caso de Gnip, se ha podido obtener cierta información mediante un búsqueda en la web:</simpara>
+<simpara>Uno de los requisitos principales del proyecto es la obtención de un flujo de datos constante sobre el streaming público de Twitter. Para ello, las opciones pasan por contratar a un distribuidor oficial de Twitter con permiso para realizar tareas de <emphasis>firehosing</emphasis> comerciales a partir de su streaming (Twitter únicamente aporta un 1% de su flujo de datos público a través de su API de Streaming y el acceso a su servicio de Firehose está restringido a un número muy reducido de clientes<footnote><simpara><link xlink:href="https://dev.twitter.com/discussions/2752">https://dev.twitter.com/discussions/2752</link></simpara></footnote>).</simpara>
+<simpara>Los precios ofrecidos por este tipo de distribuidores son, aparentemente, bastante flexibles y ajustables a la cantidad de datos necesarios. Por ello, no ha sido posible obtener de manera oficial ninguna información acerca de los precios ofrecidos por los distribuidores más conocidos: <emphasis role="strong">Gnip<footnote><simpara><link xlink:href="http://gnip.com/">http://gnip.com/</link></simpara></footnote></emphasis> (adquirido por Twitter en Abril de 2014) y <emphasis role="strong">DataSift<footnote><simpara><link xlink:href="http://datasift.com/">http://datasift.com/</link></simpara></footnote></emphasis>. En el caso de Gnip, se ha podido obtener cierta información investigando acerca de su modelo de negocio por Internet:</simpara>
 <blockquote>
 <attribution>
 Gnip Becomes Twitter's First Authorized Data Reseller - November 2010
@@ -2847,40 +2847,64 @@ Gnip Becomes Twitter's First Authorized Data Reseller - November 2010
 </attribution>
 <simpara>Gnip will offer the Halfhose (50 percent of Tweets at a cost of <emphasis role="strong">$30,000</emphasis> per month), the Decahose (10 percent of Tweets for <emphasis role="strong">$5,000</emphasis> per month) and the Mentionhose (all mentions of a user including @replies and re-Tweets for <emphasis role="strong">$20,000</emphasis> per month). All feeds are available in original JSON and Activity Streams JSON formats.</simpara>
 </blockquote>
-<simpara>Para el presente proyecto, es posible que la opción del <emphasis role="strong">Decahose</emphasis> fuese suficiente, por lo que se debería incluir un coste mensual de 5.000 $ (<emphasis role="strong">~3.668 €</emphasis>).</simpara>
+<simpara>Para el presente proyecto, es posible que la opción del <emphasis role="strong">Decahose</emphasis> sea suficiente, por lo que se debería incluir un coste mensual de 5.000 $ (<emphasis role="strong">~3.668 €</emphasis>).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>Tecnologías Open Source</term>
 <listitem>
-<simpara>Para el desarrollo del proyecto se ha propuesto un <emphasis>stack</emphasis> tecnológico basado en tecnologías Open Source las cuales no conllevan ningún coste adicional.</simpara>
+<simpara>Para el desarrollo del proyecto se ha propuesto un <emphasis>stack</emphasis> tecnológico basado en tecnologías Open Source las cuales no conllevan ningún coste adicional implícito.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>Proveedor de infraestructura Cloud</term>
 <listitem>
 <simpara>Los precios para este tipo de servicios varían mucho en función del tipo de requisitos necesarios para desplegar la aplicación. En el caso de escoger el servicio ofrecido por <emphasis role="strong">Amazon Web Services</emphasis>, y viendo que, a priori y en función del Diagrama de Despliegue diseñado, harían falta un mínimo de 6 máquinas de una potencia moderada pero con una alta capacidad de almacenamiento (especialmente para el caso de la base de datos y el requisito de almacenar 48 horas de tuits), se podría estimar un coste mensual de:</simpara>
-<itemizedlist>
-<listitem>
-<simpara>Servidor de base de datos: ~450 € (instancia de $0.853 por hora)</simpara>
-</listitem>
-<listitem>
-<simpara>Servidor de servicio de streaming: ~73 € (instancia de $0.140 por hora)</simpara>
-</listitem>
-<listitem>
-<simpara>Servidor para la cola de mensajes: ~221 € (instancia de $0.420 por hora)</simpara>
-</listitem>
-<listitem>
-<simpara>Servidores para Apache y aplicación web: ~665 € (instancias de $0.420 por hora)</simpara>
-</listitem>
-<listitem>
-<simpara><emphasis role="strong">Total</emphasis>: 1.409 €</simpara>
-</listitem>
-</itemizedlist>
 </listitem>
 </varlistentry>
 </variablelist>
-<simpara>En <xref linkend="budget-costs"/> se recoge el total presupuestado por cada mes que la aplicación se encuentre desplegada, así como los costes por mes de mantener a los trabajadores <emphasis role="strong">Ingeniero Informático 1</emphasis> e <emphasis role="strong">Ingeniero Informático 2</emphasis> realizando labores de desarrollo para añadir nuevas funcionalidades a la aplicación web.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="28*"/>
+<colspec colname="col_2" colwidth="14*"/>
+<colspec colname="col_3" colwidth="57*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Nodo</entry>
+<entry align="left" valign="top">Coste</entry>
+<entry align="left" valign="top">Coste por hora de la instancia escogida</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Servidor de base de datos</simpara></entry>
+<entry align="left" valign="top"><simpara>~450 €</simpara></entry>
+<entry align="left" valign="top"><simpara>0.625 €</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Servidor de servicio de streaming</simpara></entry>
+<entry align="left" valign="top"><simpara>~73 €</simpara></entry>
+<entry align="left" valign="top"><simpara>0.102 €</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Servidor para la cola de mensajes</simpara></entry>
+<entry align="left" valign="top"><simpara>~221 €</simpara></entry>
+<entry align="left" valign="top"><simpara>0.308 €</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Servidores para Apache y dos instancias de la aplicación web</simpara></entry>
+<entry align="left" valign="top"><simpara>~665 €</simpara></entry>
+<entry align="left" valign="top"><simpara>0.308 €</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Total</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">1.409 €</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>En <xref linkend="budget-costs"/> se recoge el total presupuestado por cada mes que la aplicación se encuentre desplegada, así como los costes mensuales de mantener a los trabajadores <emphasis role="strong">Ingeniero Informático 1</emphasis> e <emphasis role="strong">Ingeniero Informático 2</emphasis> realizando labores de desarrollo para añadir nuevas funcionalidades a la aplicación web.</simpara>
 <table xml:id="budget-costs" frame="all" rowsep="1" colsep="1">
 <title>Costes mensuales de mantenimiento y desarrollo de la aplicación web</title>
 <tgroup cols="2">
@@ -2909,9 +2933,46 @@ Gnip Becomes Twitter's First Authorized Data Reseller - November 2010
 </section>
 </section>
 </chapter>
-<chapter xml:id="_herramientas_utilizadas">
-<title>Herramientas utilizadas</title>
-
+<chapter xml:id="_herramientas_utilizadas_durante_el_desarrollo_del_proyecto">
+<title>Herramientas utilizadas durante el desarrollo del Proyecto</title>
+<simpara>Además de las tecnologías utilizadas para el desarrollo de los prototipos y experimentos presentados en capítulos anteriores, el presente proyecto ha hecho uso de una serie de herramientas que facilitaron el desarrollo del mismo desde las fases iniciales hasta el desarrollo de la documentación final.</simpara>
+<section xml:id="_trello">
+<title>Trello</title>
+<simpara><emphasis role="strong">Trello</emphasis> (<link xlink:href="https://trello.com/">https://trello.com/</link>) es una aplicación web desarrollada por <emphasis role="strong">Fog Creek</emphasis> con el objetivo de ofrecer una herramienta eficaz para la gestión de tareas (y en cierta medida, proyectos) de manera sencilla y muy colaborativa que potencie los procesos de desarrollos ágiles.</simpara>
+<simpara>Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como Scrum, donde el <emphasis>Scrum Board</emphasis> se utiliza para recoger todas las tareas <emphasis role="strong">Pendientes</emphasis>, <emphasis role="strong">En progreso</emphasis> o <emphasis role="strong">Terminadas</emphasis> para el <emphasis>sprint</emphasis> en curso.</simpara>
+<simpara>En este caso se ha utilizado como herramienta para organizar y controlar el progreso de las tareas en las estaciones de experimentación y prototipado.</simpara>
+</section>
+<section xml:id="_omnigraffle_y_balsamiq_mockup">
+<title>OmniGraffle y Balsamiq Mockup</title>
+<simpara>Ambas herramientas se han utilizado a la hora de realizar la documentación del proyecto con la misión de realizar gráficos que permitan reflejar, en el caso de <emphasis role="strong">OmniGraffle</emphasis> los diagramas UML necesarios para explicar el análisis y diseño de la aplicación web propuesta y, en el caso de <emphasis role="strong">Balsamiq Mockup</emphasis> ejemplos de interfaces de usuario que se podrían implementar para facilitar la interacción del usuario con la aplicación web.</simpara>
+</section>
+<section xml:id="_desarrollo_de_la_documentación_utilizando_asciidoc">
+<title>Desarrollo de la documentación utilizando AsciiDoc</title>
+<simpara><emphasis role="strong">AsciiDoc</emphasis> (<link xlink:href="http://www.methods.co.nz/asciidoc/">http://www.methods.co.nz/asciidoc/</link>) ha sido el lenguaje de marcado seleccionado para realizar la documentación del proyecto, apoyado sobre el procesador <emphasis role="strong">Asciidoctor</emphasis> (<link xlink:href="http://asciidoctor.org/">http://asciidoctor.org/</link>).</simpara>
+<simpara>La herramienta seleccionada para realizar la documentación debía de cumplir con las siguientes seis condiciones:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Trabajar en un formato de texto simple, preferiblemente texto plano, que lo hiciera independiente de la plataforma sobre la que realizar la documentación.</simpara>
+</listitem>
+<listitem>
+<simpara>Trabajar con un lenguaje de marcado sencillo (similar a <emphasis role="strong">Markdown<footnote><simpara><link xlink:href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</link></simpara></footnote></emphasis>) que simplificara el proceso de escritura ante alternativas como LaTeX.</simpara>
+</listitem>
+<listitem>
+<simpara>Capacidad de dividir la documentación en varios ficheros que se pudiesen estructurar en base a directorios internos del proyecto de documentación.</simpara>
+</listitem>
+<listitem>
+<simpara>Permitir el uso de un repositorio de código (como Bitbucket o Github) como sistema de control de versiones (utilizando para ello Mercurial o Git).</simpara>
+</listitem>
+<listitem>
+<simpara>Ser Open Source, libre y gratuito.</simpara>
+</listitem>
+<listitem>
+<simpara>Ser capaz de generar un documento en formato PDF con un resultado similar al de sistemas como LaTeX.</simpara>
+</listitem>
+</orderedlist>
+<simpara>AsciiDoc, mediante la utilización de Asciidoctor y el procesador <emphasis role="strong">asciidoctor-fopub</emphasis> (<link xlink:href="https://github.com/asciidoctor/asciidoctor-fopub">https://github.com/asciidoctor/asciidoctor-fopub</link>) permitió generar de manera sencilla un pequeño proyecto basado en tecnologías Ruby que cumpliera con todos los requisitos anteriores.</simpara>
+<simpara>A través de una serie de ficheros en texto plano escritos con AsciiDoc y respaldados por un repositorio en Bitbucket, se realizaba un compilado de los ficheros fuente utilizando Asciidoctor y <emphasis role="strong">Guard<footnote><simpara><link xlink:href="http://guardgem.org/">http://guardgem.org/</link> - gema de Ruby para detectar cambios en ficheros de un directorio</simpara></footnote></emphasis> para producir un documento <emphasis role="strong">DocBook<footnote><simpara><link xlink:href="http://www.docbook.org/whatis">http://www.docbook.org/whatis</link></simpara></footnote></emphasis> válido en XML que se pudiera transformar automáticamente en el PDF resultado utilizando asciidoctor-fopub.</simpara>
+</section>
 </chapter>
 <appendix xml:id="_scala">
 <title>Scala</title>
