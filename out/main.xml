@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-25</date>
+<date>2014-06-28</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -1218,7 +1218,7 @@ reader.foreach({
 <chapter xml:id="_aplicación_web_de_geolocalización_como_servicio">
 <title>Aplicación web de geolocalización como servicio</title>
 <simpara>A continuación se muestran una serie de secciones que explicarán de manera aproximada la manera de implementar una aplicación web que ofrezca un servicio de geolocalización de tuits en base a su contenido utilizando la tecnología explorada en los prototipos y experimentos anteriores.</simpara>
-<simpara>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <emphasis>en cascada</emphasis> si no que se utilizaría una metodología ágil basada en iteraciones (ver <xref linkend="_scrum"/>), donde se irían añadiendo <emphasis role="strong">user stories</emphasis> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</simpara>
+<simpara>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <emphasis>en cascada</emphasis> si no que se utilizaría una metodología ágil basada en iteraciones, donde se irían añadiendo <emphasis role="strong">user stories</emphasis> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</simpara>
 <simpara><?asciidoc-pagebreak?></simpara>
 <section xml:id="_análisis_del_sistema">
 <title>Análisis del sistema</title>
@@ -2974,6 +2974,10 @@ Gnip Becomes Twitter's First Authorized Data Reseller - November 2010
 <simpara>A través de una serie de ficheros en texto plano escritos con AsciiDoc y respaldados por un repositorio en Bitbucket, se realizaba un compilado de los ficheros fuente utilizando Asciidoctor y <emphasis role="strong">Guard<footnote><simpara><link xlink:href="http://guardgem.org/">http://guardgem.org/</link> - gema de Ruby para detectar cambios en ficheros de un directorio</simpara></footnote></emphasis> para producir un documento <emphasis role="strong">DocBook<footnote><simpara><link xlink:href="http://www.docbook.org/whatis">http://www.docbook.org/whatis</link></simpara></footnote></emphasis> válido en XML que se pudiera transformar automáticamente en el PDF resultado utilizando asciidoctor-fopub.</simpara>
 </section>
 </chapter>
+<chapter xml:id="_conclusiones_del_proyecto">
+<title>Conclusiones del Proyecto</title>
+
+</chapter>
 <appendix xml:id="_scala">
 <title>Scala</title>
 <simpara>El lenguaje de programación <emphasis role="strong">Scala</emphasis> (en su versión 2.11.0) fue la tecnología utilizada para desarrollar todos los prototipos y scripts que se realizaron como parte del ejercicio para poder inferir la localización de un usuario.</simpara>
@@ -3372,9 +3376,5 @@ Usage: Falcon [options]
 <textobject><phrase>Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</phrase></textobject>
 </mediaobject>
 </figure>
-</appendix>
-<appendix xml:id="_scrum">
-<title>Scrum</title>
-
 </appendix>
 </book>

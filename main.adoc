@@ -22,4 +22,6 @@ include::application/index.adoc[]
 
 include::used-tools/index.adoc[]
 
+include::project-conclusions/index.adoc[]
+
 include::appendixes/index.adoc[]
