@@ -1,6 +1,6 @@
 === Planificación y presupuesto
 
-Con el objetivo de aportar un estimación acerca del tiempo necesario para realizar un sistema basado en el diseño anterior, a continuación se ofrece una planificación basada en los siguientes supuestos:
+Con el objetivo de aportar un estimación acerca del tiempo necesario para realizar un sistema basado en el diseño anterior, a continuación se ofrece una planificación y presupuesto basada en los siguientes supuestos:
 
 * Debido a que el desarrollo de una aplicación web de estas características siempre estaría sujeta a una mejora continua del producto (para poder captar nuevos usuarios así como mantener a los más antiguos mediante la adición de nuevas funcionalidades), la siguiente planificación muestra los tiempos estimados para desarrollar únicamente los diseños mostrados en la sección anterior (lo que resultaría en el desarrollo del núcleo de la aplicación).
 
@@ -34,73 +34,75 @@ Los costes por hora para la empresa de los 3 ingenieros están recogidos en <<wo
 
 En <<tasks-table>> se recogen el conjunto de tareas de desarrollo planificadas para realizar la implementación del sistema propuesto. Además, en <<gantt>> se muestra un diagrama de Gantt donde se puede observar la distribución temporal de las tareas, así como una expresión gráfica de su longitud.
 
+<<<
+
 .Tareas propuestas para el desarrollo del sistema propuesto
-[id="tasks-table",cols="2,1,1,2",options="header"]
+[id="tasks-table",cols="1,4,2,2,4",options="header"]
 |===
-|Tarea |Duración |Predecesora |Recursos
+|# |Tarea |Duración |Predecesora |Recursos
 
-|*Iteración 1* |*10,13 días* | |
+|1 |*Iteración 1* |*10,13 días* | |
 
-|Preparación del entorno de desarrollo |5 horas | |Ing. Informático 1;Ing. Informático 2
+|2 |Preparación del entorno de desarrollo |5 horas | |Ing. Informático 1;Ing. Informático 2
 
-|Configuración y diseño de base de datos |16 horas |2 |Ing. Informático 3
+|3 |Configuración y diseño de base de datos |16 horas |2 |Ing. Informático 3
 
-|Comunicación con el servicio de Firehose |5 horas |2 |Ing. Informático 1;Ing. Informático 2
+|4 |Comunicación con el servicio de Firehose |5 horas |2 |Ing. Informático 1;Ing. Informático 2
 
-|Implementación del sistema de recolección |16 horas |4 |Ing. Informático 1;Ing. Informático 2
+|5 |Implementación del sistema de recolección |16 horas |4 |Ing. Informático 1;Ing. Informático 2
 
-|Integración con RabbitMQ |5 horas |5 |Ing. Informático 1;Ing. Informático 2
+|6 |Integración con RabbitMQ |5 horas |5 |Ing. Informático 1;Ing. Informático 2
 
-|Creación del modelo de Proyecto |2 horas|6 |Ing. Informático 1;Ing. Informático 2
+|7 |Creación del modelo de Proyecto |2 horas|6 |Ing. Informático 1;Ing. Informático 2
 
-|Implementación de TermFrequencyExtractor |20 horas |7 |Ing. Informático 2
+|8 |Implementación de TermFrequencyExtractor |20 horas |7 |Ing. Informático 2
 
-|Implementación de LikelihoodRatioGenerator |20 horas |7 |Ing. Informático 1
+|9 |Implementación de LikelihoodRatioGenerator |20 horas |7 |Ing. Informático 1
 
-|Implementación de TweetScoreCalculator |20 horas |8 |Ing. Informático 2
+|10 |Implementación de TweetScoreCalculator |20 horas |8 |Ing. Informático 2
 
-|Configuración inicial de controladores, vistas y modelos |5 horas |9 |Ing. Informático 1
+|11 |Configuración inicial de controladores, vistas y modelos |5 horas |9 |Ing. Informático 1
 
-|Versión inicial de pantalla de home |8 horas |11 |Ing. Informático 1
+|12 |Versión inicial de pantalla de home |8 horas |11 |Ing. Informático 1
 
-|Retrospectiva y planificación de la siguiente iteración |8 horas |12;10 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
+|13 |Retrospectiva y planificación de la siguiente iteración |8 horas |12;10 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
 
-|*Iteración 2* |*10,5 días* | |
+|14 |*Iteración 2* |*10,5 días* | |
 
-|Creación del formulario de registro de usuarios |8 horas |13 |Ing. Informático 1;Ing. Informático 2
+|15 |Creación del formulario de registro de usuarios |8 horas |13 |Ing. Informático 1;Ing. Informático 2
 
-|Creación del formulario de login |8 horas |15 |Ing. Informático 1;Ing. Informático 2
+|16 |Creación del formulario de login |8 horas |15 |Ing. Informático 1;Ing. Informático 2
 
-|Lógica front-end para el dashboard de usuarios |24 horas |16 |Ing. Informático 1;Ing. Informático 2
+|17 |Lógica front-end para el dashboard de usuarios |24 horas |16 |Ing. Informático 1;Ing. Informático 2
 
-|Formularios para la creación de nuevo Proyecto |16 horas |17 |Ing. Informático 1
+|18 |Formularios para la creación de nuevo Proyecto |16 horas |17 |Ing. Informático 1
 
-|Instalación y configuración de Vowpal Wabbit |4 horas |17 |Ing. Informático 2
+|19 |Instalación y configuración de Vowpal Wabbit |4 horas |17 |Ing. Informático 2
 
-|Desarrollo del wrapper RESTful sobre Vowpal Wabbit |16 horas |19 |Ing. Informático 2
+|20 |Desarrollo del wrapper RESTful sobre Vowpal Wabbit |16 horas |19 |Ing. Informático 2
 
-|Creación de la clase VowpalWabbitManager y comunicación con el sistema RESTful |16 horas |20 |Ing. Informático 2
+|21 |Creación de la clase VowpalWabbitManager y comunicación con el sistema RESTful |16 horas |20 |Ing. Informático 2
 
-|Comunicación con RabbitMQ para obtener tuits |16 horas |18 |Ing. Informático 1
+|22 |Comunicación con RabbitMQ para obtener tuits |16 horas |18 |Ing. Informático 1
 
-|Implementación de TwitterStreamingService |4 horas |22 |Ing. Informático 1
+|23 |Implementación de TwitterStreamingService |4 horas |22 |Ing. Informático 1
 
-|Retrospectiva y planificación de la siguiente iteración |8 horas |23;20 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
+|24 |Retrospectiva y planificación de la siguiente iteración |8 horas |23;20 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
 
-|*Iteración 3* |*7 días* | |
+|25 |*Iteración 3* |*7 días* | |
 
-|Implementación de ProjectExecutionService y ProjectExecutionListener |32 horas |24 |Ing. Informático 1;Ing. Informático 2[50%]
+|26 |Implementación de ProjectExecutionService y ProjectExecutionListener |32 horas |24 |Ing. Informático 1;Ing. Informático 2[50%]
 
-|Implementar interfaz para la presentación de resultados de la ejecución |24 horas |24 |Ing. Informático 2[50%]
+|27 |Implementar interfaz para la presentación de resultados de la ejecución |24 horas |24 |Ing. Informático 2[50%]
 
-|Lógica para presentar los resultados de la ejecución en formato JSON |8 horas |26;27 |Ing. Informático 1
+|28 |Lógica para presentar los resultados de la ejecución en formato JSON |8 horas |26;27 |Ing. Informático 1
 
-|Lógica para presentar los resultados de la ejecución en formato XML |8 horas |26;27 |Ing. Informático 2
+|29 |Lógica para presentar los resultados de la ejecución en formato XML |8 horas |26;27 |Ing. Informático 2
 
-|Pruebas de aceptación |16 horas |29 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
+|30 |Pruebas de aceptación |16 horas |29 |Ing. Informático 1;Ing. Informático 2;Ing. Informático 3
 |===
 
-Para diseñar la planificación, se ha optado por una metodología basada en iteraciones donde se vayan completando historias de usuario independientes que puedan originar que en el fin de cada iteración el sistema se encuentre en un estado estable con la adición de las nuevas características.
+Para diseñar la planificación, se ha optado por una metodología basada en iteraciones donde se vayan completando historias de usuario independientes que puedan originar que en el fin de cada iteración el sistema se encuentre en un estado estable con la adición de nuevas características.
 
 La planificación resultante, en base a los supuestos explicados al comienzo de esta sección, muestra un conjunto de tareas que abarca 27 días de desarrollo útiles, lo que acabaría resultando en, aproximadamente, mes y medio del calendario natural. Alcanzado ese periodo, el sistema desarrollado debería de cubrir la funcionalidad básica recogida a través de los diferentes diagramas del capítulo de Diseño.
 
@@ -129,6 +131,38 @@ Además del costo por horas de los trabajadores, será necesario tener en cuenta
 
 Firehose de Twitter::
 
-Tecnologías OpenSource::
+Uno de los requisitos principales del proyecto es la obtención de un flujo de datos constante sobre el streaming público de Twitter. Para ello, las opciones pasan por contratar a un distribuidor oficial al que Twitter le haya dado permiso para realizar tareas de _firehosing_ comerciales a partir de su streaming público real (Twitter únicamente aporta un 1% de su flujo de datos público a través de su API de Streaming y el acceso a su servicio de Firehouse está restringido a un número muy reducido de clientes).
++
+Los precios ofrecidos por este tipo de distribuidores son, aparentemente, bastante flexibles y ajustables a la cantidad de datos necesarios. Por ello, no ha sido posible obtener de manera oficial ninguna información acerca de los precios ofrecidos por los distribuidores más conocidos: *Gnipfootnote:[http://gnip.com/]* (adquirido por Twitter en Abril de 2014) y *DataSiftfootnote:[http://datasift.com/]*. En el caso de Gnip, se ha podido obtener cierta información mediante un búsqueda en la web:
++
+"Gnip will offer the Halfhose (50 percent of Tweets at a cost of *$30,000* per month), the Decahose (10 percent of Tweets for *$5,000* per month) and the Mentionhose (all mentions of a user including @replies and re-Tweets for *$20,000* per month). All feeds are available in original JSON and Activity Streams JSON formats."
+-- Gnip Becomes Twitter's First Authorized Data Reseller - November 2010, http://allthingsd.com/20101117/gnip-becomes-twitters-first-authorized-data-reseller/
++
+Para el presente proyecto, es posible que la opción del *Decahose* fuese suficiente, por lo que se debería incluir un coste mensual de 5.000 $ (*~3.668 €*).
+
+Tecnologías Open Source::
+
+Para el desarrollo del proyecto se ha propuesto un _stack_ tecnológico basado en tecnologías Open Source las cuales no conllevan ningún coste adicional.
 
 Proveedor de infraestructura Cloud::
+
+Los precios para este tipo de servicios varían mucho en función del tipo de requisitos necesarios para desplegar la aplicación. En el caso de escoger el servicio ofrecido por *Amazon Web Services*, y viendo que, a priori y en función del Diagrama de Despliegue diseñado, harían falta un mínimo de 6 máquinas de una potencia moderada pero con una alta capacidad de almacenamiento (especialmente para el caso de la base de datos y el requisito de almacenar 48 horas de tuits), se podría estimar un coste mensual de:
+* Servidor de base de datos: ~450 € (instancia de $0.853 por hora)
+* Servidor de servicio de streaming: ~73 € (instancia de $0.140 por hora)
+* Servidor para la cola de mensajes: ~221 € (instancia de $0.420 por hora)
+* Servidores para Apache y aplicación web: ~665 € (instancias de $0.420 por hora)
+* *Total*: 1.409 €
+
+En <<budget-costs>> se recoge el total presupuestado por cada mes que la aplicación se encuentre desplegada, así como los costes por mes de mantener a los trabajadores *Ingeniero Informático 1* e *Ingeniero Informático 2* realizando labores de desarrollo para añadir nuevas funcionalidades a la aplicación web.
+
+.Costes mensuales de mantenimiento y desarrollo de la aplicación web
+[id="budget-costs",cols="2*",options=""]
+|===
+|Firehose |3.668 €
+
+|Infraestructura Cloud |1.409 €
+
+|Costes por mano de obra |3.840 €
+
+|*Total* |*8.917 €*
+|===
