@@ -4,7 +4,7 @@ Para la granularidad a nivel de área metropolitana, se utilizaron las tres metr
 
 Las tablas <<experiment-uk-london>>, <<experiment-uk-manchester>> y <<experiment-uk-birminghan>> muestran los resultados para esta granularidad.
 
-.Resultados de la ejecución para detectar tuits procedentes de Londres.
+.Resultados de la ejecución para detectar tuits procedentes de Londres
 [cols="3,1", id="experiment-uk-london"]
 |===
 |Precisión
@@ -20,7 +20,7 @@ Las tablas <<experiment-uk-london>>, <<experiment-uk-manchester>> y <<experiment
 |92.77%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de Manchester.
+.Resultados de la ejecución para detectar tuits procedentes de Manchester
 [cols="3,1", id="experiment-uk-manchester"]
 |===
 |Precisión
@@ -36,7 +36,7 @@ Las tablas <<experiment-uk-london>>, <<experiment-uk-manchester>> y <<experiment
 |96.97%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de Birminghan.
+.Resultados de la ejecución para detectar tuits procedentes de Birminghan
 [cols="3,1", id="experiment-uk-birminghan"]
 |===
 |Precisión

@@ -22,7 +22,7 @@ Los resultados para ambos experimentos se pueden observar en las tablas <<experi
 |90.35%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.
+.Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa
 [cols="3,1", id="experiment-uk-ireland"]
 |===
 |Precisión

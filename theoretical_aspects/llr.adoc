@@ -26,6 +26,8 @@ Para tratar de demostrar la intuición anterior, se desarrolló una normalizaci�
 . La frecuencia del término en el dataset local y global, es normalizada frente al total de frecuencias en ambos datasets.
 . Por último, el valor LLR normalizado es dividido por el valor correspondiente de la frecuencia local o global dependiendo de si el valor obtenido es positivo o negativo (es decir, si es más posible que pertenezca al dataset A o al dataset B).
 
+<<<
+
 .Algoritmo para normalizar el valor LLR de un término
 [source,java]
 ----

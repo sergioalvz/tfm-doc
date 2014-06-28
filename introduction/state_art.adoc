@@ -12,12 +12,12 @@ Sin embargo, un problema habitual a la hora de trabajar con datos extraídos de 
 
 Por poner un ejemplo, la figura <<fb-profile>> muestra una captura del perfil del autor en Facebook. En ella, se puede observar como aparece una gran cantidad de información perfectamente estructurada: centros de estudio, lugar de nacimiento, lugar de residencia actual, fecha de nacimiento, sexo e incluso campos que, aunque en este caso no estén completos, podrían aportar muchísima más información sobre el usuario: relación sentimental, ideología política o religiosa, etc.
 
-.Captura del perfil del autor en Facebook.
+.Captura del perfil del autor en Facebook
 image::introduction/fb_profile.png[id="fb-profile",align="center"]
 
 Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <<twitter-profile>> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.
 
-.Captura del perfil del autor en Twitter.
+.Captura del perfil del autor en Twitter
 image::introduction/twitter_profile.png[id="twitter-profile",height="200px",align="center"]
 
 En el caso de la geolocalización de usuarios, Bren Hercht _et al._ en su artículo *Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles*, centrado en estudiar el campo de *Localización* de los perfiles de usuario, realiza la siguiente afirmación acerca de la cantidad de tuits geoposicionados (es decir, con información geográfica adjunta como latitud y longitud) que contenían en su dataset de ejemplo:

@@ -1,1 +1,32 @@
 == Conclusiones del Proyecto
+
+A título personal, considero que el resultado final del proyecto ha constituido una experiencia muy satisfactoria que me ha permitido trabajar en áreas en las que no había tenido la oportunidad de profundizar anteriormente.
+
+La experiencia de trabajar en base a estudios teóricos y artículos de investigación, me ha permitido completar mi formación profesional mediante la adición de aspectos más cercanos a los campos de I+D+i los cuales también podrían suponer una oportunidad laboral en el futuro.
+
+Además, el estudio de Twitter y la capacidad para procesar grandes volúmenes de datos mediante la aplicación de algoritmos más o menos complejos, ha resultado en una experiencia muy enriquecedora dentro del ámbito actual de la Ingeniería Informática e Ingeniería Web.
+
+Todo lo anterior acompaña a los buenos resultados cosechados durante las etapas de experimentación y prototipado, donde se ha conseguido alcanzar el objetivo del proyecto al ser capaces de ofrecer un algoritmo capaz de inferir la localización de un usuario en base, únicamente, al contenido de sus publicaciones en Twitter. Además, se ha aprovechado la tecnología utilizada para ofrecer una posible solución a la hora de querer integrarla en una aplicación web capaz de utilizarla para vender un nuevo servicio de geolocalización de publicaciones en medios sociales.
+
+Este último punto, también ha supuesto un reto debido, especialmente, a la complejidad de diseñar parte de una aplicación web sin haber tenido nunca la experiencia de trabajar en un entorno similar (tanto por las tecnologías propuestas como por lo complejo del problema a solucionar), lo que ha conllevado un estudio paralelo acerca de los diferentes _frameworks_ existentes y conceptos como las colas de mensajes o programación asíncrona.
+
+Por último, este proyecto me ha dado la oportunidad de trabajar con Scala y, por tanto, acercarme al paradigma de programación funcional que, sin duda, ha cambiado mi manera de desarrollar. Antes de esta experiencia, nunca me había planteado, por ejemplo, los conceptos funcionales que van tan intrínsecamente unidos a lenguajes populares como JavaScript o Ruby y que me ha aportado nuevas soluciones para resolver problemas comunes.
+
+=== Ampliaciones y trabajo futuro
+
+Además de las ampliaciones propuestas en <<_trabajo_futuro>>, la ampliación más natural del proyecto sería realizar un prototipo de la aplicación web propuesta sobre la tecnología estudiada anteriormente y comprobar su viabilidad.
+
+Dentro de la construcción de esta nueva aplicación web, habría que comenzar realizando el análisis y diseño de los aspectos que se han omitido en los capítulos anteriores de este proyecto (por entenderse que no se ajustaban al propósito del mismo), entre ellos podríamos encontrar:
+
+. Análisis y diseño de la base de datos
+. Diseño de interfaces de usuario
+.. Accesibilidad
+.. Interacción del usuario
+. Diseño de plan de negocio
+.. División de usuarios por grupos
+.. Creación de diferentes planes de precios con características de uso propias
+. Diseño del plan de pruebas
+
+
+
+

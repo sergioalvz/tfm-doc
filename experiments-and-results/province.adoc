@@ -11,7 +11,7 @@ Siguiendo el mismo mecanismo en el resto de provincias.
 
 Las tablas <<experiment-spain-asturias>>, <<experiment-spain-madrid>> y <<experiment-spain-barcelona>> muestran los resultados de la ejecución para esta granularidad.
 
-.Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.
+.Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias
 [cols="3,1", id="experiment-spain-asturias"]
 |===
 |Precisión
@@ -27,7 +27,7 @@ Las tablas <<experiment-spain-asturias>>, <<experiment-spain-madrid>> y <<experi
 |99.00%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de Madrid.
+.Resultados de la ejecución para detectar tuits procedentes de Madrid
 [cols="3,1", id="experiment-spain-madrid"]
 |===
 |Precisión
@@ -43,7 +43,7 @@ Las tablas <<experiment-spain-asturias>>, <<experiment-spain-madrid>> y <<experi
 |93.39%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de Barcelona.
+.Resultados de la ejecución para detectar tuits procedentes de Barcelona
 [cols="3,1", id="experiment-spain-barcelona"]
 |===
 |Precisión

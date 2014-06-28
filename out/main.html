@@ -441,6 +441,11 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </ul>
 </li>
 <li><a href="#_conclusiones_del_proyecto">7. Conclusiones del Proyecto</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_ampliaciones_y_trabajo_futuro">7.1. Ampliaciones y trabajo futuro</a></li>
+</ul>
+</li>
 <li><a href="#_scala">Appendix A: Scala</a></li>
 <li>
 <ul class="sectlevel2">
@@ -556,22 +561,22 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Sin embargo, un problema habitual a la hora de trabajar con datos extraídos de Twitter es su falta de estructuración. Si bien es habitual que los usuarios en redes sociales como Facebook mantengan un perfil completo y actualizado con datos reales (en parte gracias al buen hacer de dicha red social por conseguir que así sea), en Twitter lo más habitual es carecer de dicha información. Por tanto, muchos de los esfuerzos realizados en el análisis de contenidos en Twitter vienen para cubrir esa necesidad de obtener información real acerca de los usuarios que realizan las publicaciones.</p>
 </div>
 <div class="paragraph">
-<p>Por poner un ejemplo, la figura <a href="#fb-profile">Captura del perfil del autor en Facebook.</a> muestra una captura del perfil del autor en Facebook. En ella, se puede observar como aparece una gran cantidad de información perfectamente estructurada: centros de estudio, lugar de nacimiento, lugar de residencia actual, fecha de nacimiento, sexo e incluso campos que, aunque en este caso no estén completos, podrían aportar muchísima más información sobre el usuario: relación sentimental, ideología política o religiosa, etc.</p>
+<p>Por poner un ejemplo, la figura <a href="#fb-profile">Captura del perfil del autor en Facebook</a> muestra una captura del perfil del autor en Facebook. En ella, se puede observar como aparece una gran cantidad de información perfectamente estructurada: centros de estudio, lugar de nacimiento, lugar de residencia actual, fecha de nacimiento, sexo e incluso campos que, aunque en este caso no estén completos, podrían aportar muchísima más información sobre el usuario: relación sentimental, ideología política o religiosa, etc.</p>
 </div>
 <div id="fb-profile" class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/introduction/fb_profile.png" alt="fb profile">
 </div>
-<div class="title">Figure 1. Captura del perfil del autor en Facebook.</div>
+<div class="title">Figure 1. Captura del perfil del autor en Facebook</div>
 </div>
 <div class="paragraph">
-<p>Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <a href="#twitter-profile">Captura del perfil del autor en Twitter.</a> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.</p>
+<p>Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <a href="#twitter-profile">Captura del perfil del autor en Twitter</a> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.</p>
 </div>
 <div id="twitter-profile" class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/introduction/twitter_profile.png" alt="twitter profile" height="200px">
 </div>
-<div class="title">Figure 2. Captura del perfil del autor en Twitter.</div>
+<div class="title">Figure 2. Captura del perfil del autor en Twitter</div>
 </div>
 <div class="paragraph">
 <p>En el caso de la geolocalización de usuarios, Bren Hercht <em>et al.</em> en su artículo <strong>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</strong>, centrado en estudiar el campo de <strong>Localización</strong> de los perfiles de usuario, realiza la siguiente afirmación acerca de la cantidad de tuits geoposicionados (es decir, con información geográfica adjunta como latitud y longitud) que contenían en su dataset de ejemplo:</p>
@@ -1243,6 +1248,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </li>
 </ol>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="listingblock">
 <div class="title">Algoritmo para normalizar el valor LLR de un término</div>
 <div class="content">
@@ -1490,6 +1496,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="paragraph">
 <p>Los siguientes fragmentos de <em>pseudocódigo</em> muestran los diferentes algoritmos que se han utilizado para obtener la frecuencia de términos en los diferentes datasets, así como el proceso para realizar el cálculo de su Log Likelihood-Ratio asociado y la manera de computar la puntuación total de cada tuit en función de la puntuación de cada uno de los términos que contiene.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="listingblock">
 <div class="title">Algoritmo para extraer la frecuencia de cada término</div>
 <div class="content">
@@ -1520,6 +1527,7 @@ def reduce_map_load
 end</pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="listingblock">
 <div class="title">Algoritmo para calcular la puntuación LLR de cada término</div>
 <div class="content">
@@ -1747,7 +1755,7 @@ reader.foreach({
 <p>Por un lado, se realizó un experimento que pudiese discriminar tuits procedentes de España en un conjunto de tuits globales escritos en español. Por el otro, se realizó un segundo experimento enfocado en detectar qué tuits escritos en inglés desde las islas británicas procedían de la República Irlandesa.</p>
 </div>
 <div class="paragraph">
-<p>Los resultados para ambos experimentos se pueden observar en las tablas <a href="#experiment-spain-global">Resultados de la ejecución para detectar tuits procedentes España</a> y <a href="#experiment-uk-ireland">Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.</a>.</p>
+<p>Los resultados para ambos experimentos se pueden observar en las tablas <a href="#experiment-spain-global">Resultados de la ejecución para detectar tuits procedentes España</a> y <a href="#experiment-uk-ireland">Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa</a>.</p>
 </div>
 <table id="experiment-spain-global" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption class="title">Table 2. Resultados de la ejecución para detectar tuits procedentes España</caption>
@@ -1775,7 +1783,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-uk-ireland" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 3. Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa.</caption>
+<caption class="title">Table 3. Resultados de la ejecución para detectar tuits procedentes de la República Irlandesa</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -1822,10 +1830,10 @@ reader.foreach({
 <p>Siguiendo el mismo mecanismo en el resto de provincias.</p>
 </div>
 <div class="paragraph">
-<p>Las tablas <a href="#experiment-spain-asturias">Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.</a>, <a href="#experiment-spain-madrid">Resultados de la ejecución para detectar tuits procedentes de Madrid.</a> y <a href="#experiment-spain-barcelona">Resultados de la ejecución para detectar tuits procedentes de Barcelona.</a> muestran los resultados de la ejecución para esta granularidad.</p>
+<p>Las tablas <a href="#experiment-spain-asturias">Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias</a>, <a href="#experiment-spain-madrid">Resultados de la ejecución para detectar tuits procedentes de Madrid</a> y <a href="#experiment-spain-barcelona">Resultados de la ejecución para detectar tuits procedentes de Barcelona</a> muestran los resultados de la ejecución para esta granularidad.</p>
 </div>
 <table id="experiment-spain-asturias" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 4. Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias.</caption>
+<caption class="title">Table 4. Resultados de la ejecución para detectar tuits procedentes del Pricipado de Asturias</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -1850,7 +1858,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-spain-madrid" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 5. Resultados de la ejecución para detectar tuits procedentes de Madrid.</caption>
+<caption class="title">Table 5. Resultados de la ejecución para detectar tuits procedentes de Madrid</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -1875,7 +1883,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-spain-barcelona" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 6. Resultados de la ejecución para detectar tuits procedentes de Barcelona.</caption>
+<caption class="title">Table 6. Resultados de la ejecución para detectar tuits procedentes de Barcelona</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -1930,10 +1938,10 @@ reader.foreach({
 <p>Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: <strong>Manchester</strong>, <strong>Birminghan</strong> y <strong>Londres</strong>. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.</p>
 </div>
 <div class="paragraph">
-<p>Las tablas <a href="#experiment-uk-london">Resultados de la ejecución para detectar tuits procedentes de Londres.</a>, <a href="#experiment-uk-manchester">Resultados de la ejecución para detectar tuits procedentes de Manchester.</a> y <a href="#experiment-uk-birminghan">Resultados de la ejecución para detectar tuits procedentes de Birminghan.</a> muestran los resultados para esta granularidad.</p>
+<p>Las tablas <a href="#experiment-uk-london">Resultados de la ejecución para detectar tuits procedentes de Londres</a>, <a href="#experiment-uk-manchester">Resultados de la ejecución para detectar tuits procedentes de Manchester</a> y <a href="#experiment-uk-birminghan">Resultados de la ejecución para detectar tuits procedentes de Birminghan</a> muestran los resultados para esta granularidad.</p>
 </div>
 <table id="experiment-uk-london" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 7. Resultados de la ejecución para detectar tuits procedentes de Londres.</caption>
+<caption class="title">Table 7. Resultados de la ejecución para detectar tuits procedentes de Londres</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -1958,7 +1966,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-uk-manchester" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 8. Resultados de la ejecución para detectar tuits procedentes de Manchester.</caption>
+<caption class="title">Table 8. Resultados de la ejecución para detectar tuits procedentes de Manchester</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -1983,7 +1991,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-uk-birminghan" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 9. Resultados de la ejecución para detectar tuits procedentes de Birminghan.</caption>
+<caption class="title">Table 9. Resultados de la ejecución para detectar tuits procedentes de Birminghan</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -2011,10 +2019,10 @@ reader.foreach({
 <div class="sect3">
 <h4 id="_resultados_a_nivel_de_barrio">3.2.5. Resultados a nivel de barrio</h4>
 <div class="paragraph">
-<p>Por último, se realizó un experimento a nivel de barrio, siendo la granularidad más baja analizada en el proyecto. Para ello, se utilizaron los 3 barrios más importantes de Londres como área local (<strong>Wandsworth</strong>, <strong>Lambeth</strong> y <strong>Southwark</strong>), así como la ciudad de Londres como área global. Los resultados de este experimento se pueden consultar en las tablas <a href="#experiment-london-wandsworth">Resultados de la ejecución para detectar tuits procedentes de Wandsworth.</a>, <a href="#experiment-london-lambeth">Resultados de la ejecución para detectar tuits procedentes de Lambeth.</a> y <a href="#experiment-london-southwark">Resultados de la ejecución para detectar tuits procedentes de Southwark.</a>.</p>
+<p>Por último, se realizó un experimento a nivel de barrio, siendo la granularidad más baja analizada en el proyecto. Para ello, se utilizaron los 3 barrios más importantes de Londres como área local (<strong>Wandsworth</strong>, <strong>Lambeth</strong> y <strong>Southwark</strong>), así como la ciudad de Londres como área global. Los resultados de este experimento se pueden consultar en las tablas <a href="#experiment-london-wandsworth">Resultados de la ejecución para detectar tuits procedentes de Wandsworth</a>, <a href="#experiment-london-lambeth">Resultados de la ejecución para detectar tuits procedentes de Lambeth</a> y <a href="#experiment-london-southwark">Resultados de la ejecución para detectar tuits procedentes de Southwark</a>.</p>
 </div>
 <table id="experiment-london-wandsworth" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 10. Resultados de la ejecución para detectar tuits procedentes de Wandsworth.</caption>
+<caption class="title">Table 10. Resultados de la ejecución para detectar tuits procedentes de Wandsworth</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -2039,7 +2047,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-london-lambeth" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 11. Resultados de la ejecución para detectar tuits procedentes de Lambeth.</caption>
+<caption class="title">Table 11. Resultados de la ejecución para detectar tuits procedentes de Lambeth</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -2064,7 +2072,7 @@ reader.foreach({
 </tbody>
 </table>
 <table id="experiment-london-southwark" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption class="title">Table 12. Resultados de la ejecución para detectar tuits procedentes de Southwark.</caption>
+<caption class="title">Table 12. Resultados de la ejecución para detectar tuits procedentes de Southwark</caption>
 <colgroup>
 <col style="width: 75%;">
 <col style="width: 25%;">
@@ -3390,7 +3398,7 @@ reader.foreach({
 <p>Además, todos los proyectos tendrán una relación <strong>1..</strong>* con la clase <code>BoundingBox</code>, puesto que los proyectos vienen definidos por un conjunto de bounding boxes que definen tanto sus localizaciones globales o locales. La clase <code>BoundingBox</code> contiene la información relativa a las coordenadas del área que representan, así como una operación que será de gran utilidad (en base a la experiencia en el desarrollo de prototipos) para determinar cuando un par de coordenadas se encuentran contenidas en el bounding box actual.</p>
 </div>
 <div class="paragraph">
-<p>La clase <code>Execution</code> también mantiene una relación con la clase Project, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). Execution, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.</p>
+<p>La clase <code>Execution</code> también mantiene una relación con la clase <code>Project</code>, en la que se establece que todas las ejecuciones deben pertenecer a un único proyecto, pero este puede contener múltiples ejecuciones (debido al requisito para poder reevaluar un proyecto). <code>Execution</code>, tiene como cometido reflejar los resultados de la ejecución sobre un proyecto, manteniendo una referencia a sus resultados generados y una información general acerca de la ejecución.</p>
 </div>
 <div class="paragraph">
 <p>La clase <code>Tweet</code> se utilizará como entidad para el intercambio de la información recogida a partir del servicio de Streaming. Contiene los atributos necesarios para trabajar con un tuit y realizar las operaciones necesarias.</p>
@@ -3411,7 +3419,7 @@ reader.foreach({
 <p><code>ProjectDataProcessor</code> se sitúa como la pieza central en el proceso de evaluación, se ejecutará de manera asíncrona y será la encargada de invocar al resto de clases encargadas de construir los modelos de clasificación. <code>TermFrequencyExtractor</code> será la clase encargada de extraer la frecuencia de apariciones de cada término para un conjunto de tuits definidos por un objeto <code>QueryBuilder</code>. Este tipo de objetos serán capaces de construir una sentencia SQL para recuperar tuits de la base de datos. El tipo de <em>query</em> que deberán de construir se basa en el tipo de proyecto a evaluar y las localizaciones sobre las que se quieren recuperar (<em>bounding boxes</em> locales o globales) tuits. La razón para diseñar esta clase es la aplicación del <strong>principio de responsabilidad única<span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span></strong>, donde se establece que, idealmente, cada clase debe ser diseñada para ocuparse de una única responsabilidad.</p>
 </div>
 <div class="paragraph">
-<p>En TermFrequencyExtractor, con el objetivo de no recuperar una cantidad de objetos en memoria demasiado elevada, se realizará un procesamiento por lotes, analizando de cada vez una cantidad <code>n</code> de tuits. Esta clase devolverá como resultado de la extracción un Hash que relacione una instancia de Term (que actúa como clave) con una frecuencia (representada por un número entero).</p>
+<p>En <code>TermFrequencyExtractor</code>, con el objetivo de no recuperar una cantidad de objetos en memoria demasiado elevada, se realizará un procesamiento por lotes, analizando de cada vez una cantidad <code>n</code> de tuits. Esta clase devolverá como resultado de la extracción un Hash que relacione una instancia de <code>Term</code> (que actúa como clave) con una frecuencia (representada por un número entero).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -3420,16 +3428,19 @@ reader.foreach({
 <div class="title">Figure 23. Diagrama de clases del paquete de evaluación</div>
 </div>
 <div class="paragraph">
-<p>A partir de los mapas de término-frecuencia obtenidos por TermFrequencyExtractor, se hará uso de la clase <code>LikelihoodRatioGenerator</code> para calcular la puntuación de cada término utilizando el método estadístico Log Likelihood Ratio. El resultado de su ejecución, será un mapa que asocie cada término con su puntuación LLR obtenida (representada por un objeto <code>Double</code>).</p>
+<p>A partir de los mapas de término-frecuencia obtenidos por <code>TermFrequencyExtractor</code>, se hará uso de la clase <code>LikelihoodRatioGenerator</code> para calcular la puntuación de cada término utilizando el método estadístico Log Likelihood Ratio. El resultado de su ejecución, será un mapa que asocie cada término con su puntuación LLR obtenida (representada por un objeto <code>Double</code>).</p>
 </div>
 <div class="paragraph">
-<p>En <code>TweetsScoreGenerator</code>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto QueryBuilder que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <code>ExtractionFilter</code>, el cual se implementará utilizando un patrón de diseño <strong>Decorator</strong> que permita reflejar el mismo diseño explicado en <a href="#_sistema_de_filtros">Sistema de filtros</a>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<code>TweetScoreContainer</code>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto Double y una referencia al proyecto sobre el que se está realizando la evaluación.</p>
+<p>En <code>TweetsScoreGenerator</code>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto <code>QueryBuilder</code> que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <code>ExtractionFilter</code>, el cual se implementará utilizando un patrón de diseño <strong>Decorator</strong> que permita reflejar el mismo diseño explicado en <a href="#_sistema_de_filtros">Sistema de filtros</a>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<code>TweetScoreContainer</code>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto Double y una referencia al proyecto sobre el que se está realizando la evaluación.</p>
 </div>
 <div class="paragraph">
-<p>Las últimas clases pertenecientes al paquete de evaluación son: <code>ProjectExecutionService</code> y <code>ProjectExecutionResultContainer</code>. La primera, se trata de una clase que se ejecutará de manera asíncrona e implementará la lógica necesaria para realizar la ejecución de un proyecto en base a las evaluaciones realizadas en los pasos anteriores. Así pues, a partir de un objeto Project y utilizando el paquete de <code>streaming</code>, realizará la evaluación de cada tuit recibido sobre el modelo de clasificación vinculado al proyecto e implementado como parte del paquete de <code>learning</code>.</p>
+<p>Las últimas clases pertenecientes al paquete de evaluación son: <code>ProjectExecutionService</code>, <code>ProjectExecutionResultContainer</code> y la jerarquía de clases encargadas de tareas de exportación. La primera, se trata de una clase que se ejecutará de manera asíncrona e implementará la lógica necesaria para realizar la ejecución de un proyecto en base a las evaluaciones realizadas en los pasos anteriores. Así pues, a partir de un objeto <code>Project</code> y utilizando el paquete de <code>streaming</code>, realizará la evaluación de cada tuit recibido sobre el modelo de clasificación vinculado al proyecto e implementado como parte del paquete de <code>learning</code>.</p>
 </div>
 <div class="paragraph">
-<p>Cada tuit positivamente evaluado se almacenará, junto con su <code>Execution</code> asociada, en el objeto ProjectExecutionResultContainer. Los objetos Execution serán instanciados una vez comenzado el proceso de ejecución en ProjectExecutionService y se irán actualizando con los datos de la ejecución en curso.</p>
+<p>Cada tuit positivamente evaluado se almacenará, junto con su <code>Execution</code> asociada, en el objeto <code>ProjectExecutionResultContainer</code>. Los objetos <code>Execution</code> serán instanciados una vez comenzado el proceso de ejecución en <code>ProjectExecutionService</code> y se irán actualizando con los datos de la ejecución en curso.</p>
+</div>
+<div class="paragraph">
+<p>La jerarquía de clases encargadas de la exportación, haría uso de los objetos <code>ProjectExecutionResultContainer</code> relacionados con el objeto <code>Execution</code> recibido como parámetro a la hora de crear una nueva instancia del exportador. En función del tipo de exportación que se quiera realizar se deberá utilizar una u otra de las subclases que implementan el <code>trait</code> de <code>ExecutionResultExporter</code>. El resultado de invocar el método <code>export</code> será la generación de un fichero JSON o XML que contenga los objetos <code>Tweet</code> relacionados a cada <code>ProjectExecutionResultContainer</code> serializados de acuerdo al formato seleccionado. El método retornará el <em>path</em> hacia el fichero generado para facilitar su descarga.</p>
 </div>
 <div class="paragraph">
 <p>En el paquete de <code>learning</code> se agrupan las clases que tienen como misión comunicarse con el software de aprendizaje automático y recoger toda la lógica referente a la creación y evaluación de nuevos modelos. La clase <code>MachineLearningManager</code> sirve como interfaz pública y como la fachada a utilizar por el resto de la aplicación, relegando la implementación de cada método sobre la propia clase <code>...Manager</code> de cada software de aprendizaje automático que se pueda utilizar como parte del sistema. Los métodos recogidos por esta clase son:</p>
@@ -3460,7 +3471,7 @@ reader.foreach({
 <p>El paquete de <code>streaming</code> contiene las clases que esperan comunicarse con el sistema de cola de mensajes utilizado para transferir los tuits del sistema externo a la aplicación web. Además, su segunda responsabilidad es proveer un mecanismo que permita hacer accesibles esos mismos tuits al resto de clases de la aplicación. Para ello, el sistema propuesto se basa en una implementación del patrón de diseño <strong>Observer</strong> muy similar a lo propuesto también en el servicio externo de recolección de tuits.</p>
 </div>
 <div class="paragraph">
-<p>En este caso, la clase <code>TwitterStreamingSubscriber</code> se ejecutará de manera asíncrona y estará suscrita a la cola de mensajes esperando recibir nuevos mensajes. Cada vez que recibe un nuevo mensaje, recorrerá la lista de listeners que tenga suscritos e invocará al método <code>onTweetReceived</code> con el nuevo tuit recibido. Todos los listeners de la clase TwitterStreamingSubscriber deberán implementar el <em>trait</em> <code>TwitterStreamingListener</code>. En este caso, un ejemplo podría ser la clase <code>ProjectExecutionListener</code>, que se podría utilizar a la hora de ejecutar un nuevo proyecto, y en donde su método <code>onTweetReceived</code> realizaría la comunicación con el software de aprendizaje automático que evaluaría el nuevo tuit recibido en directo.</p>
+<p>En este caso, la clase <code>TwitterStreamingSubscriber</code> se ejecutará de manera asíncrona y estará suscrita a la cola de mensajes esperando recibir nuevos mensajes. Cada vez que recibe un nuevo mensaje, recorrerá la lista de listeners que tenga suscritos e invocará al método <code>onTweetReceived</code> con el nuevo tuit recibido. Todos los listeners de la clase <code>TwitterStreamingSubscriber</code> deberán implementar el <em>trait</em> <code>TwitterStreamingListener</code>. En este caso, un ejemplo podría ser la clase <code>ProjectExecutionListener</code>, que se podría utilizar a la hora de ejecutar un nuevo proyecto, y en donde su método <code>onTweetReceived</code> realizaría la comunicación con el software de aprendizaje automático que evaluaría el nuevo tuit recibido en directo.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -4007,7 +4018,69 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <div class="sect1">
 <h2 id="_conclusiones_del_proyecto">7. Conclusiones del Proyecto</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>A título personal, considero que el resultado final del proyecto ha constituido una experiencia muy satisfactoria que me ha permitido trabajar en áreas en las que no había tenido la oportunidad de profundizar anteriormente.</p>
+</div>
+<div class="paragraph">
+<p>La experiencia de trabajar en base a estudios teóricos y artículos de investigación, me ha permitido completar mi formación profesional mediante la adición de aspectos más cercanos a los campos de I+D+i los cuales también podrían suponer una oportunidad laboral en el futuro.</p>
+</div>
+<div class="paragraph">
+<p>Además, el estudio de Twitter y la capacidad para procesar grandes volúmenes de datos mediante la aplicación de algoritmos más o menos complejos, ha resultado en una experiencia muy enriquecedora dentro del ámbito actual de la Ingeniería Informática e Ingeniería Web.</p>
+</div>
+<div class="paragraph">
+<p>Todo lo anterior acompaña a los buenos resultados cosechados durante las etapas de experimentación y prototipado, donde se ha conseguido alcanzar el objetivo del proyecto al ser capaces de ofrecer un algoritmo capaz de inferir la localización de un usuario en base, únicamente, al contenido de sus publicaciones en Twitter. Además, se ha aprovechado la tecnología utilizada para ofrecer una posible solución a la hora de querer integrarla en una aplicación web capaz de utilizarla para vender un nuevo servicio de geolocalización de publicaciones en medios sociales.</p>
+</div>
+<div class="paragraph">
+<p>Este último punto, también ha supuesto un reto debido, especialmente, a la complejidad de diseñar parte de una aplicación web sin haber tenido nunca la experiencia de trabajar en un entorno similar (tanto por las tecnologías propuestas como por lo complejo del problema a solucionar), lo que ha conllevado un estudio paralelo acerca de los diferentes <em>frameworks</em> existentes y conceptos como las colas de mensajes o programación asíncrona.</p>
+</div>
+<div class="paragraph">
+<p>Por último, este proyecto me ha dado la oportunidad de trabajar con Scala y, por tanto, acercarme al paradigma de programación funcional que, sin duda, ha cambiado mi manera de desarrollar. Antes de esta experiencia, nunca me había planteado, por ejemplo, los conceptos funcionales que van tan intrínsecamente unidos a lenguajes populares como JavaScript o Ruby y que me ha aportado nuevas soluciones para resolver problemas comunes.</p>
+</div>
+<div class="sect2">
+<h3 id="_ampliaciones_y_trabajo_futuro">7.1. Ampliaciones y trabajo futuro</h3>
+<div class="paragraph">
+<p>Además de las ampliaciones propuestas en <a href="#_trabajo_futuro">Trabajo futuro</a>, la ampliación más natural del proyecto sería realizar un prototipo de la aplicación web propuesta sobre la tecnología estudiada anteriormente y comprobar su viabilidad.</p>
+</div>
+<div class="paragraph">
+<p>Dentro de la construcción de esta nueva aplicación web, habría que comenzar realizando el análisis y diseño de los aspectos que se han omitido en los capítulos anteriores de este proyecto (por entenderse que no se ajustaban al propósito del mismo), entre ellos podríamos encontrar:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Análisis y diseño de la base de datos</p>
+</li>
+<li>
+<p>Diseño de interfaces de usuario</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Accesibilidad</p>
+</li>
+<li>
+<p>Interacción del usuario</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Diseño de plan de negocio</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>División de usuarios por grupos</p>
+</li>
+<li>
+<p>Creación de diferentes planes de precios con características de uso propias</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Diseño del plan de pruebas</p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">

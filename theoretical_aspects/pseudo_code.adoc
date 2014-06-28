@@ -2,6 +2,8 @@
 
 Los siguientes fragmentos de _pseudocódigo_ muestran los diferentes algoritmos que se han utilizado para obtener la frecuencia de términos en los diferentes datasets, así como el proceso para realizar el cálculo de su Log Likelihood-Ratio asociado y la manera de computar la puntuación total de cada tuit en función de la puntuación de cada uno de los términos que contiene.
 
+<<<
+
 .Algoritmo para extraer la frecuencia de cada término
 ----
 for each tweet in tweets do
@@ -31,6 +33,8 @@ def reduce_map_load
 end
 
 ----
+
+<<<
 
 .Algoritmo para calcular la puntuación LLR de cada término
 ----

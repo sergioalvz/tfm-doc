@@ -2,7 +2,7 @@
 
 Por último, se realizó un experimento a nivel de barrio, siendo la granularidad más baja analizada en el proyecto. Para ello, se utilizaron los 3 barrios más importantes de Londres como área local (*Wandsworth*, *Lambeth* y *Southwark*), así como la ciudad de Londres como área global. Los resultados de este experimento se pueden consultar en las tablas <<experiment-london-wandsworth>>, <<experiment-london-lambeth>> y <<experiment-london-southwark>>.
 
-.Resultados de la ejecución para detectar tuits procedentes de Wandsworth.
+.Resultados de la ejecución para detectar tuits procedentes de Wandsworth
 [cols="3,1", id="experiment-london-wandsworth"]
 |===
 |Precisión
@@ -18,7 +18,7 @@ Por último, se realizó un experimento a nivel de barrio, siendo la granularida
 |99.54%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de Lambeth.
+.Resultados de la ejecución para detectar tuits procedentes de Lambeth
 [cols="3,1", id="experiment-london-lambeth"]
 |===
 |Precisión
@@ -34,7 +34,7 @@ Por último, se realizó un experimento a nivel de barrio, siendo la granularida
 |99.23%
 |===
 
-.Resultados de la ejecución para detectar tuits procedentes de Southwark.
+.Resultados de la ejecución para detectar tuits procedentes de Southwark
 [cols="3,1", id="experiment-london-southwark"]
 |===
 |Precisión
