@@ -1,6 +1,6 @@
 === Alcance
 
-El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios teóricos llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.
+El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.
 
 El sistema deberá ser capaz de trabajar sobre diversas granularidades (país, provincia, área metropolitana y barrio) y utilizar tuits escritos en diversos idiomas (como mínimo, deberá funcionar satisfactoriamente con inglés y español). Para inferir la gelocalización de un tuit se basará únicamente en el contenido de la publicación, evitando la comunicación con sistemas de geolocalización externos y siendo capaz de detectar términos discriminativos que ayuden a identificar un tuit como perteneciente a un área geográfica en concreto.
 

@@ -478,7 +478,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <h2 id="_resumen">Resumen</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter haciendo uso de investigaciones previas realizadas por diversos investigadores a lo largo de los últimos años. A partir de estos estudios, se ha desarrollado un algoritmo capaz de obtener términos fuertemente discriminativos capaces de identificar la localización de una publicación en base a los términos que contiene.</p>
+<p>El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter combinando métodos estadísticos y aprendizaje automático.</p>
 </div>
 <div class="paragraph">
 <p>Para demostrar su efectividad, se han realizado experimentos a distintos niveles de granularidad (país, provincia, área metropolitana y barrio) y con dos idiomas diferentes (inglés y español). El algoritmo ha mostrado niveles de precisión bastante altos (prácticamente siempre superiores al 90%) y un grado de exhaustividad (especialmente para las granularidades de más alto nivel) muy aceptable, identificando aproximadamente un 70% ~ 80% del total de tuits locales recibidos.</p>
@@ -503,7 +503,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <h2 id="_palabras_clave">Palabras clave</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework</p>
+<p>twitter, log likelihood ratio test, vowpal wabbit, palabras indicativas de posición, scala, geolocalización, play framework</p>
 </div>
 </div>
 </div>
@@ -519,16 +519,16 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</p>
 </div>
 <div class="paragraph">
-<p>El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que <em>tan sólo</em> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados emitidos por diversos investigadores.</p>
+<p>El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que <em>tan sólo</em> agrupa un pequeño número de estudios, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados obtenidos por diversos investigadores.</p>
 </div>
 <div class="paragraph">
-<p>La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas de manera teórica pueden ser aceptadas como válidas.</p>
+<p>La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas pueden ser aceptadas como válidas.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_alcance">1.2. Alcance</h3>
 <div class="paragraph">
-<p>El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios teóricos llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.</p>
+<p>El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.</p>
 </div>
 <div class="paragraph">
 <p>El sistema deberá ser capaz de trabajar sobre diversas granularidades (país, provincia, área metropolitana y barrio) y utilizar tuits escritos en diversos idiomas (como mínimo, deberá funcionar satisfactoriamente con inglés y español). Para inferir la gelocalización de un tuit se basará únicamente en el contenido de la publicación, evitando la comunicación con sistemas de geolocalización externos y siendo capaz de detectar términos discriminativos que ayuden a identificar un tuit como perteneciente a un área geográfica en concreto.</p>
@@ -656,7 +656,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><em>Por Brent Hecht et al. Northwestern University y Palo Alto Research Center</em></p>
 </div>
 <div class="paragraph">
-<p>El estudio liderado por Brent Hecht demuestra de manera científica como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.</p>
+<p>El estudio liderado por Brent Hecht demuestra como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.</p>
 </div>
 <div class="paragraph">
 <p>Entre los datos obtenidos por Brent y su equipo se pueden destacar los siguientes:</p>
@@ -864,7 +864,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Explicit Specific</strong>: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» or «Los Angeles».</p>
+<p><strong>Explicit Specific</strong>: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» o «Los Ángeles».</p>
 </li>
 <li>
 <p><strong>Explicit</strong>: Nombres que hacen referencia a localizaciones generales como parques o gimnasios.</p>
@@ -898,7 +898,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><strong>Timeline</strong>: Se han podido detectar ubicaciones actuales y previas del usuario, pero no su lugar de origen.</p>
 </li>
 <li>
-<p><strong>Hometown</strong>: Se han podido detectar ubincaciones actuales y previas del usuario y <strong>también</strong> su lugar de origen. Es el grupo con información más completa.</p>
+<p><strong>Hometown</strong>: Se han podido detectar ubicaciones actuales y previas del usuario y <strong>también</strong> su lugar de origen. Es el grupo con información más completa.</p>
 </li>
 </ul>
 </div>
@@ -963,7 +963,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <p><em>Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University</em></p>
 </div>
 <div class="paragraph">
-<p>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</p>
+<p>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, sino que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</p>
 </div>
 <div class="paragraph">
 <p>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</p>
@@ -1099,7 +1099,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <p>Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.</p>
 </li>
 <li>
-<p>El test Likelihood Ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.</p>
+<p>El test Likelihood Ratio es capaz de obtener puntuaciones bastante acertadas para este dominio específico.</p>
 </li>
 <li>
 <p>Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.</p>
@@ -1169,7 +1169,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <p>Antes de empezar a detallar los conceptos y algoritmos utilizados a lo largo de todo el proceso, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</p>
 </div>
 <div class="paragraph">
-<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la probabilidad de que un determinado término pertenezca al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</p>
+<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la puntuación para cada término indicando si pertenecen al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1209,10 +1209,10 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <p>En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).</p>
 </div>
 <div class="paragraph">
-<p>En este caso, partimos del <strong>supuesto</strong> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</p>
+<p>En este caso, partimos del <strong>supuesto</strong> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la puntuación de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</p>
 </div>
 <div class="paragraph">
-<p>El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</p>
+<p>El valor LLR de cada término se utilizará para calcular la puntuación que indique si los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</p>
 </div>
 <div class="paragraph">
 <p>La consideración acerca de qué es un <strong>término</strong> se explica en <a href="#_términos_discriminativos">Términos discriminativos</a>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</p>
@@ -1227,10 +1227,11 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </div>
 <div class="quoteblock">
 <blockquote>
-<div class="paragraph">
-<p>Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es <strong>muy posible</strong> que provengan de España.</p>
-</div>
+Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es <strong>muy posible</strong> que provengan de España.
 </blockquote>
+<div class="attribution">
+&#8212; Comunicación personal del director del proyecto.
+</div>
 </div>
 <div class="paragraph">
 <p>Para tratar de demostrar la intuición anterior, se desarrolló una normalización basada en tres pasos:</p>
@@ -1307,6 +1308,9 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </div>
 <div class="paragraph">
 <p>Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: <em>oviedo</em>, <em>gijón</em> y <em>asturias</em>; mientras que se favorecen otros más específicos como <em>sidra</em>, <em>presta</em> o <em>celebralos</em> (escrito como se pronunciaría en asturiano).</p>
+</div>
+<div class="paragraph">
+<p>Como también es evidente, existe cierto ruido a la hora de identificar términos como muy discriminativos. En el caso anterior, a las palabras <em>escalera</em> o <em>economia</em> se les ha otorgado una puntuación LLR bastante elevada pero que puede ser tolerable, por el momento, al tratarse de un proceso totalmente automático que no necesita de ningún conocimiento experto.</p>
 </div>
 </div>
 </div>
@@ -1411,7 +1415,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>El siguiente tuit, se podría considerar como un claro ejemplo de tuit dificilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:</p>
+<p>El siguiente tuit, se podría considerar como un claro ejemplo de tuit difícilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 100%;">
 <colgroup>
@@ -1614,7 +1618,7 @@ reader.foreach({
 <p>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <a href="#_normalización_de_datos">Normalización de datos</a>.</p>
 </div>
 <div class="paragraph">
-<p>Una vez hecho esto, y como se explica también en <a href="#_división_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</p>
+<p>Una vez hecho esto, y como se explica también en <a href="#_división_de_datos_en_conjuntos_de_entrenamiento_y_test">División de datos en conjuntos de entrenamiento y test</a> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exhaustividad de los modelos que se creen para realizar los experimentos a diferentes granularidades.</p>
 </div>
 <div class="paragraph">
 <p>Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.</p>
@@ -1736,7 +1740,7 @@ reader.foreach({
 <p>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <strong>umbral de precisión</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <strong>sí</strong> pertenece al conjunto local y 0 como que <strong>no</strong>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <em>0.5, 0.6, 0.7, etc.</em></p>
+<p>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <strong>sí</strong> pertenece al conjunto local y 0 como que <strong>no</strong>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, sino que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <em>0.5, 0.6, 0.7, etc.</em></p>
 </div>
 <div class="paragraph">
 <p>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de precisión, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</p>
@@ -1935,7 +1939,7 @@ reader.foreach({
 <div class="sect3">
 <h4 id="_resultados_a_nivel_de_área_metropolitana">3.2.4. Resultados a nivel de área metropolitana</h4>
 <div class="paragraph">
-<p>Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: <strong>Manchester</strong>, <strong>Birminghan</strong> y <strong>Londres</strong>. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.</p>
+<p>Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: <strong>Londres</strong>, <strong>Manchester</strong> y <strong>Birminghan</strong>. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.</p>
 </div>
 <div class="paragraph">
 <p>Las tablas <a href="#experiment-uk-london">Resultados de la ejecución para detectar tuits procedentes de Londres</a>, <a href="#experiment-uk-manchester">Resultados de la ejecución para detectar tuits procedentes de Manchester</a> y <a href="#experiment-uk-birminghan">Resultados de la ejecución para detectar tuits procedentes de Birminghan</a> muestran los resultados para esta granularidad.</p>
@@ -2140,7 +2144,7 @@ reader.foreach({
 <p>A continuación se muestran una serie de secciones que explicarán de manera aproximada la manera de implementar una aplicación web que ofrezca un servicio de geolocalización de tuits en base a su contenido utilizando la tecnología explorada en los prototipos y experimentos anteriores.</p>
 </div>
 <div class="paragraph">
-<p>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <em>en cascada</em> si no que se utilizaría una metodología ágil basada en iteraciones, donde se irían añadiendo <strong>user stories</strong> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</p>
+<p>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <em>en cascada</em> sino que se utilizaría una metodología ágil basada en iteraciones, donde se irían añadiendo <strong>user stories</strong> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</p>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="sect2">
@@ -2817,7 +2821,7 @@ reader.foreach({
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precondiciones</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario está indentificado correctamente en el sistema.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El usuario está identificado correctamente en el sistema.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Postcondiciones</strong></p></td>
@@ -3143,7 +3147,7 @@ reader.foreach({
 </dd>
 <dt class="hdlist1"><code>ProjectExecutionService</code></dt>
 <dd>
-<p>A partir de una instancia de la clase <strong>Project</strong>, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real sobre el que realizar la ejecución.</p>
+<p>A partir de una instancia de la clase <code>Project</code>, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real sobre el que realizar la ejecución.</p>
 </dd>
 </dl>
 </div>
@@ -3157,7 +3161,7 @@ reader.foreach({
 <div class="title">Figure 14. Clases del Sistema de Streaming</div>
 </div>
 <div class="paragraph">
-<p>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <strong>Observer</strong>, en donde la clase <code>TwitterStreamingService</code> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como <em>listener</em> de la clase <code>TwitterStreamingService</code>, implementar la interfaz <code>TwitterStreamingListener</code> y redefinir su método <code>on_tweet_received</code> para trabajar con el nuevo tuit recibido.</p>
+<p>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <strong>Observer</strong>, en donde la clase <code>TwitterStreamingService</code> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirse como <em>listener</em> de la clase <code>TwitterStreamingService</code>, implementar la interfaz <code>TwitterStreamingListener</code> y redefinir su método <code>on_tweet_received</code> para trabajar con el nuevo tuit recibido.</p>
 </div>
 <div class="paragraph">
 <p>La clase <code>RecollectionService</code>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Por otro lado, la clase <code>PublicationService</code> realizará una implementación para publicar cada tuit recibido al resto del sistema.</p>
@@ -3321,7 +3325,7 @@ reader.foreach({
 <div class="ulist">
 <ul>
 <li>
-<p><code>trait</code>: De manera simplificada, se podría entender como un concepto equivalemtne a las <strong>interfaces</strong> en Java.</p>
+<p><code>trait</code>: De manera simplificada, se podría entender como un concepto equivalente a las <strong>interfaces</strong> en Java.</p>
 </li>
 <li>
 <p><code>object</code>: Cualquier clase acompañada de esta notación, se ejecutará como un <strong>Singleton</strong> por parte del sistema.</p>
@@ -3431,7 +3435,7 @@ reader.foreach({
 <p>A partir de los mapas de término-frecuencia obtenidos por <code>TermFrequencyExtractor</code>, se hará uso de la clase <code>LikelihoodRatioGenerator</code> para calcular la puntuación de cada término utilizando el método estadístico Log Likelihood Ratio. El resultado de su ejecución, será un mapa que asocie cada término con su puntuación LLR obtenida (representada por un objeto <code>Double</code>).</p>
 </div>
 <div class="paragraph">
-<p>En <code>TweetsScoreGenerator</code>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto <code>QueryBuilder</code> que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <code>ExtractionFilter</code>, el cual se implementará utilizando un patrón de diseño <strong>Decorator</strong> que permita reflejar el mismo diseño explicado en <a href="#_sistema_de_filtros">Sistema de filtros</a>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<code>TweetScoreContainer</code>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto Double y una referencia al proyecto sobre el que se está realizando la evaluación.</p>
+<p>En <code>TweetsScoreGenerator</code>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto <code>QueryBuilder</code> que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <code>ExtractionFilter</code>, el cual se implementará utilizando un patrón de diseño <strong>Decorator</strong> que permita reflejar el mismo diseño explicado en <a href="#_sistema_de_filtros">Sistema de filtros</a>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<code>TweetScoreContainer</code>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto <code>Double</code> y una referencia al proyecto sobre el que se está realizando la evaluación.</p>
 </div>
 <div class="paragraph">
 <p>Las últimas clases pertenecientes al paquete de evaluación son: <code>ProjectExecutionService</code>, <code>ProjectExecutionResultContainer</code> y la jerarquía de clases encargadas de tareas de exportación. La primera, se trata de una clase que se ejecutará de manera asíncrona e implementará la lógica necesaria para realizar la ejecución de un proyecto en base a las evaluaciones realizadas en los pasos anteriores. Así pues, a partir de un objeto <code>Project</code> y utilizando el paquete de <code>streaming</code>, realizará la evaluación de cada tuit recibido sobre el modelo de clasificación vinculado al proyecto e implementado como parte del paquete de <code>learning</code>.</p>
@@ -3964,7 +3968,7 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <p><strong>Trello</strong> (<a href="https://trello.com/">https://trello.com/</a>) es una aplicación web desarrollada por <strong>Fog Creek</strong> con el objetivo de ofrecer una herramienta eficaz para la gestión de tareas (y en cierta medida, proyectos) de manera sencilla y muy colaborativa que potencie los procesos de desarrollos ágiles.</p>
 </div>
 <div class="paragraph">
-<p>Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como Scrum, donde el <em>Scrum Board</em> se utiliza para recoger todas las tareas <strong>Pendientes</strong>, <strong>En progreso</strong> o <strong>Terminadas</strong> para el <em>sprint</em> en curso.</p>
+<p>Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como <strong>Scrum<span class="footnote">[<a id="_footnoteref_14" class="footnote" href="#_footnote_14" title="View footnote.">14</a>]</span></strong>, donde el <em>Scrum Board</em> se utiliza para recoger todas las tareas <strong>Pendientes</strong>, <strong>En progreso</strong> o <strong>Terminadas</strong> para el <em>sprint</em> en curso.</p>
 </div>
 <div class="paragraph">
 <p>En este caso se ha utilizado como herramienta para organizar y controlar el progreso de las tareas en las estaciones de experimentación y prototipado.</p>
@@ -3990,7 +3994,7 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <p>Trabajar en un formato de texto simple, preferiblemente texto plano, que lo hiciera independiente de la plataforma sobre la que realizar la documentación.</p>
 </li>
 <li>
-<p>Trabajar con un lenguaje de marcado sencillo (similar a <strong>Markdown<span class="footnote">[<a id="_footnoteref_14" class="footnote" href="#_footnote_14" title="View footnote.">14</a>]</span></strong>) que simplificara el proceso de escritura ante alternativas como LaTeX.</p>
+<p>Trabajar con un lenguaje de marcado sencillo (similar a <strong>Markdown<span class="footnote">[<a id="_footnoteref_15" class="footnote" href="#_footnote_15" title="View footnote.">15</a>]</span></strong>) que simplificara el proceso de escritura ante alternativas como LaTeX.</p>
 </li>
 <li>
 <p>Capacidad de dividir la documentación en varios ficheros que se pudiesen estructurar en base a directorios internos del proyecto de documentación.</p>
@@ -4010,7 +4014,7 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <p>AsciiDoc, mediante la utilización de Asciidoctor y el procesador <strong>asciidoctor-fopub</strong> (<a href="https://github.com/asciidoctor/asciidoctor-fopub">https://github.com/asciidoctor/asciidoctor-fopub</a>) permitió generar de manera sencilla un pequeño proyecto basado en tecnologías Ruby que cumpliera con todos los requisitos anteriores.</p>
 </div>
 <div class="paragraph">
-<p>A través de una serie de ficheros en texto plano escritos con AsciiDoc y respaldados por un repositorio en Bitbucket, se realizaba un compilado de los ficheros fuente utilizando Asciidoctor y <strong>Guard<span class="footnote">[<a id="_footnoteref_15" class="footnote" href="#_footnote_15" title="View footnote.">15</a>]</span></strong> para producir un documento <strong>DocBook<span class="footnote">[<a id="_footnoteref_16" class="footnote" href="#_footnote_16" title="View footnote.">16</a>]</span></strong> válido en XML que se pudiera transformar automáticamente en el PDF resultado utilizando asciidoctor-fopub.</p>
+<p>A través de una serie de ficheros en texto plano escritos con AsciiDoc y respaldados por un repositorio en Bitbucket, se realizaba un compilado de los ficheros fuente utilizando Asciidoctor y <strong>Guard<span class="footnote">[<a id="_footnoteref_16" class="footnote" href="#_footnote_16" title="View footnote.">16</a>]</span></strong> para producir un documento <strong>DocBook<span class="footnote">[<a id="_footnoteref_17" class="footnote" href="#_footnote_17" title="View footnote.">17</a>]</span></strong> válido en XML que se pudiera transformar automáticamente en el PDF resultado utilizando asciidoctor-fopub.</p>
 </div>
 </div>
 </div>
@@ -4022,7 +4026,7 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <p>A título personal, considero que el resultado final del proyecto ha constituido una experiencia muy satisfactoria que me ha permitido trabajar en áreas en las que no había tenido la oportunidad de profundizar anteriormente.</p>
 </div>
 <div class="paragraph">
-<p>La experiencia de trabajar en base a estudios teóricos y artículos de investigación, me ha permitido completar mi formación profesional mediante la adición de aspectos más cercanos a los campos de I+D+i los cuales también podrían suponer una oportunidad laboral en el futuro.</p>
+<p>La experiencia de trabajar en base a estudios y artículos de investigación, me ha permitido completar mi formación profesional mediante la adición de aspectos más cercanos a los campos de I+D+i los cuales también podrían suponer una oportunidad laboral en el futuro.</p>
 </div>
 <div class="paragraph">
 <p>Además, el estudio de Twitter y la capacidad para procesar grandes volúmenes de datos mediante la aplicación de algoritmos más o menos complejos, ha resultado en una experiencia muy enriquecedora dentro del ámbito actual de la Ingeniería Informática e Ingeniería Web.</p>
@@ -4253,7 +4257,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation") <i class="conum" data-value=
 <div class="sect2">
 <h3 id="_vowpal_wabbit">Vowpal Wabbit</h3>
 <div class="paragraph">
-<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_17" class="footnote" href="#_footnote_17" title="View footnote.">17</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
+<p><strong>Vowpal Wabbit<span class="footnote">[<a id="_footnoteref_18" class="footnote" href="#_footnote_18" title="View footnote.">18</a>]</span></strong> es un proyecto creado originalmente por <em>Yahoo! Research</em> que fue posteriormente continuado por <em>Microsoft Research</em>, consistente en la creación de un nuevo algoritmo de aprendizaje automático rápido y escalable que permita trabajar con grandes cantidades de datos. A partir de una serie de información específicamente preparada para ser consumida por Vowpal Wabbit, este es capaz de crear un propio modelo de datos que sirva como base de entrenamiento para después, mediante la aplicación de diversos algoritmos, predecir un resultado en base al conocimiento adquirido en ejecuciones anteriores.</p>
 </div>
 <div class="paragraph">
 <p>Además de la velocidad y precisión de los resultados que puede ofrecer Vowpal Wabbit, una de sus características más importantes es la capacidad de funcionar como un demonio del sistema e ir aprendiendo <em>en caliente</em> a través de nuevos modelos de datos. Esto, a diferencia de otros software de aprendizaje automático, permite que el sistema pueda adquirir un conocimiento incremental y ofrecer mejores resultados a medida que pasa el tiempo.</p>
@@ -4364,7 +4368,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <div class="content">
 <img src="../assets/appendixes/twitter-streaming-api.png" alt="Modelo de comunicación entre un cliente y la API Streaming de Twitter">
 </div>
-<div class="title">Figure 28. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_18" class="footnote" href="#_footnote_18" title="View footnote.">18</a>]</span></div>
+<div class="title">Figure 28. Comunicación entre un cliente y la API Streaming de Twitter<span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span></div>
 </div>
 <div class="sect2">
 <h3 id="_almacenamiento_de_datos">Almacenamiento de datos</h3>
@@ -4664,19 +4668,22 @@ Usage: Falcon [options]
 <a href="#_footnoteref_13">13</a>. <a href="http://datasift.com/">http://datasift.com/</a>
 </div>
 <div class="footnote" id="_footnote_14">
-<a href="#_footnoteref_14">14</a>. <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a>
+<a href="#_footnoteref_14">14</a>. <a href="https://www.scrum.org/resources/what-is-scrum/">https://www.scrum.org/resources/what-is-scrum/</a>
 </div>
 <div class="footnote" id="_footnote_15">
-<a href="#_footnoteref_15">15</a>. <a href="http://guardgem.org/">http://guardgem.org/</a> - gema de Ruby para detectar cambios en ficheros de un directorio
+<a href="#_footnoteref_15">15</a>. <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a>
 </div>
 <div class="footnote" id="_footnote_16">
-<a href="#_footnoteref_16">16</a>. <a href="http://www.docbook.org/whatis">http://www.docbook.org/whatis</a>
+<a href="#_footnoteref_16">16</a>. <a href="http://guardgem.org/">http://guardgem.org/</a> - gema de Ruby para detectar cambios en ficheros de un directorio
 </div>
 <div class="footnote" id="_footnote_17">
-<a href="#_footnoteref_17">17</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+<a href="#_footnoteref_17">17</a>. <a href="http://www.docbook.org/whatis">http://www.docbook.org/whatis</a>
 </div>
 <div class="footnote" id="_footnote_18">
-<a href="#_footnoteref_18">18</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
+<a href="#_footnoteref_18">18</a>. <a href="http://hunch.net/~vw/">http://hunch.net/~vw/</a>
+</div>
+<div class="footnote" id="_footnote_19">
+<a href="#_footnoteref_19">19</a>. <a href="https://dev.twitter.com/docs/api/streaming">https://dev.twitter.com/docs/api/streaming</a>
 </div>
 </div>
 <div id="footer">

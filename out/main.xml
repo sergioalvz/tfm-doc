@@ -17,7 +17,7 @@
 </info>
 <preface xml:id="_resumen">
 <title>Resumen</title>
-<simpara>El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter haciendo uso de investigaciones previas realizadas por diversos investigadores a lo largo de los últimos años. A partir de estos estudios, se ha desarrollado un algoritmo capaz de obtener términos fuertemente discriminativos capaces de identificar la localización de una publicación en base a los términos que contiene.</simpara>
+<simpara>El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter combinando métodos estadísticos y aprendizaje automático.</simpara>
 <simpara>Para demostrar su efectividad, se han realizado experimentos a distintos niveles de granularidad (país, provincia, área metropolitana y barrio) y con dos idiomas diferentes (inglés y español). El algoritmo ha mostrado niveles de precisión bastante altos (prácticamente siempre superiores al 90%) y un grado de exhaustividad (especialmente para las granularidades de más alto nivel) muy aceptable, identificando aproximadamente un 70% ~ 80% del total de tuits locales recibidos.</simpara>
 <simpara>Para realizar el desarrollo del sistema, el proyecto ha hecho uso de métodos estadísticos como Log-Likelihood Ratio y el software de aprendizaje automático Vowpal Wabbit.</simpara>
 <simpara>Por último, el proyecto recoge el diseño de una aplicación web que utilizaría la tecnología previamente desarrollada para ofrecer un servicio de geolocalización de publicaciones en redes sociales (en este caso, centrado únicamente en Twitter) mediante análisis de contenidos.</simpara>
@@ -28,7 +28,7 @@
 </acknowledgements>
 <preface xml:id="_palabras_clave">
 <title>Palabras clave</title>
-<simpara>twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework</simpara>
+<simpara>twitter, log likelihood ratio test, vowpal wabbit, palabras indicativas de posición, scala, geolocalización, play framework</simpara>
 </preface>
 <chapter xml:id="_introducción">
 <title>Introducción</title>
@@ -36,12 +36,12 @@
 <title>Motivación del proyecto</title>
 <simpara>El crecimiento exponencial de las redes sociales durante los últimos años ha despertado un gran interés en los diferentes ámbitos de la informática, siendo un claro objetivo comercial para profesionales del sector, así como un nuevo campo de investigación para los investigadores universitarios.</simpara>
 <simpara>Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.</simpara>
-<simpara>El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados emitidos por diversos investigadores.</simpara>
-<simpara>La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas de manera teórica pueden ser aceptadas como válidas.</simpara>
+<simpara>El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que <emphasis>tan sólo</emphasis> agrupa un pequeño número de estudios, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados obtenidos por diversos investigadores.</simpara>
+<simpara>La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas pueden ser aceptadas como válidas.</simpara>
 </section>
 <section xml:id="_alcance">
 <title>Alcance</title>
-<simpara>El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios teóricos llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.</simpara>
+<simpara>El objetivo principal del proyecto es desarrollar un sistema capaz de inferir la geolocalización de un usuario en base al estudio de sus publicaciones en Twitter. Para ello, se implementará una solución basada en los estudios llevados a cabo por diversos investigadores (tanto universitarios como empresariales) a lo largo de los últimos años.</simpara>
 <simpara>El sistema deberá ser capaz de trabajar sobre diversas granularidades (país, provincia, área metropolitana y barrio) y utilizar tuits escritos en diversos idiomas (como mínimo, deberá funcionar satisfactoriamente con inglés y español). Para inferir la gelocalización de un tuit se basará únicamente en el contenido de la publicación, evitando la comunicación con sistemas de geolocalización externos y siendo capaz de detectar términos discriminativos que ayuden a identificar un tuit como perteneciente a un área geográfica en concreto.</simpara>
 <simpara>Finalmente, el proyecto deberá plantear un sistema que pueda ser integrable en una aplicación web que se aproveche de sus capacidades para ofrecer un servicio de geolocalización de tuits basado en su contenido.</simpara>
 </section>
@@ -99,7 +99,7 @@
 <section xml:id="_tweets_from_justin_bieber_s_heart_the_dynamics_of_the_location_field_in_user_profiles">
 <title>Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles</title>
 <simpara><emphasis>Por Brent Hecht et al. Northwestern University y Palo Alto Research Center</emphasis></simpara>
-<simpara>El estudio liderado por Brent Hecht demuestra de manera científica como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.</simpara>
+<simpara>El estudio liderado por Brent Hecht demuestra como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.</simpara>
 <simpara>Entre los datos obtenidos por Brent y su equipo se pueden destacar los siguientes:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -229,7 +229,7 @@
 <simpara>A partir de los términos de cada tuit, se generan trigramas, bigramas y unigramas y se comparan sobre un gazetteer y las reglas generadas en el paso anterior, obteniendo localizaciones que se pueden agrupar en:</simpara>
 <itemizedlist>
 <listitem>
-<simpara><emphasis role="strong">Explicit Specific</emphasis>: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» or «Los Angeles».</simpara>
+<simpara><emphasis role="strong">Explicit Specific</emphasis>: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» o «Los Ángeles».</simpara>
 </listitem>
 <listitem>
 <simpara><emphasis role="strong">Explicit</emphasis>: Nombres que hacen referencia a localizaciones generales como parques o gimnasios.</simpara>
@@ -267,7 +267,7 @@
 <simpara><emphasis role="strong">Timeline</emphasis>: Se han podido detectar ubicaciones actuales y previas del usuario, pero no su lugar de origen.</simpara>
 </listitem>
 <listitem>
-<simpara><emphasis role="strong">Hometown</emphasis>: Se han podido detectar ubincaciones actuales y previas del usuario y <emphasis role="strong">también</emphasis> su lugar de origen. Es el grupo con información más completa.</simpara>
+<simpara><emphasis role="strong">Hometown</emphasis>: Se han podido detectar ubicaciones actuales y previas del usuario y <emphasis role="strong">también</emphasis> su lugar de origen. Es el grupo con información más completa.</simpara>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -320,7 +320,7 @@
 <section xml:id="_inferring_the_origin_locations_of_tweets_with_quantitative_confidence">
 <title>Inferring the Origin Locations of Tweets with Quantitative Confidence</title>
 <simpara><emphasis>Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University</emphasis></simpara>
-<simpara>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</simpara>
+<simpara>El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, sino que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).</simpara>
 <simpara>Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.</simpara>
 <note>
 <title>Twitter Streaming API</title>
@@ -397,7 +397,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 <simpara>Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.</simpara>
 </listitem>
 <listitem>
-<simpara>El test Likelihood Ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.</simpara>
+<simpara>El test Likelihood Ratio es capaz de obtener puntuaciones bastante acertadas para este dominio específico.</simpara>
 </listitem>
 <listitem>
 <simpara>Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.</simpara>
@@ -442,7 +442,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 <section xml:id="_visión_general_del_sistema">
 <title>Visión general del sistema</title>
 <simpara>Antes de empezar a detallar los conceptos y algoritmos utilizados a lo largo de todo el proceso, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</simpara>
-<simpara>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la probabilidad de que un determinado término pertenezca al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</simpara>
+<simpara>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la puntuación para cada término indicando si pertenecen al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
 <simpara>Un conjunto de tuits para un área global que utilice el mismo lenguaje que el área local que se quiere analizar.</simpara>
@@ -476,14 +476,17 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 <title>Log Likelihood-Ratio test</title>
 <simpara>El test Log Likelihood-Ratio (<link xlink:href="http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm">http://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm</link>) es un método estadístico ampliamente utilizado en problemas donde se pretenden comparar dos conjuntos de datos a través de una serie de supuestos.</simpara>
 <simpara>En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).</simpara>
-<simpara>En este caso, partimos del <emphasis role="strong">supuesto</emphasis> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</simpara>
-<simpara>El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</simpara>
+<simpara>En este caso, partimos del <emphasis role="strong">supuesto</emphasis> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la puntuación de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</simpara>
+<simpara>El valor LLR de cada término se utilizará para calcular la puntuación que indique si los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</simpara>
 <simpara>La consideración acerca de qué es un <emphasis role="strong">término</emphasis> se explica en <xref linkend="_términos_discriminativos"/>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</simpara>
 <section xml:id="_log_likelihood_ratio_test_normalizado">
 <title>Log Likelihood-Ratio test normalizado</title>
 <simpara>La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la interpretación propuesta en el artículo: Java, Akshay, et al. «Why we twitter: understanding microblogging usage and communities». Perteneciente a la novena WebKDD y primer taller SNA-KDD 2007 en minería de datos web y análisis de redes sociales.<footnote><simpara>Disponible en: <link xlink:href="http://aisl.umbc.edu/resources/369.pdf">http://aisl.umbc.edu/resources/369.pdf</link> (ver tablas y ecuaciones en la página 7)</simpara></footnote></simpara>
 <simpara>Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discriminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación <emphasis>normalizada</emphasis> sobre el algoritmo anterior, basada en la siguiente sospecha:</simpara>
 <blockquote>
+<attribution>
+Comunicación personal del director del proyecto.
+</attribution>
 <simpara>Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es <emphasis role="strong">muy posible</emphasis> que provengan de España.</simpara>
 </blockquote>
 <simpara>Para tratar de demostrar la intuición anterior, se desarrolló una normalización basada en tres pasos:</simpara>
@@ -552,6 +555,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 </para>
 </formalpara>
 <simpara>Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: <emphasis>oviedo</emphasis>, <emphasis>gijón</emphasis> y <emphasis>asturias</emphasis>; mientras que se favorecen otros más específicos como <emphasis>sidra</emphasis>, <emphasis>presta</emphasis> o <emphasis>celebralos</emphasis> (escrito como se pronunciaría en asturiano).</simpara>
+<simpara>Como también es evidente, existe cierto ruido a la hora de identificar términos como muy discriminativos. En el caso anterior, a las palabras <emphasis>escalera</emphasis> o <emphasis>economia</emphasis> se les ha otorgado una puntuación LLR bastante elevada pero que puede ser tolerable, por el momento, al tratarse de un proceso totalmente automático que no necesita de ningún conocimiento experto.</simpara>
 </section>
 </section>
 <section xml:id="_términos_discriminativos">
@@ -632,7 +636,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>El siguiente tuit, se podría considerar como un claro ejemplo de tuit dificilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:</simpara>
+<simpara>El siguiente tuit, se podría considerar como un claro ejemplo de tuit difícilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
 <colspec colname="col_1" colwidth="33*"/>
@@ -793,7 +797,7 @@ reader.foreach({
 <title>Entrenamiento del clasificador</title>
 <simpara>Después de todos los algoritmos y procesos anteriores, el último paso es entrenar al software de aprendizaje automático (ver <xref linkend="_software_de_aprendizaje_automático_y_vowpal_wabbit"/>) para proporcionarle la información necesaria para que pueda inferir la localización de un tuit de manera automática.</simpara>
 <simpara>Partiendo del punto en el que ya se tienen una serie de ficheros TSV con la puntuación LLR de cada término y que han servido para generar un último fichero TSV con la puntuación LLR asociada para cada tuit (mediante el sumatorio del conjunto de términos que lo forman) de una nueva colección de 24 horas, será necesario traducir esa información a un input válido para Vowpal Wabbit. Para ello, se utiliza el sistema explicado en <xref linkend="_normalización_de_datos"/>.</simpara>
-<simpara>Una vez hecho esto, y como se explica también en <xref linkend="_división_de_datos_en_conjuntos_de_entrenamiento_y_test"/> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exactitud de los modelos que se creen para realizar los experimentos a diferentes granularidades.</simpara>
+<simpara>Una vez hecho esto, y como se explica también en <xref linkend="_división_de_datos_en_conjuntos_de_entrenamiento_y_test"/> será necesario dividir el fichero de entrada en un 80% de usuarios para entrenar al clasificador, y un 20% para realizar tests. Serán este 20% restantes los que se usarán para medir la precisión y exhaustividad de los modelos que se creen para realizar los experimentos a diferentes granularidades.</simpara>
 <simpara>Es importante señalar que los ficheros de entrada que se utilizan para entrenar a Vowpal Wabbit han sido refinados para eliminar aquellos tuits cuya puntuación era negativa aunque se sabía (ya que contiene información geográfica adjunta por tratarse de tuits utilizados en procesos de entrenamiento) que su localización pertenecía al área local y viceversa. De este modo, se garantiza que el clasificador se entrene siempre en base a resultados correctos.</simpara>
 </section>
 </chapter>
@@ -871,7 +875,7 @@ reader.foreach({
 <section xml:id="_umbral_de_precisión">
 <title>Umbral de precisión</title>
 <simpara>Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como <emphasis role="strong">umbral de precisión</emphasis>.</simpara>
-<simpara>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <emphasis role="strong">sí</emphasis> pertenece al conjunto local y 0 como que <emphasis role="strong">no</emphasis>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <emphasis>0.5, 0.6, 0.7, etc.</emphasis></simpara>
+<simpara>Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que <emphasis role="strong">sí</emphasis> pertenece al conjunto local y 0 como que <emphasis role="strong">no</emphasis>).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, sino que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: <emphasis>0.5, 0.6, 0.7, etc.</emphasis></simpara>
 <simpara>Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de precisión, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.</simpara>
 <simpara>Para los siguientes ejemplos se ha tomado como umbral el valor <emphasis role="strong">0.5</emphasis>, el cual demuestra tener, de manera empírica, un buen comportamiento en la relación precisión - exhaustividad.</simpara>
 </section>
@@ -1044,7 +1048,7 @@ reader.foreach({
 </section>
 <section xml:id="_resultados_a_nivel_de_área_metropolitana">
 <title>Resultados a nivel de área metropolitana</title>
-<simpara>Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: <emphasis role="strong">Manchester</emphasis>, <emphasis role="strong">Birminghan</emphasis> y <emphasis role="strong">Londres</emphasis>. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.</simpara>
+<simpara>Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: <emphasis role="strong">Londres</emphasis>, <emphasis role="strong">Manchester</emphasis> y <emphasis role="strong">Birminghan</emphasis>. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.</simpara>
 <simpara>Las tablas <xref linkend="experiment-uk-london"/>, <xref linkend="experiment-uk-manchester"/> y <xref linkend="experiment-uk-birminghan"/> muestran los resultados para esta granularidad.</simpara>
 <table xml:id="experiment-uk-london" frame="all" rowsep="1" colsep="1">
 <title>Resultados de la ejecución para detectar tuits procedentes de Londres</title>
@@ -1221,7 +1225,7 @@ reader.foreach({
 <chapter xml:id="_aplicación_web_de_geolocalización_como_servicio">
 <title>Aplicación web de geolocalización como servicio</title>
 <simpara>A continuación se muestran una serie de secciones que explicarán de manera aproximada la manera de implementar una aplicación web que ofrezca un servicio de geolocalización de tuits en base a su contenido utilizando la tecnología explorada en los prototipos y experimentos anteriores.</simpara>
-<simpara>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <emphasis>en cascada</emphasis> si no que se utilizaría una metodología ágil basada en iteraciones, donde se irían añadiendo <emphasis role="strong">user stories</emphasis> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</simpara>
+<simpara>Es importante aclarar que, puesto que no se ha implementado la aplicación, los conceptos de diseño y análisis que se exponen en el presente proyecto podrían diferir de una aplicación real, en donde nunca se optaría por un enfoque <emphasis>en cascada</emphasis> sino que se utilizaría una metodología ágil basada en iteraciones, donde se irían añadiendo <emphasis role="strong">user stories</emphasis> con nuevas características que sirvan a su vez para refinar el diseño e implementación del sistema en cada iteración.</simpara>
 <simpara><?asciidoc-pagebreak?></simpara>
 <section xml:id="_análisis_del_sistema">
 <title>Análisis del sistema</title>
@@ -1896,7 +1900,7 @@ reader.foreach({
 <tbody>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Precondiciones</emphasis></simpara></entry>
-<entry align="left" valign="top"><simpara>El usuario está indentificado correctamente en el sistema.</simpara></entry>
+<entry align="left" valign="top"><simpara>El usuario está identificado correctamente en el sistema.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Postcondiciones</emphasis></simpara></entry>
@@ -2221,7 +2225,7 @@ reader.foreach({
 <varlistentry>
 <term><literal>ProjectExecutionService</literal></term>
 <listitem>
-<simpara>A partir de una instancia de la clase <emphasis role="strong">Project</emphasis>, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real sobre el que realizar la ejecución.</simpara>
+<simpara>A partir de una instancia de la clase <literal>Project</literal>, este objeto realizará una ejecución del mismo utilizando los datos almacenados en el modelo del software de aprendizaje automático seleccionado. Esta clase tendrá una asociación con el Sistema de Streaming que le permita obtener un flujo de datos en tiempo real sobre el que realizar la ejecución.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -2237,7 +2241,7 @@ reader.foreach({
 <textobject><phrase>streaming classes</phrase></textobject>
 </mediaobject>
 </figure>
-<simpara>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <emphasis role="strong">Observer</emphasis>, en donde la clase <literal>TwitterStreamingService</literal> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirise como <emphasis>listener</emphasis> de la clase <literal>TwitterStreamingService</literal>, implementar la interfaz <literal>TwitterStreamingListener</literal> y redefinir su método <literal>on_tweet_received</literal> para trabajar con el nuevo tuit recibido.</simpara>
+<simpara>El Sistema de Streaming tiene como objetivo comunicarse con un flujo de tuits ofrecido por una API externa y tener la capacidad de procesarlo satisfactoriamente para ofrecer esas mismas capacidades de streaming al resto de la aplicación. La solución que se propone en este caso es utilizar el patrón de diseño <emphasis role="strong">Observer</emphasis>, en donde la clase <literal>TwitterStreamingService</literal> realizaría la conexión con el servicio externo, y lanzaría un evento cada vez que recibiera un nuevo tuit. De esta manera, las clases que requieran de un flujo de tuits en tiempo real únicamente tendría que suscribirse como <emphasis>listener</emphasis> de la clase <literal>TwitterStreamingService</literal>, implementar la interfaz <literal>TwitterStreamingListener</literal> y redefinir su método <literal>on_tweet_received</literal> para trabajar con el nuevo tuit recibido.</simpara>
 <simpara>La clase <literal>RecollectionService</literal>, por ejemplo, implementaría la interfaz anterior para guardar todos los tuits recibidos en la base de datos, actuando así como el recolector de tuits del sistema. Por otro lado, la clase <literal>PublicationService</literal> realizará una implementación para publicar cada tuit recibido al resto del sistema.</simpara>
 <simpara>Con el objetivo de poder realizar un sistema escalable, el sistema de streaming se ejecutará como un componente externo de la aplicación, puesto que podría presentar problemas a la hora de ejecutar dos instancias de la aplicación con el sistema de streaming integrado (produciendo resultados duplicados en la base de datos por acceder de manera concurrente al mismo flujo de datos).</simpara>
 <simpara>Para comunicar ambos sistemas se utilizará una cola de mensajes (como por ejemplo <emphasis role="strong">RabbitMQ<footnote><simpara><link xlink:href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</link></simpara></footnote></emphasis>) que transportará los tuits en un formato intermedio (JSON). En la aplicación web, cada instancia que necesite un flujo de datos necesitará suscribirse a una de las colas para recuperar el mensaje y poder trabajar con él (un caso de uso para esta funcionalidad sería en el momento de ejecutar un proyecto, donde la aplicación web necesitará un flujo en tiempo real de tuits para evaluarlos contra el modelo e identificar aquellos que pertenecen al área local).</simpara>
@@ -2370,7 +2374,7 @@ reader.foreach({
 <simpara>Puesto que la aplicación se desarrollaría utilizando el lenguaje de programación Scala, se ha intentado mantener su propia notación para referirse a aspectos clave del sistema. Con el objetivo de facilitar el seguimiento de los diagramas y evitando que esta notación pueda provocar una falta de entendimiento de los mismos, se recogen de manera breve algunas definiciones de los términos más frecuentes:</simpara>
 <itemizedlist>
 <listitem>
-<simpara><literal>trait</literal>: De manera simplificada, se podría entender como un concepto equivalemtne a las <emphasis role="strong">interfaces</emphasis> en Java.</simpara>
+<simpara><literal>trait</literal>: De manera simplificada, se podría entender como un concepto equivalente a las <emphasis role="strong">interfaces</emphasis> en Java.</simpara>
 </listitem>
 <listitem>
 <simpara><literal>object</literal>: Cualquier clase acompañada de esta notación, se ejecutará como un <emphasis role="strong">Singleton</emphasis> por parte del sistema.</simpara>
@@ -2454,7 +2458,7 @@ reader.foreach({
 </mediaobject>
 </figure>
 <simpara>A partir de los mapas de término-frecuencia obtenidos por <literal>TermFrequencyExtractor</literal>, se hará uso de la clase <literal>LikelihoodRatioGenerator</literal> para calcular la puntuación de cada término utilizando el método estadístico Log Likelihood Ratio. El resultado de su ejecución, será un mapa que asocie cada término con su puntuación LLR obtenida (representada por un objeto <literal>Double</literal>).</simpara>
-<simpara>En <literal>TweetsScoreGenerator</literal>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto <literal>QueryBuilder</literal> que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <literal>ExtractionFilter</literal>, el cual se implementará utilizando un patrón de diseño <emphasis role="strong">Decorator</emphasis> que permita reflejar el mismo diseño explicado en <xref linkend="_sistema_de_filtros"/>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<literal>TweetScoreContainer</literal>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto Double y una referencia al proyecto sobre el que se está realizando la evaluación.</simpara>
+<simpara>En <literal>TweetsScoreGenerator</literal>, se hará uso de las puntuaciones obtenidas por el proceso anterior, y se utilizará un nuevo objeto <literal>QueryBuilder</literal> que permita recuperar tuits para las localizaciones globales y locales del proyecto con el objetivo de calcular la puntuación de cada tuit en función de los términos que contiene. Para extraer los términos de cada tuit, se utilizará un objeto <literal>ExtractionFilter</literal>, el cual se implementará utilizando un patrón de diseño <emphasis role="strong">Decorator</emphasis> que permita reflejar el mismo diseño explicado en <xref linkend="_sistema_de_filtros"/>. La puntuación de cada tuit, se almacenará como un nuevo objeto en la base de datos (<literal>TweetScoreContainer</literal>) que mantenga una referencia al identificador del tuit analizado, así como una puntuación representada por un objeto <literal>Double</literal> y una referencia al proyecto sobre el que se está realizando la evaluación.</simpara>
 <simpara>Las últimas clases pertenecientes al paquete de evaluación son: <literal>ProjectExecutionService</literal>, <literal>ProjectExecutionResultContainer</literal> y la jerarquía de clases encargadas de tareas de exportación. La primera, se trata de una clase que se ejecutará de manera asíncrona e implementará la lógica necesaria para realizar la ejecución de un proyecto en base a las evaluaciones realizadas en los pasos anteriores. Así pues, a partir de un objeto <literal>Project</literal> y utilizando el paquete de <literal>streaming</literal>, realizará la evaluación de cada tuit recibido sobre el modelo de clasificación vinculado al proyecto e implementado como parte del paquete de <literal>learning</literal>.</simpara>
 <simpara>Cada tuit positivamente evaluado se almacenará, junto con su <literal>Execution</literal> asociada, en el objeto <literal>ProjectExecutionResultContainer</literal>. Los objetos <literal>Execution</literal> serán instanciados una vez comenzado el proceso de ejecución en <literal>ProjectExecutionService</literal> y se irán actualizando con los datos de la ejecución en curso.</simpara>
 <simpara>La jerarquía de clases encargadas de la exportación, haría uso de los objetos <literal>ProjectExecutionResultContainer</literal> relacionados con el objeto <literal>Execution</literal> recibido como parámetro a la hora de crear una nueva instancia del exportador. En función del tipo de exportación que se quiera realizar se deberá utilizar una u otra de las subclases que implementan el <literal>trait</literal> de <literal>ExecutionResultExporter</literal>. El resultado de invocar el método <literal>export</literal> será la generación de un fichero JSON o XML que contenga los objetos <literal>Tweet</literal> relacionados a cada <literal>ProjectExecutionResultContainer</literal> serializados de acuerdo al formato seleccionado. El método retornará el <emphasis>path</emphasis> hacia el fichero generado para facilitar su descarga.</simpara>
@@ -2943,7 +2947,7 @@ Gnip Becomes Twitter's First Authorized Data Reseller - November 2010
 <section xml:id="_trello">
 <title>Trello</title>
 <simpara><emphasis role="strong">Trello</emphasis> (<link xlink:href="https://trello.com/">https://trello.com/</link>) es una aplicación web desarrollada por <emphasis role="strong">Fog Creek</emphasis> con el objetivo de ofrecer una herramienta eficaz para la gestión de tareas (y en cierta medida, proyectos) de manera sencilla y muy colaborativa que potencie los procesos de desarrollos ágiles.</simpara>
-<simpara>Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como Scrum, donde el <emphasis>Scrum Board</emphasis> se utiliza para recoger todas las tareas <emphasis role="strong">Pendientes</emphasis>, <emphasis role="strong">En progreso</emphasis> o <emphasis role="strong">Terminadas</emphasis> para el <emphasis>sprint</emphasis> en curso.</simpara>
+<simpara>Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como <emphasis role="strong">Scrum<footnote><simpara><link xlink:href="https://www.scrum.org/resources/what-is-scrum/">https://www.scrum.org/resources/what-is-scrum/</link></simpara></footnote></emphasis>, donde el <emphasis>Scrum Board</emphasis> se utiliza para recoger todas las tareas <emphasis role="strong">Pendientes</emphasis>, <emphasis role="strong">En progreso</emphasis> o <emphasis role="strong">Terminadas</emphasis> para el <emphasis>sprint</emphasis> en curso.</simpara>
 <simpara>En este caso se ha utilizado como herramienta para organizar y controlar el progreso de las tareas en las estaciones de experimentación y prototipado.</simpara>
 </section>
 <section xml:id="_omnigraffle_y_balsamiq_mockup">
@@ -2981,7 +2985,7 @@ Gnip Becomes Twitter's First Authorized Data Reseller - November 2010
 <chapter xml:id="_conclusiones_del_proyecto">
 <title>Conclusiones del Proyecto</title>
 <simpara>A título personal, considero que el resultado final del proyecto ha constituido una experiencia muy satisfactoria que me ha permitido trabajar en áreas en las que no había tenido la oportunidad de profundizar anteriormente.</simpara>
-<simpara>La experiencia de trabajar en base a estudios teóricos y artículos de investigación, me ha permitido completar mi formación profesional mediante la adición de aspectos más cercanos a los campos de I+D+i los cuales también podrían suponer una oportunidad laboral en el futuro.</simpara>
+<simpara>La experiencia de trabajar en base a estudios y artículos de investigación, me ha permitido completar mi formación profesional mediante la adición de aspectos más cercanos a los campos de I+D+i los cuales también podrían suponer una oportunidad laboral en el futuro.</simpara>
 <simpara>Además, el estudio de Twitter y la capacidad para procesar grandes volúmenes de datos mediante la aplicación de algoritmos más o menos complejos, ha resultado en una experiencia muy enriquecedora dentro del ámbito actual de la Ingeniería Informática e Ingeniería Web.</simpara>
 <simpara>Todo lo anterior acompaña a los buenos resultados cosechados durante las etapas de experimentación y prototipado, donde se ha conseguido alcanzar el objetivo del proyecto al ser capaces de ofrecer un algoritmo capaz de inferir la localización de un usuario en base, únicamente, al contenido de sus publicaciones en Twitter. Además, se ha aprovechado la tecnología utilizada para ofrecer una posible solución a la hora de querer integrarla en una aplicación web capaz de utilizarla para vender un nuevo servicio de geolocalización de publicaciones en medios sociales.</simpara>
 <simpara>Este último punto, también ha supuesto un reto debido, especialmente, a la complejidad de diseñar parte de una aplicación web sin haber tenido nunca la experiencia de trabajar en un entorno similar (tanto por las tecnologías propuestas como por lo complejo del problema a solucionar), lo que ha conllevado un estudio paralelo acerca de los diferentes <emphasis>frameworks</emphasis> existentes y conceptos como las colas de mensajes o programación asíncrona.</simpara>

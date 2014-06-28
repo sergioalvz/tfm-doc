@@ -59,7 +59,7 @@ Foursquare es una aplicación desarrollada originalmente para dispositivos móvi
 ===== Tweets from Justin Bieber’s Heart: The Dynamics of the "Location" Field in User Profiles
 _Por Brent Hecht et al. Northwestern University y Palo Alto Research Center_
 
-El estudio liderado por Brent Hecht demuestra de manera científica como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.
+El estudio liderado por Brent Hecht demuestra como el uso del campo de Localización disponible en los perfiles de los usuarios en Twitter no es un indicador válido para obtener su posición geográfica real.
 
 Entre los datos obtenidos por Brent y su equipo se pueden destacar los siguientes:
 
@@ -165,7 +165,7 @@ Descubrimiento de localizaciones::
 
 A partir de los términos de cada tuit, se generan trigramas, bigramas y unigramas y se comparan sobre un gazetteer y las reglas generadas en el paso anterior, obteniendo localizaciones que se pueden agrupar en:
 
-* *Explicit Specific*: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» or «Los Angeles».
+* *Explicit Specific*: Nombres que hacen una referencia directa a una ciudad o lugar determinado, como por ejemplo «The White House» o «Los Ángeles».
 * *Explicit*: Nombres que hacen referencia a localizaciones generales como parques o gimnasios.
 * *Implicit*: Combinaciones de palabras que implícitamente sugieren una localización. Estos resultaos se obtienen a partir de las reglas generadas en el paso anterior.
 
@@ -182,7 +182,7 @@ De acuerdo a los resultados obtenidos en todas las fases anteriores y de acuerdo
 * *No information*: Si no se ha podido obtener información geográfica válida para inferir la localización del usuario.
 * *Just country*: Si sólo se ha podido inferir el país del usuario.
 * *Timeline*: Se han podido detectar ubicaciones actuales y previas del usuario, pero no su lugar de origen.
-* *Hometown*: Se han podido detectar ubincaciones actuales y previas del usuario y *también* su lugar de origen. Es el grupo con información más completa.
+* *Hometown*: Se han podido detectar ubicaciones actuales y previas del usuario y *también* su lugar de origen. Es el grupo con información más completa.
 
 En las conclusiones que se exponen en el artículo se muestran unos resultados bastante aceptables, donde hay porcentajes de precisión cercanos al 80%. Al igual que en el caso anterior, TweoLocator tiene una gran dependencia de que los usuarios incluyan en el contenido de sus tuits información explícitamente geolocalizable.
 
@@ -219,7 +219,7 @@ Los resultados de este estudio presentan mejorías respecto a otras investigacio
 ===== Inferring the Origin Locations of Tweets with Quantitative Confidence
 _Por Reid Priedhorsky et al. Los Alamos National Laboratory y Northeastern Illinois University_
 
-El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, si no que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).
+El artículo parte de la premisa de que no es posible obtener la localización de un tuit con una exactitud total, sino que lo más acertado es ofrecer un modelo probabilístico que muestre las diferentes localizaciones a las que un tuit puede pertenecer asociadas a un grado de confianza (probabilidad).
 
 Para obtener un dataset de entrenamiento, se utilizó la API Streaming de Twitter para después realizar un procesamiento de cada tuit extrayendo información de los campos: descripción del usuario, idioma del perfil seleccionado, campo de localización, zona horaria y contenido del tuit. Sobre esta información, se extrajeron bigramas para todos los términos adyacentes (a excepción del campo de zona horaria). Además, también se almacenó la información geográfica adjunta al tuit para poder realizar los experimentos y el entrenamiento del modelo.
 
@@ -291,7 +291,7 @@ En este estudio, Zhiyuan Cheng y su equipo aportan datos interesantes en la inve
 
 1. Se deben buscar términos con un fuerte componente discriminativo mediante la aplicación de algoritmos que sirvan para normalizar la frecuencia de apariciones de un término.
 
-2. El test Likelihood Ratio es capaz de obtener probabilidades bastante acertadas para este dominio específico.
+2. El test Likelihood Ratio es capaz de obtener puntuaciones bastante acertadas para este dominio específico.
 
 3. Los términos más altamente discriminativos se caracterizan por una alta frecuencia y una baja dispersión.
 

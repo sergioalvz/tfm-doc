@@ -1,7 +1,7 @@
 [preface]
 == Resumen
 
-El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter haciendo uso de investigaciones previas realizadas por diversos investigadores a lo largo de los últimos años. A partir de estos estudios, se ha desarrollado un algoritmo capaz de obtener términos fuertemente discriminativos capaces de identificar la localización de una publicación en base a los términos que contiene.
+El presente proyecto recoge la implementación de un sistema capaz de inferir la localización de un usuario a través de sus publicaciones en Twitter combinando métodos estadísticos y aprendizaje automático.
 
 Para demostrar su efectividad, se han realizado experimentos a distintos niveles de granularidad (país, provincia, área metropolitana y barrio) y con dos idiomas diferentes (inglés y español). El algoritmo ha mostrado niveles de precisión bastante altos (prácticamente siempre superiores al 90%) y un grado de exhaustividad (especialmente para las granularidades de más alto nivel) muy aceptable, identificando aproximadamente un 70% ~ 80% del total de tuits locales recibidos.
 

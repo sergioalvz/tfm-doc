@@ -4,6 +4,6 @@ El crecimiento exponencial de las redes sociales durante los últimos años ha d
 
 Como consecuencia de todo ello, durante los últimos años han ido apareciendo diversas aplicaciones que, de una u otra manera, se centran en estudiar ciertos aspectos de las redes sociales para poder extraer información acerca de sus usuarios gracias a las diversas publicaciones que estos mismos realizan en sus perfiles.
 
-El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que _tan sólo_ agrupa un pequeño número de estudios teóricos, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados emitidos por diversos investigadores.
+El estudio de la geolocalización de un usuario a partir del contenido publicado por él mismo, sin embargo, es una de las pocas áreas que _tan sólo_ agrupa un pequeño número de estudios, pero en donde no han proliferado herramientas que comprueben de manera empírica los resultados obtenidos por diversos investigadores.
 
-La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas de manera teórica pueden ser aceptadas como válidas.
+La motivación de este proyecto, por tanto, es crear un sistema basado en las investigaciones previas, que permita inferir la geolocalización de un usuario mediante el análisis del contenido de sus publicaciones en Twitter y demostrar empíricamente si las soluciones propuestas pueden ser aceptadas como válidas.

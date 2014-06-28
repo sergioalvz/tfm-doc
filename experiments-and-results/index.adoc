@@ -80,7 +80,7 @@ Entendiendo este porcentaje como que para cada 100 tuits que sabemos son locales
 
 Una característica que permite manejar el grado de exhaustividad de cada modelo es el valor que se determine como *umbral de precisión*.
 
-Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que *sí* pertenece al conjunto local y 0 como que *no*).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, si no que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: _0.5, 0.6, 0.7, etc._
+Por defecto, Vowpal Wabbit devuelve un valor entre 0 y 1 con la probabilidad de que ese ejemplo pertenezca al conjunto de tuits locales o no (entendiendo 1 como que *sí* pertenece al conjunto local y 0 como que *no*).  Por tanto, es habitual que muchos valores que son realmente 1, no aparezca en los resultados de la predicción de manera tan absoluta, sino que se muestren con valores cada vez más cercanos a 1 en función del grado de confianza del clasificador en su predicción: _0.5, 0.6, 0.7, etc._
 
 Ese valor que determinemos como umbral permitirá que más o menos valores sean etiquetados por el clasificador como locales y, por tanto, que más o menos tuits locales puedan ser potencialmente etiquetados. Sin embargo, cuanto más bajo pongamos el umbral de precisión, más baja será la precisión y por tanto se encontrará más ruido en los resultados finales.
 

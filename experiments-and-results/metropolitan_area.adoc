@@ -1,6 +1,6 @@
 ==== Resultados a nivel de área metropolitana
 
-Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: *Manchester*, *Birminghan* y *Londres*. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.
+Para la granularidad a nivel de área metropolitana, se utilizaron las tres metrópolis más importantes del Reino Unido: *Londres*, *Manchester* y *Birminghan*. El proceso para generar los conjuntos de datos utilizados para el análisis se basa en los mecanismos utilizados a nivel de provincia.
 
 Las tablas <<experiment-uk-london>>, <<experiment-uk-manchester>> y <<experiment-uk-birminghan>> muestran los resultados para esta granularidad.
 

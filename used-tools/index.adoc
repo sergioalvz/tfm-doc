@@ -6,7 +6,7 @@ Además de las tecnologías utilizadas para el desarrollo de los prototipos y ex
 
 *Trello* (https://trello.com/) es una aplicación web desarrollada por *Fog Creek* con el objetivo de ofrecer una herramienta eficaz para la gestión de tareas (y en cierta medida, proyectos) de manera sencilla y muy colaborativa que potencie los procesos de desarrollos ágiles.
 
-Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como Scrum, donde el _Scrum Board_ se utiliza para recoger todas las tareas *Pendientes*, *En progreso* o *Terminadas* para el _sprint_ en curso.
+Trello basa su funcionamiento en establecer una serie de tablones en donde los diferentes usuarios de una organización o equipo puedan ir colocando tareas (en forma de tarjeta) en un conjunto de columnas totalmente personalizables. Su funcionamiento se basa en metodologías ágiles como *Scrumfootnote:[https://www.scrum.org/resources/what-is-scrum/]*, donde el _Scrum Board_ se utiliza para recoger todas las tareas *Pendientes*, *En progreso* o *Terminadas* para el _sprint_ en curso.
 
 En este caso se ha utilizado como herramienta para organizar y controlar el progreso de las tareas en las estaciones de experimentación y prototipado.
 

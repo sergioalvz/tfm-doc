@@ -1,4 +1,4 @@
 [preface]
 == Palabras clave
 
-twitter, log likelihood ratio test, vowpal wabbit, location indicative words, scala, geolocation, play framework
+twitter, log likelihood ratio test, vowpal wabbit, palabras indicativas de posición, scala, geolocalización, play framework

@@ -262,7 +262,7 @@ image::application/analysis/use-cases/projects-management.png[align="center"]
 [cols="1s,3", id="cu-user-project-2-2"]
 |===
 |Precondiciones
-|El usuario está indentificado correctamente en el sistema.
+|El usuario está identificado correctamente en el sistema.
 
 |Postcondiciones
 |El usuario es capaz de visualizar el histórico de proyectos.

@@ -4,9 +4,9 @@ El test Log Likelihood-Ratio (http://www.itl.nist.gov/div898/handbook/apr/sectio
 
 En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).
 
-En este caso, partimos del *supuesto* de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la probabilidad de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.
+En este caso, partimos del *supuesto* de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la puntuación de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.
 
-El valor LLR de cada término se utilizará para calcular la probabilidad de que los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.
+El valor LLR de cada término se utilizará para calcular la puntuación que indique si los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.
 
 La consideración acerca de qué es un *término* se explica en <<_términos_discriminativos>>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.
 
@@ -16,9 +16,8 @@ La implementación del algoritmo Log Likelihood-Ratio utilizado se basa en la in
 
 Tras los primeros experimentos, aunque se vislumbraron resultados esperanzadores, se observó también como algunos términos que se sabía eran discriminativos, no obtenían una puntuación LLR lo suficientemente alta como para que el sistema los pudiese considerar discriminativos en el futuro. Por tanto, se realizó una nueva implementación _normalizada_ sobre el algoritmo anterior, basada en la siguiente sospecha:
 
-____
-Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es *muy posible* que provengan de España.
-____
+"Términos como «españa», los cuales son muy representativos de tuits españoles, también son relativamente comunes en tuits chilenos, y por tanto no se puede interpretar que vayan a tener la misma importancia para discrimar entre ambos, por mucho que su uso sea mayor en España. Sin embargo, términos como «culín sidra», los cuales no tienen una gran representatividad en tuits españoles y es casi seguro que no tengan ninguna aparición en tuits procedentes de Chile, tienen un gran componente geográfico implícito que hace pensar que tuits que contenga ese término es *muy posible* que provengan de España."
+-- Comunicación personal del director del proyecto.
 
 Para tratar de demostrar la intuición anterior, se desarrolló una normalización basada en tres pasos:
 
@@ -81,3 +80,5 @@ A continuación, se muestran los 10 resultados más discriminativos tras aplicar
 ----
 
 Se puede observar como en el caso del LLR normalizado, se penalizan aquellos términos que podrían aparecer frecuentemente en otros tuits del territorio español: _oviedo_, _gijón_ y _asturias_; mientras que se favorecen otros más específicos como _sidra_, _presta_ o _celebralos_ (escrito como se pronunciaría en asturiano).
+
+Como también es evidente, existe cierto ruido a la hora de identificar términos como muy discriminativos. En el caso anterior, a las palabras _escalera_ o _economia_ se les ha otorgado una puntuación LLR bastante elevada pero que puede ser tolerable, por el momento, al tratarse de un proceso totalmente automático que no necesita de ningún conocimiento experto.

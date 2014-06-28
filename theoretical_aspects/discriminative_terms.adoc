@@ -58,7 +58,7 @@ El primer tuit contiene mucha información potencialmente geolocalizable. Nombra
 |Primera vez que dos equipos *Madrileños*, se erigen como finalistas de la  *Champions*!! Gane quién gane, *Madrid* gana!! La Copa se queda aquí.
 |===
 
-El siguiente tuit, se podría considerar como un claro ejemplo de tuit dificilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:
+El siguiente tuit, se podría considerar como un claro ejemplo de tuit difícilmente localizable (en base a su contenido). Su campo de localización no hace ninguna referencia a un lugar geográfico y el contenido del tuit tampoco contiene ninguna entidad geográfica:
 
 [cols="2,4"]
 |===
