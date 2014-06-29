@@ -3224,7 +3224,7 @@ Usage: vw-input-translator [options] &lt;file&gt;
 <simpara>Uno de los puntos más importantes que planteó el sistema para recolectar tuits era en qué formato sería más adecuado serializar los datos obtenidos.</simpara>
 <simpara>En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cual permitiría acceder de manera rápida al número de tuits guardados y realizar operaciones sencillas en línea de comandos mediante operaciones <literal>grep</literal>. Esta decisión fue descartada al realizar los primeros experimentos y comprobar como el guardado de ciertos datos en formato CSV presenta muchas dificultades para poder solventar todos los casos esquina que se presentan con la aparición de contenido complejo que pueda incluir comas, comillas y otros signos de puntuación (aún en el caso de utilizar bibliotecas especializadas como OpenCSV - <link xlink:href="http://opencsv.sourceforge.net/">http://opencsv.sourceforge.net/</link> ) combinados con caracteres extraños como Emoji (<link xlink:href="http://www.unicode.org/faq/emoji_dingbats.html">http://www.unicode.org/faq/emoji_dingbats.html</link>).</simpara>
 <simpara>Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de estructuración de datos que mejor podría serializar la información obtenida a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML:</simpara>
-<programlisting language="scala" linenumbering="unnumbered">class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String, longitude: String, text: String) {
+<programlisting language="java" linenumbering="unnumbered">class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String, longitude: String, text: String) {
   def toXML =
     &lt;tweet&gt;
       &lt;id&gt;
@@ -3432,7 +3432,7 @@ Usage: Falcon [options]
 <formalpara>
 <title>Main.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.main
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.main
 
 import org.falcon.streaming.Collector
 import org.falcon.util.Util
@@ -3465,7 +3465,7 @@ object Main {
 <formalpara>
 <title>Configuration.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.main
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.main
 
 import java.io.File
 
@@ -3498,7 +3498,7 @@ object CLIParser {
 <formalpara>
 <title>Tweet.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.model
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.model
 
 /**
  * Project: falcon
@@ -3545,7 +3545,7 @@ object CLIParser {
 <formalpara>
 <title>FilterFactory.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.streaming.filter
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.streaming.filter
 
 import twitter4j.FilterQuery
 import org.falcon.util.Util
@@ -3565,7 +3565,7 @@ object FilterFactory {
 <formalpara>
 <title>Collector.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.streaming
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.streaming
 
 import org.falcon.writer.Writer
 import org.falcon.util.Util
@@ -3605,7 +3605,7 @@ class Collector {
 <formalpara>
 <title>TwitterStreaming.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.streaming
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.streaming
 
 import twitter4j._
 import org.falcon.model.Tweet
@@ -3677,7 +3677,7 @@ import java.text.SimpleDateFormat
 <formalpara>
 <title>Util.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.util
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.util
 
 import java.util.Properties
 import scala.io.Source
@@ -3767,7 +3767,7 @@ object Util {
 <formalpara>
 <title>Writer.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.falcon.writer
+<programlisting language="java" linenumbering="unnumbered">package org.falcon.writer
 
 import java.io._
 import java.nio.charset.Charset
@@ -3805,7 +3805,7 @@ object Writer {
 <formalpara>
 <title>Main.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.main
+<programlisting language="java" linenumbering="unnumbered">package org.puma.main
 
 import org.puma.generator.GeneratorFactory
 import org.puma.configuration.{Configuration, ConfigurationUtil, CLIParser}
@@ -3836,7 +3836,7 @@ object Main {
 <formalpara>
 <title>GeneratorFactory.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+<programlisting language="java" linenumbering="unnumbered">package org.puma.generator
 
 import org.puma.configuration.ConfigurationUtil
 
@@ -3862,7 +3862,7 @@ object GeneratorFactory {
 <formalpara>
 <title>Generator.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+<programlisting language="java" linenumbering="unnumbered">package org.puma.generator
 
 /**
  * Project: puma
@@ -3879,7 +3879,7 @@ trait Generator {
 <formalpara>
 <title>LLRGenerator.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+<programlisting language="java" linenumbering="unnumbered">package org.puma.generator
 
 import org.puma.configuration.ConfigurationUtil
 import org.puma.analyzer.Analyzer
@@ -3934,7 +3934,7 @@ class LLRGenerator extends Generator {
 <formalpara>
 <title>ScoreGenerator.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+<programlisting language="java" linenumbering="unnumbered">package org.puma.generator
 
 import org.puma.configuration.ConfigurationUtil
 import org.puma.analyzer.filter._
@@ -4084,7 +4084,7 @@ class ScoreGenerator extends Generator{
 <formalpara>
 <title>Extractor.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer
 
 import scala.io.Source
 import scala.xml.pull._
@@ -4175,7 +4175,7 @@ class Extractor extends LazyLogging{
 <formalpara>
 <title>NgramExtractor.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer
 
 import org.puma.configuration.ConfigurationUtil
 import scala.collection.mutable.ListBuffer
@@ -4244,7 +4244,7 @@ object NgramExtractor {
 <formalpara>
 <title>ExtractorFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 
 /**
@@ -4263,7 +4263,7 @@ trait ExtractorFilter {
 <formalpara>
 <title>SimpleTermExtractorFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 /**
  * Project: puma
@@ -4284,7 +4284,7 @@ class SimpleTermExtractorFilter extends ExtractorFilter{
 <formalpara>
 <title>ExtractorFilterDecorator.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 /**
  * Project: puma
@@ -4301,7 +4301,7 @@ abstract class ExtractorFilterDecorator(filter: ExtractorFilter) extends Extract
 <formalpara>
 <title>MentionFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
@@ -4333,7 +4333,7 @@ class MentionFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(fi
 <formalpara>
 <title>HashtagFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
@@ -4365,7 +4365,7 @@ class HashtagFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(fi
 <formalpara>
 <title>BigramsFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 import scala.collection.mutable.ListBuffer
 import org.puma.analyzer.NgramExtractor
@@ -4393,7 +4393,7 @@ class BigramsFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(fi
 <formalpara>
 <title>KeywordFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 import scala.collection.mutable.ListBuffer
 import org.puma.analyzer.NgramExtractor
@@ -4421,7 +4421,7 @@ class KeywordFilter (filter: ExtractorFilter) extends ExtractorFilterDecorator(f
 <formalpara>
 <title>LocationFilter.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer.filter
 
 import scala.collection.mutable.ListBuffer
 import org.puma.analyzer.NgramExtractor
@@ -4449,7 +4449,7 @@ class LocationFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(f
 <formalpara>
 <title>Analyzer.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer
+<programlisting language="java" linenumbering="unnumbered">package org.puma.analyzer
 
 import scala.collection.mutable
 import org.puma.configuration.ConfigurationUtil
@@ -4509,7 +4509,7 @@ class Analyzer(local: String, global: String, filter: ExtractorFilter) {
 <formalpara>
 <title>Dunning.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.stat
+<programlisting language="java" linenumbering="unnumbered">package org.puma.stat
 
 /**
  * Project: puma
@@ -4608,7 +4608,7 @@ object Dunning {
 <formalpara>
 <title>Configuration.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.configuration
+<programlisting language="java" linenumbering="unnumbered">package org.puma.configuration
 
 import java.io.File
 
@@ -4628,7 +4628,7 @@ object CLIParser {
 <formalpara>
 <title>ConfigurationUtil.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">package org.puma.configuration
+<programlisting language="java" linenumbering="unnumbered">package org.puma.configuration
 
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
@@ -4720,7 +4720,7 @@ object ConfigurationUtil {
 <formalpara>
 <title>training_dataset_divisor.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">#!/bin/sh
+<programlisting language="java" linenumbering="unnumbered">#!/bin/sh
 exec scala "$0" "$@"
 !#
 import java.io._
@@ -4777,7 +4777,7 @@ def getUserByLine(line:String):String = {
 <formalpara>
 <title>tweets_by_location.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">#!/bin/sh
+<programlisting language="java" linenumbering="unnumbered">#!/bin/sh
 exec scala "$0" "$@"
 !#
 import scala.io.Source
@@ -4786,12 +4786,6 @@ import scala.xml.pull._
 import scala.xml._
 
 import java.io._
-
-/*******************************************************************************
- *******************************************************************************
- *                              FUNCTIONS                                      *
- *******************************************************************************
- *******************************************************************************/
 
 def getBoundingBoxes(root: Elem): List[List[(Double, Double)]] = {
   var boundingBoxes = new ListBuffer[List[(Double, Double)]]
@@ -4860,12 +4854,6 @@ def getWriter(): BufferedWriter = {
   new BufferedWriter(new OutputStreamWriter(new FileOutputStream(out)))
 }
 
-/*******************************************************************************
- *******************************************************************************
- *                              SCRIPT STARTS                                  *
- *******************************************************************************
- *******************************************************************************/
-
 val tweetsFile        = args(0).toString
 val boundingBoxesFile = args(1).toString
 val mustBeIn          = args(2).toBoolean
@@ -4916,7 +4904,7 @@ try {
 <formalpara>
 <title>tweets_by_time.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">#!/bin/sh
+<programlisting language="java" linenumbering="unnumbered">#!/bin/sh
 exec scala "$0" "$@"
 !#
 import scala.io.Source
@@ -4962,7 +4950,7 @@ try{
 <formalpara>
 <title>Configuration.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">import java.io.File
+<programlisting language="java" linenumbering="unnumbered">import java.io.File
 
 case class Configuration(inout:Boolean = false, decimals:Int = -1, file:File = null) {}
 
@@ -4985,7 +4973,7 @@ object CLIParser {
 <formalpara>
 <title>Main.scala</title>
 <para>
-<programlisting language="scala" linenumbering="unnumbered">import java.io._
+<programlisting language="java" linenumbering="unnumbered">import java.io._
 import scala.io.Source
 import scala.collection.mutable.ListBuffer
 import java.security.MessageDigest

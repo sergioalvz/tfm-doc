@@ -1,18 +1,18 @@
 === _Scripts_ de utilidad
 
-[source,scala]
+[source,java]
 .training_dataset_divisor.scala
 ----
 include::scripts/training_dataset_divisor.scala[]
 ----
 
-[source,scala]
+[source,java]
 .tweets_by_location.scala
 ----
 include::scripts/tweets_by_location.scala[]
 ----
 
-[source,scala]
+[source,java]
 .tweets_by_time.scala
 ----
 include::scripts/tweets_by_time.scala[]

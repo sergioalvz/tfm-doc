@@ -24,7 +24,7 @@ En un primer momento se barajó la posibilidad de utilizar el formato CSV, el cu
 
 Como consecuencia de los resultados anteriores, y apoyado en el soporte nativo ofrecido por Scala, se utilizó XML como el lenguaje de estructuración de datos que mejor podría serializar la información obtenida a través de Twitter4j. El siguiente fragmento de código permite ver lo sencillo que es serializar un objeto en Scala a XML:
 
-[source, scala]
+[source,java]
 ----
 class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String, longitude: String, text: String) {
   def toXML =

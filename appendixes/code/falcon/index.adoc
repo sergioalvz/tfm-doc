@@ -1,48 +1,48 @@
 === Falcon
 
-[source,scala]
+[source,java]
 .Main.scala
 ----
 include::main/Main.scala[]
 ----
 
-[source,scala]
+[source,java]
 .Configuration.scala
 ----
 include::main/Configuration.scala[]
 ----
 
-[source,scala]
+[source,java]
 .Tweet.scala
 ----
 include::model/Tweet.scala[]
 ----
 
-[source,scala]
+[source,java]
 .FilterFactory.scala
 ----
 include::streaming/filter/FilterFactory.scala[]
 ----
 
-[source,scala]
+[source,java]
 .Collector.scala
 ----
 include::streaming/Collector.scala[]
 ----
 
-[source,scala]
+[source,java]
 .TwitterStreaming.scala
 ----
 include::streaming/TwitterStreaming.scala[]
 ----
 
-[source,scala]
+[source,java]
 .Util.scala
 ----
 include::util/Util.scala[]
 ----
 
-[source,scala]
+[source,java]
 .Writer.scala
 ----
 include::writer/Writer.scala[]
