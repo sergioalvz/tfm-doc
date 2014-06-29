@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Bounding boxes picker">
+  <meta name="keywords" content="bounding, boxes, twitter, locations, georeference, coordinates, maps">
+  <meta name="author" content="Sergio Álvarez Suárez">
+
+  <link rel="icon" href="../favicon.png" type="image/png" />
+
+  <link rel="stylesheet" href="./fancybox/source/jquery.fancybox.css" type="text/css" media="screen" />
+
+  <link href='http://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title> b2pick: picking bounding-boxes</title>
+</head>
+<body>
+  <header>
+    <h1>b2pick</h1>
+    <h2>Bounding Boxes picker</h2>
+  </header>
+  <section id="main_content">
+    <section class="column">
+      <section>
+        <p>b2pick allows to picking up bounding boxes directly from Google Maps.</p>
+        <p>You can draw rectangles around the desired locations. Coordinates from the bounding boxes will be shown down taking the following form:</p>
+        <p><span class="code">SW_long, SW_lat, NE_long, NE_lat</span></p>
+      </section>
+      <button type="button">Print in XML</button>
+      <section class="boxes">
+      </section>
+    </section>
+    <section class="column">
+      <div id="map_canvas"></div>
+    </section>
+    <div class="clear_both"></div>
+  </section>
+  <a id="inline" href="#xml" style="display:none"></a>
+  <div style="display:none"><div id="xml"></div></div>
+  <footer>
+    <p>Developed by <a href="http://www.sergioalvarezsuarez.com" target="blank">Sergio Álvarez</a></p>
+  </footer>
+
+  <!-- loading scripts -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="./fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
+  <script src="index.js"></script>
+</body>
+</html>

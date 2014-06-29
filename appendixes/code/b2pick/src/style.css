@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+
+  font-family: 'Signika Negative', sans-serif;
+}
+
+body{
+  background-color: rgba(0, 0, 0, .7);
+}
+
+header{
+  width: 100%;
+  padding: 1em 0;
+
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+header h1 { font-size: 3em;  margin-left: 1em;  font-family: 'Neucha', cursive;}
+header h2 { font-size: 1.5em;  margin-left: 30px;  font-family: 'Neucha', cursive;}
+
+#main_content {
+  overflow: hidden;
+  width: 100%;
+}
+
+section.column{
+  float: left;
+  padding-bottom: 9999px;
+  margin-bottom: -9999px;
+}
+
+#main_content > section:first-child  { width: 40em; }
+#main_content > section:last-of-type { width: calc(100% - 40em); }
+
+#main_content > section:first-child {
+  overflow-y: scroll;
+  height: 600px;
+  background-color: rgba(255, 255, 255, .7);
+}
+
+#main_content > section:first-child > section:first-child {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, .4);
+
+  font-weight: lighter;
+}
+
+#main_content > section:first-child > section:first-child p {
+  font-size: 1.4em;
+}
+
+span.code {
+  font-size: 1em;
+  font-family: 'Ubuntu Mono', sans-serif;
+}
+
+div.box {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, .4);
+
+  font-weight: lighter;
+}
+
+div.box h3 {
+  font-size: 1.6em;
+}
+
+div.box p {
+  font-size: 1.4em;
+}
+
+#map_canvas {
+  width: 100%;
+  height: 600px;
+}
+
+.clear_both {
+  clear: both;
+}
+
+button {
+  background-image: -webkit-linear-gradient(#88af39, #690);
+  border-radius: 4px;
+  border: 1px solid rgb(45, 128, 19);
+  color: #FFF;
+  cursor: pointer;
+  display: block;
+  font-size: 1.3em;
+  margin: 0 auto;
+  padding: 10px;
+  width: 100px;
+}
+
+#xml pre {
+  font-size: 1.5em;
+}
+
+/* FOOTER
+******************************************* */
+
+footer {
+  padding: 5em;
+
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-weight: lighter;
+}
+
+footer p {
+  font-size: 1.5em;
+}
+
+footer p a {
+  font-size: 1em;
+}
+
+footer p a:link, footer p a:visited {
+  color: rgb(255, 255, 255);
+}

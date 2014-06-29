@@ -1,0 +1,13 @@
+=== Vowpal Wabbit Input Translator
+
+[source,scala]
+.Configuration.scala
+----
+include::src/configuration.scala[]
+----
+
+[source,scala]
+.Main.scala
+----
+include::src/main.scala[]
+----

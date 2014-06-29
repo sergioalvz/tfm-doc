@@ -1,0 +1,19 @@
+=== B2pick
+
+[source,html]
+.map.html
+----
+include::src/map.html[]
+----
+
+[source,css]
+.style.css
+----
+include::src/style.css[]
+----
+
+[source,javascript]
+.index.js
+----
+include::src/index.js[]
+----

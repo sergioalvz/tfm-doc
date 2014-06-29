@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body { height: 100%; }
+
+section:first-child{
+  background-color: rgb(0, 154, 206);
+  padding: 10px;
+  height: 130px;
+}
+
+.drop_zone {
+  height: calc(100% - 20px);
+  border: 10px dashed rgb(159, 221, 237);
+  text-align: center;
+  line-height: 110px;
+}
+
+.drop_zone {
+  color: rgb(159, 221, 237);
+  font-size: 32px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.hover {
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
+}
+
+.map {
+  height: calc(100% - 150px);
+}

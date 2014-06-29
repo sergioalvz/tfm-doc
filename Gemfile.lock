@@ -26,16 +26,21 @@ GEM
     lumberjack (1.0.5)
     method_source (0.8.2)
     nio4r (1.0.0)
+    posix-spawn (0.3.8)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pygments.rb (0.6.0)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.1.0)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.4)
       ffi (>= 0.5.0)
     slop (3.5.0)
     thor (0.19.1)
     timers (1.1.0)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -44,4 +49,5 @@ DEPENDENCIES
   asciidoctor (~> 1.5.0.preview.7)
   guard
   guard-shell
+  pygments.rb (~> 0.6.0)
   rb-inotify

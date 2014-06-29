@@ -5,7 +5,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="es">
 <info>
 <title>Geolocalización de usuarios en medios sociales mediante análisis de contenidos</title>
-<date>2014-06-28</date>
+<date>2014-06-29</date>
 <author>
 <personname>
 <firstname>Sergio</firstname>
@@ -3424,5 +3424,2137 @@ Usage: Falcon [options]
 <textobject><phrase>Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</phrase></textobject>
 </mediaobject>
 </figure>
+</appendix>
+<appendix xml:id="_código_fuente_de_los_prototipos_y_emphasis_scripts_emphasis_desarrollados">
+<title>Código fuente de los prototipos y <emphasis>scripts</emphasis> desarrollados</title>
+<section xml:id="_falcon">
+<title>Falcon</title>
+<formalpara>
+<title>Main.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.main
+
+import org.falcon.streaming.Collector
+import org.falcon.util.Util
+
+/**
+ * Project: falcon
+ * Package: org.falcon.main
+ *
+ * Author: Sergio Álvarez
+ * Date: 09/2013
+ */
+object Main {
+  def main(args: Array[String]): Unit = {
+    CLIParser.parse(args, Configuration()) map { config =&gt; run(config) }
+  }
+
+  def run(config: Configuration) = {
+    println("========================================")
+    println("                 falcon                 ")
+    println("========================================")
+    println()
+
+    Util.loadConfiguration(config)
+    val collector = new Collector()
+    collector.collect
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Configuration.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.main
+
+import java.io.File
+
+case class Configuration(language:String = "es", keywords:File = null, boundingBoxes:File = null, timeMeasure:String = "SECONDS",
+    timeToCollect:Int = 10, output:String = "falcon_collection.xml", coordinatesMandatory:Boolean = false, credentials:File = null) {}
+
+object CLIParser {
+  private[this] val parser = new scopt.OptionParser[Configuration]("Falcon") {
+    head("Falcon", "1.0")
+    opt[String]('l', "language")
+      .required() action { (x, c) =&gt; c.copy(language = x) } text("Specifies the language, in ISO 639-1 format, for the tweets to collect.")
+    opt[File]('k', "keywords")
+      .required() action { (x, c) =&gt; c.copy(keywords = x) } text("Specifies the file for the keywords.")
+    opt[String]('t', "time-in")
+      .required() action { (x, c) =&gt; c.copy(timeMeasure = x) } text("The time measure for collecting tweets (SECONDS, MINUTES, HOURS, DAYS).")
+    opt[Int]('n', "timestamp")
+      .required() action { (x, c) =&gt; c.copy(timeToCollect = x) } text("Units of time for collecting tweets.")
+    opt[String]('o', "output")
+      .required() action { (x, c) =&gt; c.copy(output = x) } text("The output filename where store the collection results.")
+    opt[File]('c', "credentials")
+      .required() action { (x, c) =&gt; c.copy(credentials = x) } text("Properties file with the Twitter credentials")
+    opt[File]('b', "bounding-boxes")
+      .required() action { (x, c) =&gt; c.copy(boundingBoxes = x) } text ("Specifies the file which contains the bounding boxes.")
+  }
+
+  def parse(args:Array[String], conf:Configuration):Option[Configuration] = this.parser.parse(args, conf)
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Tweet.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.model
+
+/**
+ * Project: falcon
+ * Package: org.falcon.model
+ *
+ * Author: Sergio Álvarez
+ * Date: 09/2013
+ */
+  class Tweet(id:String, username: String, name:String, location: String, timezone: String, createdAt:String, latitude: String,
+              longitude: String, text: String) {
+    def toXML =
+      &lt;tweet&gt;
+        &lt;id&gt;
+          {id}
+        &lt;/id&gt;
+        &lt;username&gt;
+          {username}
+        &lt;/username&gt;
+        &lt;name&gt;
+          {name}
+        &lt;/name&gt;
+        &lt;location&gt;
+          {location}
+        &lt;/location&gt;
+        &lt;timezone&gt;
+          {timezone}
+        &lt;/timezone&gt;
+        &lt;createdAt&gt;
+          {createdAt}
+        &lt;/createdAt&gt;
+        &lt;latitude&gt;
+          {latitude}
+        &lt;/latitude&gt;
+        &lt;longitude&gt;
+          {longitude}
+        &lt;/longitude&gt;
+        &lt;text&gt;
+          {text}
+        &lt;/text&gt;
+      &lt;/tweet&gt;
+  }</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>FilterFactory.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.streaming.filter
+
+import twitter4j.FilterQuery
+import org.falcon.util.Util
+
+/**
+ * Project: falcon
+ * Package: org.falcon.streaming.filter
+ *
+ * Author: Sergio Álvarez
+ * Date: 02/2014
+*/
+object FilterFactory {
+  def createFilterQuery: FilterQuery = new FilterQuery().language(Util.language).track(Util.keywords)
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Collector.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.streaming
+
+import org.falcon.writer.Writer
+import org.falcon.util.Util
+import org.falcon.streaming.filter.FilterFactory
+
+/**
+ * Project: falcon
+ * Package: org.falcon.streaming
+ *
+ * Author: Sergio Álvarez
+ * Date: 02/2014
+ */
+class Collector {
+  def collect() = {
+    val twitterStreaming = new TwitterStreaming
+    twitterStreaming.filter(FilterFactory.createFilterQuery)
+    try{
+      Writer.open(Util.fileName)
+      Writer.write("&lt;tweets&gt;\n")
+      twitterStreaming.run()
+
+      val top = System.currentTimeMillis() + Util.timeToCollect
+      while(System.currentTimeMillis() &lt;= top) {}
+
+      twitterStreaming.close()
+      Writer.write("&lt;/tweets&gt;")
+      Writer.close()
+    } finally {
+      Writer.close()
+      twitterStreaming.close()
+    }
+
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>TwitterStreaming.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.streaming
+
+import twitter4j._
+import org.falcon.model.Tweet
+import org.falcon.writer.Writer
+import org.falcon.util.Util
+import java.util.{Date, TimeZone}
+import java.text.SimpleDateFormat
+
+/**
+ * Project: falcon
+ * Package: org.falcon.streaming
+ *
+ * Author: Sergio Álvarez
+ * Date: 09/2013
+ */
+ class TwitterStreaming() {
+  private[this] var _filter: FilterQuery = _
+  private[this] var _twitter: TwitterStream = _
+
+  def filter(filter: FilterQuery): Unit = _filter = filter
+
+  def run() = {
+    _twitter = new TwitterStreamFactory(Util.twitterConfiguration).getInstance()
+    _twitter.addListener(myTwitterStatusListener)
+    _twitter.filter(_filter)
+  }
+
+  def close() = if (_twitter != null) _twitter.shutdown()
+
+  private def myTwitterStatusListener = new StatusListener {
+    def onStatus(status: Status) {
+      if(status.getGeoLocation == null) return;
+
+      val id:String        = status.getId.toString
+      val username:String  = status.getUser.getScreenName
+      val name:String      = status.getUser.getName
+      val location:String  = status.getUser.getLocation
+      val timezone:String  = status.getUser.getTimeZone
+      val createdAt:String = toUTC(status.getCreatedAt)
+      val text:String      = status.getText
+      val latitude:String  = status.getGeoLocation.getLatitude.toString
+      val longitude:String = status.getGeoLocation.getLongitude.toString
+
+      if(Util.isInBoundingBoxes(latitude, longitude)){
+        val tweet = new Tweet(id, username, name, location, timezone, createdAt, latitude, longitude, text)
+        Writer.write(s"\t${tweet.toXML.toString()}\n")
+      }
+    }
+
+    def onStallWarning(p1: StallWarning) {}
+
+    def onException(p1: Exception) {}
+
+    def onDeletionNotice(p1: StatusDeletionNotice) {}
+
+    def onScrubGeo(p1: Long, p2: Long) {}
+
+    def onTrackLimitationNotice(p1: Int) {}
+
+    private[this] def toUTC(date: Date): String = {
+      val f = new SimpleDateFormat("yyyy-MM-dd HH:mm")
+      f.setTimeZone(TimeZone.getTimeZone("UTC"))
+      f.format(date)
+    }
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Util.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.util
+
+import java.util.Properties
+import scala.io.Source
+import scala.Array
+import scala.collection.JavaConverters._
+import scala.concurrent.duration._
+import java.util.concurrent.TimeUnit
+import scala.xml.XML
+import scala.collection.mutable.ListBuffer
+
+import org.falcon.main.Configuration
+
+/**
+ * Project: falcon
+ * Package: org.falcon.util
+ *
+ * Author: Sergio Álvarez
+ * Date: 09/2013
+ */
+object Util {
+  private[this] val AccessTokenSecretPropertyKey    = "access_token_secret"
+  private[this] val AccessTokenPropertyKey          = "access_token"
+  private[this] val ConsumerSecretPropertyKey       = "consumer_secret"
+  private[this] val ConsumerKeyPropertyKey          = "consumer_key"
+
+  private[this] val _locations: Array[Array[Double]] = null
+  private[this] var configuration: Configuration     = null
+
+  def loadConfiguration(config: Configuration): Unit = this.configuration = config
+
+  def twitterConfiguration: twitter4j.conf.Configuration = {
+    val properties = new Properties()
+    properties.load(Source.fromFile(configuration.credentials).bufferedReader())
+
+    new twitter4j.conf.ConfigurationBuilder()
+      .setOAuthConsumerKey(properties.getProperty(ConsumerKeyPropertyKey))
+      .setOAuthConsumerSecret(properties.getProperty(ConsumerSecretPropertyKey))
+      .setOAuthAccessToken(properties.getProperty(AccessTokenPropertyKey))
+      .setOAuthAccessTokenSecret(properties.getProperty(AccessTokenSecretPropertyKey))
+      .build
+  }
+
+  def keywords: Array[String] = Source.fromFile(configuration.keywords).getLines().toArray
+
+  def locations: Array[Array[Double]] = if(_locations != null) _locations else getBoundingBoxes
+
+  def language: Array[String] = Array(configuration.language)
+
+  def timeToCollect: Long = {
+    val timeMeasure = configuration.timeMeasure
+    val timeToCollect = configuration.timeToCollect
+    Duration(timeToCollect, TimeUnit.valueOf(timeMeasure)).toMillis
+  }
+
+  def fileName: String = configuration.output
+
+  def areCoordinatesMandatory: Boolean = configuration.coordinatesMandatory
+
+  def isInBoundingBoxes(latitude: String, longitude: String): Boolean = {
+    val lat = latitude.toDouble
+    val lng = longitude.toDouble
+
+    Util.locations.grouped(2).exists(group =&gt; {
+      val sw = group(0)
+      val ne = group(1)
+      sw(0) &lt;= lat &amp;&amp; ne(0) &gt;= lat &amp;&amp; sw(1) &lt;= lng &amp;&amp; ne(1) &gt;= lng
+    })
+  }
+
+  private[this] def getBoundingBoxes: Array[Array[Double]] = {
+    val root = XML.loadFile(configuration.boundingBoxes)
+    var boundingBoxes = new ListBuffer[Array[Double]]
+    (root \\ "boundingBox").foreach(b =&gt; {
+      val sw_long = (b \ "sw" \ "longitude").text
+      val sw_lat = (b \ "sw" \ "latitude").text
+      val ne_long = (b \ "ne" \ "longitude").text
+      val ne_lat = (b \ "ne" \ "latitude").text
+
+      boundingBoxes += Array(sw_lat.toDouble, sw_long.toDouble)
+      boundingBoxes += Array(ne_lat.toDouble, ne_long.toDouble)
+    })
+    boundingBoxes.toArray
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Writer.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.falcon.writer
+
+import java.io._
+import java.nio.charset.Charset
+
+/**
+ * Project: falcon
+ * Package: org.falcon.writer
+ *
+ * Author: Sergio Álvarez
+ * Date: 09/2013
+ */
+object Writer {
+  private var writer: BufferedWriter = null
+
+  def open(file: String) ={
+    if (writer == null){
+      val charset = Charset.forName("UTF-8").newEncoder()
+      writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), charset))
+    }
+  }
+
+  def close() = {
+    if (writer != null) { writer.close(); writer = null }
+  }
+
+  def write(string: String) = {
+    if (writer != null) { writer.flush(); writer.write(string) }
+  }
+}</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="_puma_sistema_de_análisis">
+<title>Puma (sistema de análisis)</title>
+<formalpara>
+<title>Main.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.main
+
+import org.puma.generator.GeneratorFactory
+import org.puma.configuration.{Configuration, ConfigurationUtil, CLIParser}
+
+/**
+ * Project: puma
+ * Package: org.puma.main
+ *
+ * User: Sergio Álvarez
+ * Date: 09/2013
+ */
+object Main {
+  def main(args: Array[String]): Unit = CLIParser.parse(args, Configuration()) map { config =&gt; run(config) }
+
+  private[this] def run(config: Configuration) {
+    println("==============================================")
+    println("                    puma                      ")
+    println("==============================================")
+    println()
+
+    ConfigurationUtil.load(config)
+    val generator = GeneratorFactory.get
+    generator.generate()
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>GeneratorFactory.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+
+import org.puma.configuration.ConfigurationUtil
+
+/**
+ * Project: puma
+ * Package: org.puma.generator
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+object GeneratorFactory {
+  def get:Generator = {
+    val mode = ConfigurationUtil.getMode
+    mode match {
+      case "scoreGenerator" =&gt; new ScoreGenerator
+      case "llrGenerator" =&gt; new LLRGenerator
+      case _ =&gt; throw new IllegalStateException("Invalid mode")
+    }
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Generator.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+
+/**
+ * Project: puma
+ * Package: org.puma.generator
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+trait Generator {
+  def generate(): Unit
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>LLRGenerator.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+
+import org.puma.configuration.ConfigurationUtil
+import org.puma.analyzer.Analyzer
+import org.puma.analyzer.filter.ExtractorFilter
+import java.io._
+import java.util.Calendar
+import java.text.SimpleDateFormat
+import scala.Console
+
+/**
+ * Project: puma
+ * Package: org.puma.generator
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+class LLRGenerator extends Generator {
+  def generate(): Unit = {
+    try{
+      val files  = ConfigurationUtil.getFilesToAnalyze
+      val local  = files(0)
+      val global = files(1)
+
+      ConfigurationUtil.getFiltersToApply.foreach(f =&gt; {
+        val analyzer = new Analyzer(local, global, f)
+        val mostValuedTerms = analyzer.analyze
+        saveToFile(mostValuedTerms, f)
+      })
+    }catch {
+      case ex: FileNotFoundException =&gt; Console.err.println("ERROR: The file does not exist. " + ex.getMessage)
+    }
+  }
+
+  private[this] def saveToFile(terms:List[(List[String], Double)], filter: ExtractorFilter): Unit = {
+    val title = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance.getTime)
+    val filterName = filter.getClass.getSimpleName
+
+    val file = new File(s"${title}_$filterName.tsv")
+    if(!file.exists) file.createNewFile
+
+    val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))
+    try{
+      terms.foreach(t =&gt; writer.write(s"${t._2}\t${t._1.mkString(" ")}\n"))
+    }finally{
+      writer.flush()
+      writer.close()
+    }
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>ScoreGenerator.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.generator
+
+import org.puma.configuration.ConfigurationUtil
+import org.puma.analyzer.filter._
+import scala.collection.mutable
+import scala.io.Source
+import org.puma.analyzer.NgramExtractor
+import java.io.{FileOutputStream, OutputStreamWriter, BufferedWriter, File}
+import scala.xml.pull.{EvElemEnd, EvText, EvElemStart, XMLEventReader}
+import scala.collection.mutable.ListBuffer
+import scala.xml.XML
+
+
+/**
+ * Project: puma
+ * Package: org.puma.generator
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+class ScoreGenerator extends Generator{
+
+  private[this] val resultFiles   = ConfigurationUtil.getLLRResultFiles
+  private[this] val fileToAnalyze = ConfigurationUtil.getFileToAnalyze
+  private[this] val scoreByTerm   = getScores.withDefaultValue(0.0)
+  private[this] val boundingBoxes = getBoundingBoxes
+
+  def generate(): Unit = {
+    val location, text, latitude, longitude, username = new mutable.StringBuilder()
+    var insideLocation, insideText, insideLatitude, insideLongitude, insideUsername = false
+
+    val reader = new XMLEventReader(Source.fromFile(fileToAnalyze))
+    reader.foreach({
+        case EvElemStart(_, "username", _, _)  =&gt; insideUsername = true
+        case EvElemEnd(_, "username")          =&gt; insideUsername = false
+        case EvElemStart(_, "location", _, _)  =&gt; insideLocation = true
+        case EvElemEnd(_, "location")          =&gt; insideLocation = false
+        case EvElemStart(_, "latitude", _, _)  =&gt; insideLatitude = true
+        case EvElemEnd(_, "latitude")          =&gt; insideLatitude = false
+        case EvElemStart(_, "longitude", _, _) =&gt; insideLongitude = true
+        case EvElemEnd(_, "longitude")         =&gt; insideLongitude = false
+        case EvElemStart(_, "text", _, _)      =&gt; insideText = true
+        case EvElemEnd(_, "text")              =&gt; insideText = false
+        case EvText(nodeText) =&gt;
+        {
+          if(insideLocation)
+            location ++= nodeText
+          else if(insideLatitude)
+            latitude ++= nodeText
+          else if(insideLongitude)
+            longitude ++= nodeText
+          else if(insideText)
+            text ++= nodeText
+          else if(insideUsername)
+            username ++= nodeText
+        }
+        case EvElemEnd(_, "tweet") =&gt;
+        {
+          processXmlData(username.toString(), location.toString(), latitude.toString(), longitude.toString(), text.toString())
+          location.clear()
+          latitude.clear()
+          longitude.clear()
+          text.clear()
+          username.clear()
+        }
+        case _ =&gt; ;
+    })
+  }
+
+  private[this] def processXmlData(username: String, location: String, latitude: String, longitude: String, text: String): Unit = {
+    val locationKeywords = new LocationFilter().extract(location)
+    val mentionsHashtags = new MentionFilter(new HashtagFilter()).extract(text)
+    val bigrams  = new BigramsFilter().extract(text)
+    val keywords = new KeywordFilter().extract(text).filter(keyword =&gt; {
+      bigrams.find(bigram =&gt; bigram.contains(keyword)) == None
+    })
+
+    val terms = locationKeywords ++ mentionsHashtags ++ bigrams ++ keywords
+
+    val score = terms.foldLeft(0.0)((acc, current) =&gt; acc + scoreByTerm(current.mkString(" ")))
+    if(isValidScore(score, latitude, longitude)){
+      saveScore(score, username, location, latitude, longitude, text)
+    }
+  }
+
+  private[this] def isValidScore(score:Double, latitude:String, longitude:String): Boolean = {
+    if(score == 0.0) return false
+
+    val mustBeLocal = score &gt; 0.0
+    mustBeLocal == isInBoundingBoxes(longitude, latitude)
+  }
+
+  private[this] def saveScore(score:Double, username:String, location:String, latitude:String, longitude:String, text:String) = {
+    val file = new File(s"${fileToAnalyze}_scores.tsv")
+    if(!file.exists) file.createNewFile
+
+    val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true)))
+    val line = score + "\t" + latitude.trim + "\t" + longitude.trim + "\t" + normalize(username, location, text) + "\n"
+    try{
+      writer.write(line)
+    }finally{
+      writer.flush()
+      writer.close()
+    }
+  }
+
+  private[this] def normalize(username:String, location:String, text:String): String = {
+    val normalized = NgramExtractor.extract(location.trim + " " + text.trim(), 1, allowMentionsAndHashtags = true).flatten.mkString(" ")
+    "@" + username.toLowerCase.trim + " " + normalized
+  }
+
+  private[this] def getScores: Map[String, Double] = {
+    val scores = mutable.Map.empty[String, Double]
+    resultFiles.foreach(file =&gt; {
+      val lines = Source.fromFile(file).getLines().toArray
+      lines.foreach(line =&gt; {
+       val fields = line.split("\t")
+       scores(fields(1)) = fields(0).toDouble
+      })
+    })
+    scores.toMap
+  }
+
+  private[this] def getBoundingBoxes: List[List[(Double, Double)]] = {
+    val root = XML.loadFile(ConfigurationUtil.getBoundingBoxesFile)
+    var boundingBoxes = new ListBuffer[List[(Double, Double)]]
+    (root \\ "boundingBox").foreach(b =&gt; {
+      val sw_long = (b \ "sw" \ "longitude").text
+      val sw_lat = (b \ "sw" \ "latitude").text
+      val ne_long = (b \ "ne" \ "longitude").text
+      val ne_lat = (b \ "ne" \ "latitude").text
+
+      boundingBoxes += List((sw_lat.toDouble, sw_long.toDouble), (ne_lat.toDouble, ne_long.toDouble))
+    })
+    boundingBoxes.toList
+  }
+
+  private[this] def isInBoundingBoxes(lng: String, lat: String): Boolean = {
+    boundingBoxes.exists(boundingBox =&gt; {
+      val sw = boundingBox(0)
+      val ne = boundingBox(1)
+      sw._1 &lt;= lat.toDouble &amp;&amp; ne._1 &gt;= lat.toDouble &amp;&amp; sw._2 &lt;= lng.toDouble &amp;&amp; ne._2 &gt;= lng.toDouble
+    })
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Extractor.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer
+
+import scala.io.Source
+import scala.xml.pull._
+import scala.xml.pull.EvElemStart
+import scala.xml.pull.EvText
+import scala.collection.mutable
+import org.puma.analyzer.filter.ExtractorFilter
+import com.typesafe.scalalogging.slf4j.LazyLogging
+import org.puma.configuration.ConfigurationUtil
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 09/2013
+ */
+class Extractor extends LazyLogging{
+  private[this] var _path: String = null
+  private[this] var _filter: ExtractorFilter = null
+
+  private[this] var results               = mutable.Map.empty[List[String], Int]
+  private[this] var minimumFreq           = 1
+  private[this] val MaximumExtractedTerms = ConfigurationUtil.getMaximumExtractedTerms
+  private[this] val FactorToRemove        = ConfigurationUtil.getFactorToRemove
+
+  def path(value: String): Extractor = {
+    _path = value
+    this
+  }
+
+  def filter(value: ExtractorFilter): Extractor = {
+    _filter = value
+    this
+  }
+
+  def extract: Map[List[String], Int] = {
+    if(_filter == null || _path == null){
+      throw new IllegalArgumentException("You must provide a filter and valid path for making the extraction")
+    }
+
+    logger.debug("Extracting: " + _path + " with filter: " + _filter.getClass.getSimpleName)
+
+    val reader = new XMLEventReader(Source.fromFile(_path))
+    var in = false
+    reader.foreach({
+        case e: EvElemStart if e.label == _filter.field =&gt; in = true
+        case EvText(text) if in =&gt; applyFilter(text)
+        case e: EvElemEnd if e.label == _filter.field =&gt; in = false
+        case _ =&gt; ;
+    })
+    results.toMap
+  }
+
+  private[this] def applyFilter(tweet: String) = {
+    checkMemoryStatus()
+    _filter.extract(tweet).foreach(term =&gt; {
+      if(results.contains(term)){
+        results(term) += 1
+      }else{
+        results(term) = minimumFreq
+      }
+    })
+  }
+
+  private[this] def checkMemoryStatus() = {
+    if(results.keys.size &gt;= MaximumExtractedTerms) {
+      logger.debug("Memory overload. Maximum limit for extracted terms have been reached. Reducing map...")
+      reduceMapLoad()
+    }
+  }
+
+  private[this] def reduceMapLoad() = {
+    val itemsToRemove = (results.keys.size * FactorToRemove).toInt
+    logger.debug("They are going to be removed " + itemsToRemove + " items")
+
+    val orderedList = results.toList.sortBy({_._2})
+    minimumFreq = orderedList(itemsToRemove - 1)._2
+    logger.debug("New minimum frequency is " + minimumFreq)
+
+    val reduced = orderedList.slice(itemsToRemove - 1, orderedList.size)
+    results = collection.mutable.Map(reduced.toMap[List[String], Int].toSeq: _*) // converting to mutable map
+    logger.debug("Reduced map contains " + results.keys.size + " terms")
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>NgramExtractor.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer
+
+import org.puma.configuration.ConfigurationUtil
+import scala.collection.mutable.ListBuffer
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer.filter
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+object NgramExtractor {
+  private[this] val SymbolsToClean = Array('\\', ',', '(', '\'', ')', '{', '}', '?', '¿', '¡', '!', '.', '&amp;', '%',
+    '$', ';', ':', '+', '-', '*', '^', '/', '_', '\n', '\t', '=', '|')
+
+  def extract(tweet:String, count:Int, allowMentionsAndHashtags:Boolean = false): List[List[String]] = {
+    var result = new ListBuffer[List[String]]
+    val ngrams = getNgrams(clear(tweet), count)
+    ngrams.foreach(ngram =&gt; {
+      if (isValidNgram(ngram, count, allowMentionsAndHashtags)) {
+        val termToAdd = ngram.map(ngram =&gt; ngram.trim).toList
+        if(!result.contains(termToAdd)) result += termToAdd
+      }
+    })
+    result.toList
+  }
+
+  private[this] def isValidNgram(ngram:Array[String], count:Int, allowMentionsAndHashtags:Boolean): Boolean = {
+    ngram.size == count &amp;&amp;
+    ngram.find(term =&gt; term.trim.isEmpty) == None &amp;&amp;
+    ngram.find(term =&gt; term.trim.length == 1) == None &amp;&amp;
+    isValidCharSequence(ngram, allowMentionsAndHashtags) &amp;&amp;
+    !ngram.forall(term =&gt; if(count &gt; 1) term.trim == ngram(0).trim else false) &amp;&amp;
+    !hasStopWords(ngram, allowMentionsAndHashtags)
+  }
+
+  private[this] def isValidCharSequence(ngram:Array[String], allowMentionsAndHashtags:Boolean): Boolean = {
+    if(allowMentionsAndHashtags) {
+      ngram.find(term =&gt; !term.trim.matches("^(@|#)?[a-záéíóú]*")) == None
+    }else {
+      ngram.find(term =&gt; !term.trim.matches("[a-záéíóú]*")) == None
+    }
+  }
+
+  private[this] def hasStopWords(ngram:Array[String], allowMentionsAndHashtags:Boolean): Boolean = {
+    ngram.exists(term =&gt; {
+      if(allowMentionsAndHashtags &amp;&amp; (term.startsWith("@") || term.startsWith("#"))) {
+        false
+      }else {
+        ConfigurationUtil.stopWords.contains(term.trim)
+      }
+    })
+  }
+
+  private[this] def clear(raw:String): String = {
+    raw.toLowerCase.trim.map[Char, String](char =&gt; if(SymbolsToClean.contains(char)) 0 else char)
+  }
+
+  private[this] def getNgrams(tweet:String, count: Int): List[Array[String]] = {
+    val words = tweet.split(" ")
+    words.combinations(count).toList
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>ExtractorFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+trait ExtractorFilter {
+  def extract(tweet: String): List[List[String]]
+  def field: String
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>SimpleTermExtractorFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+class SimpleTermExtractorFilter extends ExtractorFilter{
+  def extract(tweet: String): List[List[String]] = {
+    List.empty[List[String]]
+  }
+
+  def field:String = "text"
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>ExtractorFilterDecorator.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer.filter
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+abstract class ExtractorFilterDecorator(filter: ExtractorFilter) extends ExtractorFilter{
+  def extract(tweet: String): List[List[String]]
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>MentionFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+import scala.collection.JavaConverters._
+import scala.collection.mutable.ListBuffer
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+class MentionFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(filter) {
+  def this() = this(new SimpleTermExtractorFilter())
+
+  private[this] val extractor = new com.twitter.Extractor
+
+  def extract(tweet: String): List[List[String]] = {
+    val mentions = filter.extract(tweet).to[ListBuffer] // initializing with previous extraction
+    extractor.extractMentionedScreennames(tweet).asScala.foreach(term =&gt; {
+      mentions += List(term.toLowerCase)
+    })
+    mentions.toList
+  }
+
+  def field: String = "text"
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>HashtagFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+import scala.collection.JavaConverters._
+import scala.collection.mutable.ListBuffer
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+class HashtagFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(filter){
+  def this() = this(new SimpleTermExtractorFilter())
+
+  private[this] val extractor = new com.twitter.Extractor
+
+  def extract(tweet: String): List[List[String]] = {
+    val hashtags = filter.extract(tweet).to[ListBuffer] // initializing with previous extraction
+    extractor.extractHashtags(tweet).asScala.foreach(term =&gt; {
+      hashtags += List(term.toLowerCase)
+    })
+    hashtags.toList
+  }
+
+  def field: String = "text"
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>BigramsFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+import scala.collection.mutable.ListBuffer
+import org.puma.analyzer.NgramExtractor
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+class BigramsFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(filter) {
+  def this() = this(new SimpleTermExtractorFilter())
+
+  def extract(tweet: String): List[List[String]] = {
+    val results = filter.extract(tweet).to[ListBuffer] // initializing with previous extraction
+    NgramExtractor.extract(tweet, 2).foreach(ngram =&gt; results += ngram)
+    results.toList
+  }
+
+  def field: String = "text"
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>KeywordFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+import scala.collection.mutable.ListBuffer
+import org.puma.analyzer.NgramExtractor
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer.filter
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+class KeywordFilter (filter: ExtractorFilter) extends ExtractorFilterDecorator(filter) {
+  def this() = this(new SimpleTermExtractorFilter())
+
+  def extract(tweet: String): List[List[String]] = {
+    val results = filter.extract(tweet).to[ListBuffer] // initializing with previous extraction
+    NgramExtractor.extract(tweet, 1).foreach(ngram =&gt; results += ngram)
+    results.toList
+  }
+
+  def field: String = "text"
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>LocationFilter.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer.filter
+
+import scala.collection.mutable.ListBuffer
+import org.puma.analyzer.NgramExtractor
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer.filter
+ *
+ * Author: Sergio Álvarez
+ * Date: 03/2014
+ */
+class LocationFilter(filter: ExtractorFilter) extends ExtractorFilterDecorator(filter) {
+  def this() = this(new SimpleTermExtractorFilter())
+
+  def extract(tweet: String): List[List[String]] = {
+    val results = filter.extract(tweet).to[ListBuffer] // initializing with previous extraction
+    NgramExtractor.extract(tweet, 1).foreach(ngram =&gt; results += ngram)
+    results.toList
+  }
+
+  def field: String = "location"
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Analyzer.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.analyzer
+
+import scala.collection.mutable
+import org.puma.configuration.ConfigurationUtil
+import org.puma.stat.Dunning
+import org.puma.analyzer.filter.ExtractorFilter
+
+/**
+ * Project: puma
+ * Package: org.puma.analyzer
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+class Analyzer(local: String, global: String, filter: ExtractorFilter) {
+  private[this] val localTerms  = new Extractor().filter(filter).path(local).extract
+  private[this] val globalTerms = new Extractor().filter(filter).path(global).extract
+
+  private[this] val totalLocalFrequencies  = localTerms.foldLeft(0)(_+_._2)
+  private[this] val totalGlobalFrequencies = globalTerms.foldLeft(0)(_+_._2)
+
+  private[this] val results             = mutable.Map.empty[List[String], Double]
+  private[this] val commonFreq          = mutable.Map.empty[Int, Int]
+  private[this] val minFrequencyLLR     = ConfigurationUtil.getMinFrequencyForLLR
+
+  def analyze: List[(List[String], Double)] = {
+    localTerms.keys.foreach(terms =&gt; {
+      val localFreq = localTerms.get(terms).get.toLong
+      if(localFreq &gt; minFrequencyLLR) {
+        val globalOption = globalTerms.get(terms)
+        val globalFreq:Long = if (globalOption.isDefined) globalOption.get else calculateAverageGlobalFrequency(terms)
+
+        if(globalFreq &gt; 0) {
+          val k11 = localFreq
+          val k12 = globalFreq
+          val k21 = totalLocalFrequencies
+          val k22 = totalGlobalFrequencies
+          val llr = Dunning.normalizedRootLogLikelihoodRatio(k11, k12, k21, k22)
+          results.put(terms, llr)
+        }
+      }
+    })
+    results.toList.sortBy({ _._2 })
+  }
+
+  private[this] def calculateAverageGlobalFrequency(terms: List[String]): Int = {
+    if(commonFreq.get(localTerms.get(terms).get).isDefined) return commonFreq.get(localTerms.get(terms).get).get
+    val sameFreq = localTerms.filterKeys((localTerm) =&gt;
+      globalTerms.get(localTerm).isDefined &amp;&amp; localTerms.get(localTerm).get == localTerms.get(terms).get
+    )
+    val avg = if(!sameFreq.isEmpty) sameFreq.foldLeft(0)(_+_._2) / sameFreq.size else 0
+    commonFreq.put(localTerms.get(terms).get, avg)
+    avg
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Dunning.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.stat
+
+/**
+ * Project: puma
+ * Package: org.puma.stat
+ *
+ * Author: Daniel Gayo-Avello
+ * Date: 02/2014
+ */
+object Dunning {
+
+  /**
+   *  This implementation is based on LLR interpretation provided in the following
+   *  paper (see table and equations in page 7):
+   *
+   *  Java, Akshay, et al. "Why we twitter: understanding microblogging usage and
+   *  communities." Proceedings of the 9th WebKDD and 1st SNA-KDD 2007 workshop on
+   *  Web mining and social network analysis. ACM, 2007.
+   *  Available at: http://aisl.umbc.edu/resources/369.pdf
+   *
+   * @param a frequency of token of interest in dataset A
+   * @param b	frequency of token of interest in dataset B
+   * @param c	total number of observations in dataset A
+   * @param d	total number of observations in dataset B
+   */
+  def rootLogLikelihoodRatio(a: Long, b: Long, c: Long, d: Long): Double = {
+    val E1 = c * ((a + b) / (c + d).toDouble)
+    val E2 = d * ((a + b) / (c + d).toDouble)
+
+    val E3 = if(a == 0) 1/E1 else a/E1
+    val E4 = if(b == 0) 1/E2 else b/E2
+    val result = Math.sqrt(2 * (a * Math.log(E3) + b * Math.log(E4)))
+
+    if ((a / c.toDouble) &lt; (b / d.toDouble)) -result else result
+  }
+
+  /**
+   *  A normalized version of LLR. To the best of my knowledge this has not
+   *  been described anywhere before.
+   *
+   *  The idea is rather simple: the most representative of a dataset a token
+   *  is the highest the LLR value. However, we cannot use that value as a
+   *  measure of the confidence we have in a given tweet containing that token
+   *  to belong to a given dataset.
+   *
+   *  For instance, "españa" is highly  representative of Spanish websites
+   *  but we cannot assign a huge weight to  every website containing that
+   *  token. In fact "españa" is pretty common in Chilean websites.
+   *
+   *  In contrast, "culín de sidra" is not highly representative in the sense
+   *  that relatively few websites in .es contain the token and virtually
+   *  none in .cl. However, we can have a strong suspicion that a website
+   *  containing such a token is in fact a Spanish website.
+   *
+   *  Therefore, to capture that intuition we are defining a "normalized"
+   *  value for LLR that is computed in three steps:
+   *
+   *  1. LLR is really normalized against the minimum (negative) and maximum
+   *  (positive) theoretical values that LLR can achieve given two datasets.
+   *  Minimum would be obtained with a=0 and b=d while the maximum with a=c
+   *  and b=0.
+   *
+   *  2. Then, values a and b are normalized against c and d (the size of
+   *  each dataset).
+   *
+   *  3. Finally, the normalized value of LLR is divided by the corresponding
+   *  normalized value of a or b depending on LLR being positive or negative
+   *  (i.e. probably belonging to dataset A or dataset B).
+   *
+   *  This way the normalized LLR value could be use as a proxy for the
+   *  confidence we have in assigning a given item to one of the two datasets
+   *  depending on the presence of one token. For instance, if "españa" appears
+   *  in a website we'd assign a relatively low positive weight (0.589) but if
+   *  "culín de sidra" appears the weight would be quite high (95.08). In
+   *  contrast, "chile" would suppose a relative low negative value (-0.39) but
+   *  "achunchar" would be a huge negative weight (-711.88).
+   *
+   * @param a frequency of token of interest in dataset A
+   * @param b	frequency of token of interest in dataset B
+   * @param c	total number of observations in dataset A
+   * @param d	total number of observations in dataset B
+   */
+  def normalizedRootLogLikelihoodRatio (a: Long, b: Long, c: Long, d: Long): Double = {
+    val min    = rootLogLikelihoodRatio(0,d,c,d)
+    val max    = rootLogLikelihoodRatio(c,0,c,d)
+
+    val a_norm = a / c.toDouble
+    val b_norm = b / d.toDouble
+    val llr    = rootLogLikelihoodRatio(a,b,c,d)
+
+    if (llr &gt; 0) llr / (max * a_norm) else -llr / (min * b_norm)
+  }
+
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Configuration.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.configuration
+
+import java.io.File
+
+case class Configuration(config: File = null) {}
+
+object CLIParser {
+  private[this] val parser = new scopt.OptionParser[Configuration]("Puma") {
+    head("Puma", "1.0")
+    opt[File]('c', "config")
+      .required() action { (x, c) =&gt; c.copy(config = x) } text("Configuration XML file for executing Puma.")
+  }
+
+  def parse(args:Array[String], conf:Configuration):Option[Configuration] = this.parser.parse(args, conf)
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>ConfigurationUtil.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">package org.puma.configuration
+
+import scala.collection.mutable.ListBuffer
+import scala.io.Source
+import org.puma.analyzer.filter.ExtractorFilter
+import scala.xml.{Elem, XML}
+import java.io.{BufferedReader, File, InputStream}
+
+/**
+ * Project: puma
+ * Package: org.puma.configuration
+ *
+ * Author: Sergio Álvarez
+ * Date: 01/2014
+ */
+object ConfigurationUtil {
+
+  /* ===========================================================
+   *                     CONSTANTS
+   * =========================================================== */
+  private[this] val ModePropertyKey              = "mode"
+  private[this] val LocalFilePropertyKey         = "local"
+  private[this] val GlobalFilePropertyKey        = "global"
+  private[this] val FiltersPropertyKey           = "filters"
+  private[this] val FilterPropertyKey            = "filter"
+  private[this] val MinFrequencyForLLRKey        = "minimumFrequency"
+  private[this] val MaximumExtractedTermsKey     = "maximumExtractedTerms"
+  private[this] val FactorToRemoveKey            = "factorToRemove"
+  private[this] val FilePropertyKey              = "file"
+  private[this] val FileToAnalyzePropertyKey     = "fileToAnalyze"
+  private[this] val BoundingBoxesFilePropertyKey = "localBoundingBoxes"
+
+  private[this] val LLRGeneratorKey              = "llrGenerator"
+  private[this] val ScoreGeneratorKey            = "scoreGenerator"
+  private[this] val LLRFilesPropertyKey          = "llrFiles"
+
+  private[this] val StopWordsFileName            = "common-stop-words.txt"
+
+  /* =========================================================== */
+
+  private[this] var config: Configuration     = null
+  private[this] var _XmlConfiguration: Elem   = null
+  private[this] var _stopWords: Array[String] = null
+
+  def load(config: Configuration): Unit = this.config = config
+
+  def getMode: String = (XmlConfiguration \\ ModePropertyKey).text
+
+  def getFilesToAnalyze: List[String] = {
+    val local  = (XmlConfiguration \\ LLRGeneratorKey \\ LocalFilePropertyKey).text
+    val global = (XmlConfiguration \\ LLRGeneratorKey \\ GlobalFilePropertyKey).text
+    List(local, global)
+  }
+
+  def getFiltersToApply: Seq[ExtractorFilter] = {
+    (XmlConfiguration \\ LLRGeneratorKey \\ FiltersPropertyKey \\ FilterPropertyKey)
+      .map(n =&gt; Class.forName(n.text).newInstance.asInstanceOf[ExtractorFilter])
+  }
+
+  def getMinFrequencyForLLR: Int = (XmlConfiguration \\ LLRGeneratorKey \\ MinFrequencyForLLRKey).text.toInt
+
+  def getMaximumExtractedTerms: Int = (XmlConfiguration \\ LLRGeneratorKey \\ MaximumExtractedTermsKey).text.toInt
+
+  def getFactorToRemove: Float = (XmlConfiguration \\ LLRGeneratorKey \\ FactorToRemoveKey).text.toFloat
+
+  def stopWords: Array[String] = {
+    if(_stopWords == null) { _stopWords = loadStopWords }
+    _stopWords
+  }
+
+  def getLLRResultFiles: Seq[String] = (XmlConfiguration \\ ScoreGeneratorKey \\ LLRFilesPropertyKey \\ FilePropertyKey).map(n =&gt; n.text)
+
+  def getFileToAnalyze:String = (XmlConfiguration \\ ScoreGeneratorKey \\ FileToAnalyzePropertyKey).text
+
+  def getBoundingBoxesFile: String = (XmlConfiguration \\ ScoreGeneratorKey \\ BoundingBoxesFilePropertyKey).text
+
+  private[this] def XmlConfiguration: Elem = {
+    if(_XmlConfiguration == null) { _XmlConfiguration = XML.loadFile(config.config) }
+    _XmlConfiguration
+  }
+
+  private[this] def loadStopWords: Array[String] =
+    Source.fromInputStream(ConfigurationUtil.getClass.getResourceAsStream(s"/$StopWordsFileName")).getLines().toArray
+}</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="__emphasis_scripts_emphasis_de_utilidad">
+<title><emphasis>Scripts</emphasis> de utilidad</title>
+<formalpara>
+<title>training_dataset_divisor.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">#!/bin/sh
+exec scala "$0" "$@"
+!#
+import java.io._
+import scala.io.Source
+import scala.collection.mutable.ListBuffer
+
+val TRAINING_PERCENT = 0.8
+
+val dataset = args(0)
+val lines = Source.fromFile(dataset).getLines.toArray
+
+val (trainingUsers, testingUsers) = divideUsersForDatasets(lines)
+
+writeLines(dataset + "_train", trainingUsers, lines)
+writeLines(dataset + "_test", testingUsers, lines)
+
+/* ==================================================
+ *                   FUNCTIONS
+ * ================================================== */
+
+def divideUsersForDatasets(lines:Array[String]):(Array[String], Array[String]) = {
+  val users = new ListBuffer[String]
+  lines.foreach(line =&gt; {
+      val username = getUserByLine(line)
+      if(!users.contains(username)) users += username
+  })
+
+  val forTraining = (users.length * TRAINING_PERCENT).toInt
+  val train = users.slice(0, forTraining)
+  val test  = users.slice(forTraining, users.length)
+
+  (train.toArray, test.toArray)
+}
+
+def writeLines(datasetName:String, users:Array[String], lines:Array[String]):Unit = {
+  val out = new File(datasetName)
+  if(!out.exists) out.createNewFile
+  val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(out, true)))
+  try {
+    lines.foreach(line =&gt; if(users.contains(getUserByLine(line))) writer.write(line + "\n"))
+  } finally {
+    writer.flush()
+    writer.close()
+  }
+}
+
+def getUserByLine(line:String):String = {
+  val features = line.split("\\|");
+  val fields = features(1).split(" ")
+  fields(1)
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>tweets_by_location.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">#!/bin/sh
+exec scala "$0" "$@"
+!#
+import scala.io.Source
+import scala.collection.mutable._
+import scala.xml.pull._
+import scala.xml._
+
+import java.io._
+
+/*******************************************************************************
+ *******************************************************************************
+ *                              FUNCTIONS                                      *
+ *******************************************************************************
+ *******************************************************************************/
+
+def getBoundingBoxes(root: Elem): List[List[(Double, Double)]] = {
+  var boundingBoxes = new ListBuffer[List[(Double, Double)]]
+  (root \\ "boundingBox").foreach(b =&gt; {
+    val sw_long = (b \ "sw" \ "longitude").text
+    val sw_lat = (b \ "sw" \ "latitude").text
+    val ne_long = (b \ "ne" \ "longitude").text
+    val ne_lat = (b \ "ne" \ "latitude").text
+
+    boundingBoxes += List((sw_lat.toDouble, sw_long.toDouble), (ne_lat.toDouble, ne_long.toDouble))
+  })
+  boundingBoxes.toList
+}
+
+def isInBoundingBoxes(latitude: String, longitude: String): Boolean = {
+  boundingBoxes.foreach(b =&gt; {
+    val sw = b(0)
+    val ne = b(1)
+    if(sw._1 &lt;= latitude.toDouble &amp;&amp; ne._1 &gt;= latitude.toDouble &amp;&amp; sw._2 &lt;= longitude.toDouble &amp;&amp; ne._2 &gt;= longitude.toDouble) return true
+  })
+  false
+}
+
+def isIncludable(latitude: String, longitude: String): Boolean = {
+  if(mustBeIn) isInBoundingBoxes(latitude, longitude) else !isInBoundingBoxes(latitude, longitude)
+}
+
+def buildTweet(values: List[String]): String = {
+  val tweet =
+  &lt;tweet&gt;
+    &lt;id&gt;{values(0)}&lt;/id&gt;
+    &lt;username&gt;{values(1)}&lt;/username&gt;
+    &lt;name&gt;{values(2)}&lt;/name&gt;
+    &lt;location&gt;{values(3)}&lt;/location&gt;
+    &lt;timezone&gt;{values(4)}&lt;/timezone&gt;
+    &lt;createdAt&gt;{values(5)}&lt;/createdAt&gt;
+    &lt;latitude&gt;{values(6)}&lt;/latitude&gt;
+    &lt;longitude&gt;{values(7)}&lt;/longitude&gt;
+    &lt;text&gt;{values(8)}&lt;/text&gt;
+  &lt;/tweet&gt;
+
+  s"\n${tweet.toString}\n"
+}
+
+def serialize(tweet: String) = { writer.write(tweet) }
+
+// id, username, name, location, timezone, createdAt, latitude, longitude, text
+def save(values: List[String]) = {
+  val latitude  = values(6)
+  val longitude = values(7)
+  if(isIncludable(latitude, longitude)){
+    serialize(buildTweet(values))
+  }
+}
+
+def appendToLastValue(text:String, values:ListBuffer[String]): Unit = {
+  var last = values(values.size - 1)
+  values(values.size - 1) = last + text;
+}
+
+def getWriter(): BufferedWriter = {
+  val suffix = if(mustBeIn) "_in_bounding_boxes" else "_no_bounding_boxes"
+  val out = new File(tweetsFile + "_tweets_by_location" + suffix + ".xml")
+  if(!out.exists) out.createNewFile
+
+  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(out)))
+}
+
+/*******************************************************************************
+ *******************************************************************************
+ *                              SCRIPT STARTS                                  *
+ *******************************************************************************
+ *******************************************************************************/
+
+val tweetsFile        = args(0).toString
+val boundingBoxesFile = args(1).toString
+val mustBeIn          = args(2).toBoolean
+
+val boundingBoxes = getBoundingBoxes(XML.loadFile(boundingBoxesFile))
+
+val tweets = new XMLEventReader(Source.fromFile(tweetsFile))
+var values = new ListBuffer[String]
+
+val writer: BufferedWriter = getWriter()
+
+try {
+  var current = ""
+  var last = ""
+
+  writer.write("&lt;tweets&gt;")
+  tweets.foreach(event =&gt; {
+    event match {
+      case e: EvElemStart if e.label != "tweets" &amp;&amp; e.label != "tweet" =&gt;
+      current = e.label
+      case e: EvElemEnd if e.label != "tweets" &amp;&amp; e.label != "tweet" =&gt;
+      current = ""
+      case EvElemEnd(_, "tweet") =&gt;
+      save(values.toList)
+      values.clear
+      case EvText(text) if Array("id", "username", "name", "location", "latitude", "longitude", "timezone", "createdAt", "text").contains(current) =&gt;
+      if(current == last) appendToLastValue(text, values) else values += text
+      last = current
+      case EvEntityRef("amp") =&gt;
+      if(current == last) appendToLastValue("&amp;", values) else values += "&amp;"
+      last = current
+      case EvEntityRef("lt")  =&gt;
+      if(current == last) appendToLastValue("&lt;", values) else values += "&lt;"
+      last = current
+      case EvEntityRef("gt")  =&gt;
+      if(current == last) appendToLastValue("&gt;", values) else values += "&gt;"
+      last = current
+      case _ =&gt; ;
+    }
+  })
+  writer.write("&lt;/tweets&gt;")
+} finally {
+  writer.flush()
+  writer.close()
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>tweets_by_time.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">#!/bin/sh
+exec scala "$0" "$@"
+!#
+import scala.io.Source
+import scala.xml.pull._
+import scala.xml.pull.EvElemStart
+import scala.xml.pull.EvText
+import java.io._
+
+
+val fileToAnalyze = args(0).toString
+var freq = collection.mutable.Map[String, Int]().withDefaultValue(0)
+var isCreatedAtElement = false
+
+new XMLEventReader(Source.fromFile(fileToAnalyze)).foreach(event =&gt; {
+  event match {
+    case EvElemStart(_, "createdAt", _, _) =&gt; isCreatedAtElement = true
+    case EvText(text) if isCreatedAtElement =&gt; {
+      val hour = text.trim.slice(text.trim.lastIndexOf(" "), text.trim.length - 1)
+      freq(hour) += 1
+    }
+    case EvElemEnd(_, "createdAt") =&gt; isCreatedAtElement = false
+    case _ =&gt; ;
+  }
+})
+
+val sorted = freq.toList.sortBy({ _._1})
+
+val file = new File(s"${fileToAnalyze}_tweetsByTime.tsv")
+if(!file.exists) file.createNewFile
+
+val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))
+try{
+  sorted.foreach(t =&gt; writer.write(s"${t._2}\t${t._1}0\n"))
+}finally{
+  writer.flush()
+  writer.close()
+}</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="_vowpal_wabbit_input_translator">
+<title>Vowpal Wabbit Input Translator</title>
+<formalpara>
+<title>Configuration.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">import java.io.File
+
+case class Configuration(inout:Boolean = false, decimals:Int = -1, file:File = null) {}
+
+object CLIParser {
+  private[this] val parser = new scopt.OptionParser[Configuration]("vw-input-translator") {
+    head("vw-input-translator", "1.0")
+    opt[Unit]("inout") action { (x, c) =&gt; c.copy(inout = true) } text("Flag for creating an input file for binary classification")
+    opt[Int]('d', "decimals") action { (x, c) =&gt; c.copy(decimals = x) } validate { x =&gt;
+      if (x &gt; 0) success else failure("Option --decimals must be &gt; 0") } text("Creates an input file for multi-class classification." +
+        " Each sample will have the selected number of decimals on latitude and longitude coordinates")
+    arg[File]("&lt;file&gt;") unbounded() action { (x, c) =&gt; c.copy(file = x) } text("Source file")
+    checkConfig { c =&gt; if (c.inout &amp;&amp; c.decimals &gt; -1) failure("You cannot use --inout and --decimals at the same time") else success }
+    checkConfig { c =&gt; if (!c.inout &amp;&amp; c.decimals == -1) failure("You have to provide the --inout OR --decimals parameter") else success }
+  }
+
+  def parse(args:Array[String], conf:Configuration):Option[Configuration] = this.parser.parse(args, conf)
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Main.scala</title>
+<para>
+<programlisting language="scala" linenumbering="unnumbered">import java.io._
+import scala.io.Source
+import scala.collection.mutable.ListBuffer
+import java.security.MessageDigest
+
+object Main {
+  def main(args: Array[String]): Unit = {
+    CLIParser.parse(args, Configuration()) map { config =&gt;
+      val translator = new VWTranslator(config)
+      Source.fromFile(config.file).getLines.foreach(line =&gt; translator.translate(line))
+      translator.saveDictionary
+
+      println("Number of classes extracted: " + translator.numberOfClasses)
+    }
+  }
+}
+
+object Writer {
+  def write(line: String, file: String):Unit = {
+    val out = new File(file)
+    if(!out.exists) out.createNewFile
+
+    val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(out, true)))
+    try {
+      writer.write(line)
+    } finally {
+      writer.flush()
+      writer.close()
+    }
+  }
+}
+
+class VWTranslator(config: Configuration) {
+  private[this] val dictionary = new ListBuffer[(String, Int)]()
+
+  def translate(raw: String): Unit = {
+    val columns       = raw.split("\t")
+    val classLabel    = getClass(columns)
+    val formattedLine = s"$classLabel |Tweet ${columns(3)}\n"
+
+    Writer.write(formattedLine, outputFileName)
+  }
+
+  def numberOfClasses: Int = dictionary.size
+
+  def saveDictionary: Unit = {
+    val fileName = s"${outputFileName}_dictionary"
+    dictionary.foreach { case (k, c) =&gt; Writer.write(s"$c\t$k\n", fileName) }
+  }
+
+  private[this] def outputFileName: String = {
+    var file = config.file
+    if(this.config.inout) s"${file}_vw_inout" else s"${file}_vw_${config.decimals}_decimals"
+  }
+
+  private[this] def getClass(columns: Array[String]): Int =
+    if(config.inout) getBinaryClass(columns(0).toDouble) else getMultiClassLabel(columns(1), columns(2))
+
+  private[this] def getBinaryClass(score: Double): Int = if(score &lt; 0.0) 0 else 1
+
+  private[this] def getMultiClassLabel(lat:String, lng:String): Int = {
+    val trunkedLat = trunkCoordinate(lat)
+    val trunkedLng = trunkCoordinate(lng)
+
+    val key = trunkedLat + "," + trunkedLng
+
+    if(dictionary.isEmpty) {
+      dictionary += key -&gt; 1
+      1
+    } else{
+      val storedClassLabel = getClassLabelInDictionary(key)
+      if(storedClassLabel.isEmpty) {
+        val last = dictionary.last._2
+        dictionary += key -&gt; (last + 1)
+        last + 1
+      }else {
+        storedClassLabel.get._2
+      }
+    }
+  }
+
+  private[this] def getClassLabelInDictionary(key: String): Option[(String, Int)] = dictionary.find(t =&gt; t._1 == key)
+
+  private[this] def trunkCoordinate(coordinate: String): String = {
+    val parts = coordinate.split("\\.")
+    parts(0) + "." + parts(1).slice(0, config.decimals)
+  }
+}</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="_b2pick">
+<title>B2pick</title>
+<formalpara>
+<title>map.html</title>
+<para>
+<programlisting language="html" linenumbering="unnumbered">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="description" content="Bounding boxes picker"&gt;
+  &lt;meta name="keywords" content="bounding, boxes, twitter, locations, georeference, coordinates, maps"&gt;
+  &lt;meta name="author" content="Sergio Álvarez Suárez"&gt;
+
+  &lt;link rel="icon" href="../favicon.png" type="image/png" /&gt;
+
+  &lt;link rel="stylesheet" href="./fancybox/source/jquery.fancybox.css" type="text/css" media="screen" /&gt;
+
+  &lt;link href='http://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'&gt;
+  &lt;link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400' rel='stylesheet' type='text/css'&gt;
+  &lt;link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'&gt;
+
+  &lt;link rel="stylesheet" type="text/css" href="style.css"&gt;
+
+  &lt;title&gt; b2pick: picking bounding-boxes&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;b2pick&lt;/h1&gt;
+    &lt;h2&gt;Bounding Boxes picker&lt;/h2&gt;
+  &lt;/header&gt;
+  &lt;section id="main_content"&gt;
+    &lt;section class="column"&gt;
+      &lt;section&gt;
+        &lt;p&gt;b2pick allows to picking up bounding boxes directly from Google Maps.&lt;/p&gt;
+        &lt;p&gt;You can draw rectangles around the desired locations. Coordinates from the bounding boxes will be shown down taking the following form:&lt;/p&gt;
+        &lt;p&gt;&lt;span class="code"&gt;SW_long, SW_lat, NE_long, NE_lat&lt;/span&gt;&lt;/p&gt;
+      &lt;/section&gt;
+      &lt;button type="button"&gt;Print in XML&lt;/button&gt;
+      &lt;section class="boxes"&gt;
+      &lt;/section&gt;
+    &lt;/section&gt;
+    &lt;section class="column"&gt;
+      &lt;div id="map_canvas"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+    &lt;div class="clear_both"&gt;&lt;/div&gt;
+  &lt;/section&gt;
+  &lt;a id="inline" href="#xml" style="display:none"&gt;&lt;/a&gt;
+  &lt;div style="display:none"&gt;&lt;div id="xml"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;footer&gt;
+    &lt;p&gt;Developed by &lt;a href="http://www.sergioalvarezsuarez.com" target="blank"&gt;Sergio Álvarez&lt;/a&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+
+  &lt;!-- loading scripts --&gt;
+  &lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="./fancybox/source/jquery.fancybox.pack.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=drawing"&gt;&lt;/script&gt;
+  &lt;script src="index.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>style.css</title>
+<para>
+<programlisting language="css" linenumbering="unnumbered">* {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+
+  font-family: 'Signika Negative', sans-serif;
+}
+
+body{
+  background-color: rgba(0, 0, 0, .7);
+}
+
+header{
+  width: 100%;
+  padding: 1em 0;
+
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+header h1 { font-size: 3em;  margin-left: 1em;  font-family: 'Neucha', cursive;}
+header h2 { font-size: 1.5em;  margin-left: 30px;  font-family: 'Neucha', cursive;}
+
+#main_content {
+  overflow: hidden;
+  width: 100%;
+}
+
+section.column{
+  float: left;
+  padding-bottom: 9999px;
+  margin-bottom: -9999px;
+}
+
+#main_content &gt; section:first-child  { width: 40em; }
+#main_content &gt; section:last-of-type { width: calc(100% - 40em); }
+
+#main_content &gt; section:first-child {
+  overflow-y: scroll;
+  height: 600px;
+  background-color: rgba(255, 255, 255, .7);
+}
+
+#main_content &gt; section:first-child &gt; section:first-child {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, .4);
+
+  font-weight: lighter;
+}
+
+#main_content &gt; section:first-child &gt; section:first-child p {
+  font-size: 1.4em;
+}
+
+span.code {
+  font-size: 1em;
+  font-family: 'Ubuntu Mono', sans-serif;
+}
+
+div.box {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, .4);
+
+  font-weight: lighter;
+}
+
+div.box h3 {
+  font-size: 1.6em;
+}
+
+div.box p {
+  font-size: 1.4em;
+}
+
+#map_canvas {
+  width: 100%;
+  height: 600px;
+}
+
+.clear_both {
+  clear: both;
+}
+
+button {
+  background-image: -webkit-linear-gradient(#88af39, #690);
+  border-radius: 4px;
+  border: 1px solid rgb(45, 128, 19);
+  color: #FFF;
+  cursor: pointer;
+  display: block;
+  font-size: 1.3em;
+  margin: 0 auto;
+  padding: 10px;
+  width: 100px;
+}
+
+#xml pre {
+  font-size: 1.5em;
+}
+
+/* FOOTER
+******************************************* */
+
+footer {
+  padding: 5em;
+
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-weight: lighter;
+}
+
+footer p {
+  font-size: 1.5em;
+}
+
+footer p a {
+  font-size: 1em;
+}
+
+footer p a:link, footer p a:visited {
+  color: rgb(255, 255, 255);
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>index.js</title>
+<para>
+<programlisting language="javascript" linenumbering="unnumbered">$(document).ready(function(){
+  salvarezsuar.MapModule.install();
+
+  $('button').click(function() {
+    var xml = salvarezsuar.BoundingBoxesManager.toXML();
+    $xml = $('#xml');
+    $xml.empty();
+
+    $output = $('&lt;pre&gt;&lt;/pre&gt;').text(xml);
+    $xml.append($output);
+
+    $('a#inline').click();
+  });
+
+  $('a#inline').fancybox({
+    'width': 500,
+    'autoDimensions': false,
+    'autoSize': false
+  });
+});
+
+var salvarezsuar = salvarezsuar || {};
+salvarezsuar.BoundingBoxesManager = (function() {
+  var boundingBoxes = [];
+
+  var add = function(boundingBox) {
+    boundingBoxes.push(boundingBox);
+  };
+
+  var clear = function() {
+    boundingBoxes.length = 0;
+  };
+
+  var toXML = function() {
+    var boundingBoxes2xml = boundingBoxes.map(function(boundingBox){
+      var xml = "";
+      xml += "\n\t&lt;boundingBox&gt;\n";
+      xml += "\t\t&lt;sw&gt;\n";
+      xml += "\t\t\t&lt;latitude&gt;" + boundingBox.sw.latitude + "&lt;/latitude&gt;\n";
+      xml += "\t\t\t&lt;longitude&gt;" + boundingBox.sw.longitude + "&lt;/longitude&gt;\n";
+      xml += "\t\t&lt;/sw&gt;\n";
+      xml += "\t\t&lt;ne&gt;\n";
+      xml += "\t\t\t&lt;latitude&gt;" + boundingBox.ne.latitude + "&lt;/latitude&gt;\n";
+      xml += "\t\t\t&lt;longitude&gt;" + boundingBox.ne.longitude + "&lt;/longitude&gt;\n";
+      xml += "\t\t&lt;/ne&gt;\n";
+      xml += "\t&lt;/boundingBox&gt;";
+
+      return xml;
+    });
+
+    var xml = "&lt;boundingBoxes&gt;";
+    xml += boundingBoxes2xml.join("");
+    xml += "\n&lt;/boundingBoxes&gt;";
+
+    return xml;
+  };
+
+  return {
+    add: add,
+    toXML: toXML,
+    clear: clear
+  };
+})();
+
+salvarezsuar.MapModule = (function(){
+  var rectangles = [];
+  var currentRectangle = null;
+  var isMovingRectangle = false;
+
+  var createMap = function(){
+    var centerPoint = new google.maps.LatLng(43.354810, -5.851805); // Oviedo, Asturias, Spain.
+    var options = {
+      zoom : 3,
+      heading : 90,
+      tilt : 45,
+      center : centerPoint,
+      mapTypeControl : false
+    };
+
+    // Initialize variables
+    var map = new google.maps.Map($('#map_canvas')[0], options);
+    var drawingManager = new google.maps.drawing.DrawingManager({
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.RECTANGLE]
+      },
+      rectangleOptions : {
+        draggable: true,
+        clickable: true,
+        editable: true
+      }
+    });
+    drawingManager.setMap(map);
+
+    google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle){
+      appendBoundingBoxInfo(rectangle);
+      rectangles.push(rectangle);
+
+      google.maps.event.addListener(rectangle, 'bounds_changed', function(){
+        $('section.boxes').empty();
+        salvarezsuar.BoundingBoxesManager.clear();
+
+        $(rectangles).each(function(index, rectangle){
+          appendBoundingBoxInfo(rectangle);
+        });
+      });
+    });
+  };
+
+  var appendBoundingBoxInfo = function (rectangle){
+    //Obtainig bouding boxes
+    var swLong = rectangle.getBounds().getSouthWest().lng().toFixed(2);
+    var swLat  = rectangle.getBounds().getSouthWest().lat().toFixed(2);
+    var neLong = rectangle.getBounds().getNorthEast().lng().toFixed(2);
+    var neLat  = rectangle.getBounds().getNorthEast().lat().toFixed(2);
+
+    salvarezsuar.BoundingBoxesManager.add({
+      sw: {
+        latitude: swLat,
+        longitude: swLong
+      },
+      ne: {
+        latitude: neLat,
+        longitude: neLong
+      }
+    });
+
+    //Creating element for the info panel
+    var newBox = $(document.createElement('div'));
+    $(newBox).addClass('box');
+    $(newBox).append('&lt;h3&gt;Bounding Box&lt;/h3&gt;');
+    $(newBox).append('&lt;p&gt;Coordinates:&lt;/p&gt;');
+    $(newBox).append('&lt;p&gt;' + swLong + ', ' + swLat + ', ' + neLong + ', ' + neLat + '&lt;/p&gt;');
+    $('section.boxes').append(newBox);
+  };
+
+  return {
+    install: createMap
+  };
+})();</programlisting>
+</para>
+</formalpara>
+</section>
+<section xml:id="_tweetheat">
+<title>Tweetheat</title>
+<formalpara>
+<title>index.html</title>
+<para>
+<programlisting language="html" linenumbering="unnumbered">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;link href="./stylesheet/main.css" rel="stylesheet" type="text/css"&gt;
+  &lt;script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=visualization"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="./javascript/lib/jquery.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="./javascript/map.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="./javascript/index.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;section&gt;
+    &lt;div class="drop_zone"&gt;
+      &lt;p&gt;Drop here your TSV file!&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;div class="map"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>main.css</title>
+<para>
+<programlisting language="css" linenumbering="unnumbered">* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body { height: 100%; }
+
+section:first-child{
+  background-color: rgb(0, 154, 206);
+  padding: 10px;
+  height: 130px;
+}
+
+.drop_zone {
+  height: calc(100% - 20px);
+  border: 10px dashed rgb(159, 221, 237);
+  text-align: center;
+  line-height: 110px;
+}
+
+.drop_zone {
+  color: rgb(159, 221, 237);
+  font-size: 32px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.hover {
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
+}
+
+.map {
+  height: calc(100% - 150px);
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>index.js</title>
+<para>
+<programlisting language="javascript" linenumbering="unnumbered">$(document).ready(function(){
+  $('body').on('dragover', 'section:first-child', function(event){
+    event.stopPropagation();
+    event.preventDefault();
+    $('section:first-child').addClass('hover');
+  });
+
+  $('body').on('dragleave', 'section:first-child', function(event){
+    event.stopPropagation();
+    event.preventDefault();
+    $('section:first-child').removeClass('hover');
+  });
+
+  $('body').on('drop', 'section:first-child', function(event){
+    if(event.originalEvent.dataTransfer &amp;&amp; event.originalEvent.dataTransfer.files.length &gt; 0) {
+        event.stopPropagation();
+        event.preventDefault();
+        var files = event.originalEvent.dataTransfer.files;
+        MapModule.loadFiles(files);
+    }
+    $('section:first-child').removeClass('hover');
+  });
+
+  google.maps.event.addDomListener(window, 'load', MapModule.install());
+});</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>map.js</title>
+<para>
+<programlisting language="javascript" linenumbering="unnumbered">var MapModule = (function(){
+  var heatpoints = new google.maps.MVCArray([]);
+
+  var addPointToHeatmap = function(lat, lng) {
+    var point = new google.maps.LatLng(lat, lng);
+    heatpoints.push(point);
+  };
+
+  var processTsvFile = function(event){
+    var tsv = event.target.result;
+    tsv.split("\n").forEach(function(row){
+      var columns = row.split('\t');
+      var lat = parseFloat(columns[1]);
+      var lng = parseFloat(columns[2]);
+      addPointToHeatmap(lat, lng);
+    });
+  };
+
+  var install = function(){
+    var mapOptions = { zoom: 2, center: new google.maps.LatLng(43.354810, -5.851805)};
+    var map = new google.maps.Map($('.map')[0], mapOptions);
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatpoints
+    });
+    heatmap.setMap(map);
+  };
+
+  var loadFiles = function(files) {
+    for(var i = 0; i &lt; files.length; i++) {
+      var currentFile = files[i];
+      var reader = new FileReader();
+      reader.onload = processTsvFile;
+      reader.readAsText(currentFile);
+    }
+  };
+
+  return {
+    install: install,
+    loadFiles: loadFiles
+  };
+})();</programlisting>
+</para>
+</formalpara>
+</section>
 </appendix>
 </book>
