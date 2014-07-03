@@ -24,7 +24,8 @@
 </preface>
 <acknowledgements xml:id="_agradecimientos">
 <title>Agradecimientos</title>
-<simpara>Aquí los agradecimientos.</simpara>
+<simpara>Me gustaría dar las gracias, en primer lugar, a mi familia, mis padres, mi hermana y mi novia por el apoyo incondicional que me han brindado durante estos últimos meses para ser capaz de finalizar con éxito mi Trabajo Fin de Máster.</simpara>
+<simpara>También quisiera agradecer a Daniel Gayo Avello, director del proyecto, su ayuda constante durante todo el proceso de creación y desarrollo del proyecto así como su disponibilidad y paciencia para aportar soluciones a todas aquellas dificultades que me pude ir encontrando durante el transcurso del mismo.</simpara>
 </acknowledgements>
 <preface xml:id="_palabras_clave">
 <title>Palabras clave</title>
@@ -438,7 +439,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</screen>
 </chapter>
 <chapter xml:id="_algoritmos_y_aspectos_teóricos">
 <title>Algoritmos y aspectos teóricos</title>
-<simpara>Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis en profundidad de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.</simpara>
+<simpara>Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis detallado de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.</simpara>
 <section xml:id="_visión_general_del_sistema">
 <title>Visión general del sistema</title>
 <simpara>Antes de empezar a detallar los conceptos y algoritmos utilizados a lo largo de todo el proceso, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</simpara>
@@ -3628,7 +3629,8 @@ import java.text.SimpleDateFormat
   def filter(filter: FilterQuery): Unit = _filter = filter
 
   def run() = {
-    _twitter = new TwitterStreamFactory(Util.twitterConfiguration).getInstance()
+    _twitter =
+      new TwitterStreamFactory(Util.twitterConfiguration).getInstance()
     _twitter.addListener(myTwitterStatusListener)
     _twitter.filter(_filter)
   }
@@ -3698,31 +3700,36 @@ import org.falcon.main.Configuration
  * Date: 09/2013
  */
 object Util {
-  private[this] val AccessTokenSecretPropertyKey    = "access_token_secret"
-  private[this] val AccessTokenPropertyKey          = "access_token"
-  private[this] val ConsumerSecretPropertyKey       = "consumer_secret"
-  private[this] val ConsumerKeyPropertyKey          = "consumer_key"
+  private[this] val AccessTokenSecret = "access_token_secret"
+  private[this] val AccessToken = "access_token"
+  private[this] val ConsumerSecret = "consumer_secret"
+  private[this] val ConsumerKey = "consumer_key"
 
   private[this] val _locations: Array[Array[Double]] = null
-  private[this] var configuration: Configuration     = null
+  private[this] var configuration: Configuration = null
 
-  def loadConfiguration(config: Configuration): Unit = this.configuration = config
+  def loadConfiguration(config: Configuration): Unit =
+    this.configuration = config
 
   def twitterConfiguration: twitter4j.conf.Configuration = {
-    val properties = new Properties()
-    properties.load(Source.fromFile(configuration.credentials).bufferedReader())
+    val props = new Properties()
+    props
+      .load(Source.fromFile(configuration.credentials)
+      .bufferedReader())
 
     new twitter4j.conf.ConfigurationBuilder()
-      .setOAuthConsumerKey(properties.getProperty(ConsumerKeyPropertyKey))
-      .setOAuthConsumerSecret(properties.getProperty(ConsumerSecretPropertyKey))
-      .setOAuthAccessToken(properties.getProperty(AccessTokenPropertyKey))
-      .setOAuthAccessTokenSecret(properties.getProperty(AccessTokenSecretPropertyKey))
+      .setOAuthConsumerKey(props.getProperty(ConsumerKey))
+      .setOAuthConsumerSecret(props.getProperty(ConsumerSecret))
+      .setOAuthAccessToken(props.getProperty(AccessToken))
+      .setOAuthAccessTokenSecret(props.getProperty(AccessTokenSecret))
       .build
   }
 
-  def keywords: Array[String] = Source.fromFile(configuration.keywords).getLines().toArray
+  def keywords: Array[String] =
+    Source.fromFile(configuration.keywords).getLines().toArray
 
-  def locations: Array[Array[Double]] = if(_locations != null) _locations else getBoundingBoxes
+  def locations: Array[Array[Double]] =
+    if (_locations != null) _locations else getBoundingBoxes
 
   def language: Array[String] = Array(configuration.language)
 
@@ -3734,7 +3741,8 @@ object Util {
 
   def fileName: String = configuration.output
 
-  def areCoordinatesMandatory: Boolean = configuration.coordinatesMandatory
+  def areCoordinatesMandatory: Boolean =
+    configuration.coordinatesMandatory
 
   def isInBoundingBoxes(latitude: String, longitude: String): Boolean = {
     val lat = latitude.toDouble
@@ -3799,6 +3807,7 @@ object Writer {
 }</programlisting>
 </para>
 </formalpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 <section xml:id="_puma_sistema_de_análisis">
 <title>Puma (sistema de análisis)</title>
@@ -3914,7 +3923,8 @@ class LLRGenerator extends Generator {
   }
 
   private[this] def saveToFile(terms:List[(List[String], Double)], filter: ExtractorFilter): Unit = {
-    val title = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance.getTime)
+    val title =
+      new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance.getTime)
     val filterName = filter.getClass.getSimpleName
 
     val file = new File(s"${title}_$filterName.tsv")
@@ -4003,7 +4013,7 @@ class ScoreGenerator extends Generator{
     })
   }
 
-  private[this] def processXmlData(username: String, location: String, latitude: String, longitude: String, text: String): Unit = {
+  private[this] def processXmlData(username: String, location: String, lat: String, lng: String, text: String): Unit = {
     val locationKeywords = new LocationFilter().extract(location)
     val mentionsHashtags = new MentionFilter(new HashtagFilter()).extract(text)
     val bigrams  = new BigramsFilter().extract(text)
@@ -4014,8 +4024,8 @@ class ScoreGenerator extends Generator{
     val terms = locationKeywords ++ mentionsHashtags ++ bigrams ++ keywords
 
     val score = terms.foldLeft(0.0)((acc, current) =&gt; acc + scoreByTerm(current.mkString(" ")))
-    if(isValidScore(score, latitude, longitude)){
-      saveScore(score, username, location, latitude, longitude, text)
+    if(isValidScore(score, lat, lng)){
+      saveScore(score, username, location, lat, lng, text)
     }
   }
 
@@ -4106,10 +4116,10 @@ class Extractor extends LazyLogging{
   private[this] var _path: String = null
   private[this] var _filter: ExtractorFilter = null
 
-  private[this] var results               = mutable.Map.empty[List[String], Int]
-  private[this] var minimumFreq           = 1
+  private[this] var results = mutable.Map.empty[List[String], Int]
+  private[this] var minimumFreq = 1
   private[this] val MaximumExtractedTerms = ConfigurationUtil.getMaximumExtractedTerms
-  private[this] val FactorToRemove        = ConfigurationUtil.getFactorToRemove
+  private[this] val FactorToRemove = ConfigurationUtil.getFactorToRemove
 
   def path(value: String): Extractor = {
     _path = value
@@ -4464,22 +4474,26 @@ import org.puma.analyzer.filter.ExtractorFilter
  * Date: 01/2014
  */
 class Analyzer(local: String, global: String, filter: ExtractorFilter) {
-  private[this] val localTerms  = new Extractor().filter(filter).path(local).extract
-  private[this] val globalTerms = new Extractor().filter(filter).path(global).extract
+  private[this] val localTerms =
+    new Extractor().filter(filter).path(local).extract
 
-  private[this] val totalLocalFrequencies  = localTerms.foldLeft(0)(_+_._2)
+  private[this] val globalTerms =
+    new Extractor().filter(filter).path(global).extract
+
+  private[this] val totalLocalFrequencies = localTerms.foldLeft(0)(_+_._2)
   private[this] val totalGlobalFrequencies = globalTerms.foldLeft(0)(_+_._2)
 
-  private[this] val results             = mutable.Map.empty[List[String], Double]
-  private[this] val commonFreq          = mutable.Map.empty[Int, Int]
-  private[this] val minFrequencyLLR     = ConfigurationUtil.getMinFrequencyForLLR
+  private[this] val results = mutable.Map.empty[List[String], Double]
+  private[this] val commonFreq = mutable.Map.empty[Int, Int]
+  private[this] val minFrequencyLLR = ConfigurationUtil.getMinFrequencyForLLR
 
   def analyze: List[(List[String], Double)] = {
     localTerms.keys.foreach(terms =&gt; {
       val localFreq = localTerms.get(terms).get.toLong
       if(localFreq &gt; minFrequencyLLR) {
         val globalOption = globalTerms.get(terms)
-        val globalFreq:Long = if (globalOption.isDefined) globalOption.get else calculateAverageGlobalFrequency(terms)
+        val globalFreq:Long =
+          if (globalOption.isDefined) globalOption.get else averageGlobalFrequency(terms)
 
         if(globalFreq &gt; 0) {
           val k11 = localFreq
@@ -4494,13 +4508,18 @@ class Analyzer(local: String, global: String, filter: ExtractorFilter) {
     results.toList.sortBy({ _._2 })
   }
 
-  private[this] def calculateAverageGlobalFrequency(terms: List[String]): Int = {
-    if(commonFreq.get(localTerms.get(terms).get).isDefined) return commonFreq.get(localTerms.get(terms).get).get
+  private[this] def averageGlobalFrequency(terms: List[String]): Int = {
+    if(commonFreq.get(localTerms.get(terms).get).isDefined) {
+      return commonFreq.get(localTerms.get(terms).get).get
+    }
+
     val sameFreq = localTerms.filterKeys((localTerm) =&gt;
       globalTerms.get(localTerm).isDefined &amp;&amp; localTerms.get(localTerm).get == localTerms.get(terms).get
     )
+
     val avg = if(!sameFreq.isEmpty) sameFreq.foldLeft(0)(_+_._2) / sameFreq.size else 0
     commonFreq.put(localTerms.get(terms).get, avg)
+
     avg
   }
 }</programlisting>
@@ -4520,20 +4539,6 @@ class Analyzer(local: String, global: String, filter: ExtractorFilter) {
  */
 object Dunning {
 
-  /**
-   *  This implementation is based on LLR interpretation provided in the following
-   *  paper (see table and equations in page 7):
-   *
-   *  Java, Akshay, et al. "Why we twitter: understanding microblogging usage and
-   *  communities." Proceedings of the 9th WebKDD and 1st SNA-KDD 2007 workshop on
-   *  Web mining and social network analysis. ACM, 2007.
-   *  Available at: http://aisl.umbc.edu/resources/369.pdf
-   *
-   * @param a frequency of token of interest in dataset A
-   * @param b	frequency of token of interest in dataset B
-   * @param c	total number of observations in dataset A
-   * @param d	total number of observations in dataset B
-   */
   def rootLogLikelihoodRatio(a: Long, b: Long, c: Long, d: Long): Double = {
     val E1 = c * ((a + b) / (c + d).toDouble)
     val E2 = d * ((a + b) / (c + d).toDouble)
@@ -4545,52 +4550,6 @@ object Dunning {
     if ((a / c.toDouble) &lt; (b / d.toDouble)) -result else result
   }
 
-  /**
-   *  A normalized version of LLR. To the best of my knowledge this has not
-   *  been described anywhere before.
-   *
-   *  The idea is rather simple: the most representative of a dataset a token
-   *  is the highest the LLR value. However, we cannot use that value as a
-   *  measure of the confidence we have in a given tweet containing that token
-   *  to belong to a given dataset.
-   *
-   *  For instance, "españa" is highly  representative of Spanish websites
-   *  but we cannot assign a huge weight to  every website containing that
-   *  token. In fact "españa" is pretty common in Chilean websites.
-   *
-   *  In contrast, "culín de sidra" is not highly representative in the sense
-   *  that relatively few websites in .es contain the token and virtually
-   *  none in .cl. However, we can have a strong suspicion that a website
-   *  containing such a token is in fact a Spanish website.
-   *
-   *  Therefore, to capture that intuition we are defining a "normalized"
-   *  value for LLR that is computed in three steps:
-   *
-   *  1. LLR is really normalized against the minimum (negative) and maximum
-   *  (positive) theoretical values that LLR can achieve given two datasets.
-   *  Minimum would be obtained with a=0 and b=d while the maximum with a=c
-   *  and b=0.
-   *
-   *  2. Then, values a and b are normalized against c and d (the size of
-   *  each dataset).
-   *
-   *  3. Finally, the normalized value of LLR is divided by the corresponding
-   *  normalized value of a or b depending on LLR being positive or negative
-   *  (i.e. probably belonging to dataset A or dataset B).
-   *
-   *  This way the normalized LLR value could be use as a proxy for the
-   *  confidence we have in assigning a given item to one of the two datasets
-   *  depending on the presence of one token. For instance, if "españa" appears
-   *  in a website we'd assign a relatively low positive weight (0.589) but if
-   *  "culín de sidra" appears the weight would be quite high (95.08). In
-   *  contrast, "chile" would suppose a relative low negative value (-0.39) but
-   *  "achunchar" would be a huge negative weight (-711.88).
-   *
-   * @param a frequency of token of interest in dataset A
-   * @param b	frequency of token of interest in dataset B
-   * @param c	total number of observations in dataset A
-   * @param d	total number of observations in dataset B
-   */
   def normalizedRootLogLikelihoodRatio (a: Long, b: Long, c: Long, d: Long): Double = {
     val min    = rootLogLikelihoodRatio(0,d,c,d)
     val max    = rootLogLikelihoodRatio(c,0,c,d)
@@ -4714,6 +4673,7 @@ object ConfigurationUtil {
 }</programlisting>
 </para>
 </formalpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 <section xml:id="__emphasis_scripts_emphasis_de_utilidad">
 <title><emphasis>Scripts</emphasis> de utilidad</title>
@@ -4879,7 +4839,17 @@ try {
       case EvElemEnd(_, "tweet") =&gt;
       save(values.toList)
       values.clear
-      case EvText(text) if Array("id", "username", "name", "location", "latitude", "longitude", "timezone", "createdAt", "text").contains(current) =&gt;
+      case EvText(text) if
+        Array("id",
+              "username",
+              "name",
+              "location",
+              "latitude",
+              "longitude",
+              "timezone",
+              "createdAt",
+              "text"
+        ).contains(current) =&gt;
       if(current == last) appendToLastValue(text, values) else values += text
       last = current
       case EvEntityRef("amp") =&gt;
@@ -4944,6 +4914,7 @@ try{
 }</programlisting>
 </para>
 </formalpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 <section xml:id="_vowpal_wabbit_input_translator">
 <title>Vowpal Wabbit Input Translator</title>
@@ -5063,6 +5034,7 @@ class VWTranslator(config: Configuration) {
 }</programlisting>
 </para>
 </formalpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 <section xml:id="_b2pick">
 <title>B2pick</title>
@@ -5353,19 +5325,22 @@ salvarezsuar.MapModule = (function(){
     });
     drawingManager.setMap(map);
 
-    google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle){
-      appendBoundingBoxInfo(rectangle);
-      rectangles.push(rectangle);
+    google.maps.event.addListener(
+      drawingManager, 'rectanglecomplete', function(rectangle){
+        appendBoundingBoxInfo(rectangle);
+        rectangles.push(rectangle);
+        google.maps.event.addListener(
+          rectangle, 'bounds_changed', function(){
+            $('section.boxes').empty();
+            salvarezsuar.BoundingBoxesManager.clear();
 
-      google.maps.event.addListener(rectangle, 'bounds_changed', function(){
-        $('section.boxes').empty();
-        salvarezsuar.BoundingBoxesManager.clear();
-
-        $(rectangles).each(function(index, rectangle){
-          appendBoundingBoxInfo(rectangle);
-        });
-      });
-    });
+            $(rectangles).each(function(index, rectangle){
+              appendBoundingBoxInfo(rectangle);
+            });
+          }
+        );
+      }
+    );
   };
 
   var appendBoundingBoxInfo = function (rectangle){
@@ -5401,6 +5376,7 @@ salvarezsuar.MapModule = (function(){
 })();</programlisting>
 </para>
 </formalpara>
+<simpara><?asciidoc-pagebreak?></simpara>
 </section>
 <section xml:id="_tweetheat">
 <title>Tweetheat</title>

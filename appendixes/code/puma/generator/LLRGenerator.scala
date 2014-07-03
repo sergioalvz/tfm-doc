@@ -33,7 +33,8 @@ class LLRGenerator extends Generator {
   }
 
   private[this] def saveToFile(terms:List[(List[String], Double)], filter: ExtractorFilter): Unit = {
-    val title = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance.getTime)
+    val title =
+      new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance.getTime)
     val filterName = filter.getClass.getSimpleName
 
     val file = new File(s"${title}_$filterName.tsv")

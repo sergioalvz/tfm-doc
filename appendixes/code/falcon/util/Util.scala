@@ -19,31 +19,36 @@ import org.falcon.main.Configuration
  * Date: 09/2013
  */
 object Util {
-  private[this] val AccessTokenSecretPropertyKey    = "access_token_secret"
-  private[this] val AccessTokenPropertyKey          = "access_token"
-  private[this] val ConsumerSecretPropertyKey       = "consumer_secret"
-  private[this] val ConsumerKeyPropertyKey          = "consumer_key"
+  private[this] val AccessTokenSecret = "access_token_secret"
+  private[this] val AccessToken = "access_token"
+  private[this] val ConsumerSecret = "consumer_secret"
+  private[this] val ConsumerKey = "consumer_key"
 
   private[this] val _locations: Array[Array[Double]] = null
-  private[this] var configuration: Configuration     = null
+  private[this] var configuration: Configuration = null
 
-  def loadConfiguration(config: Configuration): Unit = this.configuration = config
+  def loadConfiguration(config: Configuration): Unit =
+    this.configuration = config
 
   def twitterConfiguration: twitter4j.conf.Configuration = {
-    val properties = new Properties()
-    properties.load(Source.fromFile(configuration.credentials).bufferedReader())
+    val props = new Properties()
+    props
+      .load(Source.fromFile(configuration.credentials)
+      .bufferedReader())
 
     new twitter4j.conf.ConfigurationBuilder()
-      .setOAuthConsumerKey(properties.getProperty(ConsumerKeyPropertyKey))
-      .setOAuthConsumerSecret(properties.getProperty(ConsumerSecretPropertyKey))
-      .setOAuthAccessToken(properties.getProperty(AccessTokenPropertyKey))
-      .setOAuthAccessTokenSecret(properties.getProperty(AccessTokenSecretPropertyKey))
+      .setOAuthConsumerKey(props.getProperty(ConsumerKey))
+      .setOAuthConsumerSecret(props.getProperty(ConsumerSecret))
+      .setOAuthAccessToken(props.getProperty(AccessToken))
+      .setOAuthAccessTokenSecret(props.getProperty(AccessTokenSecret))
       .build
   }
 
-  def keywords: Array[String] = Source.fromFile(configuration.keywords).getLines().toArray
+  def keywords: Array[String] =
+    Source.fromFile(configuration.keywords).getLines().toArray
 
-  def locations: Array[Array[Double]] = if(_locations != null) _locations else getBoundingBoxes
+  def locations: Array[Array[Double]] =
+    if (_locations != null) _locations else getBoundingBoxes
 
   def language: Array[String] = Array(configuration.language)
 
@@ -55,7 +60,8 @@ object Util {
 
   def fileName: String = configuration.output
 
-  def areCoordinatesMandatory: Boolean = configuration.coordinatesMandatory
+  def areCoordinatesMandatory: Boolean =
+    configuration.coordinatesMandatory
 
   def isInBoundingBoxes(latitude: String, longitude: String): Boolean = {
     val lat = latitude.toDouble

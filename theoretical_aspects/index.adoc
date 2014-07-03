@@ -1,6 +1,6 @@
 == Algoritmos y aspectos teóricos
 
-Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis en profundidad de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.
+Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis detallado de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.
 
 include::overview.adoc[]
 

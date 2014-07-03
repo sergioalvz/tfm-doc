@@ -100,7 +100,17 @@ try {
       case EvElemEnd(_, "tweet") =>
       save(values.toList)
       values.clear
-      case EvText(text) if Array("id", "username", "name", "location", "latitude", "longitude", "timezone", "createdAt", "text").contains(current) =>
+      case EvText(text) if
+        Array("id",
+              "username",
+              "name",
+              "location",
+              "latitude",
+              "longitude",
+              "timezone",
+              "createdAt",
+              "text"
+        ).contains(current) =>
       if(current == last) appendToLastValue(text, values) else values += text
       last = current
       case EvEntityRef("amp") =>

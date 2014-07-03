@@ -21,7 +21,8 @@ import java.text.SimpleDateFormat
   def filter(filter: FilterQuery): Unit = _filter = filter
 
   def run() = {
-    _twitter = new TwitterStreamFactory(Util.twitterConfiguration).getInstance()
+    _twitter =
+      new TwitterStreamFactory(Util.twitterConfiguration).getInstance()
     _twitter.addListener(myTwitterStatusListener)
     _twitter.filter(_filter)
   }

@@ -506,7 +506,10 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <h2 id="_agradecimientos">Agradecimientos</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Aquí los agradecimientos.</p>
+<p>Me gustaría dar las gracias, en primer lugar, a mi familia, mis padres, mi hermana y mi novia por el apoyo incondicional que me han brindado durante estos últimos meses para ser capaz de finalizar con éxito mi Trabajo Fin de Máster.</p>
+</div>
+<div class="paragraph">
+<p>También quisiera agradecer a Daniel Gayo Avello, director del proyecto, su ayuda constante durante todo el proceso de creación y desarrollo del proyecto así como su disponibilidad y paciencia para aportar soluciones a todas aquellas dificultades que me pude ir encontrando durante el transcurso del mismo.</p>
 </div>
 </div>
 </div>
@@ -1172,7 +1175,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <h2 id="_algoritmos_y_aspectos_teóricos">2. Algoritmos y aspectos teóricos</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis en profundidad de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.</p>
+<p>Las siguientes secciones explican en profundidad los conceptos teóricos clave que se utilizan a lo largo del proyecto. Además, se hace un análisis detallado de los algoritmos aplicados para obtener términos discriminativos y su posterior comunicación con el software de aprendizaje automático.</p>
 </div>
 <div class="sect2">
 <h3 id="_visión_general_del_sistema">2.1. Visión general del sistema</h3>
@@ -4840,7 +4843,8 @@ object FilterFactory {
   def <span style="color: #0066bb; font-weight: bold">filter</span>(<span style="color: #336699; font-style: italic">filter:</span> FilterQuery): Unit = _filter = filter
 
   def <span style="color: #0066bb; font-weight: bold">run</span>() = {
-    _twitter = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">TwitterStreamFactory</span>(Util.<span style="color: #336699">twitterConfiguration</span>).<span style="color: #336699">getInstance</span>()
+    _twitter =
+      <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">TwitterStreamFactory</span>(Util.<span style="color: #336699">twitterConfiguration</span>).<span style="color: #336699">getInstance</span>()
     _twitter.<span style="color: #336699">addListener</span>(myTwitterStatusListener)
     _twitter.<span style="color: #336699">filter</span>(_filter)
   }
@@ -4910,31 +4914,36 @@ object FilterFactory {
 <span style="color: #888888"> * Date: 09/2013</span>
 <span style="color: #888888"> */</span>
 object Util {
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val AccessTokenSecretPropertyKey    = <span style="color: #dd2200; background-color: #fff0f0">&quot;access_token_secret&quot;</span>
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val AccessTokenPropertyKey          = <span style="color: #dd2200; background-color: #fff0f0">&quot;access_token&quot;</span>
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val ConsumerSecretPropertyKey       = <span style="color: #dd2200; background-color: #fff0f0">&quot;consumer_secret&quot;</span>
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val ConsumerKeyPropertyKey          = <span style="color: #dd2200; background-color: #fff0f0">&quot;consumer_key&quot;</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val AccessTokenSecret = <span style="color: #dd2200; background-color: #fff0f0">&quot;access_token_secret&quot;</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val AccessToken = <span style="color: #dd2200; background-color: #fff0f0">&quot;access_token&quot;</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val ConsumerSecret = <span style="color: #dd2200; background-color: #fff0f0">&quot;consumer_secret&quot;</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val ConsumerKey = <span style="color: #dd2200; background-color: #fff0f0">&quot;consumer_key&quot;</span>
 
   <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val <span style="color: #336699; font-style: italic">_locations:</span> Array[Array[Double]] = <span style="color: #008800; font-weight: bold">null</span>
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var <span style="color: #336699; font-style: italic">configuration:</span> Configuration     = <span style="color: #008800; font-weight: bold">null</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var <span style="color: #336699; font-style: italic">configuration:</span> Configuration = <span style="color: #008800; font-weight: bold">null</span>
 
-  def <span style="color: #0066bb; font-weight: bold">loadConfiguration</span>(<span style="color: #336699; font-style: italic">config:</span> Configuration): Unit = <span style="color: #008800; font-weight: bold">this</span>.<span style="color: #336699">configuration</span> = config
+  def <span style="color: #0066bb; font-weight: bold">loadConfiguration</span>(<span style="color: #336699; font-style: italic">config:</span> Configuration): Unit =
+    <span style="color: #008800; font-weight: bold">this</span>.<span style="color: #336699">configuration</span> = config
 
   def <span style="color: #336699; font-style: italic">twitterConfiguration:</span> twitter4j.<span style="color: #336699">conf</span>.<span style="color: #336699">Configuration</span> = {
-    val properties = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">Properties</span>()
-    properties.<span style="color: #336699">load</span>(Source.<span style="color: #336699">fromFile</span>(configuration.<span style="color: #336699">credentials</span>).<span style="color: #336699">bufferedReader</span>())
+    val props = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">Properties</span>()
+    props
+      .<span style="color: #336699">load</span>(Source.<span style="color: #336699">fromFile</span>(configuration.<span style="color: #336699">credentials</span>)
+      .<span style="color: #336699">bufferedReader</span>())
 
     <span style="color: #008800; font-weight: bold">new</span> twitter4j.<span style="color: #336699">conf</span>.<span style="color: #336699">ConfigurationBuilder</span>()
-      .<span style="color: #336699">setOAuthConsumerKey</span>(properties.<span style="color: #336699">getProperty</span>(ConsumerKeyPropertyKey))
-      .<span style="color: #336699">setOAuthConsumerSecret</span>(properties.<span style="color: #336699">getProperty</span>(ConsumerSecretPropertyKey))
-      .<span style="color: #336699">setOAuthAccessToken</span>(properties.<span style="color: #336699">getProperty</span>(AccessTokenPropertyKey))
-      .<span style="color: #336699">setOAuthAccessTokenSecret</span>(properties.<span style="color: #336699">getProperty</span>(AccessTokenSecretPropertyKey))
+      .<span style="color: #336699">setOAuthConsumerKey</span>(props.<span style="color: #336699">getProperty</span>(ConsumerKey))
+      .<span style="color: #336699">setOAuthConsumerSecret</span>(props.<span style="color: #336699">getProperty</span>(ConsumerSecret))
+      .<span style="color: #336699">setOAuthAccessToken</span>(props.<span style="color: #336699">getProperty</span>(AccessToken))
+      .<span style="color: #336699">setOAuthAccessTokenSecret</span>(props.<span style="color: #336699">getProperty</span>(AccessTokenSecret))
       .<span style="color: #336699">build</span>
   }
 
-  def <span style="color: #336699; font-style: italic">keywords:</span> Array[String] = Source.<span style="color: #336699">fromFile</span>(configuration.<span style="color: #336699">keywords</span>).<span style="color: #336699">getLines</span>().<span style="color: #336699">toArray</span>
+  def <span style="color: #336699; font-style: italic">keywords:</span> Array[String] =
+    Source.<span style="color: #336699">fromFile</span>(configuration.<span style="color: #336699">keywords</span>).<span style="color: #336699">getLines</span>().<span style="color: #336699">toArray</span>
 
-  def <span style="color: #336699; font-style: italic">locations:</span> Array[Array[Double]] = <span style="color: #008800; font-weight: bold">if</span>(_locations != <span style="color: #008800; font-weight: bold">null</span>) _locations <span style="color: #008800; font-weight: bold">else</span> getBoundingBoxes
+  def <span style="color: #336699; font-style: italic">locations:</span> Array[Array[Double]] =
+    <span style="color: #008800; font-weight: bold">if</span> (_locations != <span style="color: #008800; font-weight: bold">null</span>) _locations <span style="color: #008800; font-weight: bold">else</span> getBoundingBoxes
 
   def <span style="color: #336699; font-style: italic">language:</span> Array[String] = Array(configuration.<span style="color: #336699">language</span>)
 
@@ -4946,7 +4955,8 @@ object Util {
 
   def <span style="color: #336699; font-style: italic">fileName:</span> String = configuration.<span style="color: #336699">output</span>
 
-  def <span style="color: #336699; font-style: italic">areCoordinatesMandatory:</span> Boolean = configuration.<span style="color: #336699">coordinatesMandatory</span>
+  def <span style="color: #336699; font-style: italic">areCoordinatesMandatory:</span> Boolean =
+    configuration.<span style="color: #336699">coordinatesMandatory</span>
 
   def <span style="color: #0066bb; font-weight: bold">isInBoundingBoxes</span>(<span style="color: #336699; font-style: italic">latitude:</span> String, <span style="color: #336699; font-style: italic">longitude:</span> String): Boolean = {
     val lat = latitude.<span style="color: #336699">toDouble</span>
@@ -5011,6 +5021,7 @@ object Writer {
 }</code></pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_puma_sistema_de_análisis">Puma (sistema de análisis)</h3>
@@ -5126,7 +5137,8 @@ trait Generator {
   }
 
   <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] def <span style="color: #0066bb; font-weight: bold">saveToFile</span>(<span style="color: #336699; font-style: italic">terms:</span>List[(List[String], Double)], <span style="color: #336699; font-style: italic">filter:</span> ExtractorFilter): Unit = {
-    val title = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">SimpleDateFormat</span>(<span style="color: #dd2200; background-color: #fff0f0">&quot;yyyyMMddHHmmss&quot;</span>).<span style="color: #336699">format</span>(Calendar.<span style="color: #336699">getInstance</span>.<span style="color: #336699">getTime</span>)
+    val title =
+      <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">SimpleDateFormat</span>(<span style="color: #dd2200; background-color: #fff0f0">&quot;yyyyMMddHHmmss&quot;</span>).<span style="color: #336699">format</span>(Calendar.<span style="color: #336699">getInstance</span>.<span style="color: #336699">getTime</span>)
     val filterName = filter.<span style="color: #336699">getClass</span>.<span style="color: #336699">getSimpleName</span>
 
     val file = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">File</span>(s<span style="color: #dd2200; background-color: #fff0f0">&quot;${title}_$filterName.tsv&quot;</span>)
@@ -5215,7 +5227,7 @@ trait Generator {
     })
   }
 
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] def <span style="color: #0066bb; font-weight: bold">processXmlData</span>(<span style="color: #336699; font-style: italic">username:</span> String, <span style="color: #336699; font-style: italic">location:</span> String, <span style="color: #336699; font-style: italic">latitude:</span> String, <span style="color: #336699; font-style: italic">longitude:</span> String, <span style="color: #336699; font-style: italic">text:</span> String): Unit = {
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] def <span style="color: #0066bb; font-weight: bold">processXmlData</span>(<span style="color: #336699; font-style: italic">username:</span> String, <span style="color: #336699; font-style: italic">location:</span> String, <span style="color: #336699; font-style: italic">lat:</span> String, <span style="color: #336699; font-style: italic">lng:</span> String, <span style="color: #336699; font-style: italic">text:</span> String): Unit = {
     val locationKeywords = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">LocationFilter</span>().<span style="color: #336699">extract</span>(location)
     val mentionsHashtags = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">MentionFilter</span>(<span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">HashtagFilter</span>()).<span style="color: #336699">extract</span>(text)
     val bigrams  = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">BigramsFilter</span>().<span style="color: #336699">extract</span>(text)
@@ -5226,8 +5238,8 @@ trait Generator {
     val terms = locationKeywords ++ mentionsHashtags ++ bigrams ++ keywords
 
     val score = terms.<span style="color: #336699">foldLeft</span>(<span style="color: #0000DD; font-weight: bold">0.0</span>)((acc, current) =&gt; acc + scoreByTerm(current.<span style="color: #336699">mkString</span>(<span style="color: #dd2200; background-color: #fff0f0">&quot; &quot;</span>)))
-    <span style="color: #008800; font-weight: bold">if</span>(isValidScore(score, latitude, longitude)){
-      saveScore(score, username, location, latitude, longitude, text)
+    <span style="color: #008800; font-weight: bold">if</span>(isValidScore(score, lat, lng)){
+      saveScore(score, username, location, lat, lng, text)
     }
   }
 
@@ -5318,10 +5330,10 @@ trait Generator {
   <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var <span style="color: #336699; font-style: italic">_path:</span> String = <span style="color: #008800; font-weight: bold">null</span>
   <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var <span style="color: #336699; font-style: italic">_filter:</span> ExtractorFilter = <span style="color: #008800; font-weight: bold">null</span>
 
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var results               = mutable.<span style="color: #336699">Map</span>.<span style="color: #336699">empty</span>[List[String], Int]
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var minimumFreq           = <span style="color: #0000DD; font-weight: bold">1</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var results = mutable.<span style="color: #336699">Map</span>.<span style="color: #336699">empty</span>[List[String], Int]
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] var minimumFreq = <span style="color: #0000DD; font-weight: bold">1</span>
   <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val MaximumExtractedTerms = ConfigurationUtil.<span style="color: #336699">getMaximumExtractedTerms</span>
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val FactorToRemove        = ConfigurationUtil.<span style="color: #336699">getFactorToRemove</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val FactorToRemove = ConfigurationUtil.<span style="color: #336699">getFactorToRemove</span>
 
   def <span style="color: #0066bb; font-weight: bold">path</span>(<span style="color: #336699; font-style: italic">value:</span> String): Extractor = {
     _path = value
@@ -5676,22 +5688,26 @@ trait ExtractorFilter {
 <span style="color: #888888"> * Date: 01/2014</span>
 <span style="color: #888888"> */</span>
 <span style="color: #008800; font-weight: bold">class</span> <span style="color: #0066bb; font-weight: bold">Analyzer</span>(<span style="color: #336699; font-style: italic">local:</span> String, <span style="color: #336699; font-style: italic">global:</span> String, <span style="color: #336699; font-style: italic">filter:</span> ExtractorFilter) {
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val localTerms  = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">Extractor</span>().<span style="color: #336699">filter</span>(filter).<span style="color: #336699">path</span>(local).<span style="color: #336699">extract</span>
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val globalTerms = <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">Extractor</span>().<span style="color: #336699">filter</span>(filter).<span style="color: #336699">path</span>(global).<span style="color: #336699">extract</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val localTerms =
+    <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">Extractor</span>().<span style="color: #336699">filter</span>(filter).<span style="color: #336699">path</span>(local).<span style="color: #336699">extract</span>
 
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val totalLocalFrequencies  = localTerms.<span style="color: #336699">foldLeft</span>(<span style="color: #0000DD; font-weight: bold">0</span>)(_+_.<span style="color: #336699">_2</span>)
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val globalTerms =
+    <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066bb; font-weight: bold">Extractor</span>().<span style="color: #336699">filter</span>(filter).<span style="color: #336699">path</span>(global).<span style="color: #336699">extract</span>
+
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val totalLocalFrequencies = localTerms.<span style="color: #336699">foldLeft</span>(<span style="color: #0000DD; font-weight: bold">0</span>)(_+_.<span style="color: #336699">_2</span>)
   <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val totalGlobalFrequencies = globalTerms.<span style="color: #336699">foldLeft</span>(<span style="color: #0000DD; font-weight: bold">0</span>)(_+_.<span style="color: #336699">_2</span>)
 
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val results             = mutable.<span style="color: #336699">Map</span>.<span style="color: #336699">empty</span>[List[String], Double]
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val commonFreq          = mutable.<span style="color: #336699">Map</span>.<span style="color: #336699">empty</span>[Int, Int]
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val minFrequencyLLR     = ConfigurationUtil.<span style="color: #336699">getMinFrequencyForLLR</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val results = mutable.<span style="color: #336699">Map</span>.<span style="color: #336699">empty</span>[List[String], Double]
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val commonFreq = mutable.<span style="color: #336699">Map</span>.<span style="color: #336699">empty</span>[Int, Int]
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] val minFrequencyLLR = ConfigurationUtil.<span style="color: #336699">getMinFrequencyForLLR</span>
 
   def <span style="color: #336699; font-style: italic">analyze:</span> List[(List[String], Double)] = {
     localTerms.<span style="color: #336699">keys</span>.<span style="color: #336699">foreach</span>(terms =&gt; {
       val localFreq = localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>.<span style="color: #336699">toLong</span>
       <span style="color: #008800; font-weight: bold">if</span>(localFreq &gt; minFrequencyLLR) {
         val globalOption = globalTerms.<span style="color: #336699">get</span>(terms)
-        val <span style="color: #336699; font-style: italic">globalFreq:</span>Long = <span style="color: #008800; font-weight: bold">if</span> (globalOption.<span style="color: #336699">isDefined</span>) globalOption.<span style="color: #336699">get</span> <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0066bb; font-weight: bold">calculateAverageGlobalFrequency</span>(terms)
+        val <span style="color: #336699; font-style: italic">globalFreq:</span>Long =
+          <span style="color: #008800; font-weight: bold">if</span> (globalOption.<span style="color: #336699">isDefined</span>) globalOption.<span style="color: #336699">get</span> <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0066bb; font-weight: bold">averageGlobalFrequency</span>(terms)
 
         <span style="color: #008800; font-weight: bold">if</span>(globalFreq &gt; <span style="color: #0000DD; font-weight: bold">0</span>) {
           val k11 = localFreq
@@ -5706,13 +5722,18 @@ trait ExtractorFilter {
     results.<span style="color: #336699">toList</span>.<span style="color: #336699">sortBy</span>({ _.<span style="color: #336699">_2</span> })
   }
 
-  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] def <span style="color: #0066bb; font-weight: bold">calculateAverageGlobalFrequency</span>(<span style="color: #336699; font-style: italic">terms:</span> List[String]): Int = {
-    <span style="color: #008800; font-weight: bold">if</span>(commonFreq.<span style="color: #336699">get</span>(localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>).<span style="color: #336699">isDefined</span>) <span style="color: #008800; font-weight: bold">return</span> commonFreq.<span style="color: #336699">get</span>(localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>).<span style="color: #336699">get</span>
+  <span style="color: #008800; font-weight: bold">private</span>[<span style="color: #008800; font-weight: bold">this</span>] def <span style="color: #0066bb; font-weight: bold">averageGlobalFrequency</span>(<span style="color: #336699; font-style: italic">terms:</span> List[String]): Int = {
+    <span style="color: #008800; font-weight: bold">if</span>(commonFreq.<span style="color: #336699">get</span>(localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>).<span style="color: #336699">isDefined</span>) {
+      <span style="color: #008800; font-weight: bold">return</span> commonFreq.<span style="color: #336699">get</span>(localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>).<span style="color: #336699">get</span>
+    }
+
     val sameFreq = localTerms.<span style="color: #336699">filterKeys</span>((localTerm) =&gt;
       globalTerms.<span style="color: #336699">get</span>(localTerm).<span style="color: #336699">isDefined</span> &amp;&amp; localTerms.<span style="color: #336699">get</span>(localTerm).<span style="color: #336699">get</span> == localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>
     )
+
     val avg = <span style="color: #008800; font-weight: bold">if</span>(!sameFreq.<span style="color: #336699">isEmpty</span>) sameFreq.<span style="color: #336699">foldLeft</span>(<span style="color: #0000DD; font-weight: bold">0</span>)(_+_.<span style="color: #336699">_2</span>) / sameFreq.<span style="color: #336699">size</span> <span style="color: #008800; font-weight: bold">else</span> <span style="color: #0000DD; font-weight: bold">0</span>
     commonFreq.<span style="color: #336699">put</span>(localTerms.<span style="color: #336699">get</span>(terms).<span style="color: #336699">get</span>, avg)
+
     avg
   }
 }</code></pre>
@@ -5732,20 +5753,6 @@ trait ExtractorFilter {
 <span style="color: #888888"> */</span>
 object Dunning {
 
-  <span style="color: #888888">/**</span>
-<span style="color: #888888">   *  This implementation is based on LLR interpretation provided in the following</span>
-<span style="color: #888888">   *  paper (see table and equations in page 7):</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  Java, Akshay, et al. &quot;Why we twitter: understanding microblogging usage and</span>
-<span style="color: #888888">   *  communities.&quot; Proceedings of the 9th WebKDD and 1st SNA-KDD 2007 workshop on</span>
-<span style="color: #888888">   *  Web mining and social network analysis. ACM, 2007.</span>
-<span style="color: #888888">   *  Available at: http://aisl.umbc.edu/resources/369.pdf</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   * @param a frequency of token of interest in dataset A</span>
-<span style="color: #888888">   * @param b	frequency of token of interest in dataset B</span>
-<span style="color: #888888">   * @param c	total number of observations in dataset A</span>
-<span style="color: #888888">   * @param d	total number of observations in dataset B</span>
-<span style="color: #888888">   */</span>
   def <span style="color: #0066bb; font-weight: bold">rootLogLikelihoodRatio</span>(<span style="color: #336699; font-style: italic">a:</span> Long, <span style="color: #336699; font-style: italic">b:</span> Long, <span style="color: #336699; font-style: italic">c:</span> Long, <span style="color: #336699; font-style: italic">d:</span> Long): Double = {
     val E1 = c * ((a + b) / (c + d).<span style="color: #336699">toDouble</span>)
     val E2 = d * ((a + b) / (c + d).<span style="color: #336699">toDouble</span>)
@@ -5757,52 +5764,6 @@ object Dunning {
     <span style="color: #008800; font-weight: bold">if</span> ((a / c.<span style="color: #336699">toDouble</span>) &lt; (b / d.<span style="color: #336699">toDouble</span>)) -result <span style="color: #008800; font-weight: bold">else</span> result
   }
 
-  <span style="color: #888888">/**</span>
-<span style="color: #888888">   *  A normalized version of LLR. To the best of my knowledge this has not</span>
-<span style="color: #888888">   *  been described anywhere before.</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  The idea is rather simple: the most representative of a dataset a token</span>
-<span style="color: #888888">   *  is the highest the LLR value. However, we cannot use that value as a</span>
-<span style="color: #888888">   *  measure of the confidence we have in a given tweet containing that token</span>
-<span style="color: #888888">   *  to belong to a given dataset.</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  For instance, &quot;españa&quot; is highly  representative of Spanish websites</span>
-<span style="color: #888888">   *  but we cannot assign a huge weight to  every website containing that</span>
-<span style="color: #888888">   *  token. In fact &quot;españa&quot; is pretty common in Chilean websites.</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  In contrast, &quot;culín de sidra&quot; is not highly representative in the sense</span>
-<span style="color: #888888">   *  that relatively few websites in .es contain the token and virtually</span>
-<span style="color: #888888">   *  none in .cl. However, we can have a strong suspicion that a website</span>
-<span style="color: #888888">   *  containing such a token is in fact a Spanish website.</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  Therefore, to capture that intuition we are defining a &quot;normalized&quot;</span>
-<span style="color: #888888">   *  value for LLR that is computed in three steps:</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  1. LLR is really normalized against the minimum (negative) and maximum</span>
-<span style="color: #888888">   *  (positive) theoretical values that LLR can achieve given two datasets.</span>
-<span style="color: #888888">   *  Minimum would be obtained with a=0 and b=d while the maximum with a=c</span>
-<span style="color: #888888">   *  and b=0.</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  2. Then, values a and b are normalized against c and d (the size of</span>
-<span style="color: #888888">   *  each dataset).</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  3. Finally, the normalized value of LLR is divided by the corresponding</span>
-<span style="color: #888888">   *  normalized value of a or b depending on LLR being positive or negative</span>
-<span style="color: #888888">   *  (i.e. probably belonging to dataset A or dataset B).</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   *  This way the normalized LLR value could be use as a proxy for the</span>
-<span style="color: #888888">   *  confidence we have in assigning a given item to one of the two datasets</span>
-<span style="color: #888888">   *  depending on the presence of one token. For instance, if &quot;españa&quot; appears</span>
-<span style="color: #888888">   *  in a website we&#39;d assign a relatively low positive weight (0.589) but if</span>
-<span style="color: #888888">   *  &quot;culín de sidra&quot; appears the weight would be quite high (95.08). In</span>
-<span style="color: #888888">   *  contrast, &quot;chile&quot; would suppose a relative low negative value (-0.39) but</span>
-<span style="color: #888888">   *  &quot;achunchar&quot; would be a huge negative weight (-711.88).</span>
-<span style="color: #888888">   *</span>
-<span style="color: #888888">   * @param a frequency of token of interest in dataset A</span>
-<span style="color: #888888">   * @param b	frequency of token of interest in dataset B</span>
-<span style="color: #888888">   * @param c	total number of observations in dataset A</span>
-<span style="color: #888888">   * @param d	total number of observations in dataset B</span>
-<span style="color: #888888">   */</span>
   def <span style="color: #0066bb; font-weight: bold">normalizedRootLogLikelihoodRatio</span> (<span style="color: #336699; font-style: italic">a:</span> Long, <span style="color: #336699; font-style: italic">b:</span> Long, <span style="color: #336699; font-style: italic">c:</span> Long, <span style="color: #336699; font-style: italic">d:</span> Long): Double = {
     val min    = rootLogLikelihoodRatio(<span style="color: #0000DD; font-weight: bold">0</span>,d,c,d)
     val max    = rootLogLikelihoodRatio(c,<span style="color: #0000DD; font-weight: bold">0</span>,c,d)
@@ -5926,6 +5887,7 @@ object ConfigurationUtil {
 }</code></pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="__em_scripts_em_de_utilidad"><em>Scripts</em> de utilidad</h3>
@@ -6091,7 +6053,17 @@ val <span style="color: #336699; font-style: italic">writer:</span> BufferedWrit
       <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0066bb; font-weight: bold">EvElemEnd</span>(_, <span style="color: #dd2200; background-color: #fff0f0">&quot;tweet&quot;</span>) =&gt;
       save(values.<span style="color: #336699">toList</span>)
       values.<span style="color: #336699">clear</span>
-      <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0066bb; font-weight: bold">EvText</span>(text) <span style="color: #008800; font-weight: bold">if</span> <span style="color: #0066bb; font-weight: bold">Array</span>(<span style="color: #dd2200; background-color: #fff0f0">&quot;id&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;username&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;name&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;location&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;latitude&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;longitude&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;timezone&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;createdAt&quot;</span>, <span style="color: #dd2200; background-color: #fff0f0">&quot;text&quot;</span>).<span style="color: #336699">contains</span>(current) =&gt;
+      <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0066bb; font-weight: bold">EvText</span>(text) <span style="color: #008800; font-weight: bold">if</span>
+        <span style="color: #0066bb; font-weight: bold">Array</span>(<span style="color: #dd2200; background-color: #fff0f0">&quot;id&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;username&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;name&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;location&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;latitude&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;longitude&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;timezone&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;createdAt&quot;</span>,
+              <span style="color: #dd2200; background-color: #fff0f0">&quot;text&quot;</span>
+        ).<span style="color: #336699">contains</span>(current) =&gt;
       <span style="color: #008800; font-weight: bold">if</span>(current == last) appendToLastValue(text, values) <span style="color: #008800; font-weight: bold">else</span> values += text
       last = current
       <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0066bb; font-weight: bold">EvEntityRef</span>(<span style="color: #dd2200; background-color: #fff0f0">&quot;amp&quot;</span>) =&gt;
@@ -6156,6 +6128,7 @@ val writer = <span style="color: #008800; font-weight: bold">new</span> <span st
 }</code></pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_vowpal_wabbit_input_translator">Vowpal Wabbit Input Translator</h3>
@@ -6275,6 +6248,7 @@ object Writer {
 }</code></pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_b2pick">B2pick</h3>
@@ -6565,19 +6539,22 @@ salvarezsuar.MapModule = (<span style="color: #008800; font-weight: bold">functi
     });
     drawingManager.setMap(map);
 
-    google.maps.event.addListener(drawingManager, <span style="color: #dd2200; background-color: #fff0f0">&#39;rectanglecomplete&#39;</span>, <span style="color: #008800; font-weight: bold">function</span>(rectangle){
-      appendBoundingBoxInfo(rectangle);
-      rectangles.push(rectangle);
+    google.maps.event.addListener(
+      drawingManager, <span style="color: #dd2200; background-color: #fff0f0">&#39;rectanglecomplete&#39;</span>, <span style="color: #008800; font-weight: bold">function</span>(rectangle){
+        appendBoundingBoxInfo(rectangle);
+        rectangles.push(rectangle);
+        google.maps.event.addListener(
+          rectangle, <span style="color: #dd2200; background-color: #fff0f0">&#39;bounds_changed&#39;</span>, <span style="color: #008800; font-weight: bold">function</span>(){
+            $(<span style="color: #dd2200; background-color: #fff0f0">&#39;section.boxes&#39;</span>).empty();
+            salvarezsuar.BoundingBoxesManager.clear();
 
-      google.maps.event.addListener(rectangle, <span style="color: #dd2200; background-color: #fff0f0">&#39;bounds_changed&#39;</span>, <span style="color: #008800; font-weight: bold">function</span>(){
-        $(<span style="color: #dd2200; background-color: #fff0f0">&#39;section.boxes&#39;</span>).empty();
-        salvarezsuar.BoundingBoxesManager.clear();
-
-        $(rectangles).each(<span style="color: #008800; font-weight: bold">function</span>(index, rectangle){
-          appendBoundingBoxInfo(rectangle);
-        });
-      });
-    });
+            $(rectangles).each(<span style="color: #008800; font-weight: bold">function</span>(index, rectangle){
+              appendBoundingBoxInfo(rectangle);
+            });
+          }
+        );
+      }
+    );
   };
 
   <span style="color: #008800; font-weight: bold">var</span> appendBoundingBoxInfo = <span style="color: #008800; font-weight: bold">function</span> (rectangle){
@@ -6613,6 +6590,7 @@ salvarezsuar.MapModule = (<span style="color: #008800; font-weight: bold">functi
 })();</code></pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_tweetheat">Tweetheat</h3>
@@ -6821,7 +6799,7 @@ salvarezsuar.MapModule = (<span style="color: #008800; font-weight: bold">functi
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-06-29 17:08:12 CEST
+Last updated 2014-06-29 19:16:46 CEST
 </div>
 </div>
 </body>

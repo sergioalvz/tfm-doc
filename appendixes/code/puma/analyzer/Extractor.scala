@@ -20,10 +20,10 @@ class Extractor extends LazyLogging{
   private[this] var _path: String = null
   private[this] var _filter: ExtractorFilter = null
 
-  private[this] var results               = mutable.Map.empty[List[String], Int]
-  private[this] var minimumFreq           = 1
+  private[this] var results = mutable.Map.empty[List[String], Int]
+  private[this] var minimumFreq = 1
   private[this] val MaximumExtractedTerms = ConfigurationUtil.getMaximumExtractedTerms
-  private[this] val FactorToRemove        = ConfigurationUtil.getFactorToRemove
+  private[this] val FactorToRemove = ConfigurationUtil.getFactorToRemove
 
   def path(value: String): Extractor = {
     _path = value

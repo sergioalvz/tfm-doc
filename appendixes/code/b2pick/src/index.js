@@ -93,19 +93,22 @@ salvarezsuar.MapModule = (function(){
     });
     drawingManager.setMap(map);
 
-    google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle){
-      appendBoundingBoxInfo(rectangle);
-      rectangles.push(rectangle);
+    google.maps.event.addListener(
+      drawingManager, 'rectanglecomplete', function(rectangle){
+        appendBoundingBoxInfo(rectangle);
+        rectangles.push(rectangle);
+        google.maps.event.addListener(
+          rectangle, 'bounds_changed', function(){
+            $('section.boxes').empty();
+            salvarezsuar.BoundingBoxesManager.clear();
 
-      google.maps.event.addListener(rectangle, 'bounds_changed', function(){
-        $('section.boxes').empty();
-        salvarezsuar.BoundingBoxesManager.clear();
-
-        $(rectangles).each(function(index, rectangle){
-          appendBoundingBoxInfo(rectangle);
-        });
-      });
-    });
+            $(rectangles).each(function(index, rectangle){
+              appendBoundingBoxInfo(rectangle);
+            });
+          }
+        );
+      }
+    );
   };
 
   var appendBoundingBoxInfo = function (rectangle){

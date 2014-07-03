@@ -1,4 +1,6 @@
 [acknowledgements]
 == Agradecimientos
 
-Aquí los agradecimientos.
+Me gustaría dar las gracias, en primer lugar, a mi familia, mis padres, mi hermana y mi novia por el apoyo incondicional que me han brindado durante estos últimos meses para ser capaz de finalizar con éxito mi Trabajo Fin de Máster.
+
+También quisiera agradecer a Daniel Gayo Avello, director del proyecto, su ayuda constante durante todo el proceso de creación y desarrollo del proyecto así como su disponibilidad y paciencia para aportar soluciones a todas aquellas dificultades que me pude ir encontrando durante el transcurso del mismo.

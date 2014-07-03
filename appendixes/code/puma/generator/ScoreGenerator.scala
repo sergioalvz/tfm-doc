@@ -67,7 +67,7 @@ class ScoreGenerator extends Generator{
     })
   }
 
-  private[this] def processXmlData(username: String, location: String, latitude: String, longitude: String, text: String): Unit = {
+  private[this] def processXmlData(username: String, location: String, lat: String, lng: String, text: String): Unit = {
     val locationKeywords = new LocationFilter().extract(location)
     val mentionsHashtags = new MentionFilter(new HashtagFilter()).extract(text)
     val bigrams  = new BigramsFilter().extract(text)
@@ -78,8 +78,8 @@ class ScoreGenerator extends Generator{
     val terms = locationKeywords ++ mentionsHashtags ++ bigrams ++ keywords
 
     val score = terms.foldLeft(0.0)((acc, current) => acc + scoreByTerm(current.mkString(" ")))
-    if(isValidScore(score, latitude, longitude)){
-      saveScore(score, username, location, latitude, longitude, text)
+    if(isValidScore(score, lat, lng)){
+      saveScore(score, username, location, lat, lng, text)
     }
   }
 

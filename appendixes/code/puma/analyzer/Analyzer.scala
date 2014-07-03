@@ -13,22 +13,26 @@ import org.puma.analyzer.filter.ExtractorFilter
  * Date: 01/2014
  */
 class Analyzer(local: String, global: String, filter: ExtractorFilter) {
-  private[this] val localTerms  = new Extractor().filter(filter).path(local).extract
-  private[this] val globalTerms = new Extractor().filter(filter).path(global).extract
+  private[this] val localTerms =
+    new Extractor().filter(filter).path(local).extract
 
-  private[this] val totalLocalFrequencies  = localTerms.foldLeft(0)(_+_._2)
+  private[this] val globalTerms =
+    new Extractor().filter(filter).path(global).extract
+
+  private[this] val totalLocalFrequencies = localTerms.foldLeft(0)(_+_._2)
   private[this] val totalGlobalFrequencies = globalTerms.foldLeft(0)(_+_._2)
 
-  private[this] val results             = mutable.Map.empty[List[String], Double]
-  private[this] val commonFreq          = mutable.Map.empty[Int, Int]
-  private[this] val minFrequencyLLR     = ConfigurationUtil.getMinFrequencyForLLR
+  private[this] val results = mutable.Map.empty[List[String], Double]
+  private[this] val commonFreq = mutable.Map.empty[Int, Int]
+  private[this] val minFrequencyLLR = ConfigurationUtil.getMinFrequencyForLLR
 
   def analyze: List[(List[String], Double)] = {
     localTerms.keys.foreach(terms => {
       val localFreq = localTerms.get(terms).get.toLong
       if(localFreq > minFrequencyLLR) {
         val globalOption = globalTerms.get(terms)
-        val globalFreq:Long = if (globalOption.isDefined) globalOption.get else calculateAverageGlobalFrequency(terms)
+        val globalFreq:Long =
+          if (globalOption.isDefined) globalOption.get else averageGlobalFrequency(terms)
 
         if(globalFreq > 0) {
           val k11 = localFreq
@@ -43,13 +47,18 @@ class Analyzer(local: String, global: String, filter: ExtractorFilter) {
     results.toList.sortBy({ _._2 })
   }
 
-  private[this] def calculateAverageGlobalFrequency(terms: List[String]): Int = {
-    if(commonFreq.get(localTerms.get(terms).get).isDefined) return commonFreq.get(localTerms.get(terms).get).get
+  private[this] def averageGlobalFrequency(terms: List[String]): Int = {
+    if(commonFreq.get(localTerms.get(terms).get).isDefined) {
+      return commonFreq.get(localTerms.get(terms).get).get
+    }
+
     val sameFreq = localTerms.filterKeys((localTerm) =>
       globalTerms.get(localTerm).isDefined && localTerms.get(localTerm).get == localTerms.get(terms).get
     )
+
     val avg = if(!sameFreq.isEmpty) sameFreq.foldLeft(0)(_+_._2) / sameFreq.size else 0
     commonFreq.put(localTerms.get(terms).get, avg)
+
     avg
   }
 }
