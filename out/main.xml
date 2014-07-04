@@ -1041,7 +1041,7 @@ reader.foreach({
 <simpara>Esto certifica de manera empírica las intuiciones acerca de la validez del algoritmo para este tipo de problema, siendo capaz de detectar que los términos en catalán, con una frecuencia muy baja a nivel global y relativamente alta en Barcelona, son los más significativos para identificar al territorio.</simpara>
 <simpara><?asciidoc-pagebreak?></simpara>
 <formalpara>
-<title>Bigramas más discriminativos para encontrar tuits procedentes de la provincia de Barcelona</title>
+<title>Bigramas más discriminativos para tuits procedentes de la provincia de Barcelona</title>
 <para>
 <screen>94.52274667047315   per tres
 100.19650868429694  per dos

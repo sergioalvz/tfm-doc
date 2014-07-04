@@ -67,7 +67,7 @@ Esto certifica de manera empírica las intuiciones acerca de la validez del algo
 
 <<<
 
-.Bigramas más discriminativos para encontrar tuits procedentes de la provincia de Barcelona
+.Bigramas más discriminativos para tuits procedentes de la provincia de Barcelona
 ----
 94.52274667047315   per tres
 100.19650868429694  per dos
