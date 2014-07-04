@@ -565,7 +565,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <td class="content">
 <div class="title">Twitter</div>
 <div class="paragraph">
-<p>Twitter es una red social (también clasificada como servicio de <em>microblogging</em>) creada en 2006 por Jack Dorsey. Su principal característica es el envío de posts de 140 caracteres por parte de los usuarios y la capacidad de que estos mismos formen su propio <em>timeline</em> suscribiéndose a las publicaciones realizadas por el resto de usuarios.</p>
+<p>Twitter es una red social (también clasificada como servicio de <em>microblogging</em>) creada en 2006 por Jack Dorsey. Su principal característica es el envío de <em>posts</em> de 140 caracteres por parte de los usuarios y la capacidad de que estos mismos formen su propio <em>timeline</em> suscribiéndose a las publicaciones realizadas por el resto de usuarios.</p>
 </div>
 </td>
 </tr>
@@ -584,7 +584,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="title">Figure 1. Captura del perfil del autor en Facebook</div>
 </div>
 <div class="paragraph">
-<p>Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <a href="#twitter-profile">Captura del perfil del autor en Twitter</a> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.</p>
+<p>Sin embargo, los perfiles en Twitter son mucho más limitados. Por utilizar el mismo símil, en <a href="#twitter-profile">Captura del perfil del autor en Twitter</a> se muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.</p>
 </div>
 <div id="twitter-profile" class="imageblock" style="text-align: center">
 <div class="content">
@@ -611,7 +611,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <div class="sect3">
 <h4 id="_estudios_y_artículos_de_investigación">1.3.1. Estudios y artículos de investigación</h4>
 <div class="paragraph">
-<p>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <em>timeline</em> del usuario son aquellas más próximas a su localización real.</p>
+<p>Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un <em>gazetteer</em> con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el <em>timeline</em> del usuario son aquellas más próximas a su localización real.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1183,7 +1183,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <p>Antes de empezar a detallar los conceptos y algoritmos utilizados a lo largo de todo el proceso, esta sección pretende dar una visión general acerca de los pasos que se deberán realizar en el proyecto para la identificación de términos discriminativos y la posterior ejecución de un modelo de aprendizaje automático que permita inferir la geolocalización de una publicación en Twitter.</p>
 </div>
 <div class="paragraph">
-<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la puntuación para cada término indicando si pertenecen al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos tipos de conjuntos de tuits:</p>
+<p>El primer paso, será la identificación de términos discriminativos. Para ello, se utilizará una implementación del método estadístico Log Likelihood Ratio, el cual nos devolverá la puntuación para cada término indicando si pertenecen al conjunto de datos local (es decir, que sea lo suficientemente discriminativo para poder ser etiquetado como perteneciente al área de interés). Esta fase devolverá un conjunto de términos que podrán ayudar a inferir la localización de un tuit en base a los términos que contiene. Para la identificación de términos, será necesario trabajar con dos conjuntos de tuits con características diferentes:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1202,7 +1202,7 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <div class="title">Figure 3. Visión simplificada del proceso de identificación de términos discriminativos</div>
 </div>
 <div class="paragraph">
-<p>Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. La figura <a href="#training-vw-process">Flujo de trabajo para procesar los datos y entrenar al clasificador automático</a> muestra el proceso necesario para calcular la puntuación de cada tuit y desarrollar el modelo de entrenamiento en base a un conjunto de datos para entrenamiento y test.</p>
+<p>Una vez se ha conseguido extraer el conjunto de términos discriminativos y su puntuación obtenida de aplicar el método Log Likehood Ratio, se deberá trabajar con un nuevo conjunto de tuits con coordenadas geográficas adjuntas que permita crear el modelo de entrenamiento para el software de aprendizaje automático. En <a href="#training-vw-process">Flujo de trabajo para procesar los datos y entrenar al clasificador automático</a> se ilustra el proceso necesario para calcular la puntuación de cada tuit y desarrollar el modelo de entrenamiento en base a la división de los resultados en conjuntos de entrenamiento y test.</p>
 </div>
 <div id="training-vw-process" class="imageblock" style="text-align: center">
 <div class="content">
@@ -1223,13 +1223,13 @@ infancia de, de los, los álbumes, álbumes de, de cromos</pre>
 <p>En el caso del presente proyecto, la idea principal es aplicar LLR sobre los dos conjuntos de datos que contienen, por un lado, los tuits que se han recogido para el área local sobre el que se quieren comenzar a inferir tuits, y por el otro, un conjunto de tuits localizado en un área que se podría entender como global respecto al conjunto de datos local (por lo general, las áreas globales son localizaciones donde se habla el mismo idioma que en el área local, pero abarca otros territorios).</p>
 </div>
 <div class="paragraph">
-<p>En este caso, partimos del <strong>supuesto</strong> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá un valor con la puntuación de que cada término del área local sea realmente discriminativo comparando su frecuencia también en el conjunto de datos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</p>
+<p>En este caso, partimos del <strong>supuesto</strong> de que el área local es un caso especializado del área global, el cual se puede diferenciar por los términos que contiene. Sobre este supuesto, el test Log Likelihood-Ratio nos devolverá una puntuación para cada término del área local donde se reflejará su valor discriminativo sobre el conjunto de términos globales. Cuanto más discriminativo sea el término, mayor será su valor LLR. Sin embargo, todos aquellos que no sirvan para diferenciar al conjunto de datos especializado, tendrán un valor negativo.</p>
 </div>
 <div class="paragraph">
-<p>El valor LLR de cada término se utilizará para calcular la puntuación que indique si los nuevos tuits pertenezcan o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</p>
+<p>El valor LLR de cada término se utilizará para calcular la puntuación que indique si los nuevos tuits pertenecen o no al área local mediante un sumatorio de todos los valores para cada término que forma el tuit.</p>
 </div>
 <div class="paragraph">
-<p>La consideración acerca de qué es un <strong>término</strong> se explica en <a href="#_términos_discriminativos">Términos discriminativos</a>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</p>
+<p>La explicación acerca de qué se considera <strong>término</strong> en el contexto del presente proyecto se explica en <a href="#_términos_discriminativos">Términos discriminativos</a>, pero se podría definir resumidamente como todo aquel lexema que pueda contener información geolocalizable asociada.</p>
 </div>
 <div class="sect3">
 <h4 id="_log_likelihood_ratio_test_normalizado">2.2.1. Log Likelihood-Ratio test normalizado</h4>
@@ -1306,6 +1306,7 @@ Términos como «españa», los cuales son muy representativos de tuits español
 13.541645339239054   oviedo</pre>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="listingblock">
 <div class="title">LLR normalizado</div>
 <div class="content">
@@ -1354,7 +1355,7 @@ Términos como «españa», los cuales son muy representativos de tuits español
 </dd>
 <dt class="hdlist1">Bigramas</dt>
 <dd>
-<p>En este proyecto, hemos considerado como bigramas todas aquellas combinaciones de 2 palabras que se puedan hacer con el contenido de un tuit. Al contrario que en algunos artículos de investigación anteriores donde sólo se consideran términos consecutivos, en este caso hemos realizado todas las combinaciones posibles para cada tuit.</p>
+<p>En este proyecto, hemos considerado como bigramas todas aquellas combinaciones de 2 palabras que se puedan formar con el contenido de un tuit. Al contrario que en algunos artículos de investigación anteriores donde sólo se consideran términos consecutivos, en este caso hemos realizado todas las combinaciones posibles para cada tuit.</p>
 <div class="paragraph">
 <p>Algunas consideraciones importantes sobre esto son:</p>
 </div>
@@ -1386,7 +1387,11 @@ Términos como «españa», los cuales son muy representativos de tuits español
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>(buenos días), (buenos vamos), (buenos trabajar), (buenos todo), (buenos día), (días vamos), (días trabajar), (días todo), (día días), (trabajar vamos), (todo vamos), (día vamos), (todo trabajar), (día trabajar), (día todo)</pre>
+<pre>(buenos días), (buenos vamos), (buenos trabajar),
+(buenos todo), (buenos día), (días vamos),
+(días trabajar), (días todo), (día días),
+(trabajar vamos), (todo vamos), (día vamos),
+(todo trabajar), (día trabajar), (día todo)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1494,7 +1499,7 @@ Términos como «españa», los cuales son muy representativos de tuits español
 </div>
 </li>
 <li>
-<p>Una vez determinado el umbral máximo de elementos, será necesario definir que porcentaje de términos se eliminarán una vez alcanzado el límite anterior. En este caso, se ha optado por seguir una estrategia de poda agresiva en la que se eliminan de manera constante un % de los elementos con menos frecuencia del hash.</p>
+<p>Una vez determinado el umbral máximo de elementos, será necesario definir que porcentaje de términos se eliminarán una vez alcanzado el límite anterior. En este caso, se ha optado por seguir una estrategia de poda agresiva en la que se eliminan de manera constante un porcentaje de los elementos con menos frecuencia del hash.</p>
 <div class="paragraph">
 <p>Esta estrategia implica que siempre que se produzca una situación de poda, se deba ordenar el hash de acuerdo a la frecuencia de sus elementos. De manera experimental, se ha comprobado como la eliminación constante de un 40% de los elementos con menor frecuencia, a pesar de parecer demasiado agresiva, da resultados muy positivos sin existir riesgo de eliminar términos con una frecuencia muy elevada (por supuesto, todo esto dentro del dominio del problema actual).</p>
 </div>
@@ -1518,77 +1523,81 @@ Términos como «españa», los cuales son muy representativos de tuits español
 <div class="listingblock">
 <div class="title">Algoritmo para extraer la frecuencia de cada término</div>
 <div class="content">
-<pre>for each tweet in tweets do
+<pre class="pygments highlight"><code class="ruby language-ruby"><span style="color: #008800; font-weight: bold">for</span> each tweet <span style="color: #008800; font-weight: bold">in</span> tweets <span style="color: #008800; font-weight: bold">do</span>
   terms = apply_extractor_filter(tweet)
   check_memory_status()
-  for each term in terms do
-    if frequencies[term].is_defined then
-      frequencies[term] += 1
-    else
+  <span style="color: #008800; font-weight: bold">for</span> each term <span style="color: #008800; font-weight: bold">in</span> terms <span style="color: #008800; font-weight: bold">do</span>
+    <span style="color: #008800; font-weight: bold">if</span> frequencies[term].is_defined <span style="color: #008800; font-weight: bold">then</span>
+      frequencies[term] += <span style="color: #0000DD; font-weight: bold">1</span>
+    <span style="color: #008800; font-weight: bold">else</span>
       frequencies[term] = minimum_frequency
-    end
-  end
-end
+    <span style="color: #008800; font-weight: bold">end</span>
+  <span style="color: #008800; font-weight: bold">end</span>
+<span style="color: #008800; font-weight: bold">end</span>
 
-def check_memory_status
-  if frequencies.size &gt;= MAXIMUM_EXTRACTED_TERMS then
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066bb; font-weight: bold">check_memory_status</span>
+  <span style="color: #008800; font-weight: bold">if</span> frequencies.size &gt;= <span style="color: #003366; font-weight: bold">MAXIMUM_EXTRACTED_TERMS</span> <span style="color: #008800; font-weight: bold">then</span>
     reduce_map_load()
-  end
-end
+  <span style="color: #008800; font-weight: bold">end</span>
+<span style="color: #008800; font-weight: bold">end</span>
 
-def reduce_map_load
-  items_to_remove   = frequencies.size * FACTOR_TO_REMOVE
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066bb; font-weight: bold">reduce_map_load</span>
+  items_to_remove   = frequencies.size * <span style="color: #003366; font-weight: bold">FACTOR_TO_REMOVE</span>
+  <span style="color: #888888"># Ordenamos el mapa de menor a mayor en función de la frecuencia</span>
   ordered_map       = frequencies.order_by_frequency
-  minimum_frequency = ordered_map.get(items_to_remove - 1)
+  minimum_frequency = ordered_map.get(items_to_remove - <span style="color: #0000DD; font-weight: bold">1</span>)
 
-  ordered_map.slice from items_to_remove - 1 to ordered_map.size
-end</pre>
+  ordered_map.slice from items_to_remove - <span style="color: #0000DD; font-weight: bold">1</span> to ordered_map.size
+<span style="color: #008800; font-weight: bold">end</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="listingblock">
 <div class="title">Algoritmo para calcular la puntuación LLR de cada término</div>
 <div class="content">
-<pre>for each term in locals do
+<pre class="pygments highlight"><code class="ruby language-ruby"><span style="color: #008800; font-weight: bold">for</span> each term <span style="color: #008800; font-weight: bold">in</span> locals <span style="color: #008800; font-weight: bold">do</span>
   freq = locals[term]
-  if freq &gt; min_frequency then
+  <span style="color: #008800; font-weight: bold">if</span> freq &gt; min_frequency <span style="color: #008800; font-weight: bold">then</span>
     global_freq = get_global_freq(term)
-    if global_freq &gt; 0 then
+    <span style="color: #008800; font-weight: bold">if</span> global_freq &gt; <span style="color: #0000DD; font-weight: bold">0</span> <span style="color: #008800; font-weight: bold">then</span>
       k11 = freq
       k12 = global_freq
       k21 = total_local_frequencies
       k22 = total_global_frequencies
-      llr = Dunning.normalized_llr(k11, k12, k21, k22)
+      llr = <span style="color: #003366; font-weight: bold">Dunning</span>.normalized_llr(k11, k12, k21, k22)
       results[term] =&gt; llr
-    end
-  end
-end
+    <span style="color: #008800; font-weight: bold">end</span>
+  <span style="color: #008800; font-weight: bold">end</span>
+<span style="color: #008800; font-weight: bold">end</span>
 
-def get_global_freq(term)
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066bb; font-weight: bold">get_global_freq</span>(term)
   globals[term].is_defined ? globals[term] : avg_global_freq(term)
-end
+<span style="color: #008800; font-weight: bold">end</span>
 
-def avg_global_freq(term)
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066bb; font-weight: bold">avg_global_freq</span>(term)
   same_freq_in_local = locals.select(
     t =&gt; globals[t].is_defined &amp;&amp; locals[t] == locals[term]
   )
   acc = same_freq_in_local.map(t =&gt; globals[t]).reduce(
     (previous, current) =&gt; previous + current
   )
-  return acc / same_freq_in_local.size
-end</pre>
+  <span style="color: #008800; font-weight: bold">return</span> acc / same_freq_in_local.size
+<span style="color: #008800; font-weight: bold">end</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Algoritmo para calcular la puntuación LLR de cada tuit</div>
 <div class="content">
-<pre>for each tweet in tweets do
+<pre class="pygments highlight"><code class="ruby language-ruby"><span style="color: #008800; font-weight: bold">for</span> each tweet <span style="color: #008800; font-weight: bold">in</span> tweets <span style="color: #008800; font-weight: bold">do</span>
   terms = extract_terms(tweet)
-  score = terms.reduce(
-    (previous, current) =&gt; previous + get_llr_score(current)
-  )
+
+  score = <span style="color: #0000DD; font-weight: bold">0</span>
+  <span style="color: #008800; font-weight: bold">for</span> each term <span style="color: #008800; font-weight: bold">in</span> terms <span style="color: #008800; font-weight: bold">do</span>
+    score += llr_by_term[term]
+  <span style="color: #008800; font-weight: bold">end</span>
+
   results[tweet] = score
-end</pre>
+<span style="color: #008800; font-weight: bold">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1601,7 +1610,7 @@ end</pre>
 <p>Dos de las estrategias más conocidas en contraposición a DOM para analizar grandes colecciones de XML son: <strong>Simple API XML (o SAX)<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span></strong> y <strong>pulling parsing<span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span></strong>.</p>
 </div>
 <div class="paragraph">
-<p>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala para trabajar con XML a través del paquete <code>xml.pull</code>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <em>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</em>. Cada uno de estos eventos, puede tener asignado un <em>listener</em> que contenga la lógica a ejecutar.</p>
+<p>En este proyecto, se decidió utilizar la segunda debido a su soporte nativo por parte de las APIs de Scala (en <a href="#_scala">Scala</a> se realiza una breve descripción acerca de este lenguaje de programación así como de las razones que influyeron en su utilización en el desarrollo del presente proyecto) para trabajar con XML a través del paquete <code>xml.pull</code>. Pulling parser se caracteriza por analizar el fichero XML mediante la utilización de eventos. A medida que se van leyendo líneas del documento, van saltando una serie de eventos de acuerdo a la especificación: <em>comienzo de elemento, fin de elemento, comienzo de nodo de texto, fin de nodo de texto, etc</em>. Cada uno de estos eventos, puede tener asignado un <em>listener</em> que contenga la lógica a ejecutar.</p>
 </div>
 <div class="paragraph">
 <p>El fragmento de código posterior muestra un ejemplo de uso para analizar un fichero XML mediante <em>pulling parser</em>. En primer lugar se define el fichero sobre el que realizar el análisis y se crea una nueva variable que nos ayudar a controlar cuando estamos dentro del elemento que queremos analizar. Utilizando <em>pattern matching</em> nos aseguramos de seleccionar aquellos elementos cuya etiqueta coincida con la del campo sobre el que debe actuar el filtro que deseamos aplicar. En caso de encontrar un elemento de apertura para ese nodo, indicamos en la variable booleana <code>in</code> que nos encontramos en el elemento deseado y los eventos encargados de detectar nodos de texto la consultarán para saber si sobre ese texto deben aplicar o no el filtro.</p>
@@ -1933,6 +1942,7 @@ reader.<span style="color: #336699">foreach</span>({
 <div class="paragraph">
 <p>Esto certifica de manera empírica las intuiciones acerca de la validez del algoritmo para este tipo de problema, siendo capaz de detectar que los términos en catalán, con una frecuencia muy baja a nivel global y relativamente alta en Barcelona, son los más significativos para identificar al territorio.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="listingblock">
 <div class="title">Bigramas más discriminativos para encontrar tuits procedentes de la provincia de Barcelona</div>
 <div class="content">
@@ -3489,7 +3499,7 @@ reader.<span style="color: #336699">foreach</span>({
 <p>El paquete de <code>streaming</code> contiene las clases que esperan comunicarse con el sistema de cola de mensajes utilizado para transferir los tuits del sistema externo a la aplicación web. Además, su segunda responsabilidad es proveer un mecanismo que permita hacer accesibles esos mismos tuits al resto de clases de la aplicación. Para ello, el sistema propuesto se basa en una implementación del patrón de diseño <strong>Observer</strong> muy similar a lo propuesto también en el servicio externo de recolección de tuits.</p>
 </div>
 <div class="paragraph">
-<p>En este caso, la clase <code>TwitterStreamingSubscriber</code> se ejecutará de manera asíncrona y estará suscrita a la cola de mensajes esperando recibir nuevos mensajes. Cada vez que recibe un nuevo mensaje, recorrerá la lista de listeners que tenga suscritos e invocará al método <code>onTweetReceived</code> con el nuevo tuit recibido. Todos los listeners de la clase <code>TwitterStreamingSubscriber</code> deberán implementar el <em>trait</em> <code>TwitterStreamingListener</code>. En este caso, un ejemplo podría ser la clase <code>ProjectExecutionListener</code>, que se podría utilizar a la hora de ejecutar un nuevo proyecto, y en donde su método <code>onTweetReceived</code> realizaría la comunicación con el software de aprendizaje automático que evaluaría el nuevo tuit recibido en directo.</p>
+<p>En este caso, la clase <code>TwitterStreamingSubscriber</code> se ejecutará de manera asíncrona y estará suscrita a la cola de mensajes esperando recibir nuevos mensajes. Cada vez que recibe un nuevo mensaje, recorrerá la lista de listeners que tenga suscritos e invocará al método <code>onTweetReceived</code> con el nuevo tuit recibido. Todos los listeners de la clase <code>TwitterStreamingSubscriber</code> deberán implementar el <code>trait</code>: <code>TwitterStreamingListener</code>. En este caso, un ejemplo podría ser la clase <code>ProjectExecutionListener</code>, que se podría utilizar a la hora de ejecutar un nuevo proyecto, y en donde su método <code>onTweetReceived</code> realizaría la comunicación con el software de aprendizaje automático que evaluaría el nuevo tuit recibido en directo.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -4008,7 +4018,7 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <p>Trabajar en un formato de texto simple, preferiblemente texto plano, que lo hiciera independiente de la plataforma sobre la que realizar la documentación.</p>
 </li>
 <li>
-<p>Trabajar con un lenguaje de marcado sencillo (similar a <strong>Markdown<span class="footnote">[<a id="_footnoteref_15" class="footnote" href="#_footnote_15" title="View footnote.">15</a>]</span></strong>) que simplificara el proceso de escritura ante alternativas como LaTeX.</p>
+<p>Trabajar con un lenguaje de marcado sencillo (similar a <strong>Markdown<span class="footnote">[<a id="_footnoteref_15" class="footnote" href="#_footnote_15" title="View footnote.">15</a>]</span></strong>) que simplificara el proceso de escritura ante alternativas como <strong>LaTeX</strong>.</p>
 </li>
 <li>
 <p>Capacidad de dividir la documentación en varios ficheros que se pudiesen estructurar en base a directorios internos del proyecto de documentación.</p>
@@ -4141,7 +4151,7 @@ Gnip will offer the Halfhose (50 percent of Tweets at a cost of <strong>$30,000<
 <p>sbt (<a href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a>) fue desarrollado por <strong>Typesafe Inc.</strong> con el objetivo de dotar a Scala de una herramienta sencilla para realizar una compilación incremental de los proyectos y ofrecer un <em>shell</em> interactivo sobre el que realizar ciertas acciones como: <code>clean</code>, <code>compile</code>, <code>assembly</code>, etc. Su uso está muy vinculado también a todos aquellos proyectos desarrollados sobre el framework de desarrollo web <strong>Play!</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros <code>jar</code> que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblaje).</p>
+<p>Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros <code>jar</code> que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblado).</p>
 </div>
 <div class="listingblock">
 <div class="title">Ejemplo del fichero build.sbt para el sistema de análisis <strong>Puma</strong></div>
@@ -4552,7 +4562,7 @@ Usage: Falcon [options]
 <p>Una vez el usuario ha seleccionado los <em>bounding boxes</em> que desea, B2pick ofrece la posibilidad de descargarlos en formato XML (que es el formato que se ha utilizado a la hora de desarrollar los prototipos), siendo posible en el futuro adaptar fácilmente el formato de salida a otros también populares como JSON o CSV.</p>
 </div>
 <div class="listingblock">
-<div class="title">Ejemplo de salida XML para un conjunto de <em>Bounding Boxes</em></div>
+<div class="title">Ejemplo de la serialización en XML de un conjunto de <em>bounding boxes</em></div>
 <div class="content">
 <pre class="pygments highlight"><code class="xml language-xml"><span style="color: #bb0066; font-weight: bold">&lt;boundingBoxes&gt;</span>
   <span style="color: #bb0066; font-weight: bold">&lt;boundingBox&gt;</span>
@@ -4592,13 +4602,13 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/b2pick-main-screen.png" alt="Imagen de la pantalla principal de b2pick">
 </div>
-<div class="title">Figure 29. Imagen de la pantalla principal de B2pick</div>
+<div class="title">Figure 29. Captura de la pantalla principal de B2pick</div>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
 <img src="../assets/appendixes/b2pick-lightbox.png" alt="Ejemplo del lightbox de salida con los bounding boxes seleccionados">
 </div>
-<div class="title">Figure 30. Ejemplo del lightbox de salida con los <em>bounding boxes</em> seleccionados</div>
+<div class="title">Figure 30. Ejemplo del lightbox de resultados con los <em>bounding boxes</em> seleccionados</div>
 </div>
 </div>
 </div>
@@ -4635,7 +4645,7 @@ Usage: Falcon [options]
 <div class="content">
 <img src="../assets/appendixes/tweetheat-asturias-results.png" alt="Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias">
 </div>
-<div class="title">Figure 32. Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
+<div class="title">Figure 32. Resultados tras cargar un fichero TSV con puntuaciones para tuits localizados en Asturias</div>
 </div>
 </div>
 </div>

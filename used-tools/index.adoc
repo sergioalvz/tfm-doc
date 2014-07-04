@@ -22,7 +22,7 @@ La herramienta seleccionada para realizar la documentación debía de cumplir co
 
 . Trabajar en un formato de texto simple, preferiblemente texto plano, que lo hiciera independiente de la plataforma sobre la que realizar la documentación.
 
-. Trabajar con un lenguaje de marcado sencillo (similar a *Markdownfootnote:[http://daringfireball.net/projects/markdown/]*) que simplificara el proceso de escritura ante alternativas como LaTeX.
+. Trabajar con un lenguaje de marcado sencillo (similar a *Markdownfootnote:[http://daringfireball.net/projects/markdown/]*) que simplificara el proceso de escritura ante alternativas como *LaTeX*.
 
 . Capacidad de dividir la documentación en varios ficheros que se pudiesen estructurar en base a directorios internos del proyecto de documentación.
 

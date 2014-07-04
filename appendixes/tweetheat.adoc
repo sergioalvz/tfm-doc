@@ -18,5 +18,5 @@ Se debe arrastrar sobre la zona de _drag&drop_ superior y automáticamente la ap
 .Pantalla de inicio de la aplicación TweetHeat
 image::appendixes/tweetheat-home.png[Pantalla de inicio de la aplicación TweetHeat, align="center"]
 
-.Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias
+.Resultados tras cargar un fichero TSV con puntuaciones para tuits localizados en Asturias
 image::appendixes/tweetheat-asturias-results.png[Resultados tras soltar un fichero TSV con puntuaciones para tuits localizados en Asturias, align="center"]

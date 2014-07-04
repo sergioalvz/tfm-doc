@@ -5,6 +5,7 @@ Los siguientes fragmentos de _pseudocódigo_ muestran los diferentes algoritmos 
 <<<
 
 .Algoritmo para extraer la frecuencia de cada término
+[source,ruby]
 ----
 for each tweet in tweets do
   terms = apply_extractor_filter(tweet)
@@ -26,6 +27,7 @@ end
 
 def reduce_map_load
   items_to_remove   = frequencies.size * FACTOR_TO_REMOVE
+  # Ordenamos el mapa de menor a mayor en función de la frecuencia
   ordered_map       = frequencies.order_by_frequency
   minimum_frequency = ordered_map.get(items_to_remove - 1)
 
@@ -37,6 +39,7 @@ end
 <<<
 
 .Algoritmo para calcular la puntuación LLR de cada término
+[source,ruby]
 ----
 for each term in locals do
   freq = locals[term]
@@ -69,12 +72,16 @@ end
 ----
 
 .Algoritmo para calcular la puntuación LLR de cada tuit
+[source,ruby]
 ----
 for each tweet in tweets do
   terms = extract_terms(tweet)
-  score = terms.reduce(
-    (previous, current) => previous + get_llr_score(current)
-  )
+
+  score = 0
+  for each term in terms do
+    score += llr_by_term[term]
+  end
+
   results[tweet] = score
 end
 ----

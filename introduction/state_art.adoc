@@ -5,7 +5,7 @@ Desde la aparición de Twitter en 2006 y su irrupción como servicio de masas en
 [NOTE]
 .Twitter
 ====
-Twitter es una red social (también clasificada como servicio de _microblogging_) creada en 2006 por Jack Dorsey. Su principal característica es el envío de posts de 140 caracteres por parte de los usuarios y la capacidad de que estos mismos formen su propio _timeline_ suscribiéndose a las publicaciones realizadas por el resto de usuarios.
+Twitter es una red social (también clasificada como servicio de _microblogging_) creada en 2006 por Jack Dorsey. Su principal característica es el envío de _posts_ de 140 caracteres por parte de los usuarios y la capacidad de que estos mismos formen su propio _timeline_ suscribiéndose a las publicaciones realizadas por el resto de usuarios.
 ====
 
 Sin embargo, un problema habitual a la hora de trabajar con datos extraídos de Twitter es su falta de estructuración. Si bien es habitual que los usuarios en redes sociales como Facebook mantengan un perfil completo y actualizado con datos reales (en parte gracias al buen hacer de dicha red social por conseguir que así sea), en Twitter lo más habitual es carecer de dicha información. Por tanto, muchos de los esfuerzos realizados en el análisis de contenidos en Twitter vienen para cubrir esa necesidad de obtener información real acerca de los usuarios que realizan las publicaciones.
@@ -15,7 +15,7 @@ Por poner un ejemplo, la figura <<fb-profile>> muestra una captura del perfil de
 .Captura del perfil del autor en Facebook
 image::introduction/fb_profile.png[id="fb-profile",align="center"]
 
-Sin embargo, los perfiles en Twitter son muchísimo más limitados. Por utilizar el mismo símil, la figura <<twitter-profile>> muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.
+Sin embargo, los perfiles en Twitter son mucho más limitados. Por utilizar el mismo símil, en <<twitter-profile>> se muestra una captura del perfil del autor en Twitter. Como se puede observar, en este caso tan sólo se muestra una pequeña biografía en la que el usuario aprovecha para reflejar su perfil más profesional.
 
 .Captura del perfil del autor en Twitter
 image::introduction/twitter_profile.png[id="twitter-profile",height="200px",align="center"]
@@ -32,7 +32,7 @@ A continuación, se recogen una serie de artículos de investigación que aborda
 
 ==== Estudios y artículos de investigación
 
-Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un gazetteer con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el _timeline_ del usuario son aquellas más próximas a su localización real.
+Se pueden encontrar varias tendencias en la investigación de la geolocalización de los tuits y usuarios de Twitter. Por un lado, existen investigadores que basan sus estudios en encontrar términos o entidades con significado geográfico propio, que se puedan cotejar con un _gazetteer_ con el objetivo de poder identificar nombres de lugares o coordenadas geográficas, intuyendo que aquellas que más veces aparezcan en el _timeline_ del usuario son aquellas más próximas a su localización real.
 
 [NOTE]
 .Timeline de Twitter

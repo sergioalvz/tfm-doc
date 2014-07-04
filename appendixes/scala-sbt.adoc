@@ -20,7 +20,7 @@ Las principales razones de escoger Scala como el lenguaje de programación princ
 
 sbt (http://www.scala-sbt.org/) fue desarrollado por *Typesafe Inc.* con el objetivo de dotar a Scala de una herramienta sencilla para realizar una compilación incremental de los proyectos y ofrecer un _shell_ interactivo sobre el que realizar ciertas acciones como: `clean`, `compile`, `assembly`, etc. Su uso está muy vinculado también a todos aquellos proyectos desarrollados sobre el framework de desarrollo web *Play!*.
 
-Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros `jar` que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblaje).
+Para varios de los sistemas desarrollados en este proyecto, se ha utilizado sbt para realizar tareas de gestión de dependencias y construcción de los ficheros `jar` que se utilizarían para su posterior ejecución (es decir, tareas de compilación y ensamblado).
 
 .Ejemplo del fichero build.sbt para el sistema de análisis *Puma*
 ----
