@@ -1,114 +1,114 @@
 === Puma (sistema de análisis)
 
-[source,java]
+[source,scala]
 .Main.scala
 ----
 include::main/Main.scala[]
 ----
 
-[source,java]
+[source,scala]
 .GeneratorFactory.scala
 ----
 include::generator/GeneratorFactory.scala[]
 ----
 
-[source,java]
+[source,scala]
 .Generator.scala
 ----
 include::generator/Generator.scala[]
 ----
 
-[source,java]
+[source,scala]
 .LLRGenerator.scala
 ----
 include::generator/LLRGenerator.scala[]
 ----
 
-[source,java]
+[source,scala]
 .ScoreGenerator.scala
 ----
 include::generator/ScoreGenerator.scala[]
 ----
 
-[source,java]
+[source,scala]
 .Extractor.scala
 ----
 include::analyzer/Extractor.scala[]
 ----
 
-[source,java]
+[source,scala]
 .NgramExtractor.scala
 ----
 include::analyzer/NgramExtractor.scala[]
 ----
 
-[source,java]
+[source,scala]
 .ExtractorFilter.scala
 ----
 include::analyzer/filter/ExtractorFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .SimpleTermExtractorFilter.scala
 ----
 include::analyzer/filter/SimpleTermExtractorFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .ExtractorFilterDecorator.scala
 ----
 include::analyzer/filter/ExtractorFilterDecorator.scala[]
 ----
 
-[source,java]
+[source,scala]
 .MentionFilter.scala
 ----
 include::analyzer/filter/MentionFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .HashtagFilter.scala
 ----
 include::analyzer/filter/HashtagFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .BigramsFilter.scala
 ----
 include::analyzer/filter/BigramsFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .KeywordFilter.scala
 ----
 include::analyzer/filter/KeywordFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .LocationFilter.scala
 ----
 include::analyzer/filter/LocationFilter.scala[]
 ----
 
-[source,java]
+[source,scala]
 .Analyzer.scala
 ----
 include::analyzer/Analyzer.scala[]
 ----
 
-[source,java]
+[source,scala]
 .Dunning.scala
 ----
 include::stat/Dunning.scala[]
 ----
 
-[source,java]
+[source,scala]
 .Configuration.scala
 ----
 include::configuration/Configuration.scala[]
 ----
 
-[source,java]
+[source,scala]
 .ConfigurationUtil.scala
 ----
 include::configuration/ConfigurationUtil.scala[]

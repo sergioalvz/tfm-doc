@@ -1,12 +1,12 @@
 === Vowpal Wabbit Input Translator
 
-[source,java]
+[source,scala]
 .Configuration.scala
 ----
 include::src/configuration.scala[]
 ----
 
-[source,java]
+[source,scala]
 .Main.scala
 ----
 include::src/main.scala[]
